@@ -2,7 +2,7 @@
 
 <template>
   <main>
-    <h1>about</h1>
+    <h1>edit</h1>
   </main>
 </template>
 

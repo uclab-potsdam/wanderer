@@ -2,7 +2,7 @@
 
 <template>
   <main>
-    <h1>about</h1>
+    <h1>compose</h1>
   </main>
 </template>
 
