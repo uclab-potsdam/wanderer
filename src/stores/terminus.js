@@ -148,7 +148,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     // });
   }
 
-  async function addProperty(subject, object, type) {
+  async function addProperty(subject, object) {
     const property = { subject, object, context: canvas.value }
     properties.value.push(property)
 

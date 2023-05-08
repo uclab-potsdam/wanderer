@@ -1,9 +1,45 @@
-<script setup></script>
+<script setup>
+import InputButton from '@/components/InputButton.vue'
+import InputText from '@/components/InputText.vue'
+import TheHeader from '@/components/TheHeader.vue'
+import { ref } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
+const authStore = useAuthStore()
+
+const router = useRouter()
+
+const user = ref(null)
+const key = ref(null)
+
+async function signIn() {
+  authStore.updateCredentials(user.value, key.value)
+  router.push({ name: 'canvases' })
+}
+</script>
 
 <template>
+  <TheHeader>
+    <template v-slot:left><h1>Sign in to Workbench</h1></template>
+  </TheHeader>
   <main>
-    <h1>inspect</h1>
+    <InputText v-model="user" label="user" :options="{ type: 'email', autocomplete: 'username' }" />
+    <InputText
+      v-model="key"
+      label="password"
+      :options="{ type: 'password', autocomplete: 'current-password' }"
+    />
+    <InputButton @click="signIn"> sign in </InputButton>
   </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+main {
+  margin: var(--spacing) var(--spacing) var(--spacing) var(--offset-left);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-l);
+  align-items: flex-start;
+}
+</style>
