@@ -1,0 +1,28 @@
+
+:root {
+  --transition: 0.2s;
+
+  --narrow: 360px;
+  --medium: 720px;
+  --wide: 1080px;
+
+  --spacing: 10px;
+  --spacing-xs: 2.5px;
+  --spacing-s: 5px;
+  --spacing-m: var(--spacing);
+  --spacing-l: 20px;
+  --spacing-xl: 40px;
+  --icon-width: 25px;
+
+  --offset-left: calc(var(--spacing) * 3 + var(--icon-width));
+  --input-width: 250px;
+
+  --font-family-sans: "Inter", sans-serif;
+
+  --font-size-s: 14px;
+  --font-size: 20px;
+  --font-size-l: 20px;
+
+  --regular: 360;
+  --bold: 600;
+}
