@@ -15,7 +15,7 @@ const key = ref(null)
 
 async function signIn() {
   authStore.updateCredentials(user.value, key.value)
-  router.push({ name: 'canvases' })
+  router.push({ name: 'home' })
 }
 </script>
 

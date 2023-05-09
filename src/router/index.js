@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+// import HomeView from '@/views/HomeView.vue'
 import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
 import { ACCESS_READ, ACCESS_WRITE } from '@/assets/js/constants'
@@ -10,7 +10,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      // component: HomeView
+      redirect: { name: 'list', params: { type: 'canvas' } }
     },
     {
       path: '/about',

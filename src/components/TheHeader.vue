@@ -1,23 +1,23 @@
 <script setup>
-import IconV3 from "~icons/default/V3";
-import IconCog from "~icons/default/Cog";
-import InputButton from "@/components/InputButton.vue";
+import IconV3 from '~icons/default/V3'
+import IconCog from '~icons/default/Cog'
+import InputButton from '@/components/InputButton.vue'
 
-import { useAuthStore } from "@/stores/auth";
-import { useRouter, RouterLink } from "vue-router";
+import { useAuthStore } from '@/stores/auth'
+import { useRouter, RouterLink } from 'vue-router'
 
-const authStore = useAuthStore();
-const router = useRouter();
+const authStore = useAuthStore()
+const router = useRouter()
 
 function signout() {
-  authStore.clearCredentials();
-  router.push({ name: "signin" });
+  authStore.clearCredentials()
+  router.push({ name: 'signin' })
 }
 </script>
 
 <template>
   <header>
-    <RouterLink :to="{ name: 'canvases' }">
+    <RouterLink :to="{ name: 'home' }">
       <InputButton>
         <IconV3 />
       </InputButton>
