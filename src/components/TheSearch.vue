@@ -1,35 +1,35 @@
 <script setup>
-import { ref, watch } from "vue";
-import { useTerminusStore } from "@/stores/terminus";
-import debounce from "lodash.debounce";
+import { ref, watch } from 'vue'
+import { useTerminusStore } from '@/stores/terminus'
+import debounce from 'lodash.debounce'
 
-const terminusStore = useTerminusStore();
+const terminusStore = useTerminusStore()
 
 const props = defineProps({
   placeholder: {
     type: String,
-    default: "Search",
+    default: 'Search'
   },
   type: {
     type: String,
-    default: "Entity",
-  },
-});
+    default: 'entity'
+  }
+})
 
-const emit = defineEmits(["updateResults"]);
+const emit = defineEmits(['updateResults'])
 
-const searchTerm = ref("");
+const searchTerm = ref('')
 
-watch(() => props.type, search);
-watch(searchTerm, debounce(search, 300));
+watch(() => props.type, search)
+watch(searchTerm, debounce(search, 300))
 
 async function search() {
-  if (searchTerm.value === "") {
-    emit("updateResults", null);
-    return;
+  if (searchTerm.value === '') {
+    emit('updateResults', null)
+    return
   }
-  const results = await terminusStore.search(searchTerm.value, props.type);
-  emit("updateResults", results);
+  const results = await terminusStore.search(searchTerm.value, props.type)
+  emit('updateResults', results)
 }
 
 // const authStore = useAuthStore();

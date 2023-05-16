@@ -1,53 +1,42 @@
 <script setup>
-import { computed } from "vue";
+import { computed } from 'vue'
 // import BaseModal from "./BaseModal.vue";
 // import CanvasEdgeOptions from "./CanvasEdgeOptions.vue";
-import { useRouter } from "vue-router";
-import { useTerminusStore } from "@/stores/terminus";
-import { useViewStore } from "@/stores/view";
+import { useRouter } from 'vue-router'
+import { useTerminusStore } from '@/stores/terminus'
+import { useViewStore } from '@/stores/view'
 
-const router = useRouter();
-const terminusStore = useTerminusStore();
-const viewStore = useViewStore();
+const router = useRouter()
+const terminusStore = useTerminusStore()
+const viewStore = useViewStore()
 
-const props = defineProps(["edge"]);
+const props = defineProps(['edge'])
 
 const label = computed(() => {
-  const propertyClass = terminusStore.propertyClasses.find(
-    (c) => c["@id"] === props.edge.property?.type
-  );
+  const propertyClass = terminusStore.properties.find((c) => c['@id'] === props.edge.edge?.property)
+  return propertyClass?.label ? viewStore.localize(propertyClass.label) : {}
+})
 
-  return propertyClass?.label ? viewStore.localize(propertyClass.label) : {};
-});
-
-const local = computed(
-  () =>
-    props.edge.property?.context === terminusStore.canvas || props.edge.active
-);
+const local = computed(() => props.edge.edge?.graph === terminusStore.graph || props.edge.active)
 
 const id = computed(() => {
-  return (props.edge.id || props.edge.property?.["@id"] || "some-path").replace(
-    /%/g,
-    "-"
-  );
-});
+  return (props.edge.id || props.edge.edge?.['@id'] || 'some-path').replace(/%/g, '-')
+})
 
 const path = computed(() => {
-  if (props.edge.target == null) return ``;
+  if (props.edge.target == null) return ``
   return props.edge.source.x < props.edge.target.x
     ? `M${props.edge.source.x},${props.edge.source.y}L${props.edge.target.x},${props.edge.target.y}`
-    : `M${props.edge.target.x},${props.edge.target.y}L${props.edge.source.x},${props.edge.source.y}`;
-});
+    : `M${props.edge.target.x},${props.edge.target.y}L${props.edge.source.x},${props.edge.source.y}`
+})
 
-const arrow = computed(() =>
-  props.edge.source.x < props.edge.target.x ? "→" : "←"
-);
+const arrow = computed(() => (props.edge.source.x < props.edge.target.x ? '→' : '←'))
 
 // const showOptions = ref(false);
 
 function onClick() {
   // showOptions.value = true;
-  router.push(`/edit/${props.edge.property?.["@id"]}`);
+  router.push(`/edit/${props.edge.edge?.['@id']}`)
 }
 </script>
 
@@ -55,12 +44,7 @@ function onClick() {
   <g class="edge" :class="{ local }" @click="onClick">
     <path class="edge-shadow" :d="path" />
     <path v-if="!local" class="edge-outline" :d="path" />
-    <path
-      :id="id"
-      class="edge-main"
-      :class="{ active: edge.active }"
-      :d="path"
-    />
+    <path :id="id" class="edge-main" :class="{ active: edge.active }" :d="path" />
     <text :lang="label.lang">
       <textPath :href="`#${id}`" startOffset="50%" dominant-baseline="middle">
         {{ arrow }} {{ label.text }} {{ arrow }}
@@ -124,6 +108,7 @@ function onClick() {
 
     text {
       fill: var(--secondary);
+      text-anchor: middle;
     }
 
     &:has(.edge-main:hover, .edge-outline:hover) {

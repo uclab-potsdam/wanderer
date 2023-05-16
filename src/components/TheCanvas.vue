@@ -1,100 +1,97 @@
 <script setup>
-import { zoom, zoomIdentity } from "d3-zoom";
-import { select } from "d3-selection";
-import { ref, onMounted, computed } from "vue";
-import { useRoute } from "vue-router";
-import { useTerminusStore } from "@/stores/terminus";
-import CanvasDocumentCard from "./CanvasDocumentCard.vue";
-import CanvasEdge from "./CanvasEdge.vue";
+import { zoom, zoomIdentity } from 'd3-zoom'
+import { select } from 'd3-selection'
+import { ref, onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useTerminusStore } from '@/stores/terminus'
+import CanvasDocumentCard from './CanvasDocumentCard.vue'
+import CanvasEdge from './CanvasEdge.vue'
 
-const containerRef = ref(null);
-const container = ref(null);
+const containerRef = ref(null)
+const container = ref(null)
 
-const route = useRoute();
-const terminusStore = useTerminusStore();
+const route = useRoute()
+const terminusStore = useTerminusStore()
 
-const transform = ref(zoomIdentity);
-const zoomBehaviour = ref(null);
+const transform = ref(zoomIdentity)
+const zoomBehaviour = ref(null)
 
-const connecting = ref(false);
-const connectingLine = ref(null);
-const connectable = ref(null);
+const connecting = ref(false)
+const connectingLine = ref(null)
+const connectable = ref(null)
 
 const pattern = computed(() => {
-  const scale = transform.value.k;
+  const scale = transform.value.k
   return {
     width: 125 * scale,
     height: 125 * scale,
     x: transform.value.x,
-    y: transform.value.y,
-  };
-});
+    y: transform.value.y
+  }
+})
 
-const scaleExtent = ref([0.1, 2]);
+const scaleExtent = ref([0.1, 2])
 
-const context = computed(() => route.path.replace(/^\//, ""));
+const context = computed(() => `${route.params.type}/${route.params.id}`)
 
 onMounted(() => {
-  container.value = select(containerRef.value);
+  container.value = select(containerRef.value)
   zoomBehaviour.value = zoom()
     .scaleExtent(scaleExtent.value)
-    .on("zoom", (e) => {
-      transform.value = e.transform;
-    });
+    .on('zoom', (e) => {
+      transform.value = e.transform
+    })
   // .filter((e) => {
   //   if (e.type === "touchstart" && e.touches?.length === 1) return false;
   //   if (e.type === "mousedown" && e.target.getAttribute("draggable"))
   //     return false;
   //   return !e.button && !(e.type === "wheel" && !e.ctrlKey && !e.shiftKey);
   // });
-  container.value.call(zoomBehaviour.value); //.on("dblclick.zoom", null);
-});
+  container.value.call(zoomBehaviour.value) //.on("dblclick.zoom", null);
+})
 
 function onDrop(e) {
-  e.preventDefault();
+  e.preventDefault()
   // console.log(e.dataTransfer.getData("text/uri-list"));
-  const uri = e.dataTransfer
-    .getData("text/uri-list")
-    .replace(location.origin, "workbench:/");
-  const isWorkbenchItem = /workbench:\/\//.test(uri);
-  if (!isWorkbenchItem) return; // todo: import and allocate external ressources
-  const item = uri
+  const uri = e.dataTransfer.getData('text/uri-list').replace(location.origin, 'workbench:/')
+  const isLocal = /workbench:\/\//.test(uri)
+  if (!isLocal) return // todo: import and allocate external ressources
+  const node = uri
     // .replace(new RegExp(`^${location.origin}/?`), "");
-    .replace(new RegExp(`^workbench://`), "");
+    .replace(new RegExp(`^workbench://`), '')
 
-  terminusStore.addAllocation(item, context.value, {
+  terminusStore.addAllocation(node, context.value, {
     x: (e.x - transform.value.x) / transform.value.k,
-    y: (e.y - transform.value.y) / transform.value.k,
-  });
+    y: (e.y - transform.value.y) / transform.value.k
+  })
 }
 
-function onUpdatePosition(item, position) {
-  terminusStore.addAllocation(item, context.value, position);
+function onUpdatePosition(allocation, position) {
+  terminusStore.addAllocation(allocation, context.value, position)
 }
 
-function onConnectStart(node) {
-  connecting.value = true;
-  terminusStore.pushBackNode(node);
+function onConnectStart(allocation) {
+  connecting.value = true
+  terminusStore.pushBackAllocation(allocation)
 }
 
-function onConnect(node, position) {
+function onConnect(allocation, position) {
   connectingLine.value = {
     active: true,
-    source: { x: node.x, y: node.y },
-    target: { x: node.x + position.x, y: node.y + position.y },
-  };
+    source: { x: allocation.x, y: allocation.y },
+    target: { x: allocation.x + position.x, y: allocation.y + position.y }
+  }
 }
 
-function onConnectEnd(node) {
-  connecting.value = false;
-  connectingLine.value = null;
-  if (connectable.value == null) return;
-  terminusStore.addProperty(node.item["@id"], connectable.value.item["@id"]);
-  // terminusStore.pushBackNode(node);
+function onConnectEnd(allocation) {
+  connecting.value = false
+  connectingLine.value = null
+  if (connectable.value == null) return
+  terminusStore.addEdge(allocation.node['@id'], connectable.value.node['@id'])
 }
 
 function onDragOver(e) {
-  e.preventDefault();
+  e.preventDefault()
 }
 </script>
 
@@ -109,16 +106,8 @@ function onDragOver(e) {
     <svg width="100%" height="100%">
       <defs>
         <pattern id="bg" v-bind="pattern" patternUnits="userSpaceOnUse">
-          <circle
-            class="point"
-            r="0.75"
-            :transform="`translate(1 ${pattern.height / 2 + 1})`"
-          />
-          <circle
-            class="point"
-            r="0.75"
-            :transform="`translate(${pattern.width / 2 + 1} 1)`"
-          />
+          <circle class="point" r="0.75" :transform="`translate(1 ${pattern.height / 2 + 1})`" />
+          <circle class="point" r="0.75" :transform="`translate(${pattern.width / 2 + 1} 1)`" />
         </pattern>
       </defs>
       <rect x="0" y="0" width="100%" height="100%" fill="url(#bg)" />
@@ -126,25 +115,23 @@ function onDragOver(e) {
         <g class="edges">
           <CanvasEdge
             v-for="(edge, i) in terminusStore.edges"
-            :key="edge.property?.['@id'] || i"
+            :key="edge.edge?.['@id'] || i"
             :edge="edge"
           />
           <CanvasEdge v-if="connectingLine" :edge="connectingLine" />
         </g>
         <g class="nodes">
           <CanvasDocumentCard
-            v-for="node in terminusStore.nodes"
-            :key="node.item['@id']"
-            :node="node"
+            v-for="allocation in terminusStore.allocations"
+            :key="allocation.node['@id']"
+            :allocation="allocation"
             :transform="transform"
-            @update-position="
-              ($event) => onUpdatePosition(node.item['@id'], $event)
-            "
+            @update-position="($event) => onUpdatePosition(allocation.node['@id'], $event)"
             :connecting-to="connecting"
-            @connect-start="onConnectStart(node)"
-            @connect="onConnect(node, $event)"
-            @connect-end="onConnectEnd(node)"
-            @mouse-enter="connectable = node"
+            @connect-start="onConnectStart(allocation)"
+            @connect="onConnect(allocation, $event)"
+            @connect-end="onConnectEnd(allocation)"
+            @mouse-enter="connectable = allocation"
             @mouse-out="connectable = null"
           />
         </g>

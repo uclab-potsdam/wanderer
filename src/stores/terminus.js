@@ -7,20 +7,23 @@ import { ACCESS_NONE, ACCESS_READ, ACCESS_WRITE } from '@/assets/js/constants'
 export const useTerminusStore = defineStore('terminus', () => {
   const viewStore = useViewStore()
   const schema = ref({})
-  const nodes = ref([])
-  const properties = ref([])
-  const canvas = ref(null)
 
-  const propertyClasses = ref([])
-  const entityClasses = ref([])
+  const allocations = ref([])
+  const edges = ref([])
+
+  const properties = ref([])
+  const classes = ref([])
+
+  const graph = ref(null)
 
   let client = null
 
   async function connect(access) {
     const user =
-      localStorage.getItem('USER') || access < ACCESS_WRITE ? import.meta.env.VITE_READ_USER : null
+      localStorage.getItem('USER') ||
+      (access < ACCESS_WRITE ? import.meta.env.VITE_READ_USER : null)
     const key =
-      localStorage.getItem('KEY') || access < ACCESS_WRITE ? import.meta.env.VITE_READ_KEY : null
+      localStorage.getItem('KEY') || (access < ACCESS_WRITE ? import.meta.env.VITE_READ_KEY : null)
     const server = import.meta.env.VITE_SERVER
     const organization = import.meta.env.VITE_ORGANIZATION
     const db = import.meta.env.VITE_DB
@@ -56,51 +59,20 @@ export const useTerminusStore = defineStore('terminus', () => {
   })
 
   const languages = computed(() => {
-    return schema.value.Text['@metadata'].languages
-    // return Object.keys(schema.value.Text).filter((key) => /^[^@]/.test(key));
+    return schema.value.text?.['@metadata']?.languages || []
   })
 
-  // const classes = computed(() => {
-  //   function getSuperClasses(inherits) {
-  //     const superClasses = [inherits].flat();
-  //     const superSuperClasses = superClasses
-  //       .map((id) => schema.value.find((c2) => c2["@id"] === id)["@inherits"])
-  //       .flat();
-  //     return [...new Set([...superClasses, ...superSuperClasses])].filter(
-  //       (c) => c !== undefined
-  //     );
-  //   }
-  //   return schema.value
-  //     .filter(
-  //       (c) =>
-  //         c["@abstract"] == null &&
-  //         c["@subdocument"] == null &&
-  //         c["@type"] === "Class"
-  //     )
-  //     .map((c) => {
-  //       const superClasses = getSuperClasses(c["@inherits"])
-  //         .reverse()
-  //         .map((id) => schema.value.find((c2) => c2["@id"] === id));
-  //       // .flat()
-  //       // .map((id) => schema.value.find((c2) => c2["@id"] === id));
+  // const displayEdges = computed(() => {
+  //   return edges.value
+  //     .map((property) => {
   //       return {
-  //         ...superClasses.reduce((a, b) => ({ ...a, ...b }), {}),
-  //         ...c,
-  //       };
-  //     });
-  // });
-
-  const edges = computed(() => {
-    return properties.value
-      .map((property) => {
-        return {
-          property,
-          source: nodes.value.find((node) => node.item['@id'] === property.subject),
-          target: nodes.value.find((node) => node.item['@id'] === property.object)
-        }
-      })
-      .filter((d) => d.source != null && d.target != null)
-  })
+  //         property,
+  //         source: allocations.value.find(({ node }) => node['@id'] === property.subject),
+  //         target: allocations.value.find(({ node }) => node['@id'] === property.object)
+  //       }
+  //     })
+  //     .filter((d) => d.source != null && d.target != null)
+  // })
 
   async function addDocument(document) {
     const res = await client.addDocument(document)
@@ -117,17 +89,17 @@ export const useTerminusStore = defineStore('terminus', () => {
     return res
   }
 
-  async function addAllocation(item, context, coordinates) {
-    const node = nodes.value.find((node) => node.item['@id'] === item)
-    if (node != null) {
-      node.x = coordinates.x
-      node.y = coordinates.y
+  async function addAllocation(node, graph, coordinates) {
+    const allocation = allocations.value.find((allocation) => allocation.node['@id'] === node)
+    if (allocation != null) {
+      allocation.x = coordinates.x
+      allocation.y = coordinates.y
     }
     await client.updateDocument(
       {
-        '@type': 'Allocation',
-        item,
-        context,
+        '@type': 'allocation',
+        node,
+        graph,
         ...coordinates
       },
       { create: true },
@@ -138,8 +110,8 @@ export const useTerminusStore = defineStore('terminus', () => {
       false,
       true
     )
-    if (node == null) {
-      getCanvas(context)
+    if (allocation == null) {
+      getGraph(graph)
     }
     // const res = await client.getDocument({
     //   as_list: true,
@@ -148,14 +120,14 @@ export const useTerminusStore = defineStore('terminus', () => {
     // });
   }
 
-  async function addProperty(subject, object) {
-    const property = { subject, object, context: canvas.value }
-    properties.value.push(property)
+  async function addEdge(source, target) {
+    const edge = { source, target, graph: graph.value }
+    edges.value.push(resolveEdge(edge))
 
     const res = await client.updateDocument(
       {
-        '@type': 'Property',
-        ...property
+        '@type': 'edge',
+        ...edge
       },
       { create: true },
       null,
@@ -165,55 +137,65 @@ export const useTerminusStore = defineStore('terminus', () => {
       false,
       true
     )
-    properties.value.splice(-1, 1, {
-      ...property,
+    edges.value.splice(-1, 1, {
+      ...resolveEdge(edge),
       '@id': res[0].replace(/^terminusdb:\/\/\/data\//, '')
     })
   }
 
-  async function getCanvas(context, clear = false) {
-    canvas.value = context
-    if (clear.value) nodes.value = []
-    const entities = await client.query(
-      WOQL.triple('v:allocation', 'rdf:type', '@schema:Allocation')
-        .triple('v:allocation', 'context', context)
-        .triple('v:allocation', 'item', 'v:item_id')
+  async function getGraph(id, clear = false) {
+    graph.value = id
+    if (clear.value) allocations.value = []
+    const nodes = await client.query(
+      WOQL.triple('v:allocation', 'rdf:type', '@schema:allocation')
+        .triple('v:allocation', 'graph', id)
+        .triple('v:allocation', 'node', 'v:node_id')
         .triple('v:allocation', 'x', 'v:x')
         .triple('v:allocation', 'y', 'v:y')
-        .read_document('v:item_id', 'v:item')
+        .read_document('v:node_id', 'v:node')
     )
 
-    nodes.value = entities.bindings.map(({ item, x, y, allocation }) => ({
+    allocations.value = nodes.bindings.map(({ node, x, y, allocation }) => ({
       '@id': allocation,
-      item,
+      node,
       x: x['@value'],
       y: y['@value']
     }))
 
-    const entityIds = nodes.value.map((node) => node.item['@id'])
+    const entityIds = allocations.value.map(({ node }) => node['@id'])
 
-    const props = await client.query(
-      WOQL.triple('v:property_id', 'rdf:type', '@schema:Property')
+    const edgeData = await client.query(
+      WOQL.triple('v:edge_id', 'rdf:type', '@schema:edge')
         .and(
-          WOQL.once(WOQL.or(...entityIds.map((id) => WOQL.triple('v:property_id', 'subject', id)))),
-          WOQL.once(WOQL.or(...entityIds.map((id) => WOQL.triple('v:property_id', 'object', id))))
+          WOQL.once(WOQL.or(...entityIds.map((id) => WOQL.triple('v:edge_id', 'source', id)))),
+          WOQL.once(WOQL.or(...entityIds.map((id) => WOQL.triple('v:edge_id', 'target', id))))
         )
-        .read_document('v:property_id', 'v:property')
+        .read_document('v:edge_id', 'v:edge')
     )
 
-    properties.value = props.bindings.map((prop) => prop.property)
+    edges.value = edgeData.bindings
+      .map(({ edge }) => resolveEdge(edge))
+      .filter((d) => d.source != null && d.target != null)
 
-    await Promise.all([getPropertyClasses(), getEntityClasses()])
+    await Promise.all([getProperties(), getClasses()])
   }
 
-  async function getPropertyClasses() {
-    const res = await getDocumentsByType('PropertyClass')
-    propertyClasses.value = res
+  function resolveEdge(edge) {
+    return {
+      edge,
+      source: allocations.value.find(({ node }) => node['@id'] === edge.source),
+      target: allocations.value.find(({ node }) => node['@id'] === edge.target)
+    }
   }
 
-  async function getEntityClasses() {
-    const res = await getDocumentsByType('EntityClass')
-    entityClasses.value = res
+  async function getProperties() {
+    const res = await getDocumentsByType('property')
+    properties.value = res
+  }
+
+  async function getClasses() {
+    const res = await getDocumentsByType('class')
+    classes.value = res
   }
 
   async function getDocument(id) {
@@ -256,12 +238,11 @@ export const useTerminusStore = defineStore('terminus', () => {
         .greater('v:dist', 0.6)
         .read_document('v:id', 'v:doc')
     )
-
     return res.bindings.map(({ doc }) => doc)
   }
 
-  function pushBackNode(node) {
-    nodes.value.push(nodes.value.splice(nodes.value.indexOf(node), 1)[0])
+  function pushBackAllocation(allocation) {
+    allocations.value.push(allocations.value.splice(allocations.value.indexOf(allocation), 1)[0])
   }
 
   return {
@@ -269,23 +250,23 @@ export const useTerminusStore = defineStore('terminus', () => {
     access,
     schema,
     languages,
-    nodes,
+    allocations,
     edges,
-    canvas,
+    graph,
     addDocument,
     updateDocument,
     deleteDocument,
     addAllocation,
-    addProperty,
-    getCanvas,
+    addEdge,
+    getGraph,
     getDocument,
     getDocumentsByType,
     search,
-    pushBackNode,
-    getPropertyClasses,
-    getEntityClasses,
-    propertyClasses,
-    entityClasses
+    pushBackAllocation,
+    getProperties,
+    getClasses,
+    properties,
+    classes
   }
 })
 
