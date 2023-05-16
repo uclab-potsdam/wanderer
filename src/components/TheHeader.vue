@@ -64,7 +64,12 @@ function signout() {
             v-else
             :options="quickNavRouteTypes"
             :model-value="route.params.type"
-            @update:modelValue="(type) => router.push({ params: { type } })"
+            @update:modelValue="
+              (type) =>
+                router[route.meta?.trackQuickNavChanges === false ? 'replace' : 'push']({
+                  params: { type }
+                })
+            "
           />
         </span>
         <span v-if="route.params.id"> / {{ route.params.id }}</span>

@@ -30,7 +30,7 @@ const router = createRouter({
       path: '/:type',
       name: 'list',
       component: () => import('@/views/ListView.vue'),
-      meta: { requiresAccess: ACCESS_READ, allowedTypes: ['graph', 'entity'] }
+      meta: { requiresAccess: ACCESS_READ, allowedTypes: ['graph', 'entity', 'class', 'property'] }
     },
     {
       path: '/:type/:id',
@@ -54,9 +54,7 @@ const router = createRouter({
       meta: {
         requiresAccess: ACCESS_WRITE,
         allowedTypes: ['graph', 'entity', 'class', 'property', 'edge'],
-        navigate: {
-          name: ['inspect']
-        }
+        trackQuickNavChanges: false
       }
     },
     {
@@ -65,7 +63,8 @@ const router = createRouter({
       component: () => import('@/views/CreateView.vue'),
       meta: {
         requiresAccess: ACCESS_WRITE,
-        allowedTypes: ['graph', 'entity', 'class', 'property']
+        allowedTypes: ['graph', 'entity', 'class', 'property'],
+        trackQuickNavChanges: false
       }
     },
     {
