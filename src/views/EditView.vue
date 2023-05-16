@@ -136,6 +136,7 @@ async function deleteDocument() {
             v-if="prop.isSet"
             :label="prop.label.text"
             :lang="prop.label.lang"
+            allow-null
             v-model="prop.value"
             :options="prop.options"
           />
@@ -143,6 +144,7 @@ async function deleteDocument() {
             v-else
             :label="prop.label.text"
             :lang="prop.label.lang"
+            allow-null
             v-model="prop.value"
             :options="prop.options"
           />

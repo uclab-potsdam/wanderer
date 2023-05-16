@@ -1,31 +1,36 @@
 <script setup>
-import { ref, computed } from "vue";
-import InputSelect from "./InputSelect.vue";
+import { ref, computed } from 'vue'
+import InputSelect from './InputSelect.vue'
 
-const props = defineProps(["modelValue", "options", "label"]);
-const emit = defineEmits(["update:modelValue"]);
+const props = defineProps({
+  modelValue: [String, Number, Boolean],
+  options: Array,
+  label: String,
+  allowNull: Boolean
+})
+const emit = defineEmits(['update:modelValue'])
 
-const isArray = ref(Array.isArray(props.modelValue));
+const isArray = ref(Array.isArray(props.modelValue))
 
 const keys = computed(() =>
   isArray.value
     ? new Array(props.modelValue.length + 1).fill().map((d, i) => i)
     : Object.keys(props.modelValue)
-);
+)
 
 function updateValue(key, value) {
   if (isArray.value) {
-    const proxy = [...props.modelValue];
-    proxy.splice(+key, 1, value);
+    const proxy = [...props.modelValue]
+    proxy.splice(+key, 1, value)
     emit(
-      "update:modelValue",
+      'update:modelValue',
       proxy.filter((v) => v)
-    );
+    )
   } else {
-    emit("update:modelValue", {
+    emit('update:modelValue', {
       ...props.modelValue,
-      [key]: value,
-    });
+      [key]: value
+    })
   }
 }
 </script>
@@ -38,6 +43,7 @@ function updateValue(key, value) {
       :label="i === 0 ? label : null"
       :secondary-label="isArray ? 1 + key : key"
       :model-value="modelValue[key]"
+      :allow-null="allowNull"
       @input="updateValue(key, $event.target.value)"
       :options="options"
     />

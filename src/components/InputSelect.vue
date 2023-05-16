@@ -1,12 +1,18 @@
 <script setup>
-defineProps(["modelValue", "options", "label", "secondaryLabel"]);
-defineEmits(["update:modelValue"]);
+defineProps({
+  modelValue: [String, Boolean, Number],
+  options: Array,
+  label: String,
+  secondaryLabel: String,
+  allowNull: Boolean
+})
+defineEmits(['update:modelValue'])
 
-const name = `n${(Math.random() + 1).toString(36).substring(2)}`;
+const name = `n${(Math.random() + 1).toString(36).substring(2)}`
 </script>
 <template>
   <div class="input-text">
-    <label :for="name">
+    <label :for="name" v-if="label || secondaryLabel">
       <span> {{ label }} </span>
       <span> {{ secondaryLabel }} </span>
     </label>
@@ -15,14 +21,14 @@ const name = `n${(Math.random() + 1).toString(36).substring(2)}`;
       :value="modelValue"
       @change="$emit('update:modelValue', $event.target.value)"
     >
-      <option :value="null">–</option>
+      <option v-if="allowNull" :value="null">–</option>
       <option
         v-for="(option, i) in options"
         :key="option.value"
         :value="option.value"
         :lang="option.label?.lang"
       >
-        {{ option.label?.text || i }}
+        {{ option.label?.text || option.label || i }}
       </option>
     </select>
   </div>
@@ -30,7 +36,7 @@ const name = `n${(Math.random() + 1).toString(36).substring(2)}`;
 
 <style lang="scss" scoped>
 .input-text {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   width: var(--input-width);
   // align-items: flex-start;
