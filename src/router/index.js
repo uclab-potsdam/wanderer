@@ -11,59 +11,74 @@ const router = createRouter({
       path: '/',
       name: 'home',
       // component: HomeView
-      redirect: { name: 'list', params: { type: 'canvas' } }
+      redirect: { name: 'list', params: { type: 'graph' } },
+      meta: { hideInQuickNav: true }
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('@/views/AboutView.vue')
+      component: () => import('@/views/AboutView.vue'),
+      meta: { hideInQuickNav: true }
     },
     {
       path: '/signin',
       name: 'signin',
-      component: () => import('@/views/SignInView.vue')
+      component: () => import('@/views/SignInView.vue'),
+      meta: { hideMenuBar: true, hideInQuickNav: true }
     },
     {
       path: '/:type',
       name: 'list',
       component: () => import('@/views/ListView.vue'),
-      meta: { requiresAccess: ACCESS_READ }
+      meta: { requiresAccess: ACCESS_READ, allowedTypes: ['graph', 'entity'] }
     },
     {
       path: '/:type/:id',
       name: 'inspect',
       component: () => import('@/views/InspectView.vue'),
-      meta: { requiresAccess: ACCESS_READ }
+      meta: {
+        requiresAccess: ACCESS_READ,
+        allowedTypes: ['graph', 'entity']
+      }
     },
     {
       path: '/screen/:type/:id',
       name: 'screen',
       component: () => import('@/views/ScreenView.vue'),
-      meta: { requiresAccess: ACCESS_READ }
+      meta: { requiresAccess: ACCESS_READ, allowedTypes: ['graph'] }
     },
     {
       path: '/edit/:type/:id',
       name: 'edit',
       component: () => import('@/views/EditView.vue'),
-      meta: { requiresAccess: ACCESS_WRITE }
+      meta: {
+        requiresAccess: ACCESS_WRITE,
+        allowedTypes: ['graph', 'entity', 'class', 'property', 'edge'],
+        navigate: {
+          name: ['inspect']
+        }
+      }
     },
     {
       path: '/create/:type',
       name: 'create',
       component: () => import('@/views/CreateView.vue'),
-      meta: { requiresAccess: ACCESS_WRITE }
+      meta: {
+        requiresAccess: ACCESS_WRITE,
+        allowedTypes: ['graph', 'entity', 'class', 'property']
+      }
     },
     {
-      path: '/compose/canvas/:id',
+      path: '/compose/:type/:id',
       name: 'compose',
       component: () => import('@/views/ComposeView.vue'),
-      meta: { requiresAccess: ACCESS_WRITE }
+      meta: { requiresAccess: ACCESS_WRITE, allowedTypes: ['graph'] }
     },
     {
-      path: '/couple/canvas/:id',
+      path: '/couple/:type/:id',
       name: 'couple',
       component: () => import('@/views/CoupleView.vue'),
-      meta: { requiresAccess: ACCESS_WRITE }
+      meta: { requiresAccess: ACCESS_WRITE, allowedTypes: ['graph'] }
     }
   ]
 })
@@ -72,6 +87,12 @@ router.beforeEach(async (to, from) => {
   const viewStore = useViewStore()
   viewStore.before = from
 
+  if (to.meta.allowedTypes && !to.meta.allowedTypes.some((type) => to.params.type === type)) {
+    // show 404 or similar page here
+    console.log('404')
+    return false
+  }
+
   const terminusStore = useTerminusStore()
 
   if (terminusStore.access < to.meta.requiresAccess) {
@@ -79,8 +100,8 @@ router.beforeEach(async (to, from) => {
     if (authStatus !== 'SUCCESS') return { replace: true, name: 'signin' }
   }
 
-  if (to.name === 'canvas') {
-    terminusStore.getCanvas(to.path.replace(/^\//, ''))
+  if (to.name === 'compose') {
+    terminusStore.getGraph(`${to.params.type}/${to.params.id}`)
   }
 
   return

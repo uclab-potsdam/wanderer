@@ -13,4 +13,6 @@ app.use(createPinia())
 app.use(router)
 app.directive('resize', resize)
 
-app.mount('#app')
+router.isReady().then(() => {
+  app.mount('#app')
+})
