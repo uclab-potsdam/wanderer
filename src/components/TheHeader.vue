@@ -5,7 +5,7 @@ import InputButton from '@/components/InputButton.vue'
 
 import { useAuthStore } from '@/stores/auth'
 import { useRouter, useRoute, RouterLink } from 'vue-router'
-import { computed, onMounted, watch } from 'vue'
+import { computed } from 'vue'
 import InputSelect from './InputSelect.vue'
 
 const authStore = useAuthStore()

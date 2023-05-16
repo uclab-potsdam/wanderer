@@ -1,7 +1,7 @@
 <script setup>
 import TheHeader from '@/components/TheHeader.vue'
 import InputButton from '@/components/InputButton.vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import InputTextMulti from '../components/InputTextMulti.vue'
 import InputText from '../components/InputText.vue'
 import InputSelect from '../components/InputSelect.vue'
@@ -10,7 +10,6 @@ import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
 import { ref, computed } from 'vue'
 
-const route = useRoute()
 const router = useRouter()
 const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
