@@ -24,7 +24,7 @@ const router = createRouter({
       path: '/signin',
       name: 'signin',
       component: () => import('@/views/SignInView.vue'),
-      meta: { hideMenuBar: true, hideInQuickNav: true }
+      meta: { hideMenuBar: false, hideInQuickNav: true }
     },
     {
       path: '/:type',

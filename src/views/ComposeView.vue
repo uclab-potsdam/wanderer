@@ -1,6 +1,6 @@
 <script setup>
-import TheHeader from '@/components/TheHeader.vue'
-import IconAdd from '~icons/default/Add'
+// import TheHeader from '@/components/TheHeader.vue'
+// import IconAdd from '~icons/default/Add'
 // import InputButton from "@/components/InputButton.vue";
 // import { RouterLink, useRoute, useRouter } from "vue-router";
 // import { useTerminusStore } from "@/stores/terminus";
@@ -8,7 +8,7 @@ import { ref } from 'vue'
 import DocumentList from '../components/DocumentList.vue'
 import TheCanvas from '@/components/TheCanvas.vue'
 // import BaseNav from "@/components/BaseNav.vue";
-import TheSearch from '@/components/TheSearch.vue'
+// import TheSearch from '@/components/TheSearch.vue'
 
 // const route = useRoute();
 // const terminusStore = useTerminusStore();
@@ -25,9 +25,9 @@ const documents = ref([])
 //   { immediate: true }
 // );
 
-async function updateResults(res) {
-  documents.value = res
-}
+// async function updateResults(res) {
+//   documents.value = res
+// }
 
 // const documents = computed(
 //   () => documentsFromSearch.value || documentsFromType.value
@@ -35,12 +35,11 @@ async function updateResults(res) {
 </script>
 
 <template>
-  <TheHeader>
+  <!-- <TheHeader>
     <template v-slot:left
       ><TheSearch placeholder="Search Workbench" @update-results="updateResults" type="entity"
     /></template>
     <template v-slot:right>
-      <!-- <InputButton class="large"> -->
       <RouterLink
         class="align-horizontal button"
         :to="{ name: 'create', params: { type: 'entity' } }"
@@ -48,9 +47,8 @@ async function updateResults(res) {
         <IconAdd />
         add entity
       </RouterLink>
-      <!-- </InputButton> -->
     </template>
-  </TheHeader>
+  </TheHeader> -->
   <TheCanvas />
   <main>
     <div class="search-results" v-if="documents != null">

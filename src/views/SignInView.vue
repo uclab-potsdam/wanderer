@@ -1,7 +1,6 @@
 <script setup>
 import InputButton from '@/components/InputButton.vue'
 import InputText from '@/components/InputText.vue'
-import TheHeader from '@/components/TheHeader.vue'
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useTerminusStore } from '@/stores/terminus'
@@ -24,9 +23,6 @@ async function signIn() {
 </script>
 
 <template>
-  <TheHeader>
-    <template v-slot:left><h1>Sign in to Workbench</h1></template>
-  </TheHeader>
   <main>
     <InputText v-model="user" label="user" :options="{ type: 'email', autocomplete: 'username' }" />
     <InputText

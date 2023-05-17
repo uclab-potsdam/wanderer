@@ -1,5 +1,4 @@
 <script setup>
-import TheHeader from '@/components/TheHeader.vue'
 import InputButton from '@/components/InputButton.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
@@ -35,9 +34,6 @@ async function deleteDocument() {
 </script>
 
 <template>
-  <TheHeader>
-    <template v-slot:left><h1>Edit</h1></template>
-  </TheHeader>
   <main>
     <DocumentForm v-model="document" />
     <div class="button-group">
