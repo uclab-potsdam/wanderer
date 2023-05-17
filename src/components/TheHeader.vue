@@ -56,6 +56,7 @@ async function signin() {
 
 const showSearch = ref(false)
 const showAdd = ref(false)
+const modalType = ref('entity')
 </script>
 
 <template>
@@ -108,12 +109,26 @@ const showAdd = ref(false)
     </InputButton>
     <Teleport to="body" v-if="showSearch">
       <BaseModal @close="showSearch = false">
-        <ListView type="entity" single-column />
+        <InputSelect
+          :options="[
+            { label: 'graph', value: 'graph' },
+            { label: 'entity', value: 'entity' }
+          ]"
+          v-model="modalType"
+        />
+        <ListView :type="modalType" single-column />
       </BaseModal>
     </Teleport>
     <Teleport to="body" v-if="showAdd">
       <BaseModal @close="showAdd = false">
-        <CreateView type="entity" disable-routing @completed="showAdd = false" />
+        <InputSelect
+          :options="[
+            { label: 'graph', value: 'graph' },
+            { label: 'entity', value: 'entity' }
+          ]"
+          v-model="modalType"
+        />
+        <CreateView :type="modalType" disable-routing @completed="showAdd = false" />
       </BaseModal>
     </Teleport>
   </header>
