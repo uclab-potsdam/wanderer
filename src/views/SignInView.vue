@@ -4,9 +4,12 @@ import InputText from '@/components/InputText.vue'
 import TheHeader from '@/components/TheHeader.vue'
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+import { useTerminusStore } from '@/stores/terminus'
 import { useRouter } from 'vue-router'
+import { ACCESS_WRITE } from '@/assets/js/constants'
 
 const authStore = useAuthStore()
+const terminusStore = useTerminusStore()
 
 const router = useRouter()
 
@@ -15,6 +18,7 @@ const key = ref(null)
 
 async function signIn() {
   authStore.updateCredentials(user.value, key.value)
+  await terminusStore.connect(ACCESS_WRITE)
   router.push({ name: 'home' })
 }
 </script>

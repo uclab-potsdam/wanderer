@@ -1,14 +1,19 @@
 <script setup>
 import IconV3 from '~icons/default/V3'
-import IconCog from '~icons/default/Cog'
+import IconUser from '~icons/default/User'
+import IconUserSignedIn from '~icons/default/UserSignedIn'
 import InputButton from '@/components/InputButton.vue'
 
 import { useAuthStore } from '@/stores/auth'
+import { useTerminusStore } from '@/stores/terminus'
 import { useRouter, useRoute, RouterLink } from 'vue-router'
 import { computed } from 'vue'
 import InputSelect from './InputSelect.vue'
 
+import { ACCESS_READ, ACCESS_WRITE } from '@/assets/js/constants'
+
 const authStore = useAuthStore()
+const terminusStore = useTerminusStore()
 const router = useRouter()
 const route = useRoute()
 
@@ -30,10 +35,17 @@ const quickNavRouteTypes = computed(() => {
     : route.meta.allowedTypes.map((d) => ({ value: d, label: d }))
 })
 
+const signedIn = computed(() => terminusStore.access >= ACCESS_WRITE)
+
 // console.log(quickNavRouteTypes.value, route.params?.allowedTypes)
 
 function signout() {
   authStore.clearCredentials()
+  terminusStore.connect(ACCESS_READ)
+  router.push({ name: 'home' })
+}
+
+async function signin() {
   router.push({ name: 'signin' })
 }
 </script>
@@ -80,7 +92,8 @@ function signout() {
       <span />
     </slot>
     <InputButton>
-      <IconCog @click="signout" />
+      <IconUser v-if="!signedIn" @click="signin" />
+      <IconUserSignedIn v-else @click="signout" />
     </InputButton>
   </header>
 </template>
