@@ -19,6 +19,13 @@ async function getFrame() {
   frame.value = await Promise.all(
     Object.keys(schema)
       .filter((key) => /^[^@]/.test(key))
+      .sort((a, b) => {
+        // TODO: #17 define property order in schema
+        if (a === 'label') return -1
+        if (a === 'description' && b === 'label') return 1
+        if (a === 'description') return -1
+        return 0
+      })
       .map(async (key) => {
         const label = viewStore.localize(
           Object.fromEntries(
