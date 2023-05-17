@@ -42,7 +42,7 @@ export const useTerminusStore = defineStore('terminus', () => {
       if (error.status === 401) return 'INCORRECT_CREDENTIALS'
       return 'UNEXPECTED ERROR'
     }
-
+    getClasses()
     return 'SUCCESS'
   }
 

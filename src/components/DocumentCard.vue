@@ -1,8 +1,10 @@
 <script setup>
 import { useViewStore } from '@/stores/view'
+import { useTerminusStore } from '@/stores/terminus'
 import { computed } from 'vue'
 
 const viewStore = useViewStore()
+const terminusStore = useTerminusStore()
 
 const props = defineProps({ document: Object, draggable: String })
 
@@ -10,12 +12,18 @@ const label = computed(() => {
   return viewStore.localize(props.document.label)
 })
 
+const className = computed(() => {
+  if (props.document.class == null) return null
+  const cl = terminusStore.classes.find((cl) => cl['@id'] === props.document.class)
+  if (cl == null) return null
+  return viewStore.localize(cl.label)
+})
+
 const description = computed(() => {
   return viewStore.localize(props.document.description)
 })
 
 function onDragStart(e) {
-  // console.log("ds");
   e.dataTransfer.setData('text/uri-list', `workbench://${props.document['@id']}`)
 }
 
@@ -65,6 +73,9 @@ function onDragStart(e) {
   >
     <span class="label" :lang="label?.lang"> {{ label?.text }} </span>
     <br />
+    <span v-if="className" class="class-name" :lang="className.lang"
+      >{{ className.text }}<template v-if="description?.text != null">; </template>
+    </span>
     <span class="description" :lang="description?.lang">
       {{ description?.text }}
     </span>
