@@ -26,42 +26,6 @@ const description = computed(() => {
 function onDragStart(e) {
   e.dataTransfer.setData('text/uri-list', `workbench://${props.document['@id']}`)
 }
-
-// let dragStartX = null;
-// let dragStartY = null;
-
-// const dragX = ref(0);
-// const dragY = ref(0);
-
-// function onMouseDown(e) {
-//   if (props.draggable !== "custom") return;
-//   e.stopPropagation();
-//   // e.preventDefault();
-//   dragStartX = e.x;
-//   dragStartY = e.y;
-
-//   console.log("mousedown", e.x, e.y);
-
-//   const controller = new AbortController();
-
-//   window.addEventListener(
-//     "mouseup",
-//     (e) => {
-//       console.log("mouse up", e.x - dragStartX, e.y - dragStartY);
-//       controller.abort();
-//     },
-//     { once: true }
-//   );
-
-//   window.addEventListener(
-//     "mousemove",
-//     (e) => {
-//       dragX.value = e.x - dragStartX;
-//       dragY.value = e.y - dragStartY;
-//     },
-//     { signal: controller.signal }
-//   );
-// }
 </script>
 
 <template>
