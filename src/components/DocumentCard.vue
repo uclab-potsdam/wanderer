@@ -93,8 +93,7 @@ section.document {
     hyphens: auto;
   }
 
-  &.canvas,
-  &.dictionary {
+  &.graph {
     border: none;
     background-color: currentColor;
     span,
@@ -143,8 +142,7 @@ section.document {
     }
   }
 
-  &.canvas,
-  &.dictionary {
+  &.graph {
     .buttons {
       :deep(svg.icon) {
         background-color: var(--accent);

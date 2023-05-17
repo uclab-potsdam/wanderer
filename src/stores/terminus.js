@@ -138,8 +138,7 @@ export const useTerminusStore = defineStore('terminus', () => {
       true
     )
     edges.value.splice(-1, 1, {
-      ...resolveEdge(edge),
-      '@id': res[0].replace(/^terminusdb:\/\/\/data\//, '')
+      ...resolveEdge({ ...edge, '@id': res[0].replace(/^terminusdb:\/\/\/data\//, '') })
     })
   }
 

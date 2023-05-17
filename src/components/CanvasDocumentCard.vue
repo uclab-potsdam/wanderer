@@ -32,7 +32,7 @@ const dragY = ref(0)
 const x = computed(() => dragX.value + props.allocation.x)
 const y = computed(() => dragY.value + props.allocation.y)
 
-const connectable = computed(() => props.allocation.node['@type'] !== 'graph')
+const connectable = ref(true) // computed(() => props.allocation.node['@type'] !== 'graph')
 
 const arrowX = ref(0)
 const arrowY = ref(0)
