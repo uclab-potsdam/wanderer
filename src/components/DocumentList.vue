@@ -1,16 +1,16 @@
 <script setup>
 // import { useTerminusStore } from "@/stores/terminus";
 // import { watch } from "vue";
-import { RouterLink } from "vue-router";
-import DocumentCard from "./DocumentCard.vue";
+import { RouterLink } from 'vue-router'
+import DocumentCard from './DocumentCard.vue'
 
-import IconEdit from "~icons/default/Edit";
+import IconEdit from '~icons/default/Edit'
 
-defineProps(["documents"]);
+defineProps({ documents: Array, singleColumn: Boolean })
 </script>
 
 <template>
-  <section class="document-list">
+  <section class="document-list" :class="{ 'single-column': singleColumn }">
     <RouterLink
       :to="document['@id']"
       v-for="document in documents"
@@ -33,5 +33,9 @@ defineProps(["documents"]);
   display: flex;
   gap: var(--spacing);
   flex-wrap: wrap;
+
+  &.single-column {
+    flex-direction: column;
+  }
 }
 </style>

@@ -9,15 +9,29 @@ const route = useRoute()
 const router = useRouter()
 const terminusStore = useTerminusStore()
 
-const document = ref({ '@type': route.params.type })
+const props = defineProps({
+  type: String,
+  disableRouting: Boolean
+})
+
+const emit = defineEmits(['completed'])
+
+const document = ref({ '@type': props.type || route.params.type })
 
 async function addDocument() {
   await terminusStore.addDocument([document.value])
-  router.go(-1)
+  props.disableRouting ? emit('completed') : router.go(-1)
+}
+function cancel() {
+  console.log('cancel')
+  props.disableRouting ? emit('completed') : router.go(-1)
 }
 
+// watchEffect(async () => {
+//   documents.value = await terminusStore.getDocumentsByType(props.type || route.params.type)
+// })
 watch(
-  () => route.params.type,
+  () => props.type || route.params.type,
   () => (document.value['@type'] = route.params.type)
 )
 </script>
@@ -27,7 +41,7 @@ watch(
     <DocumentForm v-model="document" />
     <div class="button-group">
       <InputButton primary @click="addDocument">Create {{ route.meta.filter }}</InputButton>
-      <InputButton secondary @click="router.go(-1)">cancel</InputButton>
+      <InputButton secondary @click="cancel">cancel</InputButton>
     </div>
   </main>
 </template>

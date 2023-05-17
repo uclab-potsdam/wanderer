@@ -1,16 +1,21 @@
 <script setup>
 import IconV3 from '~icons/default/V3'
 import IconUser from '~icons/default/User'
+import IconAdd from '~icons/default/Add'
+import IconSearch from '~icons/default/Search'
 import IconUserSignedIn from '~icons/default/UserSignedIn'
 import InputButton from '@/components/InputButton.vue'
 
 import { useAuthStore } from '@/stores/auth'
 import { useTerminusStore } from '@/stores/terminus'
 import { useRouter, useRoute, RouterLink } from 'vue-router'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import InputSelect from './InputSelect.vue'
+import BaseModal from '@/components/BaseModal.vue'
 
 import { ACCESS_READ, ACCESS_WRITE } from '@/assets/js/constants'
+import ListView from '../views/ListView.vue'
+import CreateView from '../views/CreateView.vue'
 
 const authStore = useAuthStore()
 const terminusStore = useTerminusStore()
@@ -48,6 +53,9 @@ function signout() {
 async function signin() {
   router.push({ name: 'signin' })
 }
+
+const showSearch = ref(false)
+const showAdd = ref(false)
 </script>
 
 <template>
@@ -89,12 +97,25 @@ async function signin() {
     </slot>
     <span />
     <slot name="right">
-      <span />
+      <span>
+        <InputButton><IconSearch @click="showSearch = true" /></InputButton>
+        <InputButton><IconAdd @click="showAdd = true" /></InputButton>
+      </span>
     </slot>
     <InputButton>
       <IconUser v-if="!signedIn" @click="signin" />
       <IconUserSignedIn v-else @click="signout" />
     </InputButton>
+    <Teleport to="body" v-if="showSearch">
+      <BaseModal @close="showSearch = false">
+        <ListView type="entity" single-column />
+      </BaseModal>
+    </Teleport>
+    <Teleport to="body" v-if="showAdd">
+      <BaseModal @close="showAdd = false">
+        <CreateView type="entity" disable-routing @completed="showAdd = false" />
+      </BaseModal>
+    </Teleport>
   </header>
 </template>
 

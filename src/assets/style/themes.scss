@@ -3,6 +3,8 @@
   --primary: rgb(var(--gray-0));
   --accent: rgb(var(--teal-5));
   --muted: rgb(var(--gray-9));
+  --shadow: rgba(var(--gray-0), 0.5);
+  --tint: rgb(var(--teal-10));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -11,6 +13,8 @@
     --primary: rgb(var(--gray-11));
     --accent: rgb(var(--teal-6));
     --muted: rgb(var(--gray-3));
+    --shadow: rgba(var(--gray-11), 0.5);
+    --tint: rgb(var(--teal-1));
   }
 }
 

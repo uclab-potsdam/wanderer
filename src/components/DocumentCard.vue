@@ -1,25 +1,22 @@
 <script setup>
-import { useViewStore } from "@/stores/view";
-import { computed } from "vue";
+import { useViewStore } from '@/stores/view'
+import { computed } from 'vue'
 
-const viewStore = useViewStore();
+const viewStore = useViewStore()
 
-const props = defineProps({ document: Object, draggable: String });
+const props = defineProps({ document: Object, draggable: String })
 
 const label = computed(() => {
-  return viewStore.localize(props.document.label);
-});
+  return viewStore.localize(props.document.label)
+})
 
 const description = computed(() => {
-  return viewStore.localize(props.document.description);
-});
+  return viewStore.localize(props.document.description)
+})
 
 function onDragStart(e) {
   // console.log("ds");
-  e.dataTransfer.setData(
-    "text/uri-list",
-    `workbench://${props.document["@id"]}`
-  );
+  e.dataTransfer.setData('text/uri-list', `workbench://${props.document['@id']}`)
 }
 
 // let dragStartX = null;
@@ -108,7 +105,7 @@ section.document {
 
   &.entityclass,
   &.propertyclass {
-    border-image: url("@/assets/img/border.svg") 1 round;
+    border-image: url('@/assets/img/border.svg') 1 round;
   }
 
   .buttons {
@@ -164,7 +161,7 @@ section.document {
 
     &.entityclass,
     &.propertyclass {
-      border-image: url("@/assets/img/border-accent.svg") 1 round;
+      border-image: url('@/assets/img/border-accent.svg') 1 round;
     }
     .buttons {
       display: block;
