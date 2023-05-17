@@ -32,6 +32,8 @@ async function getFrame() {
         const isSet = schema[key]['@type'] === 'Set'
         const type = schema[key]['@class']?.['@class'] || schema[key]['@class'] || schema[key]
 
+        const hidden = schema['@key']?.['@fields']?.includes(key)
+
         const input = type === 'text' || /:/.test(type) ? 'text' : 'select'
 
         let value = props.modelValue[key]
@@ -60,7 +62,8 @@ async function getFrame() {
           input,
           type,
           value,
-          options
+          options,
+          hidden
         }
       })
   )
@@ -98,32 +101,34 @@ watch(
 <template>
   <div class="form">
     <template v-for="(prop, i) in frame" :key="i">
-      <template v-if="prop.input === 'text'">
-        <InputTextMulti
-          v-if="prop.isSet || prop.type === 'text'"
-          :label="prop.label.text"
-          :lang="prop.label.lang"
-          v-model="prop.value"
-        />
-        <InputText v-else :label="prop.label.text" :lang="prop.label.lang" v-model="prop.value" />
-      </template>
-      <template v-else>
-        <InputSelectMulti
-          v-if="prop.isSet"
-          :label="prop.label.text"
-          :lang="prop.label.lang"
-          allow-null
-          v-model="prop.value"
-          :options="prop.options"
-        />
-        <InputSelect
-          v-else
-          :label="prop.label.text"
-          :lang="prop.label.lang"
-          allow-null
-          v-model="prop.value"
-          :options="prop.options"
-        />
+      <template v-if="!prop.hidden">
+        <template v-if="prop.input === 'text'">
+          <InputTextMulti
+            v-if="prop.isSet || prop.type === 'text'"
+            :label="prop.label.text"
+            :lang="prop.label.lang"
+            v-model="prop.value"
+          />
+          <InputText v-else :label="prop.label.text" :lang="prop.label.lang" v-model="prop.value" />
+        </template>
+        <template v-else>
+          <InputSelectMulti
+            v-if="prop.isSet"
+            :label="prop.label.text"
+            :lang="prop.label.lang"
+            allow-null
+            v-model="prop.value"
+            :options="prop.options"
+          />
+          <InputSelect
+            v-else
+            :label="prop.label.text"
+            :lang="prop.label.lang"
+            allow-null
+            v-model="prop.value"
+            :options="prop.options"
+          />
+        </template>
       </template>
     </template>
   </div>
