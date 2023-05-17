@@ -154,6 +154,12 @@ function onDragOver(e) {
     foreignObject {
       overflow: visible;
     }
+
+    pattern {
+      circle {
+        fill: var(--primary);
+      }
+    }
   }
 }
 </style>

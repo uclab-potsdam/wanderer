@@ -5,10 +5,14 @@
   --muted: rgb(var(--gray-9));
 }
 
-// @media (prefers-color-scheme: dark) {
-//   :root {
-//   }
-// }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --secondary: rgb(var(--gray-0));
+    --primary: rgb(var(--gray-11));
+    --accent: rgb(var(--teal-6));
+    --muted: rgb(var(--gray-3));
+  }
+}
 
 // .blur {
 //   background: rgb(var(--secondary));

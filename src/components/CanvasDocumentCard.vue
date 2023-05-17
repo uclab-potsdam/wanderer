@@ -169,7 +169,7 @@ function onMouseOut() {
 foreignObject {
   > section.document {
     transform: translate(-50%, -50%);
-    outline: 3px solid white;
+    outline: 3px solid var(--secondary);
     &.connecting-from {
       pointer-events: none;
       :deep(.buttons) {
