@@ -1,9 +1,18 @@
-<script setup></script>
+<script setup>
+import TheCanvas from '@/components/TheCanvas.vue'
+import { useRoute } from 'vue-router'
+import TheDetail from '../components/TheDetail.vue'
+
+const route = useRoute()
+</script>
 
 <template>
-  <main>
-    <h1>inspect</h1>
-  </main>
+  <TheCanvas v-if="route.params?.type === 'graph'" />
+  <TheDetail v-else />
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+main {
+  display: flex;
+}
+</style>
