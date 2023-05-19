@@ -1,10 +1,11 @@
-<script setup>
+<script async setup>
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
 import CanvasDocumentCard from './CanvasDocumentCard.vue'
+import CanvasDocumentCardStatic from './CanvasDocumentCardStatic.vue'
 import CanvasEdge from './CanvasEdge.vue'
 
 const containerRef = ref(null)
@@ -33,6 +34,14 @@ const pattern = computed(() => {
 const scaleExtent = ref([0.1, 2])
 
 const context = computed(() => `${route.params.type}/${route.params.id}`)
+const mode = computed(() => `${route.name}`)
+
+// terminusStore.getGraph(context.value)
+
+// watch(
+//   () => route.params,
+//   () => terminusStore.getGraph(context.value, true)
+// )
 
 onMounted(() => {
   container.value = select(containerRef.value)
@@ -51,6 +60,7 @@ onMounted(() => {
 })
 
 function onDrop(e) {
+  if (mode.value !== 'compose') return
   e.preventDefault()
   // console.log(e.dataTransfer.getData("text/uri-list"));
   const uri = e.dataTransfer.getData('text/uri-list').replace(location.origin, 'workbench:/')
@@ -67,15 +77,18 @@ function onDrop(e) {
 }
 
 function onUpdatePosition(allocation, position) {
+  if (mode.value !== 'compose') return
   terminusStore.addAllocation(allocation, context.value, position)
 }
 
 function onConnectStart(allocation) {
+  if (mode.value !== 'compose') return
   connecting.value = true
   terminusStore.pushBackAllocation(allocation)
 }
 
 function onConnect(allocation, position) {
+  if (mode.value !== 'compose') return
   connectingLine.value = {
     active: true,
     source: { x: allocation.x, y: allocation.y },
@@ -84,6 +97,7 @@ function onConnect(allocation, position) {
 }
 
 function onConnectEnd(allocation) {
+  if (mode.value !== 'compose') return
   connecting.value = false
   connectingLine.value = null
   if (connectable.value == null) return
@@ -91,6 +105,7 @@ function onConnectEnd(allocation) {
 }
 
 function onDragOver(e) {
+  if (mode.value !== 'compose') return
   e.preventDefault()
 }
 </script>
@@ -121,19 +136,28 @@ function onDragOver(e) {
           <CanvasEdge v-if="connectingLine" :edge="connectingLine" />
         </g>
         <g class="nodes">
-          <CanvasDocumentCard
-            v-for="allocation in terminusStore.allocations"
-            :key="allocation.node['@id']"
-            :allocation="allocation"
-            :transform="transform"
-            @update-position="($event) => onUpdatePosition(allocation.node['@id'], $event)"
-            :connecting-to="connecting"
-            @connect-start="onConnectStart(allocation)"
-            @connect="onConnect(allocation, $event)"
-            @connect-end="onConnectEnd(allocation)"
-            @mouse-enter="connectable = allocation"
-            @mouse-out="connectable = null"
-          />
+          <template v-if="mode === 'compose'">
+            <CanvasDocumentCard
+              v-for="allocation in terminusStore.allocations"
+              :key="allocation.node['@id']"
+              :allocation="allocation"
+              :transform="transform"
+              @update-position="($event) => onUpdatePosition(allocation.node['@id'], $event)"
+              :connecting-to="connecting"
+              @connect-start="onConnectStart(allocation)"
+              @connect="onConnect(allocation, $event)"
+              @connect-end="onConnectEnd(allocation)"
+              @mouse-enter="connectable = allocation"
+              @mouse-out="connectable = null"
+            />
+          </template>
+          <template v-else>
+            <CanvasDocumentCardStatic
+              v-for="allocation in terminusStore.allocations"
+              :key="allocation.node['@id']"
+              :allocation="allocation"
+            />
+          </template>
         </g>
       </g>
     </svg>
