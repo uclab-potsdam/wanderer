@@ -1,7 +1,7 @@
 <script async setup>
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
 import CanvasDocumentCard from './CanvasDocumentCard.vue'

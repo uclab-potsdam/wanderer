@@ -1,5 +1,5 @@
 <script setup>
-import { watch, ref, computed, watchEffect } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
 
