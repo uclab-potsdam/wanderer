@@ -83,6 +83,7 @@ function onClick() {
     font-size: var(--font-size-s);
     font-weight: 500;
     pointer-events: none;
+    text-anchor: middle;
   }
 
   &:has(.edge-main:hover, .edge-outline:hover) {
@@ -108,7 +109,6 @@ function onClick() {
 
     text {
       fill: var(--secondary);
-      text-anchor: middle;
     }
 
     &:has(.edge-main:hover, .edge-outline:hover) {
