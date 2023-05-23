@@ -16,6 +16,8 @@ export const useTerminusStore = defineStore('terminus', () => {
 
   const graph = ref([])
 
+  const currentLabel = ref({})
+
   let client = null
 
   async function connect(access) {
@@ -179,6 +181,13 @@ export const useTerminusStore = defineStore('terminus', () => {
     await Promise.all([getProperties(), getClasses()])
   }
 
+  async function getLabel(id) {
+    const res = await client.query(
+      WOQL.triple(id, 'label', 'v:label_id').read_document('v:label_id', 'v:label')
+    )
+    currentLabel.value = res.bindings[0]?.label
+  }
+
   function resolveEdge(edge) {
     return {
       edge,
@@ -265,7 +274,9 @@ export const useTerminusStore = defineStore('terminus', () => {
     getProperties,
     getClasses,
     properties,
-    classes
+    classes,
+    currentLabel,
+    getLabel
   }
 })
 

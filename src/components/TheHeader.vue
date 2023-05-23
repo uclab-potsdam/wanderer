@@ -7,6 +7,7 @@ import IconUserSignedIn from '~icons/default/UserSignedIn'
 import InputButton from '@/components/InputButton.vue'
 
 import { useAuthStore } from '@/stores/auth'
+import { useViewStore } from '@/stores/view'
 import { useTerminusStore } from '@/stores/terminus'
 import { useRouter, useRoute, RouterLink } from 'vue-router'
 import { computed, ref } from 'vue'
@@ -18,9 +19,14 @@ import ListView from '../views/ListView.vue'
 import CreateView from '../views/CreateView.vue'
 
 const authStore = useAuthStore()
+const viewStore = useViewStore()
 const terminusStore = useTerminusStore()
 const router = useRouter()
 const route = useRoute()
+
+const currentLabel = computed(
+  () => terminusStore.currentLabel && viewStore.localize(terminusStore.currentLabel)
+)
 
 const quickNavRouteNames = computed(() => {
   return router
@@ -93,7 +99,7 @@ const modalType = ref('entity')
             "
           />
         </span>
-        <span v-if="route.params.id"> / {{ route.params.id }}</span>
+        <span v-if="currentLabel" :lang="currentLabel.lang"> / {{ currentLabel.text }}</span>
       </h1>
     </slot>
     <span />

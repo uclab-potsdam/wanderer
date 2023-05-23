@@ -99,6 +99,12 @@ router.beforeEach(async (to, from) => {
     if (authStatus !== 'SUCCESS') return { replace: true, name: 'signin' }
   }
 
+  if (to.params.type != null && to.params.id != null) {
+    await terminusStore.getLabel(`${to.params.type}/${to.params.id}`)
+  } else {
+    terminusStore.currentLabel = null
+  }
+
   if (to.name === 'compose' || (to.name === 'inspect' && to.params.type === 'graph')) {
     await terminusStore.getGraph(`${to.params.type}/${to.params.id}`, true)
   }
