@@ -19,6 +19,7 @@ defineEmits(['close'])
   position: absolute;
   top: 45px;
   right: var(--spacing);
+  min-width: 270px;
   // width: 270px;
   // left: 0;
   // bottom: 0;

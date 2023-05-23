@@ -4,6 +4,7 @@ import IconUser from '~icons/default/User'
 import IconAdd from '~icons/default/Add'
 import IconSearch from '~icons/default/Search'
 import IconUserSignedIn from '~icons/default/UserSignedIn'
+import IconDrag from '~icons/default/Drag'
 import InputButton from '@/components/InputButton.vue'
 
 import { useAuthStore } from '@/stores/auth'
@@ -17,6 +18,8 @@ import BaseModal from '@/components/BaseModal.vue'
 import { ACCESS_READ, ACCESS_WRITE } from '@/assets/js/constants'
 import ListView from '../views/ListView.vue'
 import CreateView from '../views/CreateView.vue'
+
+import { SlickList, SlickItem } from 'vue-slicksort'
 
 const authStore = useAuthStore()
 const viewStore = useViewStore()
@@ -53,25 +56,36 @@ const signedIn = computed(() => terminusStore.access >= ACCESS_WRITE)
 function signout() {
   authStore.clearCredentials()
   terminusStore.connect(ACCESS_READ)
+  showUserSettings.value = false
   router.push({ name: 'home' })
 }
 
 async function signin() {
+  showUserSettings.value = false
   router.push({ name: 'signin' })
 }
 
 const showSearch = ref(false)
 const showAdd = ref(false)
+const showUserSettings = ref(false)
 const modalType = ref('entity')
 
 function toggleSearch() {
   showSearch.value = !showSearch.value
   showAdd.value = false
+  showUserSettings.value = false
 }
 
 function toggleAdd() {
   showAdd.value = !showAdd.value
   showSearch.value = false
+  showUserSettings.value = false
+}
+
+function toggleUserSettings() {
+  showUserSettings.value = !showUserSettings.value
+  showSearch.value = false
+  showAdd.value = false
 }
 </script>
 
@@ -120,8 +134,8 @@ function toggleAdd() {
       </span>
     </slot>
     <InputButton>
-      <IconUser v-if="!signedIn" @click="signin" />
-      <IconUserSignedIn v-else @click="signout" />
+      <IconUser v-if="!signedIn" @click="toggleUserSettings" />
+      <IconUserSignedIn v-else @click="toggleUserSettings" />
     </InputButton>
     <Teleport to="body" v-if="showSearch">
       <BaseModal @close="showSearch = false">
@@ -147,6 +161,42 @@ function toggleAdd() {
         <CreateView :type="modalType" disable-routing @completed="showAdd = false" />
       </BaseModal>
     </Teleport>
+    <Teleport to="body" v-if="showUserSettings">
+      <BaseModal @close="showUserSettings = false" class="user-settings">
+        <section>
+          <span>preferred languages</span>
+          <SlickList
+            appendTo=".user-settings"
+            axis="y"
+            v-model:list="viewStore.userLanguages"
+            class="list"
+          >
+            <SlickItem
+              v-for="(lang, i) in viewStore.userLanguages"
+              :key="lang"
+              :index="i"
+              class="item"
+            >
+              {{ lang }}
+              <IconDrag />
+            </SlickItem>
+          </SlickList>
+        </section>
+        <section>
+          <InputButton primary @click="() => (signedIn ? signout() : signin())"
+            >sign {{ signedIn ? 'out' : 'in' }}</InputButton
+          >
+        </section>
+        <!-- <InputSelect
+          :options="[
+            { label: 'graph', value: 'graph' },
+            { label: 'entity', value: 'entity' }
+          ]"
+          v-model="modalType"
+        />
+        <CreateView :type="modalType" disable-routing @completed="showAdd = false" /> -->
+      </BaseModal>
+    </Teleport>
   </header>
 </template>
 
@@ -163,6 +213,51 @@ header {
     // margin-left: var(--spacing);
     display: flex;
     align-items: center;
+  }
+}
+</style>
+
+<style lang="scss">
+.user-settings {
+  font-size: var(--font-size-s);
+
+  .list {
+    margin-top: var(--spacing-s);
+
+    .item {
+      border-radius: 0;
+      &:first-of-type {
+        border-top-right-radius: var(--spacing-s);
+        border-top-left-radius: var(--spacing-s);
+      }
+      &:last-of-type {
+        border-bottom-right-radius: var(--spacing-s);
+        border-bottom-left-radius: var(--spacing-s);
+      }
+    }
+  }
+
+  .item {
+    background-color: var(--secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: var(--spacing-s);
+
+    border-radius: var(--spacing-s);
+
+    cursor: move;
+
+    & + .item {
+      border-top: 1px solid var(--tint);
+    }
+
+    svg {
+      color: var(--tint);
+    }
+  }
+  section + section {
+    margin-top: var(--spacing-l);
   }
 }
 </style>
