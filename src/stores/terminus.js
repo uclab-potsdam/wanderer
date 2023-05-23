@@ -225,7 +225,9 @@ export const useTerminusStore = defineStore('terminus', () => {
           })
         )
       )
-    ).flat()
+    )
+      .flat()
+      .reverse()
   }
 
   async function search(term, type) {
