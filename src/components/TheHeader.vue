@@ -63,6 +63,16 @@ async function signin() {
 const showSearch = ref(false)
 const showAdd = ref(false)
 const modalType = ref('entity')
+
+function toggleSearch() {
+  showSearch.value = !showSearch.value
+  showAdd.value = false
+}
+
+function toggleAdd() {
+  showAdd.value = !showAdd.value
+  showSearch.value = false
+}
 </script>
 
 <template>
@@ -105,8 +115,8 @@ const modalType = ref('entity')
     <span />
     <slot name="right">
       <span>
-        <InputButton><IconSearch @click="showSearch = true" /></InputButton>
-        <InputButton><IconAdd @click="showAdd = true" /></InputButton>
+        <InputButton><IconSearch @click="toggleSearch" /></InputButton>
+        <InputButton><IconAdd @click="toggleAdd" /></InputButton>
       </span>
     </slot>
     <InputButton>
