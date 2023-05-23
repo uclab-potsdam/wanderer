@@ -23,7 +23,6 @@ async function addDocument() {
   props.disableRouting ? emit('completed') : router.go(-1)
 }
 function cancel() {
-  console.log('cancel')
   props.disableRouting ? emit('completed') : router.go(-1)
 }
 
@@ -32,7 +31,9 @@ function cancel() {
 // })
 watch(
   () => props.type || route.params.type,
-  () => (document.value['@type'] = route.params.type)
+  () => {
+    document.value['@type'] = props.type || route.params.type
+  }
 )
 </script>
 
