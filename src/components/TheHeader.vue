@@ -12,7 +12,7 @@ import { useViewStore } from '@/stores/view'
 import { useTerminusStore } from '@/stores/terminus'
 import { useRouter, useRoute, RouterLink } from 'vue-router'
 import { computed, ref } from 'vue'
-import InputSelect from './InputSelect.vue'
+import InputSelect from '@/components/InputSelect.vue'
 import BaseModal from '@/components/BaseModal.vue'
 
 import { ACCESS_READ, ACCESS_WRITE } from '@/assets/js/constants'
