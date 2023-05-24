@@ -56,10 +56,14 @@ async function getFrame() {
 
         let options = []
         if (type !== 'text' && !/:/.test(type)) {
-          options = (await terminusStore.getDocumentsByType(type)).map((doc) => ({
-            value: doc['@id'],
-            label: viewStore.localize(doc.label)
-          }))
+          if (type['@type'] === 'Enum') {
+            options = type['@values']
+          } else {
+            options = (await terminusStore.getDocumentsByType(type)).map((doc) => ({
+              value: doc['@id'],
+              label: viewStore.localize(doc.label)
+            }))
+          }
         }
 
         return {

@@ -16,7 +16,12 @@ export const useViewStore = defineStore('view', () => {
     if (text == null) return null
     return userLanguages.value.map((lang) => ({ text: text[lang], lang })).find((d) => d.text)
   }
-  return { before, userLanguages, localize }
+
+  function getMediaUrl(filename) {
+    return `${import.meta.env.VITE_MEDIA_SERVER.replace(/\/$/, '')}/${filename.replace(/^\//, '')}`
+  }
+
+  return { before, userLanguages, localize, getMediaUrl }
 })
 
 if (import.meta.hot) {

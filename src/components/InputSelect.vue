@@ -24,11 +24,11 @@ const name = `n${(Math.random() + 1).toString(36).substring(2)}`
       <option v-if="allowNull" :value="null">–</option>
       <option
         v-for="(option, i) in options"
-        :key="option.value"
-        :value="option.value"
+        :key="option.value ?? option"
+        :value="option.value ?? option"
         :lang="option.label?.lang"
       >
-        {{ option.label?.text || option.label || i }}
+        {{ option.label?.text ?? option.label ?? option ?? i }}
       </option>
     </select>
   </div>

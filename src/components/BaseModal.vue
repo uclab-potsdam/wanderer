@@ -17,7 +17,7 @@ defineEmits(['close'])
 <style lang="scss" scoped>
 .modal {
   position: absolute;
-  top: 45px;
+  top: var(--menu-bar-height);
   right: var(--spacing);
   min-width: 270px;
   // width: 270px;
@@ -31,7 +31,7 @@ defineEmits(['close'])
   // box-shadow: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) var(--shadow);
   // --shadow: rgba(var(--gray-0), 0.5);
 
-  max-height: calc(100vh - 45px - var(--spacing));
+  max-height: calc(100vh - var(--menu-bar-height) - var(--spacing));
   overflow: auto;
 
   background: var(--tint);
