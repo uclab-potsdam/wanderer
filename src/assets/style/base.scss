@@ -38,7 +38,7 @@ html {
     border: none;
     font-size: inherit;
 
-    &:hover, &.router-link-active, &:focus {
+    &:hover, &.router-link-active, &:focus-visible {
       color: var(--accent);
     }
 

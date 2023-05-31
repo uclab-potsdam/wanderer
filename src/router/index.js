@@ -108,7 +108,11 @@ router.beforeEach(async (to, from) => {
     terminusStore.currentLabel = null
   }
 
-  if (to.name === 'compose' || (to.name === 'inspect' && to.params.type === 'graph')) {
+  if (
+    to.name === 'compose' ||
+    to.name === 'couple' ||
+    (to.name === 'inspect' && to.params.type === 'graph')
+  ) {
     await terminusStore.getGraph(`${to.params.type}/${to.params.id}`, true)
   }
 

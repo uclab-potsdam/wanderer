@@ -13,6 +13,7 @@ export const useTerminusStore = defineStore('terminus', () => {
 
   const properties = ref([])
   const classes = ref([])
+  const markers = ref([])
 
   const graph = ref([])
 
@@ -144,6 +145,24 @@ export const useTerminusStore = defineStore('terminus', () => {
     })
   }
 
+  async function addMarker(timestamp) {
+    await client.addDocument({
+      '@type': 'marker',
+      graph: graph.value,
+      timestamp
+    })
+    getMarkers()
+  }
+
+  async function deleteMarker(id) {
+    await deleteDocument(id)
+    getMarkers()
+  }
+
+  async function getMarkers() {
+    markers.value = await getDocumentsByType('marker')
+  }
+
   async function getGraph(id, clear = false) {
     graph.value = id
     if (clear.value) allocations.value = []
@@ -178,7 +197,7 @@ export const useTerminusStore = defineStore('terminus', () => {
       .map(({ edge }) => resolveEdge(edge))
       .filter((d) => d.source != null && d.target != null)
 
-    await Promise.all([getProperties(), getClasses()])
+    await Promise.all([getProperties(), getClasses(), getMarkers()])
   }
 
   async function getLabel(id) {
@@ -194,6 +213,12 @@ export const useTerminusStore = defineStore('terminus', () => {
       source: allocations.value.find(({ node }) => node['@id'] === edge.source),
       target: allocations.value.find(({ node }) => node['@id'] === edge.target)
     }
+  }
+
+  async function getMedia(id) {
+    const res = await getDocument(id)
+    if (res['@type'] === 'media') return res
+    if (res['@type'] === 'graph' && res.media != null) return await getDocument(res.media)
   }
 
   async function getProperties() {
@@ -278,7 +303,12 @@ export const useTerminusStore = defineStore('terminus', () => {
     properties,
     classes,
     currentLabel,
-    getLabel
+    getLabel,
+    getMedia,
+    addMarker,
+    getMarkers,
+    markers,
+    deleteMarker
   }
 })
 

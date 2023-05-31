@@ -1,7 +1,9 @@
 <script setup>
 import { computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import DocumentCard from './DocumentCard.vue'
+
+const route = useRoute()
 
 const props = defineProps({
   allocation: Object
@@ -9,13 +11,16 @@ const props = defineProps({
 
 const x = computed(() => props.allocation.x)
 const y = computed(() => props.allocation.y)
+
+const type = computed(() => props.allocation.node['@type'])
+const id = computed(() => props.allocation.node['@id'].replace(/[^/]+\//, ''))
 </script>
 
 <template>
   <foreignObject width="100" height="100" :x="x" :y="y">
     <RouterLink
       v-if="allocation.node['@type'] === 'graph'"
-      :to="`/${allocation.node['@id']}`"
+      :to="{ name: route.name, params: { type, id } }"
       class="button"
     >
       <DocumentCard :document="allocation.node" />
