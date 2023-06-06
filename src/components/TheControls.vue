@@ -314,7 +314,7 @@ function seekForward() {
       width: 100%;
       border-radius: 1px;
       background: var(--primary);
-      outline: px solid var(--secondary);
+      outline: 1px solid var(--secondary);
     }
     .progress {
       height: 16px;
