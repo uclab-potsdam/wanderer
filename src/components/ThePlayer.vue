@@ -49,7 +49,9 @@ function update() {
 watch(
   () => syncStore.timeOverwrite,
   () => {
+    if (syncStore.timeOverwrite == null) return
     video.value.currentTime = syncStore.timeOverwrite
+    syncStore.timeOverwrite = null
   }
 )
 
