@@ -10,7 +10,7 @@ const router = useRouter()
 const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
 
-const props = defineProps(['edge'])
+const props = defineProps({ edge: Object, interactive: Boolean })
 
 const label = computed(() => {
   const propertyClass = terminusStore.properties.find((c) => c['@id'] === props.edge.edge?.property)
@@ -35,6 +35,7 @@ const arrow = computed(() => (props.edge.source.x < props.edge.target.x ? '→' 
 // const showOptions = ref(false);
 
 function onClick() {
+  if (!props.interactive) return
   // showOptions.value = true;
   router.push(`/edit/${props.edge.edge?.['@id']}`)
 }
@@ -44,7 +45,7 @@ function onClick() {
   <g class="edge" :class="{ local }" @click="onClick">
     <path class="edge-shadow" :d="path" />
     <path v-if="!local" class="edge-outline" :d="path" />
-    <path :id="id" class="edge-main" :class="{ active: edge.active }" :d="path" />
+    <path :id="id" class="edge-main" :class="{ active: edge.active, interactive }" :d="path" />
     <text :lang="label.lang">
       <textPath :href="`#${id}`" startOffset="50%" dominant-baseline="middle">
         {{ arrow }} {{ label.text }} {{ arrow }}
@@ -64,7 +65,7 @@ function onClick() {
 
 <style lang="scss" scoped>
 .edge {
-  cursor: context-menu;
+  // cursor: context-menu;
   .edge-shadow {
     stroke-width: 26;
     stroke: var(--secondary);
@@ -100,7 +101,7 @@ function onClick() {
       stroke: var(--primary);
       stroke-width: 20;
 
-      &:hover,
+      &.interactive:hover,
       &.active {
         stroke: var(--accent);
         cursor: default;

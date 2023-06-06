@@ -130,6 +130,7 @@ function onDragOver(e) {
         <g class="edges">
           <CanvasEdge
             v-for="(edge, i) in terminusStore.edges"
+            :interactive="mode === 'compose'"
             :key="edge.edge?.['@id'] || i"
             :edge="edge"
           />
