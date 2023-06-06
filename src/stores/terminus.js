@@ -255,6 +255,18 @@ export const useTerminusStore = defineStore('terminus', () => {
       .reverse()
   }
 
+  async function setStateChange(marker, id, state) {
+    const stateChanges = marker.state_change?.filter((stateChange) => stateChange.node !== id) ?? []
+    if (state != null) stateChanges.push({ '@type': 'state-change', node: id, state: state })
+
+    await client.updateDocument({
+      ...marker,
+      state_change: stateChanges
+    })
+
+    getMarkers()
+  }
+
   async function search(term, type) {
     const res = await client.query(
       WOQL.select('v:doc')
@@ -308,7 +320,8 @@ export const useTerminusStore = defineStore('terminus', () => {
     addMarker,
     getMarkers,
     markers,
-    deleteMarker
+    deleteMarker,
+    setStateChange
   }
 })
 

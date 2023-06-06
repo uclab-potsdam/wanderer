@@ -22,11 +22,11 @@ const syncStore = useSyncStore()
 const terminusStore = useTerminusStore()
 
 const formattedTime = computed(() => formatTime(syncStore.time))
-const atMarker = computed(() =>
-  terminusStore.markers.find((marker) => {
-    return Math.abs(syncStore.time - marker.timestamp) <= 1 / framerate / 2
-  })
-)
+// const atMarker = computed(() =>
+//   terminusStore.markers.find((marker) => {
+//     return Math.abs(syncStore.time - marker.timestamp) <= 1 / framerate / 2
+//   })
+// )
 
 // const timestamps = computed(() => {
 //   return dataStore.currentEntityTimestamps.map((timestamp) => {
@@ -148,11 +148,11 @@ function addMarker() {
 
 function deleteMarker() {
   if (!props.mark) return
-  terminusStore.deleteMarker(atMarker.value['@id'])
+  terminusStore.deleteMarker(syncStore.atMarker['@id'])
 }
 
 function toggleMarker() {
-  atMarker.value ? deleteMarker() : addMarker()
+  syncStore.atMarker ? deleteMarker() : addMarker()
 }
 
 function seekBackward() {
@@ -211,7 +211,7 @@ function seekForward() {
           class="marker"
           v-for="marker in terminusStore.markers"
           :key="marker['@id']"
-          :class="{ active: atMarker?.['@id'] === marker['@id'] }"
+          :class="{ active: syncStore.atMarker?.['@id'] === marker['@id'] }"
           :style="{ left: `${(marker.timestamp / syncStore.duration) * 100}%` }"
         ></div>
         <!-- </div> -->
@@ -243,7 +243,7 @@ function seekForward() {
           <BaseButton>
             <IconSeekBack @click="seekBackward" />
           </BaseButton>
-          <BaseButton v-if="atMarker == null" @click="addMarker">
+          <BaseButton v-if="syncStore.atMarker == null" @click="addMarker">
             <IconMarkerAdd />
           </BaseButton>
           <BaseButton v-else @click="deleteMarker">

@@ -1,9 +1,12 @@
 import { computed, ref } from 'vue'
 import { defineStore, acceptHMRUpdate } from 'pinia'
+import { useTerminusStore } from '@/stores/terminus'
 
 export const useSyncStore = defineStore('sync', () => {
+  const terminusStore = useTerminusStore()
   const channel = new BroadcastChannel('sync')
   const time = ref(47.4)
+  const framerate = ref(23.98)
   const timeOverwrite = ref(null)
   const playing = ref(false)
   const duration = ref(100)
@@ -65,6 +68,21 @@ export const useSyncStore = defineStore('sync', () => {
     })
   }
 
+  const atMarker = computed(() =>
+    terminusStore.markers.find((marker) => {
+      return Math.abs(time.value - marker.timestamp) <= 1 / framerate.value / 2
+    })
+  )
+
+  const currentMarker = computed(() =>
+    terminusStore.markers.reduce((a, b) => {
+      if (b.timestamp - 1 / framerate.value / 2 > time.value) return a
+      if (a == null) return b
+      if (Math.abs(a.timestamp - time.value) < Math.abs(b.timestamp - time.value)) return a
+      return b
+    }, null)
+  )
+
   const progress = computed(() => time.value / duration.value)
 
   channel.addEventListener('message', ({ data }) => {
@@ -101,6 +119,9 @@ export const useSyncStore = defineStore('sync', () => {
     duration,
     progress,
     timeOverwrite,
+    atMarker,
+    currentMarker,
+    framerate,
     updateTime,
     setTime,
     setPlaying,
@@ -112,6 +133,6 @@ export const useSyncStore = defineStore('sync', () => {
   }
 })
 
-// if (import.meta.hot) {
-//   import.meta.hot.accept(acceptHMRUpdate(useSyncStore, import.meta.hot))
-// }
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useSyncStore, import.meta.hot))
+}

@@ -6,7 +6,12 @@ import { computed } from 'vue'
 const viewStore = useViewStore()
 const terminusStore = useTerminusStore()
 
-const props = defineProps({ document: Object, draggable: String })
+const props = defineProps({
+  document: Object,
+  draggable: String,
+  showHover: Boolean,
+  showButtons: Boolean
+})
 
 const label = computed(() => {
   return viewStore.localize(props.document.label)
@@ -33,7 +38,10 @@ function onDragStart(e) {
     class="document"
     :draggable="draggable === 'native'"
     @dragstart="onDragStart"
-    :class="[document['@type']?.toLowerCase()]"
+    :class="[
+      document['@type']?.toLowerCase(),
+      { 'show-hover': showHover, 'show-buttons': showButtons }
+    ]"
   >
     <span class="label" :lang="label?.lang"> {{ label?.text }} </span>
     <br />
@@ -129,13 +137,18 @@ section.document {
     }
   }
 
-  &:hover {
+  &.show-hover:hover {
     color: var(--accent);
 
     &.entityclass,
     &.propertyclass {
       border-image: url('@/assets/img/border-accent.svg') 1 round;
     }
+    .buttons {
+      display: block;
+    }
+  }
+  &.show-buttons {
     .buttons {
       display: block;
     }

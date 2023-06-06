@@ -6,7 +6,9 @@ import { useRoute } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
 import CanvasDocumentCard from './CanvasDocumentCard.vue'
 import CanvasDocumentCardStatic from './CanvasDocumentCardStatic.vue'
+import CanvasDocumentCardCouple from './CanvasDocumentCardCouple.vue'
 import CanvasEdge from './CanvasEdge.vue'
+import CanvasEdgeCouple from './CanvasEdgeCouple.vue'
 
 const containerRef = ref(null)
 const container = ref(null)
@@ -128,12 +130,22 @@ function onDragOver(e) {
       <rect x="0" y="0" width="100%" height="100%" fill="url(#bg)" />
       <g :transform="transform">
         <g class="edges">
-          <CanvasEdge
-            v-for="(edge, i) in terminusStore.edges"
-            :interactive="mode === 'compose'"
-            :key="edge.edge?.['@id'] || i"
-            :edge="edge"
-          />
+          <template v-if="mode !== 'couple'">
+            <CanvasEdge
+              v-for="(edge, i) in terminusStore.edges"
+              :interactive="mode === 'compose'"
+              :key="edge.edge?.['@id'] || i"
+              :edge="edge"
+            />
+          </template>
+          <template v-else>
+            <CanvasEdgeCouple
+              v-for="(edge, i) in terminusStore.edges"
+              :interactive="mode === 'compose'"
+              :key="edge.edge?.['@id'] || i"
+              :edge="edge"
+            />
+          </template>
           <CanvasEdge v-if="connectingLine" :edge="connectingLine" />
         </g>
         <g class="nodes">
@@ -150,6 +162,13 @@ function onDragOver(e) {
               @connect-end="onConnectEnd(allocation)"
               @mouse-enter="connectable = allocation"
               @mouse-out="connectable = null"
+            />
+          </template>
+          <template v-else-if="mode === 'couple'">
+            <CanvasDocumentCardCouple
+              v-for="allocation in terminusStore.allocations"
+              :key="allocation.node['@id']"
+              :allocation="allocation"
             />
           </template>
           <template v-else>

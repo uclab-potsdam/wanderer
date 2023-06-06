@@ -18,7 +18,7 @@ defineProps({ documents: Array, singleColumn: Boolean })
       :key="document['@id']"
       class="button"
     >
-      <DocumentCard :document="document" draggable="native">
+      <DocumentCard :document="document" draggable="native" show-hover>
         <template v-slot:right>
           <RouterLink v-if="document['@type'] === 'graph'" :to="`/compose/${document['@id']}`">
             <IconCompose />

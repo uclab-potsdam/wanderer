@@ -145,6 +145,7 @@ function onMouseOut() {
         'connecting-to': connectingTo,
         connectable: connectable
       }"
+      show-hover
     >
       <template v-slot:center>
         <IconArrow
