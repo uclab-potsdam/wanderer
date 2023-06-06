@@ -125,7 +125,7 @@ function onKeyDown({ code, altKey, shiftKey }) {
       else setProgress(syncStore.time + amount)
       break
     case 'KeyM':
-      addMarker()
+      toggleMarker()
       break
   }
   userInteracted()
@@ -149,6 +149,10 @@ function addMarker() {
 function deleteMarker() {
   if (!props.mark) return
   terminusStore.deleteMarker(atMarker.value['@id'])
+}
+
+function toggleMarker() {
+  atMarker.value ? deleteMarker() : addMarker()
 }
 
 function seekBackward() {
@@ -452,6 +456,7 @@ function seekForward() {
 
       &.active {
         border-color: var(--accent);
+        background-color: var(--accent);
       }
     }
   }
