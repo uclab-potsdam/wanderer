@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
 import DocumentCard from './DocumentCard.vue'
 
 import IconStateHidden from '~icons/default/StateHidden'
@@ -13,8 +12,6 @@ import IconStateReset from '~icons/default/StateReset'
 import { useSyncStore } from '@/stores/sync'
 import { useTerminusStore } from '@/stores/terminus'
 
-const route = useRoute()
-
 const syncStore = useSyncStore()
 const terminusStore = useTerminusStore()
 
@@ -24,9 +21,6 @@ const props = defineProps({
 
 const x = computed(() => props.allocation.x)
 const y = computed(() => props.allocation.y)
-
-const type = computed(() => props.allocation.node['@type'])
-const id = computed(() => props.allocation.node['@id'].replace(/[^/]+\//, ''))
 
 const markers = computed(() =>
   terminusStore.markers.filter((marker) =>
