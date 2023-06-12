@@ -75,16 +75,50 @@ const state = computed(() => {
 <style lang="scss" scoped>
 .edge {
   &.hidden {
-    opacity: 0.1;
+    :deep(path.edge-main) {
+      stroke: var(--hidden-couple);
+    }
+    :deep(text) {
+      fill: var(--hidden-couple);
+    }
   }
   &.inactive {
-    opacity: 0.3;
+    :deep(path.edge-main) {
+      stroke: var(--inactive);
+    }
+    :deep(text) {
+      fill: var(--inactive);
+    }
   }
   &.active {
-    opacity: 0.7;
+    :deep(path.edge-main) {
+      stroke: var(--primary);
+
+      &.end {
+        marker-end: url(#arrow);
+      }
+      &:not(.end) {
+        marker-start: url(#arrow-flipped);
+      }
+    }
+    :deep(text) {
+      fill: var(--primary);
+    }
   }
   &.highlight {
-    opacity: 1;
+    :deep(path.edge-main) {
+      stroke: var(--accent);
+
+      &.end {
+        marker-end: url(#arrow-accent);
+      }
+      &:not(.end) {
+        marker-start: url(#arrow-accent-flipped);
+      }
+    }
+    :deep(text) {
+      fill: var(--accent);
+    }
   }
 }
 </style>

@@ -140,7 +140,7 @@ function onDragOver(e) {
           refY="5"
           orient="auto"
         >
-          <path d="M13,1 L8,5 L13,9" fill="none" />
+          <path d="M2,1 L7,5 L2,9" fill="none" />
         </marker>
         <marker
           id="arrow-flipped"
@@ -173,7 +173,7 @@ function onDragOver(e) {
           <path d="M13,1 L8,5 L13,9" fill="none" />
         </marker>
       </defs>
-      <rect x="0" y="0" width="100%" height="100%" fill="url(#bg)" />
+      <rect v-if="mode === 'compose'" x="0" y="0" width="100%" height="100%" fill="url(#bg)" />
       <g :transform="transform">
         <g class="edges">
           <template v-if="mode !== 'couple'">

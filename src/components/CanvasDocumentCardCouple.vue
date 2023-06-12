@@ -93,19 +93,23 @@ function setStateChange(id, state) {
 <style lang="scss" scoped>
 foreignObject > section.document {
   transform: translate(-50%, -50%);
-  outline: 3px solid var(--secondary);
+  // outline: 3px solid var(--secondary);
 
+  transition: all 0.2s;
   &.hidden {
-    opacity: 0.1;
+    color: var(--hidden-couple);
+    // border: none;
   }
   &.inactive {
-    opacity: 0.3;
+    color: var(--inactive);
+    // border: none;
   }
   &.active {
-    opacity: 0.7;
+    color: var(--primary);
+    // border: none;
   }
   &.highlight {
-    opacity: 1;
+    color: var(--accent);
   }
 
   .button-group {

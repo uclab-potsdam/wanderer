@@ -6,6 +6,9 @@
   --shadow: rgba(var(--gray-0), 0.5);
   --tint: rgb(var(--teal-10));
   --selection: rgba(var(--teal-9), 0.5);
+
+  --hidden-couple: rgba(var(--gray-10), 0.3);
+  --inactive: var(--muted);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +20,9 @@
     --shadow: rgba(var(--gray-11), 0.5);
     --tint: rgb(var(--teal-1));
     --selection: rgba(var(--teal-3), 0.5);
+
+    --hidden-couple: rgba(var(--gray-1), 0.3);
+    --inactive: var(--muted);
   }
 }
 

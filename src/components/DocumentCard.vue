@@ -65,6 +65,7 @@ section.document {
   background: var(--secondary);
 
   border: 1px solid currentColor;
+  border-radius: var(--border-radius);
   width: 250px;
   min-height: 75px;
 
