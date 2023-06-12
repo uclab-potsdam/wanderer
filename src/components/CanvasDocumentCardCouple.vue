@@ -62,16 +62,16 @@ function setStateChange(id, state) {
     <DocumentCard :document="allocation.node" :class="[displayState]" show-buttons>
       <template v-slot:center>
         <div class="button-group" v-if="!syncStore.playing && syncStore.atMarker != null">
-          <BaseButton>
+          <BaseButton :class="{ active: state === 'hidden' }">
             <IconStateHidden @click="setStateChange(allocation.node['@id'], 'hidden')" />
           </BaseButton>
-          <BaseButton>
+          <BaseButton :class="{ active: state === 'inactive' }">
             <IconStateInactive @click="setStateChange(allocation.node['@id'], 'inactive')" />
           </BaseButton>
-          <BaseButton>
+          <BaseButton :class="{ active: state === 'active' }">
             <IconStateActive @click="setStateChange(allocation.node['@id'], 'active')" />
           </BaseButton>
-          <BaseButton>
+          <BaseButton :class="{ active: state === 'highlight' }">
             <IconStateHighlight @click="setStateChange(allocation.node['@id'], 'highlight')" />
           </BaseButton>
         </div>

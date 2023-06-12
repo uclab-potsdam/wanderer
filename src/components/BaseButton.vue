@@ -11,7 +11,8 @@ button {
   color: var(--primary);
 
   &:hover,
-  &:focus-visible {
+  &:focus-visible,
+  &.active {
     color: var(--accent);
   }
 
