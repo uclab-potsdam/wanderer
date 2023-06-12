@@ -153,7 +153,7 @@ function onClick() {
 
 <template>
   <g class="edge" :class="{ local }" @click="onClick">
-    <path class="edge-shadow" :d="path" />
+    <!-- <path class="edge-shadow" :d="path" /> -->
     <!-- <path v-if="!local" class="edge-outline" :d="path" /> -->
     <path
       :id="id"
@@ -186,6 +186,7 @@ function onClick() {
 
 <style lang="scss" scoped>
 .edge {
+  user-select: none;
   // cursor: context-menu;
 
   path {
@@ -198,6 +199,7 @@ function onClick() {
   .edge-main {
     stroke-width: 1;
     stroke: var(--muted);
+    mix-blend-mode: multiply;
     &.end {
       marker-end: url(#arrow-muted);
     }

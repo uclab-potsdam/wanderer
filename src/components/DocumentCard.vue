@@ -60,6 +60,7 @@ function onDragStart(e) {
 
 <style lang="scss" scoped>
 section.document {
+  user-select: none;
   padding: var(--spacing);
   position: relative;
   background: var(--secondary);
