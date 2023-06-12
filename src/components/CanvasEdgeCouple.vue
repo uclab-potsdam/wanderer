@@ -64,7 +64,12 @@ const state = computed(() => {
 </script>
 
 <template>
-  <CanvasEdge :class="[state]" :edge="edge" :interactive="interactive" />
+  <CanvasEdge
+    :class="[state]"
+    :edge="edge"
+    :interactive="interactive"
+    :display-remote-style="true"
+  />
 </template>
 
 <style lang="scss" scoped>

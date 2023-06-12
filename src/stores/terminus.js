@@ -94,16 +94,24 @@ export const useTerminusStore = defineStore('terminus', () => {
 
   async function addAllocation(node, graph, coordinates) {
     const allocation = allocations.value.find((allocation) => allocation.node['@id'] === node)
+
+    const snapping = true
+    const gridSize = snapping ? 62.5 : 0.5
+    const snapTo = {
+      x: Math.round(coordinates.x / gridSize) * gridSize,
+      y: Math.round(coordinates.y / gridSize) * gridSize
+    }
+
     if (allocation != null) {
-      allocation.x = coordinates.x
-      allocation.y = coordinates.y
+      allocation.x = snapTo.x
+      allocation.y = snapTo.y
     }
     await client.updateDocument(
       {
         '@type': 'allocation',
         node,
         graph,
-        ...coordinates
+        ...snapTo
       },
       { create: true },
       null,

@@ -126,6 +126,52 @@ function onDragOver(e) {
           <circle class="point" r="0.75" :transform="`translate(1 ${pattern.height / 2 + 1})`" />
           <circle class="point" r="0.75" :transform="`translate(${pattern.width / 2 + 1} 1)`" />
         </pattern>
+        <marker id="arrow" markerWidth="15" markerHeight="10" refX="7" refY="5" orient="auto">
+          <path d="M2,1 L7,5 L2,9" fill="none" />
+        </marker>
+        <marker id="arrow-muted" markerWidth="15" markerHeight="10" refX="7" refY="5" orient="auto">
+          <path d="M2,1 L7,5 L2,9" fill="none" />
+        </marker>
+        <marker
+          id="arrow-accent"
+          markerWidth="15"
+          markerHeight="10"
+          refX="7"
+          refY="5"
+          orient="auto"
+        >
+          <path d="M13,1 L8,5 L13,9" fill="none" />
+        </marker>
+        <marker
+          id="arrow-flipped"
+          markerWidth="15"
+          markerHeight="10"
+          refX="8"
+          refY="5"
+          orient="auto"
+        >
+          <path d="M13,1 L8,5 L13,9" fill="none" />
+        </marker>
+        <marker
+          id="arrow-muted-flipped"
+          markerWidth="15"
+          markerHeight="10"
+          refX="8"
+          refY="5"
+          orient="auto"
+        >
+          <path d="M13,1 L8,5 L13,9" fill="none" />
+        </marker>
+        <marker
+          id="arrow-accent-flipped"
+          markerWidth="15"
+          markerHeight="10"
+          refX="8"
+          refY="5"
+          orient="auto"
+        >
+          <path d="M13,1 L8,5 L13,9" fill="none" />
+        </marker>
       </defs>
       <rect x="0" y="0" width="100%" height="100%" fill="url(#bg)" />
       <g :transform="transform">
@@ -202,6 +248,25 @@ function onDragOver(e) {
     pattern {
       circle {
         fill: var(--primary);
+      }
+    }
+
+    #arrow,
+    #arrow-flipped {
+      path {
+        stroke: var(--primary);
+      }
+    }
+    #arrow-muted,
+    #arrow-muted-flipped {
+      path {
+        stroke: var(--muted);
+      }
+    }
+    #arrow-accent,
+    #arrow-accent-flipped {
+      path {
+        stroke: var(--accent);
       }
     }
   }

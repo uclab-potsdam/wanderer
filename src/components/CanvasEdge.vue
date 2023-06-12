@@ -10,14 +10,18 @@ const router = useRouter()
 const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
 
-const props = defineProps({ edge: Object, interactive: Boolean })
+const props = defineProps({ edge: Object, interactive: Boolean, displayRemoteStyle: Boolean })
 
 const label = computed(() => {
   const propertyClass = terminusStore.properties.find((c) => c['@id'] === props.edge.edge?.property)
   return propertyClass?.label ? viewStore.localize(propertyClass.label) : {}
 })
 
-const local = computed(() => props.edge.edge?.graph === terminusStore.graph || props.edge.active)
+const local = computed(
+  () =>
+    !props.displayRemoteStyle &&
+    (props.edge.edge?.graph === terminusStore.graph || props.edge.active)
+)
 
 const id = computed(() => {
   return (props.edge.id || props.edge.edge?.['@id'] || 'some-path').replace(/%/g, '-')
@@ -25,12 +29,118 @@ const id = computed(() => {
 
 const path = computed(() => {
   if (props.edge.target == null) return ``
-  return props.edge.source.x < props.edge.target.x
-    ? `M${props.edge.source.x},${props.edge.source.y}L${props.edge.target.x},${props.edge.target.y}`
-    : `M${props.edge.target.x},${props.edge.target.y}L${props.edge.source.x},${props.edge.source.y}`
+  const { source, target } = props.edge
+
+  const diffX = target.x - source.x
+  const diffY = target.y - source.y
+
+  const offsetX = 130
+  const offsetY = 70
+
+  const horizontal = Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > offsetX * 2
+
+  const direction =
+    (horizontal && source.x < target.x) || (!horizontal && source.y < target.y) ? 1 : -1
+
+  const flip = (horizontal && source.y < target.y) || (!horizontal && source.x < target.x) ? 1 : -1
+
+  const push = horizontal ? (diffX > 0 ? -15 : +15) : diffY > 0 ? -60 : 60
+
+  const start = {
+    x: horizontal ? source.x + offsetX * direction : source.x + push,
+    y: horizontal ? source.y + push : source.y + offsetY * direction
+  }
+  const end = {
+    x: horizontal ? target.x + offsetX * direction * -1 : target.x + push,
+    y: horizontal ? target.y + push : target.y + offsetY * direction * -1
+  }
+
+  // const c1 =
+  //   Math.abs(diffX) > Math.abs(diffY)
+  //     ? [
+  //         [source.x + diffX / 2, source.y + diffY / 10],
+  //         'L',
+  //         [source.x + diffX / 2, target.y - diffY / 10]
+  //       ]
+  //     : [
+  //         [source.x + diffX / 10, source.y + diffY / 2],
+  //         'L',
+  //         [target.x - diffX / 10, source.y + diffY / 2]
+  //       ]
+
+  // const points = [[source.x, source.y], 'L', ...c1, 'L', [target.x, target.y]]
+
+  const r = Math.min(40, Math.abs(horizontal ? diffY : diffX) / 2)
+  // const c1 =
+  //   Math.abs(diffX) > Math.abs(diffY)
+  //     ? [
+  //         [source.x + diffX / 2 - r, source.y],
+  //         [source.x + diffX / 2, source.y],
+  //         [source.x + diffX / 2, source.y + r],
+  //         [source.x + diffX / 2, target.y - r],
+  //         [source.x + diffX / 2, target.y],
+  //         [source.x + diffX / 2 + r, target.y]
+  //       ]
+  //     : [
+  //         [source.x, source.y + diffY / 2 + r],
+  //         [source.x, source.y + diffY / 2],
+  //         [source.x + r, source.y + diffY / 2],
+  //         [target.x - r, source.y + diffY / 2],
+  //         [target.x, source.y + diffY / 2],
+  //         [target.x, source.y + diffY / 2 - r]
+  //       ]
+
+  const anchor1 = horizontal
+    ? { x: source.x + diffX / 2, y: start.y }
+    : { x: start.x, y: source.y + diffY / 2 }
+
+  const anchor2 = horizontal
+    ? { x: source.x + diffX / 2, y: end.y }
+    : { x: end.x, y: source.y + diffY / 2 }
+
+  // const points = [{
+  //   x: anchor1.x, y: anchor1.y
+
+  // }]
+  const points = [
+    start,
+    {
+      x: horizontal ? anchor1.x - r * direction : anchor1.x,
+      y: horizontal ? anchor1.y : anchor1.y - r * direction
+    },
+    anchor1,
+    {
+      x: horizontal ? anchor1.x : anchor1.x + r * flip,
+      y: horizontal ? anchor1.y + r * flip : anchor1.y
+    },
+    {
+      x: horizontal ? anchor2.x : anchor2.x - r * flip,
+      y: horizontal ? anchor2.y - r * flip : anchor2.y
+    },
+    anchor2,
+    {
+      x: horizontal ? anchor2.x + r * direction : anchor2.x,
+      y: horizontal ? anchor2.y : anchor2.y + r * direction
+    },
+    end
+  ]
+  // const points = [
+  //   [source.x, source.y],
+  //   [target.x, target.y]
+  // ]
+
+  if (source.x > target.x) points.reverse()
+  // points.splice(1, 0, 'L')
+  // points.splice(3, 0, 'Q')
+  // points.splice(6, 0, 'L')
+  // points.splice(8, 0, 'Q')
+  // points.splice(11, 0, 'L')
+  return `M${points
+    .map((point) => `${point.x} ${point.y}`)
+    .reduce((a, b, i) => `${a} ${' LQ'[i % 3]}${b} `)}`
 })
 
-const arrow = computed(() => (props.edge.source.x < props.edge.target.x ? '→' : '←'))
+const arrow = computed(() => (props.edge.source.x <= props.edge.target.x ? 'end' : 'start'))
 
 // const showOptions = ref(false);
 
@@ -44,12 +154,23 @@ function onClick() {
 <template>
   <g class="edge" :class="{ local }" @click="onClick">
     <path class="edge-shadow" :d="path" />
-    <path v-if="!local" class="edge-outline" :d="path" />
-    <path :id="id" class="edge-main" :class="{ active: edge.active, interactive }" :d="path" />
+    <!-- <path v-if="!local" class="edge-outline" :d="path" /> -->
+    <path
+      :id="id"
+      class="edge-main"
+      :class="[arrow, { active: edge.active, interactive }]"
+      :d="path"
+    />
     <text :lang="label.lang">
       <textPath :href="`#${id}`" startOffset="50%" dominant-baseline="middle">
-        {{ arrow }} {{ label.text }} {{ arrow }}
+        {{ label.text }}
       </textPath>
+      <!-- <textPath :href="`#${id}`" startOffset="75%" dominant-baseline="middle">
+        {{ arrow }}
+      </textPath>
+      <textPath :href="`#${id}`" startOffset="25%" dominant-baseline="middle">
+        {{ arrow }}
+      </textPath> -->
     </text>
     <!-- <foreignObject v-if="showOptions">
       <Teleport to="body">
@@ -66,25 +187,42 @@ function onClick() {
 <style lang="scss" scoped>
 .edge {
   // cursor: context-menu;
+
+  path {
+    fill: none;
+  }
   .edge-shadow {
-    stroke-width: 26;
+    stroke-width: 6;
     stroke: var(--secondary);
   }
   .edge-main {
-    stroke-width: 18;
-    stroke: var(--secondary);
+    stroke-width: 1;
+    stroke: var(--muted);
+    &.end {
+      marker-end: url(#arrow-muted);
+    }
+    &:not(.end) {
+      marker-start: url(#arrow-muted-flipped);
+    }
   }
-  .edge-outline {
-    stroke-width: 20;
-    stroke: var(--primary);
-  }
+  // .edge-outline {
+  //   stroke-width: 4;
+  //   stroke: red;
+  // }
 
   text {
-    fill: var(--primary);
+    fill: var(--muted);
     font-size: var(--font-size-s);
-    font-weight: 500;
+    font-weight: 400;
+    text-transform: uppercase;
     pointer-events: none;
     text-anchor: middle;
+    letter-spacing: 1px;
+    // dominant-baseline: ideographic;
+
+    textPath {
+      dominant-baseline: ideographic;
+    }
   }
 
   &:has(.edge-main:hover, .edge-outline:hover) {
@@ -99,8 +237,13 @@ function onClick() {
   &.local {
     .edge-main {
       stroke: var(--primary);
-      stroke-width: 20;
-
+      &.end {
+        marker-end: url(#arrow);
+      }
+      &:not(.end) {
+        marker-start: url(#arrow-flipped);
+      }
+      // stroke-width: 20;
       &.interactive:hover,
       &.active {
         stroke: var(--accent);
@@ -109,12 +252,20 @@ function onClick() {
     }
 
     text {
-      fill: var(--secondary);
+      fill: var(--primary);
     }
 
     &:has(.edge-main:hover, .edge-outline:hover) {
       text {
-        fill: var(--secondary);
+        fill: var(--accent);
+      }
+      .edge-main {
+        &.end {
+          marker-end: url(#arrow-accent);
+        }
+        &:not(.end) {
+          marker-start: url(#arrow-accent-flipped);
+        }
       }
     }
   }
