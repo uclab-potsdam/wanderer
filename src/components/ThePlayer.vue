@@ -77,6 +77,11 @@ function onVolumeChange() {
 function setDuration() {
   syncStore.setDuration(video.value.duration)
 }
+
+function setPlaying(value) {
+  return value
+  // syncStore.setPlaying(value)
+}
 </script>
 
 <template>
@@ -91,8 +96,8 @@ function setDuration() {
       @durationchange="setDuration"
       @enterpictureinpicture="pip = true"
       @leavepictureinpicture="pip = false"
-      @play="syncStore.setPlaying(true)"
-      @pause="syncStore.setPlaying(false)"
+      @play="setPlaying(true)"
+      @pause="setPlaying(false)"
       @volumechange="onVolumeChange"
     >
       <source v-for="(source, i) in sources" :key="i" :src="source" preload />
