@@ -56,18 +56,10 @@ watch(
   }
 )
 
-// might resolve https://github.com/uclab-potsdam/wanderer/issues/37
-let playStateChange = false
 watch(
   () => syncStore.playing,
   async () => {
-    if (playStateChange) {
-      console.log('cancelling')
-      return
-    }
-    playStateChange = true
     await video.value[syncStore.playing ? 'play' : 'pause']()
-    playStateChange = false
   }
 )
 
