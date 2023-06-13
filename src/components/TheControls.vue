@@ -65,7 +65,7 @@ function initProgress(e) {
 
 function showProgress(e) {
   userProgress.value = (e.clientX - progressBarX.value) / progressBarWidth.value
-  userTime.value = userProgress.value * syncStore.duration
+  userTime.value = Math.max(0, userProgress.value * syncStore.duration)
   formattedUserTime.value = formatTime(userTime.value)
   if (props.scrubbing && !syncStore.playing) {
     syncStore.setTime(userTime.value)
