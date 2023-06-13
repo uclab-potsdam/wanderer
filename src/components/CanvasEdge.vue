@@ -199,7 +199,8 @@ function onClick() {
   .edge-main {
     stroke-width: 1;
     stroke: var(--muted);
-    mix-blend-mode: multiply;
+    mix-blend-mode: var(--default-blend-mode);
+
     &.end {
       marker-end: url(#arrow-muted);
     }

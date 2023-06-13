@@ -9,6 +9,7 @@
 
   --hidden-couple: rgba(var(--gray-10), 0.3);
   --inactive: var(--muted);
+  --default-blend-mode: darken;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +24,7 @@
 
     --hidden-couple: rgba(var(--gray-1), 0.3);
     --inactive: var(--muted);
+    --default-blend-mode: lighten;
   }
 }
 
