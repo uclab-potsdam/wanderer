@@ -74,6 +74,10 @@ const state = computed(() => {
 
 <style lang="scss" scoped>
 .edge {
+  :deep(path.edge-main),
+  :deep(text) {
+    transition: all 0.2s;
+  }
   &.hidden {
     :deep(path.edge-main) {
       stroke: var(--hidden-couple);
