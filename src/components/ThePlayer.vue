@@ -43,7 +43,8 @@ onMounted(() => {
 function update() {
   let currentTime = video.value?.currentTime
   // if (currentTime < range[0] || currentTime > range[1]) video.value.currentTime = currentTime = range[0];
-  syncStore.updateTime(currentTime)
+  if (syncStore.playing || currentTime !== syncStore.time) syncStore.updateTime(currentTime)
+
   requestAnimationFrame(update)
 }
 watch(
