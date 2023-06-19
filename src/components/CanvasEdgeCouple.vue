@@ -8,7 +8,7 @@ import { useTerminusStore } from '@/stores/terminus'
 const syncStore = useSyncStore()
 const terminusStore = useTerminusStore()
 
-const props = defineProps({ edge: Object, interactive: Boolean })
+const props = defineProps({ edge: Object, interactive: Boolean, mode: String })
 
 const sourceMarkers = computed(() =>
   terminusStore.markers.filter((marker) =>
@@ -65,7 +65,7 @@ const state = computed(() => {
 
 <template>
   <CanvasEdge
-    :class="[state]"
+    :class="[state, mode]"
     :edge="edge"
     :interactive="interactive"
     :display-remote-style="true"
@@ -79,6 +79,14 @@ const state = computed(() => {
     transition: all 0.2s;
   }
   &.hidden {
+    :deep(path.edge-main) {
+      stroke: var(--hidden);
+    }
+    :deep(text) {
+      fill: var(--hidden);
+    }
+  }
+  &.hidden.couple {
     :deep(path.edge-main) {
       stroke: var(--hidden-couple);
     }

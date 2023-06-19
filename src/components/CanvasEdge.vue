@@ -34,7 +34,7 @@ const path = computed(() => {
   const diffX = target.x - source.x
   const diffY = target.y - source.y
 
-  const offsetX = 130
+  const offsetX = 140
   const offsetY = 70
 
   const horizontal = Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > offsetX * 2

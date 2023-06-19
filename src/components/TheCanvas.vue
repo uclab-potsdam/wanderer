@@ -7,6 +7,7 @@ import { useTerminusStore } from '@/stores/terminus'
 import CanvasDocumentCard from './CanvasDocumentCard.vue'
 import CanvasDocumentCardStatic from './CanvasDocumentCardStatic.vue'
 import CanvasDocumentCardCouple from './CanvasDocumentCardCouple.vue'
+import CanvasDocumentCardScreen from './CanvasDocumentCardScreen.vue'
 import CanvasEdge from './CanvasEdge.vue'
 import CanvasEdgeCouple from './CanvasEdgeCouple.vue'
 
@@ -176,7 +177,7 @@ function onDragOver(e) {
       <rect v-if="mode === 'compose'" x="0" y="0" width="100%" height="100%" fill="url(#bg)" />
       <g :transform="transform">
         <g class="edges">
-          <template v-if="mode !== 'couple'">
+          <template v-if="mode !== 'couple' && mode !== 'screen'">
             <CanvasEdge
               v-for="(edge, i) in terminusStore.edges"
               :interactive="mode === 'compose'"
@@ -187,7 +188,7 @@ function onDragOver(e) {
           <template v-else>
             <CanvasEdgeCouple
               v-for="(edge, i) in terminusStore.edges"
-              :interactive="mode === 'compose'"
+              :mode="mode"
               :key="edge.edge?.['@id'] || i"
               :edge="edge"
             />
@@ -212,6 +213,13 @@ function onDragOver(e) {
           </template>
           <template v-else-if="mode === 'couple'">
             <CanvasDocumentCardCouple
+              v-for="allocation in terminusStore.allocations"
+              :key="allocation.node['@id']"
+              :allocation="allocation"
+            />
+          </template>
+          <template v-else-if="mode === 'screen'">
+            <CanvasDocumentCardScreen
               v-for="allocation in terminusStore.allocations"
               :key="allocation.node['@id']"
               :allocation="allocation"

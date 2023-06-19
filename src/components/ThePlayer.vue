@@ -1,51 +1,41 @@
 <script setup>
-import { useTerminusStore } from '@/stores/terminus'
+// import { useTerminusStore } from '@/stores/terminus'
 import { useSyncStore } from '@/stores/sync'
-import { useViewStore } from '@/stores/view'
-import { ref, watch, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+// import { useViewStore } from '@/stores/view'
+import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
+// import { useRoute } from 'vue-router'
 
 defineProps({
   letterbox: Boolean,
   width: { type: [Number, String] },
   height: { type: [Number, String] },
   position: { type: String, default: 'top-right' }
+  // sources: { Array, default: () => [] }
 })
 
-const route = useRoute()
-const terminusStore = useTerminusStore()
 const syncStore = useSyncStore()
-const viewStore = useViewStore()
-
-const document = ref({})
-const sources = ref([])
+// const sources = ref([])
+const sources = computed(() => syncStore.sources)
 
 const video = ref(null)
 const pip = ref(false)
 
-watch(
-  () => route.params,
-  async () => {
-    document.value =
-      route.params.type &&
-      route.params.id &&
-      (await terminusStore.getMedia(`${route.params.type}/${route.params.id}`))
-
-    sources.value = document.value?.file?.map((d) => viewStore.getMediaUrl(d)) ?? []
-  },
-  { immediate: true }
-)
-
 onMounted(() => {
   requestAnimationFrame(update)
 })
+
+onUnmounted(() => {
+  cancelAnimationFrame(updateLoop)
+})
+
+let updateLoop = null
 
 function update() {
   let currentTime = video.value?.currentTime
   // if (currentTime < range[0] || currentTime > range[1]) video.value.currentTime = currentTime = range[0];
   if (syncStore.playing || currentTime !== syncStore.time) syncStore.updateTime(currentTime)
 
-  requestAnimationFrame(update)
+  updateLoop = requestAnimationFrame(update)
 }
 watch(
   () => syncStore.timeOverwrite,
@@ -100,8 +90,15 @@ function setPlaying(value) {
       @pause="setPlaying(false)"
       @volumechange="onVolumeChange"
     >
-      <source v-for="(source, i) in sources" :key="i" :src="source" preload />
+      <source
+        v-for="(source, i) in sources"
+        :key="i"
+        :src="source"
+        :type="`video/${source.replace(/^.*\./, '')}`"
+        preload
+      />
     </video>
+    <div v-if="$slots.default && $slots.default()" class="center"><slot></slot></div>
   </div>
 </template>
 
@@ -111,6 +108,10 @@ function setPlaying(value) {
     width: 100%;
     height: 100%;
     display: block;
+
+    &:picture-in-picture {
+      opacity: 0;
+    }
   }
   &:not(.letterbox) {
     border-radius: var(--spacing-s);
@@ -145,6 +146,25 @@ function setPlaying(value) {
       object-fit: contain;
       background: black;
       top: 0;
+    }
+  }
+
+  .center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    opacity: 0;
+    transition: opacity var(--transition);
+    background: rgba(var(--gray-0), 0.3);
+
+    &:hover {
+      opacity: 1;
     }
   }
 }

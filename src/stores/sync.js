@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue'
-import { defineStore, acceptHMRUpdate } from 'pinia'
+import { defineStore /*, acceptHMRUpdate */ } from 'pinia'
 import { useTerminusStore } from '@/stores/terminus'
 
 export const useSyncStore = defineStore('sync', () => {
@@ -8,9 +8,12 @@ export const useSyncStore = defineStore('sync', () => {
   const time = ref(47.4)
   const framerate = ref(23.98)
   const timeOverwrite = ref(null)
-  const playing = ref(false)
+  const playing = ref(true)
   const duration = ref(100)
   const mute = ref(true)
+  const playsExternal = ref(false)
+
+  const sources = ref([])
   // const doubleCount = computed(() => count.value * 2);
   function updateTime(t) {
     time.value = t
@@ -23,7 +26,7 @@ export const useSyncStore = defineStore('sync', () => {
     timeOverwrite.value = t
     channel.postMessage({
       action: 'set_time',
-      value: time.value
+      value: t
     })
   }
   function setDuration(t) {
@@ -83,6 +86,18 @@ export const useSyncStore = defineStore('sync', () => {
     }, null)
   )
 
+  function handshake() {
+    channel.postMessage({
+      action: 'handshake'
+    })
+  }
+
+  function releaseHandshake() {
+    channel.postMessage({
+      action: 'handshake-release'
+    })
+  }
+
   const progress = computed(() => time.value / duration.value)
 
   channel.addEventListener('message', ({ data }) => {
@@ -101,6 +116,19 @@ export const useSyncStore = defineStore('sync', () => {
         break
       case 'set_duration':
         duration.value = data.value
+        break
+      case 'handshake':
+        playsExternal.value = true
+        channel.postMessage({
+          action: 'post_sources',
+          value: JSON.stringify(sources.value)
+        })
+        break
+      case 'handshake-release':
+        playsExternal.value = false
+        break
+      case 'post_sources':
+        sources.value = JSON.parse(data.value)
         break
       case 'request_duration':
         channel.postMessage({
@@ -122,6 +150,8 @@ export const useSyncStore = defineStore('sync', () => {
     atMarker,
     currentMarker,
     framerate,
+    sources,
+    playsExternal,
     updateTime,
     setTime,
     setPlaying,
@@ -129,10 +159,12 @@ export const useSyncStore = defineStore('sync', () => {
     setDuration,
     togglePlay,
     toggleMute,
-    requestDuration
+    requestDuration,
+    handshake,
+    releaseHandshake
   }
 })
 
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useSyncStore, import.meta.hot))
-}
+// if (import.meta.hot) {
+//   import.meta.hot.accept(acceptHMRUpdate(useSyncStore, import.meta.hot))
+// }

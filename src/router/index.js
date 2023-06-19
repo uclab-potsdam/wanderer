@@ -41,7 +41,7 @@ const router = createRouter({
       component: () => import('@/views/InspectView.vue'),
       meta: {
         requiresAccess: ACCESS_READ,
-        allowedTypes: ['graph', 'entity', 'media']
+        allowedTypes: ['graph', 'entity']
       }
     },
     {
@@ -81,6 +81,12 @@ const router = createRouter({
       name: 'couple',
       component: () => import('@/views/CoupleView.vue'),
       meta: { requiresAccess: ACCESS_WRITE, allowedTypes: ['graph'] }
+    },
+    {
+      path: '/player',
+      name: 'player',
+      component: () => import('@/views/PlayerView.vue'),
+      meta: { hideMenuBar: true }
     }
   ]
 })
@@ -111,7 +117,8 @@ router.beforeEach(async (to, from) => {
   if (
     to.name === 'compose' ||
     to.name === 'couple' ||
-    (to.name === 'inspect' && to.params.type === 'graph')
+    (to.name === 'inspect' && to.params.type === 'graph') ||
+    to.name === 'screen'
   ) {
     await terminusStore.getGraph(`${to.params.type}/${to.params.id}`, true)
   }

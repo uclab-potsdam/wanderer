@@ -207,13 +207,15 @@ function seekForward() {
           <div class="tick" />
         </div>
         <!-- <div class="markers" v-if="mark"> -->
-        <div
-          class="marker"
-          v-for="marker in terminusStore.markers"
-          :key="marker['@id']"
-          :class="{ active: syncStore.atMarker?.['@id'] === marker['@id'] }"
-          :style="{ left: `${(marker.timestamp / syncStore.duration) * 100}%` }"
-        ></div>
+        <template v-if="mark">
+          <div
+            class="marker"
+            v-for="marker in terminusStore.markers"
+            :key="marker['@id']"
+            :class="{ active: syncStore.atMarker?.['@id'] === marker['@id'] }"
+            :style="{ left: `${(marker.timestamp / syncStore.duration) * 100}%` }"
+          ></div>
+        </template>
         <!-- </div> -->
         <!-- <div class="timestamps">
         <div
