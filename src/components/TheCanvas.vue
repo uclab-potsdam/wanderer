@@ -1,7 +1,7 @@
 <script async setup>
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
 import CanvasDocumentCard from './CanvasDocumentCard.vue'
@@ -60,6 +60,7 @@ onMounted(() => {
   //   return !e.button && !(e.type === "wheel" && !e.ctrlKey && !e.shiftKey);
   // });
   container.value.call(zoomBehaviour.value) //.on("dblclick.zoom", null);
+  zoomToFit()
 })
 
 function onDrop(e) {
@@ -111,6 +112,44 @@ function onDragOver(e) {
   if (mode.value !== 'compose') return
   e.preventDefault()
 }
+
+function zoomToFit() {
+  if (zoomBehaviour.value == null) return
+  if (terminusStore.allocations.length < 1) return
+
+  const xs = terminusStore.allocations.map(({ x }) => x)
+  const ys = terminusStore.allocations.map(({ y }) => y)
+
+  const padding = 150
+
+  const minX = Math.min(...xs) - padding
+  const maxX = Math.max(...xs) + padding
+  const minY = Math.min(...ys) - padding
+  const maxY = Math.max(...ys) + padding
+
+  const diffX = maxX - minX
+  const diffY = maxY - minY
+
+  const x = minX + diffX / 2
+  const y = minY + diffY / 2
+
+  const scale = Math.min(innerWidth / diffX, innerHeight / diffY)
+  container.value.call(
+    zoomBehaviour.value.transform,
+    zoomIdentity
+      .translate(innerWidth / 2, innerHeight / 2)
+      .scale(scale)
+      .translate(-x, -y)
+  )
+}
+
+watch(
+  () => route,
+  () => {
+    zoomToFit()
+  },
+  { immediate: true, deep: true }
+)
 </script>
 
 <template>
