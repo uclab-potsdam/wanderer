@@ -1,7 +1,7 @@
 :root {
   --secondary: rgb(var(--gray-11));
   --primary: rgb(var(--gray-0));
-  --accent: rgb(var(--teal-5));
+  --accent: rgb(var(--orange-5));
   --muted: rgb(var(--gray-9));
   --shadow: rgba(var(--gray-0), 0.5);
   --tint: rgb(var(--teal-10));
@@ -10,7 +10,18 @@
   --hidden: rgba(var(--gray-10), 0);
   --hidden-couple: rgba(var(--gray-10), 0.3);
   --inactive: var(--muted);
-  --default-blend-mode: darken;
+  --default-blend-mode: lighten;
+
+  // flowchart
+  --flow-background: rgb(var(--indigo-11));
+  --flow-color: rgb(var(--blue-2));
+  --flow-color-inactive: rgba(var(--blue-2),0.3);
+  --flow-background-highlight: rgb(var(--orange-5));
+  --flow-color-highlight: rgb(var(--orange-11));
+
+  --flow-edge: rgb(var(--blue-2));
+  --flow-edge-inactive: rgba(var(--blue-2),0.3);
+  --flow-edge-highlight: rgb(var(--orange-5));
 }
 
 @media (prefers-color-scheme: dark) {

@@ -67,15 +67,25 @@ foreignObject > a > section.document {
     // border: none;
   }
   &.inactive {
-    color: var(--inactive);
+    // color: var(--inactive);
     // border: none;
+    // filter: blur(15px);
+
+    // color: var(--flow-color-inactive);
+
+    &:not(:hover) {
+      filter: blur(15px);
+
+      color: var(--flow-color-inactive);
+    }
   }
   &.active {
-    color: var(--primary);
+    // color: var(--primary);
     // border: none;
   }
   &.highlight {
-    color: var(--accent);
+    color: var(--flow-color-highlight);
+    background: var(--flow-background-highlight);
   }
 
   .button-group {

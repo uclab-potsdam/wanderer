@@ -97,19 +97,35 @@ foreignObject > section.document {
 
   transition: all 0.2s;
   &.hidden {
-    color: var(--hidden-couple);
+    // color: var(--hidden);
     // border: none;
+    &:not(:hover) {
+      filter: blur(15px);
+      opacity: 0.2;
+
+      color: var(--flow-color-inactive);
+    }
   }
   &.inactive {
-    color: var(--inactive);
+    // color: var(--inactive);
     // border: none;
+    // filter: blur(15px);
+
+    // color: var(--flow-color-inactive);
+
+    &:not(:hover) {
+      filter: blur(15px);
+
+      color: var(--flow-color-inactive);
+    }
   }
   &.active {
-    color: var(--primary);
+    // color: var(--primary);
     // border: none;
   }
   &.highlight {
-    color: var(--accent);
+    color: var(--flow-color-highlight);
+    background: var(--flow-background-highlight);
   }
 
   .button-group {

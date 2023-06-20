@@ -45,11 +45,13 @@ function onDragStart(e) {
   >
     <span class="label" :lang="label?.lang"> {{ label?.text }} </span>
     <br />
-    <span v-if="className" class="class-name" :lang="className.lang"
-      >{{ className.text }}<template v-if="description?.text != null">; </template>
-    </span>
-    <span class="description" :lang="description?.lang">
-      {{ description?.text }}
+    <span class="details">
+      <span v-if="className" class="class-name" :lang="className.lang"
+        >{{ className.text }}<template v-if="description?.text != null">; </template>
+      </span>
+      <span class="description" :lang="description?.lang">
+        {{ description?.text }}
+      </span>
     </span>
     <div class="buttons">
       <div class="center"><slot name="center" /></div>
@@ -61,17 +63,27 @@ function onDragStart(e) {
 <style lang="scss" scoped>
 section.document {
   user-select: none;
-  padding: var(--spacing);
+  padding: var(--spacing-l);
   position: relative;
   background: var(--secondary);
 
-  border: 1px solid currentColor;
+  // border: 1px solid currentColor;
+  background: var(--flow-background);
+  color: var(--flow-color);
+  // text-align: center;
   border-radius: var(--border-radius);
   width: 250px;
-  min-height: 75px;
+  min-height: 90px;
 
   .label {
-    font-weight: var(--bold);
+    font-weight: var(--black);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .details {
+    display: block;
+    font-size: var(--font-size-s);
   }
 
   span {

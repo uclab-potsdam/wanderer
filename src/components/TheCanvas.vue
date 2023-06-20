@@ -248,6 +248,7 @@ function onDragOver(e) {
 
   svg {
     display: block;
+    isolation: isolate;
 
     foreignObject {
       overflow: visible;
@@ -262,19 +263,19 @@ function onDragOver(e) {
     #arrow,
     #arrow-flipped {
       path {
-        stroke: var(--primary);
+        stroke: var(--flow-edge);
       }
     }
     #arrow-muted,
     #arrow-muted-flipped {
       path {
-        stroke: var(--muted);
+        stroke: var(--flow-edge);
       }
     }
     #arrow-accent,
     #arrow-accent-flipped {
       path {
-        stroke: var(--accent);
+        stroke: var(--flow-edge-highlight);
       }
     }
   }

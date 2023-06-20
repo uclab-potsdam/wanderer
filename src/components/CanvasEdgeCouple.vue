@@ -95,6 +95,7 @@ const state = computed(() => {
     }
   }
   &.inactive {
+    filter: blur(10px);
     :deep(path.edge-main) {
       stroke: var(--inactive);
     }
@@ -104,7 +105,7 @@ const state = computed(() => {
   }
   &.active {
     :deep(path.edge-main) {
-      stroke: var(--primary);
+      // stroke: var(--primary);
 
       &.end {
         marker-end: url(#arrow);
@@ -114,12 +115,12 @@ const state = computed(() => {
       }
     }
     :deep(text) {
-      fill: var(--primary);
+      // fill: var(--primary);
     }
   }
   &.highlight {
     :deep(path.edge-main) {
-      stroke: var(--accent);
+      stroke: var(--flow-edge-highlight);
 
       &.end {
         marker-end: url(#arrow-accent);
@@ -129,7 +130,7 @@ const state = computed(() => {
       }
     }
     :deep(text) {
-      fill: var(--accent);
+      fill: var(--flow-edge-highlight);
     }
   }
 }

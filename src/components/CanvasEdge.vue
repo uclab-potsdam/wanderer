@@ -198,7 +198,7 @@ function onClick() {
   }
   .edge-main {
     stroke-width: 1;
-    stroke: var(--muted);
+    stroke: var(--flow-edge);
     mix-blend-mode: var(--default-blend-mode);
 
     &.end {
@@ -214,13 +214,13 @@ function onClick() {
   // }
 
   text {
-    fill: var(--muted);
+    fill: var(--flow-edge);
     font-size: var(--font-size-s);
     font-weight: 400;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     pointer-events: none;
     text-anchor: middle;
-    letter-spacing: 1px;
+    // letter-spacing: 1px;
     // dominant-baseline: ideographic;
 
     textPath {
