@@ -168,7 +168,10 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   async function getMarkers() {
-    markers.value = await getDocumentsByType('marker')
+    markers.value = await client.getDocument({
+      as_list: true,
+      query: { '@type': 'marker', graph: graph.value }
+    })
   }
 
   async function getGraph(id, clear = false) {
