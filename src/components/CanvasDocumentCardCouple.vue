@@ -115,7 +115,6 @@ foreignObject > section.document {
 
     &:not(:hover) {
       filter: blur(15px);
-
       color: var(--flow-color-inactive);
     }
   }
