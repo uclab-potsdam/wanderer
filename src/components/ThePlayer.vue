@@ -79,7 +79,7 @@ function setPlaying(value) {
     <video
       v-if="sources.length > 0"
       loop
-      autoplay
+      x-autoplay
       muted
       ref="video"
       :style="{ width: isNaN(width) ? width : `${width}px` }"
@@ -114,7 +114,7 @@ function setPlaying(value) {
     }
   }
   &:not(.letterbox) {
-    border-radius: var(--spacing-s);
+    border-radius: var(--border-radius);
     overflow: hidden;
     margin: var(--spacing);
     position: absolute;

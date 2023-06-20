@@ -8,7 +8,7 @@ export const useSyncStore = defineStore('sync', () => {
   const time = ref(47.4)
   const framerate = ref(23.98)
   const timeOverwrite = ref(null)
-  const playing = ref(true)
+  const playing = ref(false)
   const duration = ref(100)
   const mute = ref(true)
   const playsExternal = ref(false)
