@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import DocumentCard from './DocumentCard.vue'
+import DocumentCardPlayButton from './DocumentCardPlayButton.vue'
 
 import { useSyncStore } from '@/stores/sync'
 import { useTerminusStore } from '@/stores/terminus'
@@ -24,6 +25,13 @@ const markers = computed(() =>
   )
 )
 
+const upcoming = computed(
+  () =>
+    type.value === 'graph' &&
+    props.allocation.node['@id'] === terminusStore.graphDoc.next &&
+    syncStore.time > syncStore.duration - 10
+)
+
 const currentMarker = computed(() => {
   const current = markers.value.reduce((a, b) => {
     if (b.timestamp - 1 / syncStore.framerate / 2 > syncStore.time) return a
@@ -34,11 +42,12 @@ const currentMarker = computed(() => {
   return current
 })
 
-const displayState = computed(
-  () =>
-    currentMarker.value?.state_change?.find(
-      (stateChange) => stateChange.node === props.allocation.node['@id']
-    )?.state || 'inactive'
+const displayState = computed(() =>
+  upcoming.value
+    ? 'highlight'
+    : currentMarker.value?.state_change?.find(
+        (stateChange) => stateChange.node === props.allocation.node['@id']
+      )?.state || 'inactive'
 )
 </script>
 
@@ -49,7 +58,11 @@ const displayState = computed(
       :to="{ params: { type, id } }"
       class="button"
     >
-      <DocumentCard :document="allocation.node" :class="[displayState]" />
+      <DocumentCard :document="allocation.node" :class="[displayState]" showButtons>
+        <template v-slot:center>
+          <DocumentCardPlayButton :countdown="upcoming" />
+        </template>
+      </DocumentCard>
     </RouterLink>
     <DocumentCard v-else :document="allocation.node" :class="[displayState]" />
   </foreignObject>

@@ -38,21 +38,25 @@ function onDragStart(e) {
     class="document"
     :draggable="draggable === 'native'"
     @dragstart="onDragStart"
-    :class="[
-      document['@type']?.toLowerCase(),
-      { 'show-hover': showHover, 'show-buttons': showButtons }
-    ]"
+    :class="[document['@type'], { 'show-hover': showHover, 'show-buttons': showButtons }]"
   >
-    <span class="label" :lang="label?.lang"> {{ label?.text }} </span>
-    <br />
-    <span class="details">
-      <span v-if="className" class="class-name" :lang="className.lang"
-        >{{ className.text }}<template v-if="description?.text != null">; </template>
+    <img
+      v-if="document['@type'] === 'graph' && document.cover"
+      class="cover"
+      :src="viewStore.getMediaUrl(document.cover)"
+    />
+    <div class="content">
+      <span class="label" :lang="label?.lang"> {{ label?.text }} </span>
+      <br />
+      <span class="details">
+        <span v-if="className" class="class-name" :lang="className.lang"
+          >{{ className.text }}<template v-if="description?.text != null">; </template>
+        </span>
+        <span class="description" :lang="description?.lang">
+          {{ description?.text }}
+        </span>
       </span>
-      <span class="description" :lang="description?.lang">
-        {{ description?.text }}
-      </span>
-    </span>
+    </div>
     <div class="buttons">
       <div class="center"><slot name="center" /></div>
       <div class="right"><slot name="right" /></div>
@@ -74,7 +78,30 @@ section.document {
   border-radius: var(--border-radius);
   width: 250px;
   min-height: 90px;
+  overflow: hidden;
+  transform: translate(0, 0);
 
+  .cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    // filter: saturate(0);
+    mix-blend-mode: luminosity;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .content {
+    z-index: 2;
+    pointer-events: none;
+    position: relative;
+    // width: 100%;
+    // height: 100%;
+  }
   .label {
     font-weight: var(--black);
     text-transform: uppercase;
@@ -91,12 +118,19 @@ section.document {
   }
 
   &.graph {
-    border: none;
-    background-color: currentColor;
-    span,
-    .buttons {
-      color: var(--secondary);
+    // border: none;
+    background-color: var(--flow-graph-background);
+    color: var(--flow-graph-color);
+
+    &.show-hover:hover {
+      background-color: var(--accent);
+      color: var(--flow-graph-color);
     }
+    // span,
+    // .buttons {
+    //   color: var(--secondary);
+    // }
+    height: 250px;
   }
 
   &.entityclass,
@@ -142,10 +176,10 @@ section.document {
   &.graph {
     .buttons {
       :deep(svg.icon) {
-        background-color: var(--accent);
+        color: var(--accent);
         &:hover {
-          color: var(--accent);
-          background-color: var(--secondary);
+          color: var(--secondary);
+          // background-color: var(--secondary);
         }
       }
     }

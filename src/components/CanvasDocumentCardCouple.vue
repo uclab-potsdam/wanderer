@@ -22,10 +22,19 @@ const props = defineProps({
 const x = computed(() => props.allocation.x)
 const y = computed(() => props.allocation.y)
 
+const type = computed(() => props.allocation.node['@type'])
+
 const markers = computed(() =>
   terminusStore.markers.filter((marker) =>
     marker.state_change?.find((sc) => sc.node === props.allocation.node['@id'])
   )
+)
+
+const upcoming = computed(
+  () =>
+    type.value === 'graph' &&
+    props.allocation.node['@id'] === terminusStore.graphDoc.next &&
+    syncStore.time > syncStore.duration - 10
 )
 
 const currentMarker = computed(() => {
@@ -38,11 +47,12 @@ const currentMarker = computed(() => {
   return current
 })
 
-const displayState = computed(
-  () =>
-    currentMarker.value?.state_change?.find(
-      (stateChange) => stateChange.node === props.allocation.node['@id']
-    )?.state || 'inactive'
+const displayState = computed(() =>
+  upcoming.value
+    ? 'highlight'
+    : currentMarker.value?.state_change?.find(
+        (stateChange) => stateChange.node === props.allocation.node['@id']
+      )?.state || 'inactive'
 )
 
 const state = computed(

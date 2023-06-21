@@ -19,9 +19,11 @@ const name = `n${(Math.random() + 1).toString(36).substring(2)}`
     <select
       :name="name"
       :value="modelValue"
-      @change="$emit('update:modelValue', $event.target.value)"
+      @change="
+        $emit('update:modelValue', $event.target.value === 'null' ? null : $event.target.value)
+      "
     >
-      <option v-if="allowNull" :value="null">–</option>
+      <option v-if="allowNull" value="null">–</option>
       <option
         v-for="(option, i) in options"
         :key="option.value ?? option"

@@ -16,6 +16,7 @@ export const useTerminusStore = defineStore('terminus', () => {
   const markers = ref([])
 
   const graph = ref([])
+  const graphDoc = ref({})
 
   const currentLabel = ref({})
 
@@ -175,6 +176,7 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   async function getGraph(id, clear = false) {
+    graphDoc.value = await getDocument(id)
     graph.value = id
     if (clear.value) allocations.value = []
     const nodes = await client.query(
@@ -311,6 +313,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     allocations,
     edges,
     graph,
+    graphDoc,
     addDocument,
     updateDocument,
     deleteDocument,
