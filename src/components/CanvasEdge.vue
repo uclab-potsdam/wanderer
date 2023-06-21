@@ -153,7 +153,7 @@ function onClick() {
 
 <template>
   <g class="edge" :class="{ local }" @click="onClick">
-    <!-- <path class="edge-shadow" :d="path" /> -->
+    <path class="edge-hitzone" :d="path" />
     <!-- <path v-if="!local" class="edge-outline" :d="path" /> -->
     <path
       :id="id"
@@ -192,9 +192,10 @@ function onClick() {
   path {
     fill: none;
   }
-  .edge-shadow {
-    stroke-width: 6;
-    stroke: var(--secondary);
+  .edge-hitzone {
+    stroke-width: 20;
+    // stroke: blue;
+    pointer-events: all;
   }
   .edge-main {
     stroke-width: 1;
@@ -228,8 +229,8 @@ function onClick() {
     }
   }
 
-  &:has(.edge-main:hover, .edge-outline:hover) {
-    .edge-outline {
+  &:has(.edge-main:hover, .edge-hitzone:hover) {
+    .edge-main {
       stroke: var(--accent);
     }
     text {
@@ -258,7 +259,7 @@ function onClick() {
       fill: var(--primary);
     }
 
-    &:has(.edge-main:hover, .edge-outline:hover) {
+    &:has(.edge-main:hover, .edge-hitzone:hover) {
       text {
         fill: var(--accent);
       }
