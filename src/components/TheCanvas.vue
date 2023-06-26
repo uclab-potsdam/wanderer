@@ -133,7 +133,7 @@ function zoomToFit() {
   const x = minX + diffX / 2
   const y = minY + diffY / 2
 
-  const scale = Math.min(innerWidth / diffX, innerHeight / diffY)
+  const scale = Math.min(innerWidth / diffX, innerHeight / diffY, 1)
   container.value.call(
     zoomBehaviour.value.transform,
     zoomIdentity
