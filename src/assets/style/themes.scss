@@ -33,14 +33,28 @@
     --primary: rgb(var(--gray-11));
     --accent: rgb(var(--teal-6));
     --muted: rgb(var(--gray-3));
-    --shadow: rgba(var(--gray-11), 0.5);
+    --shadow: rgba(var(--gray-0), 0.5);
     --tint: rgb(var(--teal-1));
     --selection: rgba(var(--teal-3), 0.5);
 
     --hidden: rgba(var(--gray-1), 0);
     --hidden-couple: rgba(var(--gray-1), 0.3);
     --inactive: var(--muted);
-    --default-blend-mode: lighten;
+    --default-blend-mode: darken;
+
+
+    --flow-background: rgb(var(--blue-2));
+    --flow-color: rgb(var(--indigo-11));
+    --flow-color-inactive: rgba(var(--blue-2),0.3);
+    --flow-background-highlight: rgb(var(--orange-5));
+    --flow-color-highlight: rgb(var(--orange-11));
+  
+    --flow-graph-background: rgb(var(--blue-2));
+    --flow-graph-color: rgb(var(--gray-11));
+  
+    --flow-edge: rgb(var(--indigo-10));
+    --flow-edge-inactive: rgba(var(--blue-2),0.3);
+    --flow-edge-highlight: rgb(var(--orange-5));
   }
 }
 

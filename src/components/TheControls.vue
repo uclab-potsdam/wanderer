@@ -1,7 +1,7 @@
 <script setup>
 import { useSyncStore } from '@/stores/sync'
 import { useTerminusStore } from '@/stores/terminus'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import IconPlay from '~icons/default/Play'
 import IconPause from '~icons/default/Pause'
@@ -13,6 +13,10 @@ import IconSeekForward from '~icons/default/SeekForward'
 import IconMarkerAdd from '~icons/default/MarkerAdd'
 import IconMarkerRemove from '~icons/default/MarkerRemove'
 import BaseButton from './BaseButton.vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
 
 const framerate = 23.98
 
@@ -22,6 +26,27 @@ const syncStore = useSyncStore()
 const terminusStore = useTerminusStore()
 
 const formattedTime = computed(() => formatTime(syncStore.time))
+
+watch(
+  () => terminusStore.graphDoc.next,
+  () => {
+    syncStore.setLoop(terminusStore.graphDoc.next == null)
+  },
+  { immediate: true }
+)
+
+watch(
+  () => syncStore.next,
+  () => {
+    if (route.name !== 'screen' || terminusStore.graphDoc.next == null) return
+    router.push({
+      params: {
+        type: terminusStore.graphDoc.next.split('/')[0],
+        id: terminusStore.graphDoc.next.split('/')[1]
+      }
+    })
+  }
+)
 // const atMarker = computed(() =>
 //   terminusStore.markers.find((marker) => {
 //     return Math.abs(syncStore.time - marker.timestamp) <= 1 / framerate / 2

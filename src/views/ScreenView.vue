@@ -32,6 +32,7 @@ watch(
       (await terminusStore.getMedia(`${route.params.type}/${route.params.id}`))
 
     syncStore.sources = doc?.file?.map((d) => viewStore.getMediaUrl(d)) ?? []
+    syncStore.playFromStart()
   },
   { immediate: true }
 )
@@ -44,7 +45,7 @@ watch(
       <IconPopup />
     </BaseButton>
   </ThePlayer>
-  <TheControls scrubbing />
+  <TheControls />
 </template>
 
 <style lang="scss" scoped>

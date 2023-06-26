@@ -78,9 +78,9 @@ function setPlaying(value) {
   <div class="the-player" :class="[{ letterbox }, position]">
     <video
       v-if="sources.length > 0"
-      loop
-      x-autoplay
-      muted
+      :loop="syncStore.loop"
+      autoplay
+      x-muted
       ref="video"
       :style="{ width: isNaN(width) ? width : `${width}px` }"
       @durationchange="setDuration"
@@ -89,14 +89,16 @@ function setPlaying(value) {
       @play="setPlaying(true)"
       @pause="setPlaying(false)"
       @volumechange="onVolumeChange"
+      @ended="syncStore.requestNext()"
+      :src="sources[0]"
     >
-      <source
+      <!-- <source
         v-for="(source, i) in sources"
         :key="i"
         :src="source"
         :type="`video/${source.replace(/^.*\./, '')}`"
         preload
-      />
+      /> -->
     </video>
     <div v-if="$slots.default && $slots.default()" class="center"><slot></slot></div>
   </div>

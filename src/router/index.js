@@ -48,7 +48,7 @@ const router = createRouter({
       path: '/screen/:type/:id',
       name: 'screen',
       component: () => import('@/views/ScreenView.vue'),
-      meta: { requiresAccess: ACCESS_READ, allowedTypes: ['graph'] }
+      meta: { requiresAccess: ACCESS_READ, allowedTypes: ['graph'], hideMenuBar: true }
     },
     {
       path: '/edit/:type/:id',

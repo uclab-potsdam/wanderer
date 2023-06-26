@@ -8,10 +8,13 @@ export const useSyncStore = defineStore('sync', () => {
   const time = ref(47.4)
   const framerate = ref(23.98)
   const timeOverwrite = ref(null)
-  const playing = ref(false)
+  const playing = ref(true)
   const duration = ref(100)
-  const mute = ref(true)
+  const mute = ref(false)
   const playsExternal = ref(false)
+  const next = ref(false)
+
+  const loop = ref(false)
 
   const sources = ref([])
   // const doubleCount = computed(() => count.value * 2);
@@ -34,6 +37,13 @@ export const useSyncStore = defineStore('sync', () => {
     channel.postMessage({
       action: 'set_duration',
       value: duration.value
+    })
+  }
+  function setLoop(l) {
+    loop.value = l
+    channel.postMessage({
+      action: 'set_loop',
+      value: loop.value
     })
   }
   function setPlaying(p) {
@@ -71,6 +81,13 @@ export const useSyncStore = defineStore('sync', () => {
     })
   }
 
+  function requestNext() {
+    next.value = !next.value
+    channel.postMessage({
+      action: 'request_next'
+    })
+  }
+
   const atMarker = computed(() =>
     terminusStore.markers.find((marker) => {
       return Math.abs(time.value - marker.timestamp) <= 1 / framerate.value / 2
@@ -96,6 +113,15 @@ export const useSyncStore = defineStore('sync', () => {
     channel.postMessage({
       action: 'handshake-release'
     })
+  }
+
+  function playFromStart() {
+    channel.postMessage({
+      action: 'post_sources',
+      value: JSON.stringify(sources.value)
+    })
+
+    updateTime(0)
   }
 
   const progress = computed(() => time.value / duration.value)
@@ -136,10 +162,17 @@ export const useSyncStore = defineStore('sync', () => {
           value: duration.value
         })
         break
+      case 'request_next':
+        next.value = !next.value
+        break
+      case 'set_loop':
+        loop.value = data.value
+        break
     }
   })
 
   return {
+    requestNext,
     channel,
     time,
     playing,
@@ -152,6 +185,8 @@ export const useSyncStore = defineStore('sync', () => {
     framerate,
     sources,
     playsExternal,
+    next,
+    loop,
     updateTime,
     setTime,
     setPlaying,
@@ -161,7 +196,9 @@ export const useSyncStore = defineStore('sync', () => {
     toggleMute,
     requestDuration,
     handshake,
-    releaseHandshake
+    releaseHandshake,
+    playFromStart,
+    setLoop
   }
 })
 
