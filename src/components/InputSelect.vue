@@ -56,12 +56,12 @@ const name = `n${(Math.random() + 1).toString(36).substring(2)}`
     padding: var(--spacing-s) 0;
 
     &:focus {
-      color: var(--accent);
+      color: var(--ui-accent-dark);
     }
   }
 
   &:focus-within label {
-    color: var(--accent);
+    color: var(--ui-accent-dark);
   }
 }
 </style>

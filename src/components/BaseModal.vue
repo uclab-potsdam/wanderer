@@ -20,28 +20,11 @@ defineEmits(['close'])
   top: var(--menu-bar-height);
   right: var(--spacing);
   min-width: 270px;
-  // width: 270px;
-  // left: 0;
-  // bottom: 0;
-  // right: 0;
-  // background: red;
-  // padding: var(--spacing);
-  // border: 1.5px solid var(--primary);
-  // border-radius: var(--spacing-s);
-  // box-shadow: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) var(--shadow);
-  // --shadow: rgba(var(--gray-0), 0.5);
 
   max-height: calc(100vh - var(--menu-bar-height) - var(--spacing));
   overflow: auto;
 
   background: var(--tint);
-
-  // display: flex;
-
-  // justify-content: center;
-  // align-items: center;
-  // background: rgba(var(--gray-11), 0.5);
-
   .inner {
     margin: 0 var(--spacing) var(--spacing) var(--spacing);
   }

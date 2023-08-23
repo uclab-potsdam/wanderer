@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@terminusdb/terminusdb-client": "github:fidelthomet/terminusdb-client-js",
+    "autoprefixer": "^10.4.14",
     "d3-selection": "^3.0.0",
     "d3-zoom": "^3.0.0",
     "lodash.debounce": "^4.0.8",
     "pinia": "^2.0.32",
+    "postcss": "^8.4.27",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
     "vue-slicksort": "^2.0.5"

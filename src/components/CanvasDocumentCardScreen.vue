@@ -53,11 +53,7 @@ const displayState = computed(() =>
 
 <template>
   <foreignObject width="100" height="100" :x="x" :y="y">
-    <RouterLink
-      v-if="allocation.node['@type'] === 'graph'"
-      :to="{ params: { type, id } }"
-      class="button"
-    >
+    <RouterLink v-if="allocation.node['@type'] === 'graph'" :to="{ params: { id } }" class="button">
       <DocumentCard :document="allocation.node" :class="[displayState]" showButtons>
         <template v-slot:center>
           <DocumentCardPlayButton :countdown="upcoming" />
@@ -77,7 +73,7 @@ foreignObject > a > section.document {
   transition: all 0.2s;
   &.hidden {
     color: var(--hidden);
-    // border: none;
+    opacity: 0;
   }
   &.inactive {
     // color: var(--inactive);

@@ -1,7 +1,8 @@
 <script setup>
 // import { useTerminusStore } from '@/stores/terminus'
+import { MODE_COMPOSE } from '@/assets/js/constants'
 import { useSyncStore } from '@/stores/sync'
-// import { useViewStore } from '@/stores/view'
+import { useViewStore } from '@/stores/view'
 import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
 // import { useRoute } from 'vue-router'
 
@@ -9,13 +10,15 @@ defineProps({
   letterbox: Boolean,
   width: { type: [Number, String] },
   height: { type: [Number, String] },
-  position: { type: String, default: 'top-right' }
+  position: { type: String, default: 'bottom-right' }
   // sources: { Array, default: () => [] }
 })
 
 const syncStore = useSyncStore()
+const viewStore = useViewStore()
 // const sources = ref([])
 const sources = computed(() => syncStore.sources)
+const subtitles = computed(() => syncStore.subtitles)
 
 const video = ref(null)
 const pip = ref(false)
@@ -75,11 +78,10 @@ function setPlaying(value) {
 </script>
 
 <template>
-  <div class="the-player" :class="[{ letterbox }, position]">
+  <div class="the-player" v-if="sources.length > 0" :class="[{ letterbox }, position]">
     <video
-      v-if="sources.length > 0"
+      crossorigin="anonymous"
       :loop="syncStore.loop"
-      autoplay
       x-muted
       ref="video"
       :style="{ width: isNaN(width) ? width : `${width}px` }"
@@ -92,6 +94,14 @@ function setPlaying(value) {
       @ended="syncStore.requestNext()"
       :src="sources[0]"
     >
+      <track
+        v-if="subtitles"
+        kind="subtitles"
+        label="Deutsch"
+        :srclang="subtitles.lang"
+        :src="subtitles.value"
+        default
+      />
       <!-- <source
         v-for="(source, i) in sources"
         :key="i"
@@ -116,12 +126,12 @@ function setPlaying(value) {
     }
   }
   &:not(.letterbox) {
-    border-radius: var(--border-radius);
+    border-radius: var(--ui-border-radius);
     overflow: hidden;
-    margin: var(--spacing);
+    margin: calc(var(--spacing-s) + var(--spacing-xs));
     position: absolute;
     max-width: 90%;
-    box-shadow: 2px 2px 5px var(--shadow);
+    // box-shadow: 2px 2px 5px var(--shadow);
     // max-height: 90%;
 
     &.top-left {
@@ -138,7 +148,7 @@ function setPlaying(value) {
 
     &.bottom-right {
       right: 0;
-      bottom: 0;
+      bottom: 47.5px;
     }
   }
 

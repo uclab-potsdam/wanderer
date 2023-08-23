@@ -28,7 +28,9 @@ const description = computed(() => {
   return viewStore.localize(props.document.description)
 })
 
+const emit = defineEmits(['close'])
 function onDragStart(e) {
+  emit('close')
   e.dataTransfer.setData('text/uri-list', `workbench://${props.document['@id']}`)
 }
 </script>
@@ -78,7 +80,7 @@ section.document {
   border-radius: var(--border-radius);
   width: 250px;
   min-height: 90px;
-  overflow: hidden;
+  // overflow: hidden;
   transform: translate(0, 0);
 
   .cover {
@@ -93,6 +95,7 @@ section.document {
     opacity: 0.5;
     z-index: 0;
     pointer-events: none;
+    border-radius: var(--border-radius);
   }
 
   .content {
@@ -123,7 +126,7 @@ section.document {
     color: var(--flow-graph-color);
 
     &.show-hover:hover {
-      background-color: var(--accent);
+      background-color: var(--ui-accent-dark);
       color: var(--flow-graph-color);
     }
     // span,
@@ -145,6 +148,8 @@ section.document {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      z-index: 100;
+      // color: var(--ui-text);
 
       display: flex;
       flex-direction: column;
@@ -156,6 +161,7 @@ section.document {
       right: var(--spacing);
       top: 50%;
       transform: translate(0, -50%);
+      // color: var(--ui-text);
 
       display: flex;
       flex-direction: column;
@@ -168,7 +174,7 @@ section.document {
 
       &:hover {
         color: var(--secondary);
-        background-color: var(--accent);
+        background-color: var(--ui-accent-dark);
       }
     }
   }
@@ -176,7 +182,7 @@ section.document {
   &.graph {
     .buttons {
       :deep(svg.icon) {
-        color: var(--accent);
+        color: var(--ui-accent-dark);
         &:hover {
           color: var(--secondary);
           // background-color: var(--secondary);
@@ -186,7 +192,7 @@ section.document {
   }
 
   &.show-hover:hover {
-    color: var(--accent);
+    color: var(--ui-accent-dark);
 
     &.entityclass,
     &.propertyclass {

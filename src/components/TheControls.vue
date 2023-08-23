@@ -41,7 +41,7 @@ watch(
     if (route.name !== 'screen' || terminusStore.graphDoc.next == null) return
     router.push({
       params: {
-        type: terminusStore.graphDoc.next.split('/')[0],
+        // type: terminusStore.graphDoc.next.split('/')[0],
         id: terminusStore.graphDoc.next.split('/')[1]
       }
     })

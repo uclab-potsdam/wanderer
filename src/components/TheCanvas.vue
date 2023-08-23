@@ -4,6 +4,7 @@ import { select } from 'd3-selection'
 import { ref, onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
+import { useViewStore } from '@/stores/view'
 import CanvasDocumentCard from './CanvasDocumentCard.vue'
 import CanvasDocumentCardStatic from './CanvasDocumentCardStatic.vue'
 import CanvasDocumentCardCouple from './CanvasDocumentCardCouple.vue'
@@ -11,11 +12,14 @@ import CanvasDocumentCardScreen from './CanvasDocumentCardScreen.vue'
 import CanvasEdge from './CanvasEdge.vue'
 import CanvasEdgeCouple from './CanvasEdgeCouple.vue'
 
+import { MODE_VIEW, MODE_COMPOSE, MODE_COUPLE } from '@/assets/js/constants'
+
 const containerRef = ref(null)
 const container = ref(null)
 
 const route = useRoute()
 const terminusStore = useTerminusStore()
+const viewStore = useViewStore()
 
 const transform = ref(zoomIdentity)
 const zoomBehaviour = ref(null)
@@ -36,8 +40,8 @@ const pattern = computed(() => {
 
 const scaleExtent = ref([0.1, 2])
 
-const context = computed(() => `${route.params.type}/${route.params.id}`)
-const mode = computed(() => `${route.name}`)
+const context = computed(() => `${route.name}/${route.params.id}`)
+const mode = computed(() => viewStore.mode)
 
 // terminusStore.getGraph(context.value)
 
@@ -46,7 +50,8 @@ const mode = computed(() => `${route.name}`)
 //   () => terminusStore.getGraph(context.value, true)
 // )
 
-onMounted(() => {
+onMounted(async () => {
+  await terminusStore.getGraph(context.value, true)
   container.value = select(containerRef.value)
   zoomBehaviour.value = zoom()
     .scaleExtent(scaleExtent.value)
@@ -64,7 +69,7 @@ onMounted(() => {
 })
 
 function onDrop(e) {
-  if (mode.value !== 'compose') return
+  if (mode.value !== MODE_COMPOSE) return
   e.preventDefault()
   // console.log(e.dataTransfer.getData("text/uri-list"));
   const uri = e.dataTransfer.getData('text/uri-list').replace(location.origin, 'workbench:/')
@@ -81,18 +86,18 @@ function onDrop(e) {
 }
 
 function onUpdatePosition(allocation, position) {
-  if (mode.value !== 'compose') return
+  if (mode.value !== MODE_COMPOSE) return
   terminusStore.addAllocation(allocation, context.value, position)
 }
 
 function onConnectStart(allocation) {
-  if (mode.value !== 'compose') return
+  if (mode.value !== MODE_COMPOSE) return
   connecting.value = true
   terminusStore.pushBackAllocation(allocation)
 }
 
 function onConnect(allocation, position) {
-  if (mode.value !== 'compose') return
+  if (mode.value !== MODE_COMPOSE) return
   connectingLine.value = {
     active: true,
     source: { x: allocation.x, y: allocation.y },
@@ -101,7 +106,7 @@ function onConnect(allocation, position) {
 }
 
 function onConnectEnd(allocation) {
-  if (mode.value !== 'compose') return
+  if (mode.value !== MODE_COMPOSE) return
   connecting.value = false
   connectingLine.value = null
   if (connectable.value == null) return
@@ -109,7 +114,7 @@ function onConnectEnd(allocation) {
 }
 
 function onDragOver(e) {
-  if (mode.value !== 'compose') return
+  if (mode.value !== MODE_COMPOSE) return
   e.preventDefault()
 }
 
@@ -145,7 +150,8 @@ function zoomToFit() {
 
 watch(
   () => route,
-  () => {
+  async () => {
+    await terminusStore.getGraph(context.value, true)
     zoomToFit()
   },
   { immediate: true, deep: true }
@@ -213,13 +219,14 @@ watch(
           <path d="M13,1 L8,5 L13,9" fill="none" />
         </marker>
       </defs>
-      <rect v-if="mode === 'compose'" x="0" y="0" width="100%" height="100%" fill="url(#bg)" />
+      <rect v-if="mode === MODE_COMPOSE" x="0" y="0" width="100%" height="100%" fill="url(#bg)" />
       <g :transform="transform">
         <g class="edges">
-          <template v-if="mode !== 'couple' && mode !== 'screen'">
+          <CanvasEdge v-if="connectingLine" :edge="connectingLine" />
+          <template v-if="mode !== MODE_COUPLE && mode !== MODE_VIEW">
             <CanvasEdge
               v-for="(edge, i) in terminusStore.edges"
-              :interactive="mode === 'compose'"
+              :interactive="mode === MODE_COMPOSE"
               :key="edge.edge?.['@id'] || i"
               :edge="edge"
             />
@@ -232,10 +239,9 @@ watch(
               :edge="edge"
             />
           </template>
-          <CanvasEdge v-if="connectingLine" :edge="connectingLine" />
         </g>
         <g class="nodes">
-          <template v-if="mode === 'compose'">
+          <template v-if="mode === MODE_COMPOSE">
             <CanvasDocumentCard
               v-for="allocation in terminusStore.allocations"
               :key="allocation.node['@id']"
@@ -250,14 +256,14 @@ watch(
               @mouse-out="connectable = null"
             />
           </template>
-          <template v-else-if="mode === 'couple'">
+          <template v-else-if="mode === MODE_COUPLE">
             <CanvasDocumentCardCouple
               v-for="allocation in terminusStore.allocations"
               :key="allocation.node['@id']"
               :allocation="allocation"
             />
           </template>
-          <template v-else-if="mode === 'screen'">
+          <template v-else-if="mode === MODE_VIEW">
             <CanvasDocumentCardScreen
               v-for="allocation in terminusStore.allocations"
               :key="allocation.node['@id']"
@@ -314,7 +320,7 @@ watch(
     #arrow-accent,
     #arrow-accent-flipped {
       path {
-        stroke: var(--flow-edge-highlight);
+        stroke: var(--ui-accent-dark);
       }
     }
   }

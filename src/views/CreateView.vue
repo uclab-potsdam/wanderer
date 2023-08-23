@@ -49,7 +49,6 @@ watch(
 
 <style lang="scss" scoped>
 main {
-  margin: var(--spacing) var(--spacing) var(--spacing) var(--offset-left);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);
@@ -59,18 +58,10 @@ main {
     gap: var(--spacing-l);
   }
 
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xl);
-  }
-
   .button-group {
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-s);
-    margin-left: calc(var(--spacing) * -1);
   }
 }
 </style>

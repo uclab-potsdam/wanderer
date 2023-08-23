@@ -72,16 +72,16 @@ function setStateChange(id, state) {
     <DocumentCard :document="allocation.node" :class="[displayState]" show-buttons>
       <template v-slot:center>
         <div class="button-group" v-if="!syncStore.playing && syncStore.atMarker != null">
-          <BaseButton :class="{ active: state === 'hidden' }">
+          <BaseButton tiny :class="{ active: state === 'hidden' }">
             <IconStateHidden @click="setStateChange(allocation.node['@id'], 'hidden')" />
           </BaseButton>
-          <BaseButton :class="{ active: state === 'inactive' }">
+          <BaseButton tiny :class="{ active: state === 'inactive' }">
             <IconStateInactive @click="setStateChange(allocation.node['@id'], 'inactive')" />
           </BaseButton>
-          <BaseButton :class="{ active: state === 'active' }">
+          <BaseButton tiny :class="{ active: state === 'active' }">
             <IconStateActive @click="setStateChange(allocation.node['@id'], 'active')" />
           </BaseButton>
-          <BaseButton :class="{ active: state === 'highlight' }">
+          <BaseButton tiny :class="{ active: state === 'highlight' }">
             <IconStateHighlight @click="setStateChange(allocation.node['@id'], 'highlight')" />
           </BaseButton>
         </div>
@@ -91,7 +91,7 @@ function setStateChange(id, state) {
           class="button-group"
           v-if="!syncStore.playing && syncStore.atMarker != null && state != null"
         >
-          <BaseButton>
+          <BaseButton tiny>
             <IconStateReset @click="setStateChange(allocation.node['@id'], null)" />
           </BaseButton>
         </div>
@@ -135,6 +135,9 @@ foreignObject > section.document {
   &.highlight {
     color: var(--flow-color-highlight);
     background: var(--flow-background-highlight);
+    :deep(svg.icon) {
+      color: var(--ui-text);
+    }
   }
 
   .button-group {

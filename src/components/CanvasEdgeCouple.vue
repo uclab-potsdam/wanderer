@@ -5,10 +5,12 @@ import { computed } from 'vue'
 import { useSyncStore } from '@/stores/sync'
 import { useTerminusStore } from '@/stores/terminus'
 
+import { MODE_COUPLE } from '@/assets/js/constants'
+
 const syncStore = useSyncStore()
 const terminusStore = useTerminusStore()
 
-const props = defineProps({ edge: Object, interactive: Boolean, mode: String })
+const props = defineProps({ edge: Object, interactive: Boolean, mode: Number })
 
 const sourceMarkers = computed(() =>
   terminusStore.markers.filter((marker) =>
@@ -65,7 +67,7 @@ const state = computed(() => {
 
 <template>
   <CanvasEdge
-    :class="[state, mode]"
+    :class="[state, { couple: mode === MODE_COUPLE }]"
     :edge="edge"
     :interactive="interactive"
     :display-remote-style="true"
@@ -79,6 +81,7 @@ const state = computed(() => {
     transition: all 0.2s;
   }
   &.hidden {
+    opacity: 0;
     :deep(path.edge-main) {
       stroke: var(--hidden);
     }
@@ -87,6 +90,7 @@ const state = computed(() => {
     }
   }
   &.hidden.couple {
+    filter: blur(10px);
     :deep(path.edge-main) {
       stroke: var(--hidden-couple);
     }

@@ -1,14 +1,16 @@
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { defineStore /*, acceptHMRUpdate */ } from 'pinia'
 import { useTerminusStore } from '@/stores/terminus'
+import { useViewStore } from '@/stores/view'
 
 export const useSyncStore = defineStore('sync', () => {
   const terminusStore = useTerminusStore()
+  const viewStore = useViewStore()
   const channel = new BroadcastChannel('sync')
-  const time = ref(47.4)
+  const time = ref(0)
   const framerate = ref(23.98)
   const timeOverwrite = ref(null)
-  const playing = ref(true)
+  const playing = ref(false)
   const duration = ref(100)
   const mute = ref(false)
   const playsExternal = ref(false)
@@ -17,6 +19,22 @@ export const useSyncStore = defineStore('sync', () => {
   const loop = ref(false)
 
   const sources = ref([])
+  const subtitles = ref(null)
+
+  watch(
+    () => terminusStore.media,
+    () => {
+      sources.value = terminusStore.media?.file?.map((d) => viewStore.getMediaUrl(d)) || []
+    }
+  )
+
+  watch(
+    () => terminusStore.media,
+    () => {
+      const st = viewStore.localize(terminusStore.media?.subtitle ?? {})
+      subtitles.value = st ? { lang: st.lang, value: viewStore.getMediaUrl(st.text) } : null
+    }
+  )
   // const doubleCount = computed(() => count.value * 2);
   function updateTime(t) {
     time.value = t
@@ -103,6 +121,10 @@ export const useSyncStore = defineStore('sync', () => {
     }, null)
   )
 
+  async function getSources() {
+    sources.value = (await terminusStore.getMedia())?.sources
+  }
+
   function handshake() {
     channel.postMessage({
       action: 'handshake'
@@ -187,6 +209,8 @@ export const useSyncStore = defineStore('sync', () => {
     playsExternal,
     next,
     loop,
+    subtitles,
+    getSources,
     updateTime,
     setTime,
     setPlaying,

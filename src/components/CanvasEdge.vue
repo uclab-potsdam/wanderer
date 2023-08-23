@@ -1,11 +1,11 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 // import BaseModal from "./BaseModal.vue";
 // import CanvasEdgeOptions from "./CanvasEdgeOptions.vue";
 import { useRouter } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
-
+import ModalEdit from './modals/ModalEdit.vue'
 const router = useRouter()
 const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
@@ -30,6 +30,8 @@ const id = computed(() => {
 const path = computed(() => {
   if (props.edge.target == null) return ``
   const { source, target } = props.edge
+
+  if (props.edge.active) return `M${source.x},${source.y}L${target.x},${target.y}`
 
   const diffX = target.x - source.x
   const diffY = target.y - source.y
@@ -129,7 +131,10 @@ const path = computed(() => {
   //   [target.x, target.y]
   // ]
 
+  // if (props.edge.active) points.push({ x: target.x, y: target.y })
+
   if (source.x > target.x) points.reverse()
+
   // points.splice(1, 0, 'L')
   // points.splice(3, 0, 'Q')
   // points.splice(6, 0, 'L')
@@ -137,6 +142,7 @@ const path = computed(() => {
   // points.splice(11, 0, 'L')
   return `M${points
     .map((point) => `${point.x} ${point.y}`)
+    // .reduce((a, b, i) => (i < 9 ? `${a} ${' LQ'[i % 3]}${b} ` : `${a} L${b}`))}`
     .reduce((a, b, i) => `${a} ${' LQ'[i % 3]}${b} `)}`
 })
 
@@ -144,10 +150,16 @@ const arrow = computed(() => (props.edge.source.x <= props.edge.target.x ? 'end'
 
 // const showOptions = ref(false);
 
+const showEditModal = ref(false)
 function onClick() {
   if (!props.interactive) return
+  showEditModal.value = true
   // showOptions.value = true;
-  router.push(`/edit/${props.edge.edge?.['@id']}`)
+  // router.push(`/edit/${props.edge.edge?.['@id']}`)
+}
+
+function update() {
+  terminusStore.getGraph(terminusStore.graph)
 }
 </script>
 
@@ -172,15 +184,17 @@ function onClick() {
         {{ arrow }}
       </textPath> -->
     </text>
-    <!-- <foreignObject v-if="showOptions">
-      <Teleport to="body">
-        <BaseModal @close="showOptions = false">
-          <RouterLink :to="`/edit/${props.edge.property?.['@id']}`"
-            >edit</RouterLink
-          >
-        </BaseModal>
+    <foreignObject>
+      <Teleport to="#modals">
+        <ModalEdit
+          :show="showEditModal"
+          :id="id"
+          type="edge"
+          @close="showEditModal = false"
+          @update="update"
+        />
       </Teleport>
-    </foreignObject> -->
+    </foreignObject>
   </g>
 </template>
 
@@ -199,6 +213,7 @@ function onClick() {
   }
   .edge-main {
     stroke-width: 1;
+    transition: stroke-width var(--transition);
     stroke: var(--flow-edge);
     mix-blend-mode: var(--default-blend-mode);
 
@@ -231,10 +246,11 @@ function onClick() {
 
   &:has(.edge-main:hover, .edge-hitzone:hover) {
     .edge-main {
-      stroke: var(--accent);
+      stroke: var(--ui-accent-dark);
+      stroke-width: 2;
     }
     text {
-      fill: var(--accent);
+      fill: var(--ui-accent-dark);
     }
   }
 
@@ -250,7 +266,9 @@ function onClick() {
       // stroke-width: 20;
       &.interactive:hover,
       &.active {
-        stroke: var(--accent);
+        stroke: var(--ui-accent-dark);
+        stroke-width: 2;
+        marker-end: none;
         cursor: default;
       }
     }
@@ -261,7 +279,7 @@ function onClick() {
 
     &:has(.edge-main:hover, .edge-hitzone:hover) {
       text {
-        fill: var(--accent);
+        fill: var(--ui-accent-dark);
       }
       .edge-main {
         &.end {

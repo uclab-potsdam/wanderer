@@ -6,6 +6,7 @@ import DocumentCard from './DocumentCard.vue'
 import IconArrow from '~icons/default/Arrow'
 import IconClose from '~icons/default/Close'
 import IconEdit from '~icons/default/Edit'
+import ModalEdit from './modals/ModalEdit.vue'
 
 const props = defineProps({
   allocation: Object,
@@ -107,6 +108,10 @@ function onMouseMove(e) {
   updateArrowDeg(e)
 }
 
+function update() {
+  terminusStore.getGraph(terminusStore.graph)
+}
+
 function updateArrowDeg(e) {
   const vectorX =
     e.x / props.transform.k - (props.allocation.x + props.transform.x / props.transform.k)
@@ -130,6 +135,8 @@ function onMouseEnter() {
 function onMouseOut() {
   if (connectable.value) emit('mouse-out')
 }
+
+const showEditModal = ref(false)
 </script>
 
 <template>
@@ -158,9 +165,16 @@ function onMouseOut() {
       </template>
       <template v-slot:right>
         <IconClose @click="deleteAllocation" />
-        <RouterLink :to="`/edit/${allocation.node['@id']}`">
-          <IconEdit />
-        </RouterLink>
+        <IconEdit @click="showEditModal = true" />
+        <Teleport to="#modals">
+          <ModalEdit
+            :show="showEditModal"
+            :id="allocation.node['@id']"
+            :type="allocation.node['@type']"
+            @close="showEditModal = false"
+            @update="update"
+          />
+        </Teleport>
       </template>
     </DocumentCard>
   </foreignObject>
@@ -178,7 +192,7 @@ foreignObject {
         .center {
           .icon {
             color: var(--secondary);
-            background-color: var(--accent);
+            background-color: var(--ui-accent-dark);
           }
         }
       }
@@ -187,7 +201,7 @@ foreignObject {
   // &.connectable {
   > section.document.connecting-to {
     &:hover {
-      background: var(--accent);
+      background: var(--ui-accent-dark);
       color: var(--secondary);
       :deep(.buttons) {
         display: none;
@@ -199,8 +213,11 @@ foreignObject {
     }
 
     &.connecting-from {
-      background: var(--secondary);
-      color: var(--accent);
+      color: var(--ui-accent-dark);
+      outline: 1px solid var(--ui-accent-dark);
+      outline-offset: -1px;
+      // background: var(--secondary);
+      // color: var(--ui-accent-dark);
     }
   }
   // }

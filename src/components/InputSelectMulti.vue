@@ -58,7 +58,7 @@ function updateValue(key, value) {
 
   &:focus-within {
     :deep(.input-text:first-child > label > span:first-child) {
-      color: var(--accent);
+      color: var(--ui-accent-dark);
     }
   }
 }

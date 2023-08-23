@@ -46,7 +46,7 @@ async function deleteDocument() {
 
 <style lang="scss" scoped>
 main {
-  margin: var(--spacing) var(--spacing) var(--spacing) var(--offset-left);
+  margin: var(--spacing);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);

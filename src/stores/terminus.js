@@ -1,12 +1,11 @@
 import { computed, ref } from 'vue'
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { WOQLClient, WOQL } from '@terminusdb/terminusdb-client'
-import { useViewStore } from './view'
-import { ACCESS_NONE, ACCESS_READ, ACCESS_WRITE } from '@/assets/js/constants'
+import { AccessControl, WOQLClient, WOQL } from '@terminusdb/terminusdb-client'
+// import { useViewStore } from './view'
 
 export const useTerminusStore = defineStore('terminus', () => {
-  const viewStore = useViewStore()
-  const schema = ref({})
+  // const viewStore = useViewStore()
+  const schema = ref(null)
 
   const allocations = ref([])
   const edges = ref([])
@@ -16,37 +15,56 @@ export const useTerminusStore = defineStore('terminus', () => {
   const markers = ref([])
 
   const graph = ref([])
+  const media = ref({})
   const graphDoc = ref({})
 
   const currentLabel = ref({})
+  const languageList = ref([])
+
+  const userInfo = ref({
+    name: null,
+    roles: null
+  })
 
   let client = null
 
-  async function connect(access) {
-    const user =
-      localStorage.getItem('USER') ||
-      (access < ACCESS_WRITE ? import.meta.env.VITE_READ_USER : null)
-    const key =
-      localStorage.getItem('KEY') || (access < ACCESS_WRITE ? import.meta.env.VITE_READ_KEY : null)
+  async function connect(u, p) {
+    const user = u ?? localStorage.getItem('USER') ?? import.meta.env.VITE_READ_USER
+    const pass = p ?? localStorage.getItem('PASS') ?? import.meta.env.VITE_READ_PASS
+
     const server = import.meta.env.VITE_SERVER
     const organization = import.meta.env.VITE_ORGANIZATION
     const db = import.meta.env.VITE_DB
 
-    if (user == null || key == null) return 'MISSING_CREDENTIALS'
+    const accessControl = new AccessControl(server, {
+      organization,
+      user,
+      [import.meta.env.VITE_AUTH_MODE]: pass
+    })
+
+    try {
+      userInfo.value.roles = await accessControl
+        .getTeamUserRoles(user, organization)
+        .then((r) => r.capability.find((c) => c.scope.match(organization))?.role)
+      userInfo.value.name = user
+    } catch (error) {
+      if (error.status === 401) return 'INCORRECT_CREDENTIALS'
+      return 'UNEXPECTED_ERROR'
+    }
 
     client = new WOQLClient(server, {
       user,
-      [import.meta.env.VITE_AUTH_MODE]: key,
+      [import.meta.env.VITE_AUTH_MODE]: pass,
       organization,
       db
     })
-    try {
-      schema.value = await client.getSchemaFrame()
-    } catch (error) {
-      if (error.status === 401) return 'INCORRECT_CREDENTIALS'
-      return 'UNEXPECTED ERROR'
-    }
-    getClasses()
+    // try {
+    //   schema.value = await client.getSchemaFrame()
+    // } catch (error) {
+    //   if (error.status === 401) return 'INCORRECT_CREDENTIALS'
+    //   return 'UNEXPECTED ERROR'
+    // }
+    // getClasses()
     return 'SUCCESS'
   }
 
@@ -54,16 +72,20 @@ export const useTerminusStore = defineStore('terminus', () => {
   //   // return Object.keys(branches.value || {}).length > 0
   // })
 
-  const access = computed(() => {
-    return Object.keys(schema.value).length === 0
-      ? ACCESS_NONE
-      : client.user() === import.meta.env.VITE_READ_USER
-      ? ACCESS_READ
-      : ACCESS_WRITE
+  const isAuthor = computed(() => {
+    return userInfo.value.roles.some((r) => r.name === 'author')
+  })
+
+  const isSignedIn = computed(() => {
+    return userInfo.value.name && userInfo.value.name !== import.meta.env.VITE_READ_USER
+  })
+
+  const isAuthorized = computed(() => {
+    return client != null
   })
 
   const languages = computed(() => {
-    return schema.value.text?.['@metadata']?.languages || []
+    return schema.value?.text?.['@metadata']?.languages || []
   })
 
   // const displayEdges = computed(() => {
@@ -211,13 +233,18 @@ export const useTerminusStore = defineStore('terminus', () => {
       .filter((d) => d.source != null && d.target != null)
 
     await Promise.all([getProperties(), getClasses(), getMarkers()])
+    if (graphDoc.value.media != null) {
+      media.value = await getDocument(graphDoc.value.media)
+    } else {
+      media.value = {}
+    }
   }
 
   async function getLabel(id) {
     const res = await client.query(
       WOQL.triple(id, 'label', 'v:label_id').read_document('v:label_id', 'v:label')
     )
-    currentLabel.value = res.bindings[0]?.label
+    return res.bindings[0]?.label
   }
 
   function resolveEdge(edge) {
@@ -242,6 +269,11 @@ export const useTerminusStore = defineStore('terminus', () => {
   async function getClasses() {
     const res = await getDocumentsByType('class')
     classes.value = res
+  }
+
+  async function getSchema() {
+    if (schema.value == null) schema.value = await client.getSchemaFrame()
+    return schema.value
   }
 
   async function getDocument(id) {
@@ -289,9 +321,7 @@ export const useTerminusStore = defineStore('terminus', () => {
         .triple('v:id', 'rdf:type', `@schema:${type}`)
         .once(
           WOQL.or(
-            ...viewStore.userLanguages.map((lang) =>
-              WOQL.triple('v:text', `@schema:${lang}`, 'v:label')
-            )
+            ...languageList.value.map((lang) => WOQL.triple('v:text', `@schema:${lang}`, 'v:label'))
           )
         )
         .like(term, 'v:label', 'v:dist')
@@ -306,10 +336,16 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   return {
+    media,
     connect,
-    access,
+    userInfo,
+    isAuthor,
+    isSignedIn,
+    isAuthorized,
+    getSchema,
     schema,
     languages,
+    languageList,
     allocations,
     edges,
     graph,

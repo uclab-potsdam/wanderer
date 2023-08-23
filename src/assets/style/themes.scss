@@ -25,6 +25,23 @@
   --flow-edge: rgb(var(--blue-2));
   --flow-edge-inactive: rgba(var(--blue-2),0.3);
   --flow-edge-highlight: rgb(var(--orange-5));
+
+  // ui
+  // --ui-accent: rgb(var(--violet-5));
+  --ui-text: rgb(var(--gray-0));
+  --ui-text-inverted: rgb(var(--gray-11));
+  --ui-text-muted: rgb(var(--blue-gray-5));
+  --ui-text-disabled: rgb(var(--blue-gray-8));
+  --ui-background: rgb(var(--gray-11));
+
+  --ui-error: rgb(var(--red-6));
+
+  --ui-accent: rgb(var(--violet-6));
+  --ui-accent-dark: rgb(var(--violet-3));
+  --ui-accent-deep: rgb(var(--violet-2));
+  --ui-accent-light: rgb(var(--violet-9));
+  --ui-backdrop: rgb(var(--blue-11));
+  --ui-backdrop-translucent: rgba(233,235,255,0.5);
 }
 
 @media (prefers-color-scheme: dark) {

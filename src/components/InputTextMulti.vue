@@ -1,31 +1,31 @@
 <script setup>
-import { ref, computed } from "vue";
-import InputText from "./InputText.vue";
+import { ref, computed } from 'vue'
+import InputText from '@/components/inputs/InputText.vue'
 
-const props = defineProps(["modelValue", "options", "label"]);
-const emit = defineEmits(["update:modelValue"]);
+const props = defineProps(['modelValue', 'options', 'label'])
+const emit = defineEmits(['update:modelValue'])
 
-const isArray = ref(Array.isArray(props.modelValue));
+const isArray = ref(Array.isArray(props.modelValue))
 
 const keys = computed(() =>
   isArray.value
     ? new Array(props.modelValue.length + 1).fill().map((d, i) => i)
     : Object.keys(props.modelValue)
-);
+)
 
 function updateValue(key, value) {
   if (isArray.value) {
-    const proxy = [...props.modelValue];
-    proxy.splice(+key, 1, value);
+    const proxy = [...props.modelValue]
+    proxy.splice(+key, 1, value)
     emit(
-      "update:modelValue",
+      'update:modelValue',
       proxy.filter((v) => v)
-    );
+    )
   } else {
-    emit("update:modelValue", {
+    emit('update:modelValue', {
       ...props.modelValue,
-      [key]: value,
-    });
+      [key]: value
+    })
   }
 }
 </script>
@@ -47,12 +47,12 @@ function updateValue(key, value) {
 <style lang="scss" scoped>
 .input-text-multi {
   display: flex;
-  gap: var(--spacing-l);
+  gap: var(--spacing);
   flex-wrap: wrap;
 
   &:focus-within {
     :deep(.input-text:first-child > label > span:first-child) {
-      color: var(--accent);
+      color: var(--ui-accent-dark);
     }
   }
 }
