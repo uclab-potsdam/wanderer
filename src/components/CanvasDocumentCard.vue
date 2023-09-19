@@ -7,7 +7,6 @@ import { ref, computed } from 'vue'
 import DocumentCard from './DocumentCard.vue'
 import NodeButtonDrawEdge from './NodeButtonDrawEdge.vue'
 import NodeButtonRaiseLevel from './NodeButtonRaiseLevel.vue'
-import IconClose from '~icons/default/Close'
 import IconEdit from '~icons/default/Edit'
 import ModalEdit from './modals/ModalEdit.vue'
 
@@ -45,13 +44,13 @@ function update() {
   terminusStore.getGraph(terminusStore.graph)
 }
 
-async function deleteAllocation() {
-  terminusStore.deleteDocument(props.allocation['@id'])
-  const index = terminusStore.allocations.findIndex((n) => n['@id'] === props.allocation['@id'])
-  if (index >= 0) {
-    terminusStore.allocations.splice(index, 1)
-  }
-}
+// async function deleteAllocation() {
+//   terminusStore.deleteDocument(props.allocation['@id'])
+//   const index = terminusStore.allocations.findIndex((n) => n['@id'] === props.allocation['@id'])
+//   if (index >= 0) {
+//     terminusStore.allocations.splice(index, 1)
+//   }
+// }
 
 function onMouseEnter() {
   if (mode.value !== MODE_COMPOSE || composeStore.sourceNode == null) return

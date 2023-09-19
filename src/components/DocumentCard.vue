@@ -23,9 +23,9 @@ const className = computed(() => {
   return viewStore.localize(cl.label)
 })
 
-const description = computed(() => {
-  return viewStore.localize(props.document.description)
-})
+// const description = computed(() => {
+//   return viewStore.localize(props.document.description)
+// })
 
 const emit = defineEmits(['close'])
 function onDragStart(e) {
