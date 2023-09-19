@@ -42,6 +42,12 @@
   --ui-accent-light: rgb(var(--violet-9));
   --ui-backdrop: rgb(var(--blue-11));
   --ui-backdrop-translucent: rgba(233,235,255,0.5);
+
+  --node-background: rgb(var(--gray-0));
+  --node-background-light: rgb(var(--gray-9));
+  --node-text: rgb(var(--gray-11));
+  --node-border-radius: var(--ui-border-radius);
+  --node-padding: var(--spacing-l);
 }
 
 @media (prefers-color-scheme: dark) {

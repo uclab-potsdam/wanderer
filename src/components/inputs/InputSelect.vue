@@ -13,7 +13,8 @@ const props = defineProps([
   'label',
   'secondaryLabel',
   'placeholder',
-  'type'
+  'type',
+  'lang'
 ])
 const emit = defineEmits(['update:modelValue'])
 
@@ -40,7 +41,7 @@ watchEffect(async () => {
 })
 </script>
 <template>
-  <button class="input-text" @click="showModalSearch = true">
+  <button class="input-text" @click="showModalSearch = true" :lang="lang">
     <label :for="name">
       <span> {{ label }} </span>
       <span> {{ secondaryLabel }} </span>

@@ -27,7 +27,6 @@ const showEditModal = ref(null)
         <DocumentCard
           :document="document"
           draggable="native"
-          show-hover
           @close="$emit('close')"
           @click="$emit('select', document['@id'])"
         >

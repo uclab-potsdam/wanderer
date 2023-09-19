@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import InputSelect from './InputSelect.vue'
+import InputSelect from '@/components/inputs/InputSelect.vue'
 
 const props = defineProps({
   modelValue: [String, Number, Boolean],

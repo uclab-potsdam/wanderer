@@ -1,5 +1,4 @@
 <script setup>
-import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
 import { MODE_COMPOSE, MODE_COUPLE, MODE_VIEW } from '@/assets/js/constants'
 
@@ -10,7 +9,6 @@ import ControlsMedia from './controls/ControlsMedia.vue'
 
 const route = useRoute()
 
-const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
 </script>
 <template>

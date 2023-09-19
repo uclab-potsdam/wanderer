@@ -1,13 +1,12 @@
 <script setup>
 import { computed, ref } from 'vue'
-// import BaseModal from "./BaseModal.vue";
-// import CanvasEdgeOptions from "./CanvasEdgeOptions.vue";
-import { useRouter } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
+import { useSyncStore } from '@/stores/sync'
 import { useViewStore } from '@/stores/view'
 import ModalEdit from './modals/ModalEdit.vue'
-const router = useRouter()
+
 const terminusStore = useTerminusStore()
+const syncStore = useSyncStore()
 const viewStore = useViewStore()
 
 const props = defineProps({ edge: Object, interactive: Boolean, displayRemoteStyle: Boolean })
@@ -72,7 +71,7 @@ const path = computed(() => {
 
   // const points = [[source.x, source.y], 'L', ...c1, 'L', [target.x, target.y]]
 
-  const r = Math.min(40, Math.abs(horizontal ? diffY : diffX) / 2)
+  const r = Math.min(10, Math.abs(horizontal ? diffY : diffX) / 2)
   // const c1 =
   //   Math.abs(diffX) > Math.abs(diffY)
   //     ? [
@@ -161,10 +160,28 @@ function onClick() {
 function update() {
   terminusStore.getGraph(terminusStore.graph)
 }
+
+const sourceLevel = computed(
+  () =>
+    terminusStore.states.findLast(
+      (state) => state.node === props.edge.source.node['@id'] && state.timestamp <= syncStore.time
+    )?.level ?? viewStore.stateLevelDefault
+)
+
+const targetLevel = computed(
+  () =>
+    terminusStore.states.findLast(
+      (state) => state.node === props.edge.target.node['@id'] && state.timestamp <= syncStore.time
+    )?.level ?? viewStore.stateLevelDefault
+)
+
+const level = computed(() => {
+  return Math.min(sourceLevel.value, targetLevel.value)
+})
 </script>
 
 <template>
-  <g class="edge" :class="{ local }" @click="onClick">
+  <g class="edge" :class="[`level-${level}`, { local }]" @click="onClick">
     <path class="edge-hitzone" :d="path" />
     <!-- <path v-if="!local" class="edge-outline" :d="path" /> -->
     <path
@@ -201,7 +218,6 @@ function update() {
 <style lang="scss" scoped>
 .edge {
   user-select: none;
-  // cursor: context-menu;
 
   path {
     fill: none;
@@ -289,6 +305,55 @@ function update() {
           marker-start: url(#arrow-accent-flipped);
         }
       }
+    }
+  }
+
+  &.level-0 {
+    opacity: 0;
+    :deep(path.edge-main) {
+      stroke: var(--hidden);
+    }
+    :deep(text) {
+      fill: var(--hidden);
+    }
+  }
+  &.level-1 {
+    filter: blur(10px);
+    :deep(path.edge-main) {
+      stroke: var(--inactive);
+    }
+    :deep(text) {
+      fill: var(--inactive);
+    }
+  }
+  &.level-2 {
+    :deep(path.edge-main) {
+      // stroke: var(--primary);
+
+      &.end {
+        marker-end: url(#arrow);
+      }
+      &:not(.end) {
+        marker-start: url(#arrow-flipped);
+      }
+    }
+    :deep(text) {
+      // fill: var(--primary);
+    }
+  }
+  &.level-3 {
+    :deep(path.edge-main) {
+      stroke: var(--flow-edge-highlight);
+
+      &.end {
+        marker-end: url(#arrow-accent);
+      }
+      &:not(.end) {
+        marker-start: url(#arrow-accent-flipped);
+      }
+    }
+    :deep(text) {
+      fill: var(--flow-edge-highlight);
     }
   }
 }

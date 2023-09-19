@@ -6,7 +6,7 @@ import { useTerminusStore } from '@/stores/terminus'
 import { ref, watch } from 'vue'
 import DocumentForm from '@/components/DocumentForm.vue'
 
-const props = defineProps(['id', 'type'])
+const props = defineProps({ id: String, type: String, show: Boolean })
 
 // const route = useRoute()
 const terminusStore = useTerminusStore()
@@ -16,11 +16,11 @@ const terminusStore = useTerminusStore()
 const document = ref({ '@type': props.type })
 
 watch(
-  () => props.id,
+  () => props.show,
   async () => {
+    if (!props.show) return
     document.value = await terminusStore.getDocument(props.id)
-  },
-  { immediate: true }
+  }
 )
 
 async function updateDocument() {
@@ -40,7 +40,7 @@ const emit = defineEmits(['close', 'update'])
 </script>
 
 <template>
-  <ModalWrapper @close="$emit('close')" show-header title="Settings">
+  <ModalWrapper @close="$emit('close')" show-header title="Settings" :show="show">
     <main>
       <DocumentForm v-model="document" />
       <div class="button-group">

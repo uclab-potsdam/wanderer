@@ -48,7 +48,8 @@ export const useViewStore = defineStore('view', () => {
   }
 
   function getMediaUrl(filename) {
-    return `${import.meta.env.VITE_MEDIA_SERVER.replace(/\/$/, '')}/${filename.replace(/^\//, '')}`
+    // return `${import.meta.env.VITE_MEDIA_SERVER.replace(/\/$/, '')}/${filename.replace(/^\//, '')}`
+    return `${import.meta.env.VITE_MEDIA_SERVER}${filename.replace(/^\//, '')}`
   }
 
   const modeSetting = ref(permanentStore.getMode() ?? MODE_VIEW)
@@ -68,6 +69,9 @@ export const useViewStore = defineStore('view', () => {
     }
   }
 
+  const stateLevelCount = ref(+import.meta.env.VITE_STATE_LEVEL_COUNT)
+  const stateLevelDefault = ref(+import.meta.env.VITE_STATE_LEVEL_DEFAULT)
+
   return {
     before,
     languageList,
@@ -77,7 +81,9 @@ export const useViewStore = defineStore('view', () => {
     getMediaUrl,
     mode,
     modeSetting,
-    getTitle
+    getTitle,
+    stateLevelCount,
+    stateLevelDefault
   }
 })
 

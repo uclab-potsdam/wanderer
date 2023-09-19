@@ -88,6 +88,20 @@ export const useTerminusStore = defineStore('terminus', () => {
     return schema.value?.text?.['@metadata']?.languages || []
   })
 
+  const states = computed(() => {
+    return markers.value
+      .map((marker) => {
+        return (marker.state ?? []).map((state) => {
+          return {
+            ...state,
+            timestamp: marker.timestamp,
+            marker: marker['@id']
+          }
+        })
+      })
+      .flat()
+  })
+
   // const displayEdges = computed(() => {
   //   return edges.value
   //     .map((property) => {
@@ -115,7 +129,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     return res
   }
 
-  async function addAllocation(node, graph, coordinates) {
+  async function updateAllocation(node, coordinates, local = false) {
     const allocation = allocations.value.find((allocation) => allocation.node['@id'] === node)
 
     const snapping = true
@@ -129,11 +143,12 @@ export const useTerminusStore = defineStore('terminus', () => {
       allocation.x = snapTo.x
       allocation.y = snapTo.y
     }
+    if (local) return
     await client.updateDocument(
       {
         '@type': 'allocation',
         node,
-        graph,
+        graph: graph.value,
         ...snapTo
       },
       { create: true },
@@ -145,7 +160,7 @@ export const useTerminusStore = defineStore('terminus', () => {
       true
     )
     if (allocation == null) {
-      getGraph(graph)
+      getGraph(graph.value)
     }
     // const res = await client.getDocument({
     //   as_list: true,
@@ -191,13 +206,24 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   async function getMarkers() {
-    markers.value = await client.getDocument({
-      as_list: true,
-      query: { '@type': 'marker', graph: graph.value }
-    })
+    markers.value = (
+      await client.query(
+        WOQL.order_by('v:ts')
+          .triple('v:marker_id', 'rdf:type', '@schema:marker')
+          .triple('v:marker_id', 'graph', graph.value)
+          .triple('v:marker_id', 'timestamp', 'v:ts')
+          .read_document('v:marker_id', 'v:marker')
+      )
+    ).bindings.map(({ marker }) => marker)
+
+    // markers.value = client.getDocument({
+    //   as_list: true,
+    //   query: { '@type': 'marker', graph: graph.value }
+    // })
   }
 
   async function getGraph(id, clear = false) {
+    console.log('calls getGraph')
     graphDoc.value = await getDocument(id)
     graph.value = id
     if (clear.value) allocations.value = []
@@ -300,16 +326,21 @@ export const useTerminusStore = defineStore('terminus', () => {
       .reverse()
   }
 
-  async function setStateChange(marker, id, state) {
-    const stateChanges = marker.state_change?.filter((stateChange) => stateChange.node !== id) ?? []
-    if (state != null) stateChanges.push({ '@type': 'state-change', node: id, state: state })
+  async function setState(marker, id, level) {
+    const states = marker.state?.filter((state) => state.node !== id) ?? []
+    if (level != null) states.push({ '@type': 'state', node: id, level })
 
-    await client.updateDocument({
+    const newMarker = {
       ...marker,
-      state_change: stateChanges
-    })
+      state: states
+    }
 
-    getMarkers()
+    markers.value.splice(
+      markers.value.findIndex((m) => m['@id'] === marker['@id']),
+      1,
+      newMarker
+    )
+    await client.updateDocument(newMarker)
   }
 
   async function search(term, type) {
@@ -353,7 +384,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     addDocument,
     updateDocument,
     deleteDocument,
-    addAllocation,
+    updateAllocation,
     addEdge,
     getGraph,
     getDocument,
@@ -371,7 +402,8 @@ export const useTerminusStore = defineStore('terminus', () => {
     getMarkers,
     markers,
     deleteMarker,
-    setStateChange
+    setState,
+    states
   }
 })
 

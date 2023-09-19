@@ -1,123 +1,48 @@
 <script setup>
 import { useTerminusStore } from '@/stores/terminus'
+import { useComposeStore } from '@/stores/compose'
+import { useViewStore } from '@/stores/view'
+import { useSyncStore } from '@/stores/sync'
 import { ref, computed } from 'vue'
-import { RouterLink } from 'vue-router'
 import DocumentCard from './DocumentCard.vue'
-import IconArrow from '~icons/default/Arrow'
+import NodeButtonDrawEdge from './NodeButtonDrawEdge.vue'
+import NodeButtonRaiseLevel from './NodeButtonRaiseLevel.vue'
 import IconClose from '~icons/default/Close'
 import IconEdit from '~icons/default/Edit'
 import ModalEdit from './modals/ModalEdit.vue'
 
+import { MODE_VIEW, MODE_COMPOSE, MODE_COUPLE } from '@/assets/js/constants'
+
 const props = defineProps({
   allocation: Object,
-  transform: Object,
-  connectingTo: Boolean
+  transform: Object
 })
-const emit = defineEmits([
-  'update-position',
-  'connect-start',
-  'connect-end',
-  'connect',
-  'mouse-enter',
-  'mouse-out'
-])
 
 const terminusStore = useTerminusStore()
+const composeStore = useComposeStore()
+const viewStore = useViewStore()
+const syncStore = useSyncStore()
 
-let dragStartX = null
-let dragStartY = null
+const mode = computed(() => viewStore.mode)
 
-const dragX = ref(0)
-const dragY = ref(0)
+const moving = computed(() => props.allocation.node['@id'] === composeStore.movingNode)
+const drawingSource = computed(() => props.allocation.node['@id'] === composeStore.sourceNode)
+const drawingTarget = computed(
+  () => composeStore.sourceNode && props.allocation.node['@id'] !== composeStore.sourceNode
+)
 
-const x = computed(() => dragX.value + props.allocation.x)
-const y = computed(() => dragY.value + props.allocation.y)
-
-const connectable = ref(true) // computed(() => props.allocation.node['@type'] !== 'graph')
-
-const arrowX = ref(0)
-const arrowY = ref(0)
-const arrowDeg = ref(0)
-const connectingFrom = ref(false)
-
-function moveCard(e) {
+function onMouseDown(e) {
+  if (mode.value !== MODE_COMPOSE) return
   e.stopPropagation()
-  dragStartX = e.x
-  dragStartY = e.y
-
-  const controller = new AbortController()
-
-  window.addEventListener(
-    'mouseup',
-    () => {
-      emit('update-position', { x: x.value, y: y.value })
-      dragX.value = 0
-      dragY.value = 0
-      controller.abort()
-    },
-    { once: true }
+  composeStore.moveNode(
+    props.allocation.node['@id'],
+    { x: props.allocation.x, y: props.allocation.y },
+    { x: e.x, y: e.y }
   )
-
-  window.addEventListener(
-    'mousemove',
-    (e) => {
-      dragX.value = (e.x - dragStartX) / props.transform.k
-      dragY.value = (e.y - dragStartY) / props.transform.k
-    },
-    { signal: controller.signal }
-  )
-}
-
-function connect(e) {
-  e.stopPropagation()
-  dragStartX = e.x
-  dragStartY = e.y
-  connectingFrom.value = true
-  emit('connect-start')
-
-  const controller = new AbortController()
-
-  window.addEventListener(
-    'mouseup',
-    () => {
-      emit('connect-end')
-      // emit("updatePosition", { x: x.value, y: y.value });
-      arrowX.value = 0
-      arrowY.value = 0
-      connectingFrom.value = false
-      controller.abort()
-    },
-    { once: true }
-  )
-
-  window.addEventListener(
-    'mousemove',
-    (e) => {
-      arrowX.value = (e.x - dragStartX) / props.transform.k
-      arrowY.value = (e.y - dragStartY) / props.transform.k
-      updateArrowDeg(e)
-      emit('connect', {
-        x: arrowX.value,
-        y: arrowY.value
-      })
-    },
-    { signal: controller.signal }
-  )
-}
-function onMouseMove(e) {
-  updateArrowDeg(e)
 }
 
 function update() {
   terminusStore.getGraph(terminusStore.graph)
-}
-
-function updateArrowDeg(e) {
-  const vectorX =
-    e.x / props.transform.k - (props.allocation.x + props.transform.x / props.transform.k)
-  const vectorY =
-    e.y / props.transform.k - (props.allocation.y + props.transform.y / props.transform.k)
-  arrowDeg.value = Math.atan(vectorY / vectorX) * (180 / Math.PI) + (vectorX > 0 ? 0 : 180)
 }
 
 async function deleteAllocation() {
@@ -129,42 +54,60 @@ async function deleteAllocation() {
 }
 
 function onMouseEnter() {
-  if (connectable.value) emit('mouse-enter')
+  if (mode.value !== MODE_COMPOSE || composeStore.sourceNode == null) return
+  composeStore.targetNode = props.allocation.node['@id']
 }
 
 function onMouseOut() {
-  if (connectable.value) emit('mouse-out')
+  if (mode.value !== MODE_COMPOSE || composeStore.sourceNode == null) return
+  composeStore.targetNode = null
 }
+
+const state = computed(() =>
+  terminusStore.states.findLast(
+    (state) => state.node === props.allocation.node['@id'] && state.timestamp <= syncStore.time
+  )
+)
+
+const modeClass = computed(() => {
+  switch (mode.value) {
+    case MODE_COMPOSE:
+      return 'mode-compose'
+    case MODE_COUPLE:
+      return 'mode-couple'
+    case MODE_VIEW:
+      return 'mode-view'
+  }
+  return null
+})
 
 const showEditModal = ref(false)
 </script>
 
 <template>
-  <foreignObject width="100" height="100" :x="x" :y="y">
+  <div
+    class="canvas-document-card"
+    :style="{ transform: `translate(${allocation.x}px, ${allocation.y}px)` }"
+    :class="{ moving, 'drawing-source': drawingSource, 'drawing-target': drawingTarget }"
+  >
     <DocumentCard
-      @mousedown="moveCard"
+      @mousedown="onMouseDown"
       @mouseover="onMouseEnter"
       @mouseout="onMouseOut"
-      @mousemove="onMouseMove"
       :document="allocation.node"
-      :class="{
-        'connecting-from': connectingFrom,
-        'connecting-to': connectingTo,
-        connectable: connectable
-      }"
-      show-hover
+      :level="state?.level"
+      :class="[modeClass]"
     >
       <template v-slot:center>
-        <IconArrow
-          v-if="connectable"
-          :style="{
-            transform: `translate(${arrowX}px, ${arrowY}px) rotate(${arrowDeg}deg)`
-          }"
-          @mousedown="connect"
+        <NodeButtonDrawEdge v-if="mode === MODE_COMPOSE" :allocation="allocation" />
+        <NodeButtonRaiseLevel
+          v-if="mode === MODE_COUPLE"
+          :allocation="allocation"
+          :level="state?.level"
         />
       </template>
       <template v-slot:right>
-        <IconClose @click="deleteAllocation" />
+        <!-- <IconClose @click="deleteAllocation" /> -->
         <IconEdit @click="showEditModal = true" />
         <Teleport to="#modals">
           <ModalEdit
@@ -177,49 +120,41 @@ const showEditModal = ref(false)
         </Teleport>
       </template>
     </DocumentCard>
-  </foreignObject>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-foreignObject {
-  > section.document {
+.canvas-document-card {
+  .node {
     transform: translate(-50%, -50%);
-    outline: 3px solid var(--secondary);
-    &.connecting-from {
-      pointer-events: none;
-      :deep(.buttons) {
-        display: block;
-        .center {
-          .icon {
-            color: var(--secondary);
-            background-color: var(--ui-accent-dark);
-          }
+  }
+
+  &.moving,
+  &.drawing-source {
+    z-index: 1;
+  }
+
+  &.drawing-source {
+    pointer-events: none;
+    :deep(.buttons) {
+      display: block;
+      .center {
+        .icon {
+          color: var(--secondary);
+          background-color: var(--ui-accent-dark);
         }
       }
     }
   }
-  // &.connectable {
-  > section.document.connecting-to {
-    &:hover {
+
+  &.drawing-target {
+    > section.document:hover {
       background: var(--ui-accent-dark);
       color: var(--secondary);
       :deep(.buttons) {
         display: none;
       }
     }
-
-    &:not(.connectable) {
-      pointer-events: none;
-    }
-
-    &.connecting-from {
-      color: var(--ui-accent-dark);
-      outline: 1px solid var(--ui-accent-dark);
-      outline-offset: -1px;
-      // background: var(--secondary);
-      // color: var(--ui-accent-dark);
-    }
   }
-  // }
 }
 </style>
