@@ -18,6 +18,6 @@ function raiseLevel() {
 }
 </script>
 <template>
-  <IconRaiseLevel v-if="syncStore.atMarker" @click="raiseLevel" />
+  <IconRaiseLevel v-if="syncStore.atMarker" @click.stop="raiseLevel" @dblclick.stop />
 </template>
 <style lang="scss" scoped></style>
