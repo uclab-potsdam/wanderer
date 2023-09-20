@@ -61,7 +61,7 @@ function onDragStart(e) {
   border-radius: var(--node-border-radius);
   .card {
     width: 250px;
-    // height: 100px;
+    min-height: 90px;
     transition: all var(--transition);
     background: var(--node-background);
     color: var(--node-text);
@@ -77,55 +77,51 @@ function onDragStart(e) {
     }
   }
 
-  &.level-0 {
+  &.level-0:not(.mode-compose) {
     &.mode-couple {
       outline: 1px dashed var(--node-background);
       outline-offset: -1px;
     }
-    &:not(.mode-compose) {
-      .card {
-        opacity: 0;
-      }
-    }
-  }
-
-  &.level-1 {
-    &.mode-couple {
-      outline: 1px dashed var(--node-background);
-      outline-offset: -1px;
-    }
-    &:not(.mode-compose) {
-      .card {
-        filter: blur(15px);
-        background: var(--node-background-light);
-        color: var(--flow-color-inactive);
-      }
-    }
-  }
-
-  &.level-2 {
     .card {
+      opacity: 0;
     }
   }
 
-  &.level-3 {
-    &:not(.mode-compose) {
-      .card {
-        color: var(--flow-color-highlight);
-        background: var(--flow-background-highlight);
-      }
+  &.level-1:not(.mode-compose) {
+    &.mode-couple {
+      outline: 1px dashed var(--node-background);
+      outline-offset: -1px;
+    }
+    .card {
+      filter: blur(15px);
+      background: var(--node-background-light);
+      color: var(--flow-color-inactive);
+    }
+  }
+
+  &.level-2:not(.mode-compose) {
+    .card {
+      // default case
+    }
+  }
+
+  &.level-3:not(.mode-compose) {
+    .card {
+      color: var(--flow-color-highlight);
+      background: var(--flow-background-highlight);
     }
   }
   .actions {
     position: absolute;
     right: 0;
     top: 0;
-    margin: var(--spacing);
-    padding: var(--spacing);
-    // border-radius: var(--ui-border-radius);
-    background: var(--ui-backdrop-translucent);
-    backdrop-filter: blur(7px);
-    color: var(--node-text);
+    margin: var(--spacing-l);
+    // padding: var(--spacing);
+    border-radius: var(--ui-border-radius-s);
+    border: 1px solid #fff;
+    // background: #fff;
+    backdrop-filter: blur(3px);
+    color: #fff;
   }
 }
 </style>

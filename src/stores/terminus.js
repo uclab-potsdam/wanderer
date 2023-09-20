@@ -171,7 +171,7 @@ export const useTerminusStore = defineStore('terminus', () => {
 
   async function addEdge(source, target) {
     const edge = { source, target, graph: graph.value }
-    edges.value.push(resolveEdge(edge))
+    edges.value.push(edge)
 
     const res = await client.updateDocument(
       {
@@ -187,7 +187,8 @@ export const useTerminusStore = defineStore('terminus', () => {
       true
     )
     edges.value.splice(-1, 1, {
-      ...resolveEdge({ ...edge, '@id': res[0].replace(/^terminusdb:\/\/\/data\//, '') })
+      ...edge,
+      '@id': res[0].replace(/^terminusdb:\/\/\/data\//, '')
     })
   }
 
@@ -255,7 +256,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     )
 
     edges.value = edgeData.bindings
-      .map(({ edge }) => resolveEdge(edge))
+      .map(({ edge }) => edge)
       .filter((d) => d.source != null && d.target != null)
 
     await Promise.all([getProperties(), getClasses(), getMarkers()])
@@ -271,14 +272,6 @@ export const useTerminusStore = defineStore('terminus', () => {
       WOQL.triple(id, 'label', 'v:label_id').read_document('v:label_id', 'v:label')
     )
     return res.bindings[0]?.label
-  }
-
-  function resolveEdge(edge) {
-    return {
-      edge,
-      source: allocations.value.find(({ node }) => node['@id'] === edge.source),
-      target: allocations.value.find(({ node }) => node['@id'] === edge.target)
-    }
   }
 
   async function getMedia(id) {
@@ -340,7 +333,7 @@ export const useTerminusStore = defineStore('terminus', () => {
       1,
       newMarker
     )
-    await client.updateDocument(newMarker)
+    client.updateDocument(newMarker)
   }
 
   async function search(term, type) {

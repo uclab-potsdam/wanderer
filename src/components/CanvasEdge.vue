@@ -3,32 +3,33 @@ import { computed, ref } from 'vue'
 import { useTerminusStore } from '@/stores/terminus'
 import { useSyncStore } from '@/stores/sync'
 import { useViewStore } from '@/stores/view'
+import { useCanvasStore } from '@/stores/canvas'
 import ModalEdit from './modals/ModalEdit.vue'
 
 const terminusStore = useTerminusStore()
 const syncStore = useSyncStore()
 const viewStore = useViewStore()
+const canvasStore = useCanvasStore()
 
 const props = defineProps({ edge: Object, interactive: Boolean, displayRemoteStyle: Boolean })
 
 const label = computed(() => {
-  const propertyClass = terminusStore.properties.find((c) => c['@id'] === props.edge.edge?.property)
+  const propertyClass = terminusStore.properties.find((c) => c['@id'] === props.edge.property)
   return propertyClass?.label ? viewStore.localize(propertyClass.label) : {}
 })
 
 const local = computed(
-  () =>
-    !props.displayRemoteStyle &&
-    (props.edge.edge?.graph === terminusStore.graph || props.edge.active)
+  () => !props.displayRemoteStyle && (props.edge.graph === terminusStore.graph || props.edge.active)
 )
 
 const id = computed(() => {
-  return (props.edge.id || props.edge.edge?.['@id'] || 'some-path').replace(/%/g, '-')
+  return (props.edge.id || props.edge['@id'] || 'some-path').replace(/%/g, '-')
 })
 
 const path = computed(() => {
   if (props.edge.target == null) return ``
-  const { source, target } = props.edge
+  const source = canvasStore.nodes[props.edge.source]
+  const target = canvasStore.nodes[props.edge.target]
 
   if (props.edge.active) return `M${source.x},${source.y}L${target.x},${target.y}`
 
@@ -56,40 +57,7 @@ const path = computed(() => {
     y: horizontal ? target.y + push : target.y + offsetY * direction * -1
   }
 
-  // const c1 =
-  //   Math.abs(diffX) > Math.abs(diffY)
-  //     ? [
-  //         [source.x + diffX / 2, source.y + diffY / 10],
-  //         'L',
-  //         [source.x + diffX / 2, target.y - diffY / 10]
-  //       ]
-  //     : [
-  //         [source.x + diffX / 10, source.y + diffY / 2],
-  //         'L',
-  //         [target.x - diffX / 10, source.y + diffY / 2]
-  //       ]
-
-  // const points = [[source.x, source.y], 'L', ...c1, 'L', [target.x, target.y]]
-
   const r = Math.min(10, Math.abs(horizontal ? diffY : diffX) / 2)
-  // const c1 =
-  //   Math.abs(diffX) > Math.abs(diffY)
-  //     ? [
-  //         [source.x + diffX / 2 - r, source.y],
-  //         [source.x + diffX / 2, source.y],
-  //         [source.x + diffX / 2, source.y + r],
-  //         [source.x + diffX / 2, target.y - r],
-  //         [source.x + diffX / 2, target.y],
-  //         [source.x + diffX / 2 + r, target.y]
-  //       ]
-  //     : [
-  //         [source.x, source.y + diffY / 2 + r],
-  //         [source.x, source.y + diffY / 2],
-  //         [source.x + r, source.y + diffY / 2],
-  //         [target.x - r, source.y + diffY / 2],
-  //         [target.x, source.y + diffY / 2],
-  //         [target.x, source.y + diffY / 2 - r]
-  //       ]
 
   const anchor1 = horizontal
     ? { x: source.x + diffX / 2, y: start.y }
@@ -99,10 +67,6 @@ const path = computed(() => {
     ? { x: source.x + diffX / 2, y: end.y }
     : { x: end.x, y: source.y + diffY / 2 }
 
-  // const points = [{
-  //   x: anchor1.x, y: anchor1.y
-
-  // }]
   const points = [
     start,
     {
@@ -125,23 +89,11 @@ const path = computed(() => {
     },
     end
   ]
-  // const points = [
-  //   [source.x, source.y],
-  //   [target.x, target.y]
-  // ]
-
-  // if (props.edge.active) points.push({ x: target.x, y: target.y })
 
   if (source.x > target.x) points.reverse()
 
-  // points.splice(1, 0, 'L')
-  // points.splice(3, 0, 'Q')
-  // points.splice(6, 0, 'L')
-  // points.splice(8, 0, 'Q')
-  // points.splice(11, 0, 'L')
   return `M${points
     .map((point) => `${point.x} ${point.y}`)
-    // .reduce((a, b, i) => (i < 9 ? `${a} ${' LQ'[i % 3]}${b} ` : `${a} L${b}`))}`
     .reduce((a, b, i) => `${a} ${' LQ'[i % 3]}${b} `)}`
 })
 
@@ -154,7 +106,7 @@ function onClick() {
   if (!props.interactive) return
   showEditModal.value = true
   // showOptions.value = true;
-  // router.push(`/edit/${props.edge.edge?.['@id']}`)
+  // router.push(`/edit/${props.edge.['@id']}`)
 }
 
 function update() {
@@ -164,14 +116,14 @@ function update() {
 const sourceLevel = computed(
   () =>
     terminusStore.states.findLast(
-      (state) => state.node === props.edge.source.node['@id'] && state.timestamp <= syncStore.time
+      (state) => state.node === props.edge.source && state.timestamp <= syncStore.time
     )?.level ?? viewStore.stateLevelDefault
 )
 
 const targetLevel = computed(
   () =>
     terminusStore.states.findLast(
-      (state) => state.node === props.edge.target.node['@id'] && state.timestamp <= syncStore.time
+      (state) => state.node === props.edge.target && state.timestamp <= syncStore.time
     )?.level ?? viewStore.stateLevelDefault
 )
 
@@ -191,7 +143,10 @@ const level = computed(() => {
       :d="path"
     />
     <text :lang="label.lang">
-      <textPath :href="`#${id}`" startOffset="50%" dominant-baseline="middle">
+      <textPath class="shadow" :href="`#${id}`" startOffset="50%">
+        {{ label.text }}
+      </textPath>
+      <textPath :href="`#${id}`" startOffset="50%">
         {{ label.text }}
       </textPath>
       <!-- <textPath :href="`#${id}`" startOffset="75%" dominant-baseline="middle">
@@ -247,7 +202,7 @@ const level = computed(() => {
 
   text {
     fill: var(--flow-edge);
-    font-size: var(--font-size-s);
+    font-size: var(--font-size-m);
     font-weight: 400;
     // text-transform: uppercase;
     pointer-events: none;
@@ -256,7 +211,12 @@ const level = computed(() => {
     // dominant-baseline: ideographic;
 
     textPath {
-      dominant-baseline: ideographic;
+      dominant-baseline: middle;
+
+      &.shadow {
+        stroke: #fff;
+        stroke-width: 6px;
+      }
     }
   }
 

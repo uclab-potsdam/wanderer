@@ -3,7 +3,8 @@ import { useTerminusStore } from '@/stores/terminus'
 import { useComposeStore } from '@/stores/compose'
 import { useViewStore } from '@/stores/view'
 import { useSyncStore } from '@/stores/sync'
-import { ref, computed } from 'vue'
+import { useCanvasStore } from '@/stores/canvas'
+import { ref, computed, onUnmounted, onMounted } from 'vue'
 import DocumentCard from './DocumentCard.vue'
 import NodeButtonDrawEdge from './NodeButtonDrawEdge.vue'
 import NodeButtonRaiseLevel from './NodeButtonRaiseLevel.vue'
@@ -21,8 +22,11 @@ const terminusStore = useTerminusStore()
 const composeStore = useComposeStore()
 const viewStore = useViewStore()
 const syncStore = useSyncStore()
+const canvasStore = useCanvasStore()
 
 const mode = computed(() => viewStore.mode)
+
+const node = ref(null)
 
 const moving = computed(() => props.allocation.node['@id'] === composeStore.movingNode)
 const drawingSource = computed(() => props.allocation.node['@id'] === composeStore.sourceNode)
@@ -39,6 +43,28 @@ function onMouseDown(e) {
     { x: e.x, y: e.y }
   )
 }
+
+const resizeObserver = new ResizeObserver((entries) => {
+  for (const entry of entries) {
+    if (entry.contentRect) {
+      canvasStore.updateNode(props.allocation.node['@id'], {
+        width: entry.contentRect.width,
+        height: entry.contentRect.height,
+        x: props.allocation.x,
+        y: props.allocation.y
+      })
+    }
+  }
+})
+
+onMounted(() => {
+  resizeObserver.observe(node.value)
+})
+
+onUnmounted(() => {
+  if (node.value != null) resizeObserver.unobserve(node.value)
+  canvasStore.deleteNode(props.allocation.node['@id'])
+})
 
 function update() {
   terminusStore.getGraph(terminusStore.graph)
@@ -68,6 +94,10 @@ const state = computed(() =>
   )
 )
 
+// watch(state, () => {
+//   canvasStore.updateNode(props.allocation.node['@id'], { level: state.value.level })
+// })
+
 const modeClass = computed(() => {
   switch (mode.value) {
     case MODE_COMPOSE:
@@ -85,6 +115,7 @@ const showEditModal = ref(false)
 
 <template>
   <div
+    ref="node"
     class="canvas-document-card"
     :style="{ transform: `translate(${allocation.x}px, ${allocation.y}px)` }"
     :class="{ moving, 'drawing-source': drawingSource, 'drawing-target': drawingTarget }"
