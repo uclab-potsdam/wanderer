@@ -9,7 +9,7 @@ const composeStore = useComposeStore()
 
 <style lang="scss" scoped>
 path {
-  stroke-width: 2;
-  stroke: var(--ui-accent-dark);
+  stroke-width: 1;
+  stroke: var(--edge-stroke-accent);
 }
 </style>

@@ -204,10 +204,10 @@ const level = computed(() => {
   }
   .path {
     stroke-width: 1;
-    transition: stroke var(--transition);
-    stroke: var(--flow-edge);
+    stroke: var(--edge-stroke);
 
-    marker-end: url(#arrow-muted);
+    marker-end: url(#arrow);
+    // marker-start: url(#arrow-flipped);
     // &.end {
     //   marker-end: url(#arrow-muted);
     // }
@@ -217,12 +217,11 @@ const level = computed(() => {
   }
 
   text {
-    fill: var(--flow-edge);
+    fill: var(--edge-text);
     font-size: var(--font-size);
     font-weight: var(--light);
     pointer-events: none;
     text-anchor: middle;
-    transition: fill var(--transition);
 
     textPath {
       dominant-baseline: middle;
@@ -235,10 +234,12 @@ const level = computed(() => {
 
   &:hover {
     .path {
-      stroke: var(--ui-accent);
+      stroke: var(--edge-stroke-accent);
+      marker-end: url(#arrow-accent);
+      // marker-start: url(#arrow-accent-flipped);
     }
     text {
-      fill: var(--ui-accent);
+      fill: var(--edge-text-accent);
     }
   }
 

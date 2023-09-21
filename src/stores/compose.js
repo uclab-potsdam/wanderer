@@ -59,14 +59,17 @@ export const useComposeStore = defineStore('compose', () => {
   function drawEdge(node, position, offset) {
     sourceNode.value = node
     const controller = new AbortController()
+    // const delta = {
+    //   x: position.x - (offset.x / canvasStore.transform.k - canvasStore.transform.x)
+    // }
 
     window.addEventListener(
       'mousemove',
       (e) => {
-        arrow.value.x = (e.x - offset.x) / canvasStore.transform.k
-        arrow.value.y = (e.y - offset.y) / canvasStore.transform.k
+        arrow.value.x = (e.x - canvasStore.transform.x) / canvasStore.transform.k
+        arrow.value.y = (e.y - canvasStore.transform.y) / canvasStore.transform.k
         arrow.value.r = getArrowRotation(e)
-        drawingEdge.value = `M${position.x} ${position.y} l${arrow.value.x} ${arrow.value.y}`
+        drawingEdge.value = `M${position.x} ${position.y} L${arrow.value.x} ${arrow.value.y}`
       },
       { signal: controller.signal }
     )

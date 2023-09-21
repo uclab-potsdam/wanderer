@@ -2,21 +2,21 @@
 import { ref } from 'vue'
 
 const marker = {
-  markerWidth: 15,
-  markerHeight: 10,
-  refY: 5,
+  markerWidth: 10,
+  markerHeight: 20,
+  refY: 10,
   orient: 'auto'
 }
 const markerDefault = {
-  refX: 7
+  refX: 10
 }
-const pathDefault = 'M2,1 L7,5 L2,9'
+const pathDefault = 'M0,0 L10,10 L0,20'
 
 const markerFlipped = {
-  refX: 8
+  refX: 0
 }
 
-const pathFlipped = 'M13,1 L8,5 L13,9'
+const pathFlipped = 'M10,0 L0,10 L10,20'
 
 const markers = ref([
   {
@@ -54,25 +54,28 @@ const markers = ref([
   </defs>
 </template>
 <style lang="scss" scoped>
+marker {
+  overflow: visible;
+}
 path {
   fill: none;
 }
 #arrow,
 #arrow-flipped {
   path {
-    stroke: var(--flow-edge);
+    stroke: var(--edge-stroke);
   }
 }
 #arrow-muted,
 #arrow-muted-flipped {
   path {
-    stroke: var(--flow-edge);
+    stroke: var(--edge-stroke);
   }
 }
 #arrow-accent,
 #arrow-accent-flipped {
   path {
-    stroke: var(--ui-accent-dark);
+    stroke: var(--edge-stroke-accent);
   }
 }
 </style>
