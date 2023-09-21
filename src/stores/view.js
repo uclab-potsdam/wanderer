@@ -4,7 +4,7 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 import { usePermanentStore } from '@/stores/permanent'
 import { useTerminusStore } from '@/stores/terminus'
 
-import { MODE_VIEW } from '@/assets/js/constants'
+import { MODE_VIEW, MODE_COMPOSE, MODE_COUPLE } from '@/assets/js/constants'
 
 export const useViewStore = defineStore('view', () => {
   const before = ref(null)
@@ -61,6 +61,18 @@ export const useViewStore = defineStore('view', () => {
     }
   )
 
+  const modeClass = computed(() => {
+    switch (mode.value) {
+      case MODE_COMPOSE:
+        return 'mode-compose'
+      case MODE_COUPLE:
+        return 'mode-couple'
+      case MODE_VIEW:
+        return 'mode-view'
+    }
+    return null
+  })
+
   async function getTitle(route) {
     if (route.meta.resolveTitle) {
       return localize(
@@ -81,6 +93,7 @@ export const useViewStore = defineStore('view', () => {
     getMediaUrl,
     mode,
     modeSetting,
+    modeClass,
     getTitle,
     stateLevelCount,
     stateLevelDefault

@@ -6,15 +6,17 @@ export const useCanvasStore = defineStore('canvas', () => {
   const transform = ref(zoomIdentity)
   const nodes = ref({})
 
-  function updateNode(id, rect) {
-    nodes.value[id] = rect
-    const margin = 5
-    nodes.value[id].bounds = [
-      { x: rect.x - (rect.width / 2 + margin), y: rect.y - (rect.height / 2 + margin) },
-      { x: rect.x + (rect.width / 2 + margin), y: rect.y - (rect.height / 2 + margin) },
-      { x: rect.x + (rect.width / 2 + margin), y: rect.y + (rect.height / 2 + margin) },
-      { x: rect.x - (rect.width / 2 + margin), y: rect.y + (rect.height / 2 + margin) }
+  function updateNode(id, n) {
+    const node = { ...(nodes.value[id] || {}), ...n }
+
+    const margin = 10
+    node.bounds = [
+      { x: node.x - (node.width / 2 + margin), y: node.y - (node.height / 2 + margin) },
+      { x: node.x + (node.width / 2 + margin), y: node.y - (node.height / 2 + margin) },
+      { x: node.x + (node.width / 2 + margin), y: node.y + (node.height / 2 + margin) },
+      { x: node.x - (node.width / 2 + margin), y: node.y + (node.height / 2 + margin) }
     ]
+    nodes.value[id] = node
   }
 
   function deleteNode(id) {

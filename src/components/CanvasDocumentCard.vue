@@ -4,14 +4,14 @@ import { useComposeStore } from '@/stores/compose'
 import { useViewStore } from '@/stores/view'
 import { useSyncStore } from '@/stores/sync'
 import { useCanvasStore } from '@/stores/canvas'
-import { ref, computed, onUnmounted, onMounted } from 'vue'
+import { ref, watch, computed, onUnmounted, onMounted } from 'vue'
 import DocumentCard from './DocumentCard.vue'
 import NodeButtonDrawEdge from './NodeButtonDrawEdge.vue'
 import NodeButtonRaiseLevel from './NodeButtonRaiseLevel.vue'
 import IconEdit from '~icons/default/Edit'
 import ModalEdit from './modals/ModalEdit.vue'
 
-import { MODE_VIEW, MODE_COMPOSE, MODE_COUPLE } from '@/assets/js/constants'
+import { MODE_COMPOSE, MODE_COUPLE } from '@/assets/js/constants'
 
 const props = defineProps({
   allocation: Object,
@@ -57,6 +57,24 @@ const resizeObserver = new ResizeObserver((entries) => {
   }
 })
 
+watch(
+  () => props.allocation.y,
+  () => {
+    canvasStore.updateNode(props.allocation.node['@id'], {
+      y: props.allocation.y
+    })
+  }
+)
+
+watch(
+  () => props.allocation.x,
+  () => {
+    canvasStore.updateNode(props.allocation.node['@id'], {
+      x: props.allocation.x
+    })
+  }
+)
+
 onMounted(() => {
   resizeObserver.observe(node.value)
 })
@@ -98,18 +116,6 @@ const state = computed(() =>
 //   canvasStore.updateNode(props.allocation.node['@id'], { level: state.value.level })
 // })
 
-const modeClass = computed(() => {
-  switch (mode.value) {
-    case MODE_COMPOSE:
-      return 'mode-compose'
-    case MODE_COUPLE:
-      return 'mode-couple'
-    case MODE_VIEW:
-      return 'mode-view'
-  }
-  return null
-})
-
 const showEditModal = ref(false)
 </script>
 
@@ -117,7 +123,7 @@ const showEditModal = ref(false)
   <div
     ref="node"
     class="canvas-document-card"
-    :style="{ transform: `translate(${allocation.x}px, ${allocation.y}px)` }"
+    :style="{ transform: `translate(${allocation.x}px, ${allocation.y}px) translate(-50%, -50%)` }"
     :class="{ moving, 'drawing-source': drawingSource, 'drawing-target': drawingTarget }"
   >
     <DocumentCard
@@ -126,7 +132,7 @@ const showEditModal = ref(false)
       @mouseout="onMouseOut"
       :document="allocation.node"
       :level="state?.level"
-      :class="[modeClass]"
+      :class="[viewStore.modeClass]"
     >
       <template v-slot:center>
         <NodeButtonDrawEdge v-if="mode === MODE_COMPOSE" :allocation="allocation" />
@@ -155,10 +161,6 @@ const showEditModal = ref(false)
 
 <style lang="scss" scoped>
 .canvas-document-card {
-  .node {
-    transform: translate(-50%, -50%);
-  }
-
   &.moving,
   &.drawing-source {
     z-index: 1;
