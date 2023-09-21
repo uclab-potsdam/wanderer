@@ -224,7 +224,6 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   async function getGraph(id, clear = false) {
-    console.log('calls getGraph')
     graphDoc.value = await getDocument(id)
     graph.value = id
     if (clear.value) allocations.value = []

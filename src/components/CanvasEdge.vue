@@ -25,9 +25,9 @@ const id = computed(() => {
 })
 
 const path = computed(() => {
-  if (props.edge.target == null) return ``
   const source = canvasStore.nodes[props.edge.source]
   const target = canvasStore.nodes[props.edge.target]
+  if (source == null || target == null) return
 
   const line = [
     { x: source.x, y: source.y },
@@ -46,6 +46,8 @@ const path = computed(() => {
 
   const pSource = lineIntersect(line, hSource) || lineIntersect(line, vSource)
   const pTarget = lineIntersect(line, hTarget) || lineIntersect(line, vTarget)
+
+  if (!pSource || !pTarget) return
 
   //   source.center.y < target.center.y
   //     ? [source.bounds[0], source.bounds[1]]
@@ -202,7 +204,7 @@ const level = computed(() => {
   }
   .path {
     stroke-width: 1;
-    transition: all var(--transition);
+    transition: stroke var(--transition);
     stroke: var(--flow-edge);
 
     marker-end: url(#arrow-muted);
@@ -220,6 +222,7 @@ const level = computed(() => {
     font-weight: var(--light);
     pointer-events: none;
     text-anchor: middle;
+    transition: fill var(--transition);
 
     textPath {
       dominant-baseline: middle;
@@ -236,7 +239,6 @@ const level = computed(() => {
     }
     text {
       fill: var(--ui-accent);
-      transition: all var(--transition);
     }
   }
 
