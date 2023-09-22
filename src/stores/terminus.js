@@ -266,6 +266,101 @@ export const useTerminusStore = defineStore('terminus', () => {
     }
   }
 
+  async function getNetwork(id, clear = false) {
+    const allocation = allocations.value.find((allocation) => allocation.node['@id'] === id)
+    const node = allocation?.node || (await getDocument(id))
+
+    console.log(node)
+
+    const edgeData = (
+      await client.query(
+        WOQL.or(
+          WOQL.triple('v:edge_id', 'source', id),
+          WOQL.triple('v:edge_id', 'target', id)
+        ).read_document('v:edge_id', 'v:edge')
+      )
+    ).bindings.map(({ edge }) => edge)
+
+    const relatives = (
+      await client.query(
+        WOQL.or(
+          ...edgeData
+            .map((edge) => (edge.source === id ? edge.target : edge.source))
+            .map((id) => WOQL.read_document(id, 'v:node'))
+        )
+      )
+    ).bindings.map(({ node }) => node)
+
+    allocations.value = allocations.value.filter((allocation) => allocation.node['@id'] === id)
+    if (allocations.value.length === 0)
+      allocations.value.push({
+        x: 0,
+        y: 0,
+        node
+      })
+    allocations.value.push(
+      ...relatives.map((node, i) => {
+        return {
+          x: (allocation?.x ?? 0) + 300,
+          y: (allocation?.y ?? 0) + 300 * i,
+          node
+        }
+      })
+    )
+    console.log(allocations.value)
+    edges.value = edgeData
+
+    // getDocument({
+    //   as_list: true,
+    //   query: {
+    //     '@type': 'entity',
+    //     '@id': edgeData.map((edge) => (edge.source === id ? edge.target : edge.source))
+    //   }
+    // })
+
+    console.log(relatives)
+    // graphDoc.value = await getDocument(id)
+    // graph.value = id
+    // if (clear.value) allocations.value = []
+    // const nodes = await client.query(
+    //   WOQL.triple('v:allocation', 'rdf:type', '@schema:allocation')
+    //     .triple('v:allocation', 'graph', id)
+    //     .triple('v:allocation', 'node', 'v:node_id')
+    //     .triple('v:allocation', 'x', 'v:x')
+    //     .triple('v:allocation', 'y', 'v:y')
+    //     .read_document('v:node_id', 'v:node')
+    // )
+
+    // allocations.value = nodes.bindings.map(({ node, x, y, allocation }) => ({
+    //   '@id': allocation,
+    //   node,
+    //   x: x['@value'],
+    //   y: y['@value']
+    // }))
+
+    // const entityIds = allocations.value.map(({ node }) => node['@id'])
+
+    // const edgeData = await client.query(
+    //   WOQL.triple('v:edge_id', 'rdf:type', '@schema:edge')
+    //     .and(
+    //       WOQL.once(WOQL.or(...entityIds.map((id) => WOQL.triple('v:edge_id', 'source', id)))),
+    //       WOQL.once(WOQL.or(...entityIds.map((id) => WOQL.triple('v:edge_id', 'target', id))))
+    //     )
+    //     .read_document('v:edge_id', 'v:edge')
+    // )
+
+    // edges.value = edgeData.bindings
+    //   .map(({ edge }) => edge)
+    //   .filter((d) => d.source != null && d.target != null)
+
+    // await Promise.all([getProperties(), getClasses(), getMarkers()])
+    // if (graphDoc.value.media != null) {
+    //   media.value = await getDocument(graphDoc.value.media)
+    // } else {
+    //   media.value = {}
+    // }
+  }
+
   async function getLabel(id) {
     const res = await client.query(
       WOQL.triple(id, 'label', 'v:label_id').read_document('v:label_id', 'v:label')
@@ -379,6 +474,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     updateAllocation,
     addEdge,
     getGraph,
+    getNetwork,
     getDocument,
     getDocumentsByType,
     search,

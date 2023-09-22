@@ -84,6 +84,27 @@ export const useViewStore = defineStore('view', () => {
   const stateLevelCount = ref(+import.meta.env.VITE_STATE_LEVEL_COUNT)
   const stateLevelDefault = ref(+import.meta.env.VITE_STATE_LEVEL_DEFAULT)
 
+  const activityTrackingController = new AbortController()
+  let activityTrackingTimeout = null
+  const activity = ref(false)
+  function startActivityTracking() {
+    window.addEventListener(
+      'mousemove',
+      () => {
+        activity.value = true
+        clearTimeout(activityTrackingTimeout)
+        activityTrackingTimeout = setTimeout(() => {
+          activity.value = false
+        }, 2500)
+      },
+      { signal: activityTrackingController.signal }
+    )
+  }
+
+  function stopActivityTracking() {
+    activityTrackingController.abort()
+  }
+
   return {
     before,
     languageList,
@@ -96,7 +117,10 @@ export const useViewStore = defineStore('view', () => {
     modeClass,
     getTitle,
     stateLevelCount,
-    stateLevelDefault
+    stateLevelDefault,
+    startActivityTracking,
+    stopActivityTracking,
+    activity
   }
 })
 

@@ -39,7 +39,11 @@ function onDragStart(e) {
     class="node"
     :draggable="draggable === 'native'"
     @dragstart="onDragStart"
-    :class="[document['@type'], `level-${level ?? viewStore.stateLevelDefault}`]"
+    :class="[
+      document['@type'],
+      `level-${level ?? viewStore.stateLevelDefault}`,
+      { activity: viewStore.activity }
+    ]"
   >
     <div class="card">
       <span class="label" :lang="label?.lang"> {{ label?.text }} </span>
@@ -77,7 +81,7 @@ function onDragStart(e) {
     }
   }
 
-  &.level-0:not(.mode-compose) {
+  &.level-0:not(.mode-compose, .activity:not(.mode-couple)) {
     &.mode-couple {
       outline: 1px dashed var(--node-background);
       outline-offset: -1px;
@@ -88,7 +92,7 @@ function onDragStart(e) {
     }
   }
 
-  &.level-1:not(.mode-compose) {
+  &.level-1:not(.mode-compose, .activity:not(.mode-couple)) {
     &.mode-couple {
       outline: 1px dashed var(--node-background);
       outline-offset: -1px;

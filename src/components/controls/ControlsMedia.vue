@@ -1,7 +1,8 @@
 <script setup>
 import { useSyncStore } from '@/stores/sync'
 import { useTerminusStore } from '@/stores/terminus'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useViewStore } from '@/stores/view'
+import { computed, onMounted, ref, watch } from 'vue'
 
 import IconPlay from '~icons/default/Play'
 import IconPause from '~icons/default/Pause'
@@ -21,6 +22,7 @@ const props = defineProps({ persistent: Boolean, scrubbing: Boolean, mark: Boole
 
 const syncStore = useSyncStore()
 const terminusStore = useTerminusStore()
+const viewStore = useViewStore()
 
 const formattedTime = computed(() => formatTime(syncStore.time))
 
@@ -104,18 +106,7 @@ function toggleMute() {
   syncStore.toggleMute()
 }
 
-let userInteractedTimeout = null
-const showControls = ref(true)
-
-function userInteracted() {
-  showControls.value = true
-  clearTimeout(userInteractedTimeout)
-  if (!props.persistent) {
-    userInteractedTimeout = setTimeout(() => {
-      showControls.value = false
-    }, 2500)
-  }
-}
+const showControls = computed(() => props.persistent || viewStore.activity)
 
 function onKeyDown({ code, altKey, shiftKey }) {
   const amount = shiftKey ? 30 : altKey ? 1 / framerate : 5
@@ -135,17 +126,11 @@ function onKeyDown({ code, altKey, shiftKey }) {
       toggleMarker()
       break
   }
-  userInteracted()
 }
 
 onMounted(() => {
   syncStore.requestDuration()
-  window.addEventListener('mousemove', userInteracted)
   window.addEventListener('keydown', onKeyDown)
-})
-onUnmounted(() => {
-  window.removeEventListener('mousemove', userInteracted)
-  userInteracted()
 })
 
 function addMarker() {

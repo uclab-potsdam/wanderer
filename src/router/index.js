@@ -39,7 +39,7 @@ const router = createRouter({
     {
       path: '/entity/:id',
       name: 'entity',
-      component: () => import('@/views/InspectView.vue'),
+      component: () => import('@/views/CanvasView.vue'),
       meta: {
         requiresAuth: true,
         resolveTitle: true

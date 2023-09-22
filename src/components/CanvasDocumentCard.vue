@@ -11,7 +11,8 @@ import NodeButtonRaiseLevel from './NodeButtonRaiseLevel.vue'
 import IconEdit from '~icons/default/Edit'
 import ModalEdit from './modals/ModalEdit.vue'
 
-import { MODE_COMPOSE, MODE_COUPLE } from '@/assets/js/constants'
+import { MODE_COMPOSE, MODE_COUPLE, MODE_VIEW } from '@/assets/js/constants'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   allocation: Object,
@@ -23,6 +24,8 @@ const composeStore = useComposeStore()
 const viewStore = useViewStore()
 const syncStore = useSyncStore()
 const canvasStore = useCanvasStore()
+
+const router = useRouter()
 
 const mode = computed(() => viewStore.mode)
 
@@ -116,6 +119,11 @@ const state = computed(() =>
 //   canvasStore.updateNode(props.allocation.node['@id'], { level: state.value.level })
 // })
 
+function onClick() {
+  if (mode.value !== MODE_VIEW) return
+  router.push(`/${props.allocation.node['@id']}`)
+}
+
 const showEditModal = ref(false)
 </script>
 
@@ -125,6 +133,7 @@ const showEditModal = ref(false)
     class="canvas-document-card"
     :style="{ transform: `translate(${allocation.x}px, ${allocation.y}px) translate(-50%, -50%)` }"
     :class="{ moving, 'drawing-source': drawingSource, 'drawing-target': drawingTarget }"
+    @click="onClick"
   >
     <DocumentCard
       @mousedown="onMouseDown"

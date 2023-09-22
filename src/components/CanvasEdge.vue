@@ -165,7 +165,11 @@ const level = computed(() => {
 </script>
 
 <template>
-  <g class="edge" :class="[`level-${level}`, viewStore.modeClass]" @click="onClick">
+  <g
+    class="edge"
+    :class="[`level-${level}`, viewStore.modeClass, { activity: viewStore.activity }]"
+    @click="onClick"
+  >
     <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
     <path :id="id" class="path" :class="[arrow]" :d="path" />
     <text :lang="label.lang">
@@ -194,6 +198,7 @@ const level = computed(() => {
 .edge {
   user-select: none;
   pointer-events: none;
+  transition: all var(--transition);
 
   path {
     fill: none;
@@ -243,7 +248,7 @@ const level = computed(() => {
     }
   }
 
-  &.level-0:not(.mode-compose) {
+  &.level-0:not(.mode-compose, .activity:not(.mode-couple)) {
     opacity: 0;
     path.edge-main {
       stroke: var(--hidden);
@@ -252,7 +257,7 @@ const level = computed(() => {
       fill: var(--hidden);
     }
   }
-  &.level-1:not(.mode-compose) {
+  &.level-1:not(.mode-compose, .activity:not(.mode-couple)) {
     filter: blur(8px);
     path.edge-main {
       stroke: var(--inactive);
