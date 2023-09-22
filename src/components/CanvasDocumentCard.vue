@@ -161,6 +161,7 @@ const showEditModal = ref(false)
 
 <style lang="scss" scoped>
 .canvas-document-card {
+  user-select: none;
   &.moving,
   &.drawing-source {
     z-index: 1;
@@ -179,13 +180,13 @@ const showEditModal = ref(false)
     }
   }
 
-  &.drawing-target {
-    > section.document:hover {
+  &.drawing-target:hover .node {
+    :deep(.card) {
       background: var(--ui-accent-dark);
       color: var(--secondary);
-      :deep(.buttons) {
-        display: none;
-      }
+    }
+    :deep(.actions) {
+      display: none;
     }
   }
 }
