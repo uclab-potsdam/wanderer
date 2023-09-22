@@ -14,11 +14,10 @@ const transform = computed(() =>
 
 function drawEdge(e) {
   e.stopPropagation()
-  composeStore.drawEdge(
-    props.allocation.node['@id'],
-    { x: props.allocation.x, y: props.allocation.y },
-    { x: e.x, y: e.y }
-  )
+  composeStore.drawEdge(props.allocation.node['@id'], {
+    x: props.allocation.x,
+    y: props.allocation.y
+  })
 }
 </script>
 <template>

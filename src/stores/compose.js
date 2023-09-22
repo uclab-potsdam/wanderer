@@ -1,4 +1,4 @@
-import { computed, ref, watch } from 'vue'
+import { ref } from 'vue'
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { useTerminusStore } from '@/stores/terminus'
 import { useCanvasStore } from '@/stores/canvas'
@@ -56,12 +56,9 @@ export const useComposeStore = defineStore('compose', () => {
   const targetNode = ref(null)
   const drawingEdge = ref(null)
   const arrow = ref({ x: 0, y: 0, r: 0 })
-  function drawEdge(node, position, offset) {
+  function drawEdge(node, position) {
     sourceNode.value = node
     const controller = new AbortController()
-    // const delta = {
-    //   x: position.x - (offset.x / canvasStore.transform.k - canvasStore.transform.x)
-    // }
 
     window.addEventListener(
       'mousemove',
