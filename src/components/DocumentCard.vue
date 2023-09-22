@@ -82,7 +82,8 @@ function onDragStart(e) {
       outline: 1px dashed var(--node-background);
       outline-offset: -1px;
     }
-    &:not(.mode-couple:hover) .card {
+    &:not(.mode-couple:hover) .card,
+    &.mode-couple:has(.actions:hover) .card {
       opacity: 0;
     }
   }
@@ -92,7 +93,8 @@ function onDragStart(e) {
       outline: 1px dashed var(--node-background);
       outline-offset: -1px;
     }
-    &:not(.mode-couple:hover) .card {
+    &:not(.mode-couple:hover) .card,
+    &.mode-couple:has(.actions:hover) .card {
       filter: blur(15px);
       background: var(--node-background-light);
       color: var(--flow-color-inactive);
@@ -115,9 +117,14 @@ function onDragStart(e) {
     position: absolute;
     right: 0;
     top: 0;
-    margin: var(--spacing-l);
+    margin: var(--spacing);
+    padding: var(--spacing);
     border-radius: var(--ui-border-radius-s);
     color: #fff;
+
+    &:hover {
+      background-color: var(--node-background);
+    }
   }
 }
 </style>
