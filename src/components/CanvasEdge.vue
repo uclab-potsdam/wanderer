@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
 import { useSyncStore } from '@/stores/sync'
 import { useViewStore } from '@/stores/view'
@@ -12,6 +13,10 @@ const terminusStore = useTerminusStore()
 const syncStore = useSyncStore()
 const viewStore = useViewStore()
 const canvasStore = useCanvasStore()
+
+const route = useRoute()
+
+const viewClass = computed(() => `view-${route.name}`)
 
 const props = defineProps({ edge: Object, interactive: Boolean, displayRemoteStyle: Boolean })
 
@@ -167,7 +172,7 @@ const level = computed(() => {
 <template>
   <g
     class="edge"
-    :class="[`level-${level}`, viewStore.modeClass, { activity: viewStore.activity }]"
+    :class="[`level-${level}`, viewClass, viewStore.modeClass, { activity: viewStore.activity }]"
     @click="onClick"
   >
     <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
@@ -211,6 +216,8 @@ const level = computed(() => {
     stroke-width: 1;
     stroke: var(--edge-stroke);
 
+    // transition: all var(--transition-extended);
+
     marker-end: url(#arrow);
     // marker-start: url(#arrow-flipped);
     // &.end {
@@ -248,7 +255,7 @@ const level = computed(() => {
     }
   }
 
-  &.level-0:not(.mode-compose, .activity:not(.mode-couple)) {
+  &.level-0:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     opacity: 0;
     path.edge-main {
       stroke: var(--hidden);
@@ -257,7 +264,7 @@ const level = computed(() => {
       fill: var(--hidden);
     }
   }
-  &.level-1:not(.mode-compose, .activity:not(.mode-couple)) {
+  &.level-1:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     filter: blur(8px);
     path.edge-main {
       stroke: var(--inactive);
@@ -276,7 +283,7 @@ const level = computed(() => {
       }
     }
   }
-  &.level-3:not(.mode-compose) {
+  &.level-3:not(.mode-compose, .view-entity) {
     path.edge-main {
       stroke: var(--flow-edge-highlight);
 

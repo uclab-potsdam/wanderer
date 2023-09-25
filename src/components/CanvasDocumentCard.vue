@@ -132,7 +132,10 @@ const showEditModal = ref(false)
     ref="node"
     class="canvas-document-card"
     :style="{ transform: `translate(${allocation.x}px, ${allocation.y}px) translate(-50%, -50%)` }"
-    :class="{ moving, 'drawing-source': drawingSource, 'drawing-target': drawingTarget }"
+    :class="[
+      viewStore.modeClass,
+      { moving, 'drawing-source': drawingSource, 'drawing-target': drawingTarget }
+    ]"
     @click="onClick"
   >
     <DocumentCard
@@ -171,6 +174,11 @@ const showEditModal = ref(false)
 <style lang="scss" scoped>
 .canvas-document-card {
   user-select: none;
+
+  &.mode-view {
+    transition: transform var(--transition-extended);
+  }
+
   &.moving,
   &.drawing-source {
     z-index: 1;

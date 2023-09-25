@@ -2,9 +2,12 @@
 import { useViewStore } from '@/stores/view'
 import { useTerminusStore } from '@/stores/terminus'
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 const viewStore = useViewStore()
 const terminusStore = useTerminusStore()
+
+const route = useRoute()
 
 const props = defineProps({
   document: Object,
@@ -23,6 +26,7 @@ const className = computed(() => {
   return viewStore.localize(cl.label)
 })
 
+const viewClass = computed(() => `view-${route.name}`)
 // const description = computed(() => {
 //   return viewStore.localize(props.document.description)
 // })
@@ -41,6 +45,7 @@ function onDragStart(e) {
     @dragstart="onDragStart"
     :class="[
       document['@type'],
+      viewClass,
       `level-${level ?? viewStore.stateLevelDefault}`,
       { activity: viewStore.activity }
     ]"
@@ -85,7 +90,7 @@ function onDragStart(e) {
     }
   }
 
-  &.level-0:not(.mode-compose, .activity:not(.mode-couple)) {
+  &.level-0:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     &.mode-couple {
       outline: 1px dashed var(--node-background);
       outline-offset: -1px;
@@ -96,7 +101,7 @@ function onDragStart(e) {
     }
   }
 
-  &.level-1:not(.mode-compose, .activity:not(.mode-couple)) {
+  &.level-1:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     &.mode-couple {
       outline: 1px dashed var(--node-background);
       outline-offset: -1px;
@@ -115,7 +120,7 @@ function onDragStart(e) {
     }
   }
 
-  &.level-3:not(.mode-compose) {
+  &.level-3:not(.mode-compose, .view-entity) {
     .card {
       // color: var(--flow-color-highlight);
 
