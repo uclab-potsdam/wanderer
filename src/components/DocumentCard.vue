@@ -64,17 +64,21 @@ function onDragStart(e) {
   position: relative;
   border-radius: var(--node-border-radius);
   .card {
-    width: 250px;
+    // min-width: 90px;
+    // width: 250px;
     min-height: 90px;
     transition: all var(--transition);
-    background: var(--node-background);
-    color: var(--node-text);
+    // background: rgb(var(--gray-10));
+    color: var(--node-background);
+    background: none;
+    // color: var(--node-background);
     border-radius: var(--node-border-radius);
     padding: var(--node-padding);
 
     .label {
       font-weight: var(--black);
       letter-spacing: 0.2px;
+      white-space: nowrap;
     }
     .class {
       font-weight: var(--light);
@@ -100,7 +104,7 @@ function onDragStart(e) {
     &:not(.mode-couple:hover) .card,
     &.mode-couple:has(.actions:hover) .card {
       filter: blur(15px);
-      background: var(--node-background-light);
+      // background: var(--node-background-light);
       color: var(--flow-color-inactive);
     }
   }
@@ -113,8 +117,21 @@ function onDragStart(e) {
 
   &.level-3:not(.mode-compose) {
     .card {
-      color: var(--flow-color-highlight);
-      background: var(--flow-background-highlight);
+      // color: var(--flow-color-highlight);
+
+      span {
+        margin: 0 -0.4em;
+        padding: 0em 0.6em;
+        border-radius: 0.7em 0.3em 0.7em 0.3em;
+        // background: transparent;
+        background-image: linear-gradient(
+          to right,
+          rgba(var(--red-7), 0.8),
+          rgba(var(--red-7), 0.7) 4%,
+          rgba(var(--red-7), 0.3)
+        );
+        box-decoration-break: clone;
+      }
     }
   }
   .actions {
@@ -128,6 +145,12 @@ function onDragStart(e) {
 
     &:hover {
       background-color: var(--node-background);
+    }
+  }
+
+  &.mode-view {
+    .actions {
+      display: none;
     }
   }
 }
