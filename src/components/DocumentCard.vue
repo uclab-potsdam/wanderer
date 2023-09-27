@@ -71,7 +71,7 @@ function onDragStart(e) {
   .card {
     // min-width: 90px;
     // width: 250px;
-    min-height: 90px;
+    // min-height: 90px;
     transition: all var(--transition);
     // background: rgb(var(--gray-10));
     color: var(--node-background);
