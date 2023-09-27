@@ -267,10 +267,11 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   async function getNetwork(id) {
-    const allocation = allocations.value.find((allocation) => allocation.node['@id'] === id)
-    const node = allocation?.node || (await getDocument(id))
-
-    console.log(node)
+    const center = allocations.value.find((allocation) => allocation.node['@id'] === id) ?? {
+      x: 0,
+      y: 0,
+      node: await getDocument(id)
+    }
 
     const edgeData = (
       await client.query(
@@ -281,32 +282,56 @@ export const useTerminusStore = defineStore('terminus', () => {
       )
     ).bindings.map(({ edge }) => edge)
 
-    const relatives = (
-      await client.query(
-        WOQL.or(
-          ...edgeData
-            .map((edge) => (edge.source === id ? edge.target : edge.source))
-            .map((id) => WOQL.read_document(id, 'v:node'))
-        )
-      )
-    ).bindings.map(({ node }) => node)
-
-    allocations.value = allocations.value.filter((allocation) => allocation.node['@id'] === id)
-    if (allocations.value.length === 0)
-      allocations.value.push({
-        x: 0,
-        y: 0,
-        node
-      })
-    allocations.value.push(
-      ...relatives.map((node, i) => {
-        return {
-          x: (allocation?.x ?? 0) + 300,
-          y: (allocation?.y ?? 0) + 300 * i,
-          node
-        }
-      })
+    // in order to preserve existing positions only fetch nodes that are currently not allocated
+    const satelliteIds = edgeData.map((edge) => (edge.source === id ? edge.target : edge.source))
+    const exisitngSatellites = allocations.value.filter((allocation) =>
+      satelliteIds.includes(allocation.node['@id'])
     )
+    const remainingSatelliteIds = satelliteIds.filter(
+      (id) => !exisitngSatellites.map((allocation) => allocation.node['@id']).includes(id)
+    )
+    const newSatellites =
+      remainingSatelliteIds.length === 0
+        ? []
+        : (
+            await client.query(
+              WOQL.or(...remainingSatelliteIds.map((id) => WOQL.read_document(id, 'v:node')))
+            )
+          ).bindings.map(({ node }) => node)
+
+    const satellites = [...exisitngSatellites, ...newSatellites.map((node) => ({ node }))]
+
+    // calculate coordinates for radial layout, might need improvement to make more use of screen dimensions
+    const radius = 400
+    const coordinates = satellites.map((satellite, i, satellites) => {
+      return {
+        x: Math.cos(((Math.PI * 2) / satellites.length) * i) * radius + center.x,
+        y: Math.sin(((Math.PI * 2) / satellites.length) * i) * radius + center.y
+      }
+    })
+
+    // satellites should move as little as possible form their current position
+    // could be improved to check against all positions and prioritise instead of remaining ones
+    const satelliteAllocations = satellites.map((satellite) => {
+      if (satellite.x == null || satellite.y == null)
+        return { ...satellite, ...coordinates.splice(0, 1)[0] }
+
+      // get closest remaining coordinate
+      const index = coordinates
+        .map(
+          (coordinate) =>
+            Math.pow(coordinate.x - satellite.x, 2) + Math.pow(coordinate.y - satellite.y, 2)
+        )
+        // find index of closest
+        .reduce(
+          (accIndex, currentValue, currentIndex, values) =>
+            currentValue >= values[accIndex] ? accIndex : currentIndex,
+          -1
+        )
+      return { ...satellite, ...coordinates.splice(index, 1)[0] }
+    })
+
+    allocations.value = [center, ...satelliteAllocations]
     edges.value = edgeData
   }
 
