@@ -67,7 +67,7 @@ function onDragStart(e) {
 <style lang="scss" scoped>
 .node {
   position: relative;
-  border-radius: var(--node-border-radius);
+  // border-radius: var(--node-border-radius);
   .card {
     // min-width: 90px;
     // width: 250px;
@@ -77,7 +77,7 @@ function onDragStart(e) {
     color: var(--node-background);
     background: none;
     // color: var(--node-background);
-    border-radius: var(--node-border-radius);
+    // border-radius: var(--node-border-radius);
     padding: var(--node-padding);
 
     .label {
@@ -87,6 +87,12 @@ function onDragStart(e) {
     }
     .class {
       font-weight: var(--light);
+    }
+  }
+
+  &.graph {
+    .card {
+      background: rgb(var(--gray-10));
     }
   }
 
@@ -120,7 +126,8 @@ function onDragStart(e) {
     }
   }
 
-  &.level-3:not(.mode-compose, .view-entity) {
+  &.level-3:not(.mode-compose, .view-entity),
+  &.active-graph {
     .card {
       // color: var(--flow-color-highlight);
 

@@ -18,8 +18,12 @@ export const useTerminusStore = defineStore('terminus', () => {
   const media = ref({})
   const graphDoc = ref({})
 
+  const relatedGraphs = ref([])
+
   const currentLabel = ref({})
   const languageList = ref([])
+
+  const offset = ref({ x: 0, y: 0, id: null })
 
   const userInfo = ref({
     name: null,
@@ -132,16 +136,18 @@ export const useTerminusStore = defineStore('terminus', () => {
   async function updateAllocation(node, coordinates, local = false) {
     const allocation = allocations.value.find((allocation) => allocation.node['@id'] === node)
 
+    const x = coordinates.x - offset.value.x
+    const y = coordinates.y - offset.value.y
     const snapping = true
     const gridSize = snapping ? 62.5 : 0.5
     const snapTo = {
-      x: Math.round(coordinates.x / gridSize) * gridSize,
-      y: Math.round(coordinates.y / gridSize) * gridSize
+      x: Math.round(x / gridSize) * gridSize,
+      y: Math.round(y / gridSize) * gridSize
     }
 
     if (allocation != null) {
-      allocation.x = snapTo.x
-      allocation.y = snapTo.y
+      allocation.x = snapTo.x + offset.value.x
+      allocation.y = snapTo.y + offset.value.y
     }
     if (local) return
     await client.updateDocument(
@@ -236,12 +242,24 @@ export const useTerminusStore = defineStore('terminus', () => {
         .read_document('v:node_id', 'v:node')
     )
 
+    // perpetuate offset to reduce movement
+    const newPosition = nodes.bindings.find((binding) => binding.node['@id'] === offset.value.id)
+    // could be optimized to use center point if newPosition is not available
+    if (newPosition != null) {
+      offset.value.x -= newPosition.x['@value']
+      offset.value.y -= newPosition.y['@value']
+    }
+    // reset id to stop perpetuating offset from previous entity
+    offset.value.id = null
+
     allocations.value = nodes.bindings.map(({ node, x, y, allocation }) => ({
       '@id': allocation,
       node,
-      x: x['@value'],
-      y: y['@value']
+      x: x['@value'] + offset.value.x,
+      y: y['@value'] + offset.value.y
     }))
+
+    // allocations.value = nodes
 
     const entityIds = allocations.value.map(({ node }) => node['@id'])
 
@@ -272,6 +290,8 @@ export const useTerminusStore = defineStore('terminus', () => {
       y: 0,
       node: await getDocument(id)
     }
+
+    offset.value = { x: center.x, y: center.y, id: center.node['@id'] }
 
     const edgeData = (
       await client.query(
@@ -334,7 +354,19 @@ export const useTerminusStore = defineStore('terminus', () => {
     allocations.value = [center, ...satelliteAllocations]
     edges.value = edgeData
 
-    await Promise.all([getProperties(), getClasses()])
+    getProperties()
+    getClasses()
+
+    relatedGraphs.value = (
+      await client.query(
+        WOQL.triple('v:allocation', 'rdf:type', '@schema:allocation')
+          .triple('v:allocation', 'node', id)
+          .triple('v:allocation', 'graph', 'v:graph_id')
+          .read_document('v:graph_id', 'v:graph')
+      )
+    ).bindings.map(({ graph }) => graph)
+
+    console.log(relatedGraphs.value)
   }
 
   async function getLabel(id) {
@@ -467,7 +499,8 @@ export const useTerminusStore = defineStore('terminus', () => {
     markers,
     deleteMarker,
     setState,
-    states
+    states,
+    relatedGraphs
   }
 })
 
