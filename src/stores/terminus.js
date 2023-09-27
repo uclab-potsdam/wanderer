@@ -333,6 +333,8 @@ export const useTerminusStore = defineStore('terminus', () => {
 
     allocations.value = [center, ...satelliteAllocations]
     edges.value = edgeData
+
+    await Promise.all([getProperties(), getClasses()])
   }
 
   async function getLabel(id) {
