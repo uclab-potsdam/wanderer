@@ -10,11 +10,12 @@ export const useCanvasStore = defineStore('canvas', () => {
     const node = { ...(nodes.value[id] || {}), ...n }
 
     const margin = 10
+    const offset = 45
     node.bounds = [
-      { x: node.x - (node.width / 2 + margin), y: node.y - (node.height / 2 + margin) },
-      { x: node.x + (node.width / 2 + margin), y: node.y - (node.height / 2 + margin) },
-      { x: node.x + (node.width / 2 + margin), y: node.y + (node.height / 2 + margin) },
-      { x: node.x - (node.width / 2 + margin), y: node.y + (node.height / 2 + margin) }
+      { x: node.x - (margin + offset), y: node.y - (margin + offset) },
+      { x: node.x + (node.width + margin - offset), y: node.y - (margin + offset) },
+      { x: node.x + (node.width + margin - offset), y: node.y + (node.height + margin - offset) },
+      { x: node.x - (margin + offset), y: node.y + (node.height + margin - offset) }
     ]
     nodes.value[id] = node
   }

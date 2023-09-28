@@ -131,7 +131,9 @@ const showEditModal = ref(false)
   <div
     ref="node"
     class="canvas-document-card"
-    :style="{ transform: `translate(${allocation.x}px, ${allocation.y}px) translate(-50%, -50%)` }"
+    :style="{
+      transform: `translate(${allocation.x}px, ${allocation.y}px) translate(-45px, -45px)`
+    }"
     :class="[
       viewStore.modeClass,
       { moving, 'drawing-source': drawingSource, 'drawing-target': drawingTarget }
