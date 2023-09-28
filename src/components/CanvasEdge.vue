@@ -29,7 +29,7 @@ const id = computed(() => {
   return (props.edge.id || props.edge['@id'] || 'some-path').replace(/%/g, '-')
 })
 
-const path = computed(() => {
+const points = computed(() => {
   const source = canvasStore.nodes[props.edge.source]
   const target = canvasStore.nodes[props.edge.target]
   if (source == null || target == null) return
@@ -53,6 +53,104 @@ const path = computed(() => {
   const pTarget = lineIntersect(line, hTarget) || lineIntersect(line, vTarget)
 
   if (!pSource || !pTarget) return
+
+  if (route.name === 'entity') return [pSource, pTarget]
+
+  function closeToCorner(point, corner) {
+    const limit = 35
+    return Math.abs(point.x - corner.x) < limit && Math.abs(point.y - corner.y) < limit
+  }
+
+  const cornerSource = { x: vSource[0].x, y: hSource[0].y }
+  const dirSource = pSource.x === cornerSource.x ? 'horizontal' : 'vertical'
+  const diaSource = closeToCorner(pSource, cornerSource)
+  const cornerTarget = { x: vTarget[0].x, y: hTarget[0].y }
+  const dirTarget = pTarget.x === cornerTarget.x ? 'horizontal' : 'vertical'
+  const diaTarget = closeToCorner(pTarget, cornerTarget)
+
+  const midpoints = (() => {
+    if (!diaSource && !diaTarget) {
+      if (dirSource === 'vertical' && dirTarget === 'vertical') {
+        // if (pSource.x === pTarget.x)
+        return [
+          { x: pSource.x, y: (pSource.y + pTarget.y) / 2 },
+          { x: pTarget.x, y: (pSource.y + pTarget.y) / 2 }
+        ]
+      }
+      if (dirSource === 'horizontal' && dirTarget === 'horizontal') {
+        return [
+          { x: (pSource.x + pTarget.x) / 2, y: pSource.y },
+          { x: (pSource.x + pTarget.x) / 2, y: pTarget.y }
+        ]
+      }
+      if (dirSource === 'vertical' && dirTarget === 'horizontal') {
+        return [{ x: pSource.x, y: pTarget.y }]
+      }
+      if (dirSource === 'horizontal' && dirTarget === 'vertical') {
+        return [{ x: pTarget.x, y: pSource.y }]
+      }
+    }
+    // console.log(dirSource, dirTarget)
+    const dir =
+      Math.abs(pSource.x - pTarget.x) > Math.abs(pSource.y - pTarget.y) ? 'horizontal' : 'vertical'
+    if (diaSource && diaTarget) {
+      if (dir === 'horizontal') {
+        const diff =
+          ((pSource.y - pTarget.y) / 2) *
+          (pSource.x > pTarget.x ? -1 : 1) *
+          (pSource.y > pTarget.y ? -1 : 1)
+        return [
+          { x: pSource.x - diff, y: (pSource.y + pTarget.y) / 2 },
+          { x: pTarget.x + diff, y: (pSource.y + pTarget.y) / 2 }
+        ]
+      }
+      const diff =
+        ((pSource.x - pTarget.x) / 2) *
+        (pSource.x > pTarget.x ? -1 : 1) *
+        (pSource.y > pTarget.y ? -1 : 1)
+      return [
+        { x: (pSource.x + pTarget.x) / 2, y: pSource.y - diff },
+        { x: (pSource.x + pTarget.x) / 2, y: pTarget.y + diff }
+      ]
+    }
+
+    if (diaSource) {
+      if (dir === 'vertical') {
+        const diff =
+          (pSource.x - pTarget.x) *
+          (pSource.x > pTarget.x ? -1 : 1) *
+          (pSource.y > pTarget.y ? 1 : -1)
+        return [{ x: pTarget.x, y: pSource.y + diff }]
+      }
+      const diffX =
+        ((pSource.y - pTarget.y) / 2) *
+        (pSource.x > pTarget.x ? -1 : 1) *
+        (pSource.y > pTarget.y ? 1 : -1)
+      const diffY = (pSource.y - pTarget.y) / 2
+      return [
+        { x: pSource.x + diffX, y: pSource.y - diffY },
+        { x: pTarget.x, y: pSource.y - diffY }
+      ]
+      // console.log(diaSource)
+    }
+    if (dir === 'horizontal') {
+      const diff =
+        (pSource.y - pTarget.y) *
+        (pSource.x > pTarget.x ? -1 : 1) *
+        (pSource.y > pTarget.y ? 1 : -1)
+      return [{ x: pSource.x + diff, y: pTarget.y }]
+    }
+    const diffX =
+      ((pSource.y - pTarget.y) / 2) *
+      (pSource.x > pTarget.x ? -1 : 1) *
+      (pSource.y > pTarget.y ? 1 : -1)
+    const diffY = (pSource.y - pTarget.y) / 2
+    return [
+      { x: pSource.x + diffX, y: pSource.y - diffY },
+      { x: pTarget.x, y: pSource.y - diffY }
+    ]
+  })()
+  // if (dirSource === dirTarget === 'vertical')
 
   //   source.center.y < target.center.y
   //     ? [source.bounds[0], source.bounds[1]]
@@ -135,7 +233,58 @@ const path = computed(() => {
   // return `M${points
   //   .map((point) => `${point.x} ${point.y}`)
   //   .reduce((a, b, i) => `${a} ${' LQ'[i % 3]}${b} `)}`
-  return `M${pSource.x},${pSource.y}L${pTarget.x},${pTarget.y}`
+  // console.log(midpoints)
+  // return `M${pSource.x},${pSource.y}${midpoints.map((p) => `L${p.x},${p.y}`).join()}L${pTarget.x},${
+  //   pTarget.y
+  // }`
+  return [pSource, ...midpoints, pTarget]
+})
+
+const path = computed(() => `M${points.value.map((p) => `${p.x},${p.y}`).join('L')}`)
+
+// midpoint calculation from https://codepen.io/Maher-Fa/pen/pezdbe?editors=0010
+function getPointByDistance(pnts, distance) {
+  var cl = 0
+  var ol
+  var result
+  pnts.forEach(function (point, i, points) {
+    ol = cl
+    cl += i ? lineLen([points[i - 1], point]) : 0
+    if (distance <= cl && distance > ol) {
+      var dd = distance - ol
+      result = pntOnLine([points[i - 1], point], dd)
+    }
+  })
+  return result
+}
+// returns a point on a single line (two points) using distance // line=[[x0,y0],[x1,y1]]
+function pntOnLine(line, distance) {
+  var t = distance / lineLen(line)
+  var xt = (1 - t) * line[0].x + t * line[1].x
+  var yt = (1 - t) * line[0].y + t * line[1].y
+  return { x: xt, y: yt }
+}
+// returns the total length of a linestring (multiple points) // pnts=[[x0,y0],[x1,y1],[x2,y2],...]
+function totalLen(pnts) {
+  var tl = 0
+  pnts.forEach(function (point, i, points) {
+    tl += i ? lineLen([points[i - 1], point]) : 0
+  })
+  return tl
+}
+// returns the length of a line (two points) // line=[[x0,y0],[x1,y1]]
+function lineLen(line) {
+  var xd = line[0].x - line[1].x
+  var yd = line[0].y - line[1].y
+  return Math.sqrt(xd * xd + yd * yd)
+}
+
+const midPoint = computed(() => {
+  var totalLength = totalLen(points.value)
+  var midDistance = totalLength / 2
+  var midPoint = getPointByDistance(points.value, midDistance)
+
+  return midPoint
 })
 
 const arrow = computed(() => (props.edge.source.x <= props.edge.target.x ? 'end' : 'start'))
@@ -177,13 +326,11 @@ const level = computed(() => {
   >
     <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
     <path :id="id" class="path" :class="[arrow]" :d="path" />
-    <text :lang="label.lang">
-      <textPath class="shadow" :href="`#${id}`" startOffset="50%">
-        {{ label.text }}
-      </textPath>
-      <textPath :href="`#${id}`" startOffset="50%">
-        {{ label.text }}
-      </textPath>
+    <text :lang="label.lang" :x="midPoint.x" :y="midPoint.y" class="shadow">
+      {{ label.text }}
+    </text>
+    <text :lang="label.lang" :x="midPoint.x" :y="midPoint.y">
+      {{ label.text }}
     </text>
     <foreignObject>
       <Teleport to="#modals">
@@ -235,12 +382,10 @@ const level = computed(() => {
     pointer-events: none;
     text-anchor: middle;
 
-    textPath {
-      dominant-baseline: middle;
-      &.shadow {
-        stroke: #fff;
-        stroke-width: 8px;
-      }
+    dominant-baseline: middle;
+    &.shadow {
+      stroke: #fff;
+      stroke-width: 8px;
     }
   }
 
