@@ -13,6 +13,7 @@ import { MODE_COMPOSE } from '@/assets/js/constants'
 import SvgMarker from './svg/SvgMarker.vue'
 import SvgPattern from './svg/SvgPattern.vue'
 import CanvasEdgeDrawing from './CanvasEdgeDrawing.vue'
+import BaseInterpolate from './BaseInterpolate.vue'
 
 const containerRef = ref(null)
 const container = ref(null)
@@ -122,36 +123,41 @@ watch(
     @drop="onDrop"
     @dragover="onDragOver"
   >
-    <svg width="100%" height="100%">
-      <SvgMarker />
-      <SvgPattern v-if="mode === MODE_COMPOSE" :transform="canvasStore.transform" />
-      <g :transform="canvasStore.transform">
-        <g class="edges">
-          <CanvasEdgeDrawing v-if="mode === MODE_COMPOSE" />
-          <!-- <CanvasEdge v-if="composeStore.drawingEdge" :edge="composeStore.drawingEdge" /> -->
-          <CanvasEdge
-            v-for="(edge, i) in terminusStore.edges"
-            :interactive="mode === MODE_COMPOSE"
-            :key="edge.edge?.['@id'] || i"
-            :edge="edge"
-          />
+    <BaseInterpolate :props="{ transform: canvasStore.transform }" v-slot="value">
+      <svg width="100%" height="100%">
+        <SvgMarker />
+        <SvgPattern v-if="mode === MODE_COMPOSE" :transform="canvasStore.transform" />
+
+        <g
+          :transform="`translate(${value.transform.x}, ${value.transform.y}) scale(${value.transform.k})`"
+        >
+          <g class="edges">
+            <CanvasEdgeDrawing v-if="mode === MODE_COMPOSE" />
+            <!-- <CanvasEdge v-if="composeStore.drawingEdge" :edge="composeStore.drawingEdge" /> -->
+            <CanvasEdge
+              v-for="(edge, i) in terminusStore.edges"
+              :interactive="mode === MODE_COMPOSE"
+              :key="edge.edge?.['@id'] || i"
+              :edge="edge"
+            />
+          </g>
         </g>
-      </g>
-    </svg>
-    <div
-      class="nodes"
-      :style="{
-        transform: `translate(${canvasStore.transform.x}px, ${canvasStore.transform.y}px) scale(${canvasStore.transform.k})`
-      }"
-    >
-      <!-- <template v-if="mode === MODE_COMPOSE"> -->
-      <CanvasDocumentCard
-        v-for="allocation in terminusStore.allocations"
-        :key="allocation.node['@id']"
-        :allocation="allocation"
-        :transform="canvasStore.transform"
-      />
-    </div>
+      </svg>
+      <div
+        class="nodes"
+        :style="{
+          transform: `translate(${value.transform.x}px, ${value.transform.y}px) scale(${value.transform.k})`
+        }"
+      >
+        <!-- <template v-if="mode === MODE_COMPOSE"> -->
+        <CanvasDocumentCard
+          v-for="allocation in terminusStore.allocations"
+          :key="allocation.node['@id']"
+          :allocation="allocation"
+          :transform="value.transform"
+        />
+      </div>
+    </BaseInterpolate>
   </div>
 </template>
 

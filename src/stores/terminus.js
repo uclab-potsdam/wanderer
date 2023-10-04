@@ -365,8 +365,6 @@ export const useTerminusStore = defineStore('terminus', () => {
           .read_document('v:graph_id', 'v:graph')
       )
     ).bindings.map(({ graph }) => graph)
-
-    console.log(relatedGraphs.value)
   }
 
   async function getLabel(id) {

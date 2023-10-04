@@ -291,7 +291,9 @@ const midPoint = computed(() => {
   return midPoint
 })
 
-const vertical = computed(() => points.value[0].x === points.value[points.value.length - 1].x)
+const vertical = computed(
+  () => points.value.length > 0 && points.value[0].x === points.value[points.value.length - 1].x
+)
 
 const arrow = computed(() => (props.edge.source.x <= props.edge.target.x ? 'end' : 'start'))
 
