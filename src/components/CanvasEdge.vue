@@ -32,7 +32,7 @@ const id = computed(() => {
 const points = computed(() => {
   const source = canvasStore.nodes[props.edge.source]
   const target = canvasStore.nodes[props.edge.target]
-  if (source == null || target == null) return
+  if (source == null || target == null) return []
 
   const line = [
     { x: source.x, y: source.y },
@@ -52,7 +52,7 @@ const points = computed(() => {
   const pSource = lineIntersect(line, hSource) || lineIntersect(line, vSource)
   const pTarget = lineIntersect(line, hTarget) || lineIntersect(line, vTarget)
 
-  if (!pSource || !pTarget) return
+  if (!pSource || !pTarget) return []
 
   if (route.name === 'entity') return [pSource, pTarget]
 
@@ -240,7 +240,10 @@ const points = computed(() => {
   return [pSource, ...midpoints, pTarget]
 })
 
-const path = computed(() => `M${points.value.map((p) => `${p.x},${p.y}`).join('L')}`)
+const path = computed(() => {
+  if (!points.value?.length) return null
+  return `M${points.value.map((p) => `${p.x},${p.y}`).join('L')}`
+})
 
 // midpoint calculation from https://codepen.io/Maher-Fa/pen/pezdbe?editors=0010
 function getPointByDistance(pnts, distance) {
@@ -326,12 +329,14 @@ const level = computed(() => {
   >
     <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
     <path :id="id" class="path" :class="[arrow]" :d="path" />
-    <text :lang="label.lang" :x="midPoint.x - 25" :y="midPoint.y" class="shadow">
-      {{ label.text }}
-    </text>
-    <text :lang="label.lang" :x="midPoint.x - 25" :y="midPoint.y">
-      {{ label.text }}
-    </text>
+    <template v-if="midPoint">
+      <text :lang="label.lang" :x="midPoint.x - 25" :y="midPoint.y" class="shadow">
+        {{ label.text }}
+      </text>
+      <text :lang="label.lang" :x="midPoint.x - 25" :y="midPoint.y">
+        {{ label.text }}
+      </text>
+    </template>
     <foreignObject>
       <Teleport to="#modals">
         <ModalEdit
@@ -402,7 +407,7 @@ const level = computed(() => {
 
   &.level-0:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     opacity: 0;
-    path.edge-main {
+    path.path {
       stroke: var(--hidden);
     }
     text {
@@ -411,7 +416,7 @@ const level = computed(() => {
   }
   &.level-1:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     filter: blur(8px);
-    path.edge-main {
+    path.path {
       stroke: var(--inactive);
     }
     text {
@@ -419,28 +424,16 @@ const level = computed(() => {
     }
   }
   &.level-2:not(.mode-compose) {
-    path.edge-main {
-      &.end {
-        marker-end: url(#arrow);
-      }
-      &:not(.end) {
-        marker-start: url(#arrow-flipped);
-      }
+    path.path {
     }
   }
   &.level-3:not(.mode-compose, .view-entity) {
-    path.edge-main {
-      stroke: var(--flow-edge-highlight);
-
-      &.end {
-        marker-end: url(#arrow-accent);
-      }
-      &:not(.end) {
-        marker-start: url(#arrow-accent-flipped);
-      }
+    path.path {
+      stroke: rgb(var(--red-5));
+      marker-end: url(#arrow-level-3);
     }
     text {
-      fill: var(--flow-edge-highlight);
+      fill: rgb(var(--red-5));
     }
   }
 }

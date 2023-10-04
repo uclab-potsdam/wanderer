@@ -32,6 +32,10 @@ const markers = ref([
     path: pathDefault
   },
   {
+    attributes: { id: 'arrow-level-3', ...marker, ...markerDefault },
+    path: pathDefault
+  },
+  {
     attributes: { id: 'arrow-flipped', ...marker, ...markerFlipped },
     path: pathFlipped
   },
@@ -76,6 +80,12 @@ path {
 #arrow-accent-flipped {
   path {
     stroke: var(--edge-stroke-accent);
+  }
+}
+
+#arrow-level-3 {
+  path {
+    stroke: rgb(var(--red-5));
   }
 }
 </style>
