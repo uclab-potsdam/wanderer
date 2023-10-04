@@ -286,9 +286,12 @@ const midPoint = computed(() => {
   var totalLength = totalLen(points.value)
   var midDistance = totalLength / 2
   var midPoint = getPointByDistance(points.value, midDistance)
+  if (vertical.value) midPoint.x -= 25
 
   return midPoint
 })
+
+const vertical = computed(() => points.value[0].x === points.value[points.value.length - 1].x)
 
 const arrow = computed(() => (props.edge.source.x <= props.edge.target.x ? 'end' : 'start'))
 
@@ -330,10 +333,10 @@ const level = computed(() => {
     <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
     <path :id="id" class="path" :class="[arrow]" :d="path" />
     <template v-if="midPoint">
-      <text :lang="label.lang" :x="midPoint.x - 25" :y="midPoint.y" class="shadow">
+      <text :lang="label.lang" :x="midPoint.x" :y="midPoint.y" class="shadow" :class="{ vertical }">
         {{ label.text }}
       </text>
-      <text :lang="label.lang" :x="midPoint.x - 25" :y="midPoint.y">
+      <text :lang="label.lang" :x="midPoint.x" :y="midPoint.y" :class="{ vertical }">
         {{ label.text }}
       </text>
     </template>
@@ -385,12 +388,16 @@ const level = computed(() => {
     font-size: var(--font-size);
     font-weight: var(--light);
     pointer-events: none;
-    // text-anchor: middle;
+    text-anchor: middle;
 
     dominant-baseline: middle;
     &.shadow {
       stroke: #fff;
       stroke-width: 8px;
+    }
+
+    &.vertical {
+      text-anchor: start;
     }
   }
 
