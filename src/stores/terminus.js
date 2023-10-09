@@ -436,6 +436,26 @@ export const useTerminusStore = defineStore('terminus', () => {
     client.updateDocument(newMarker)
   }
 
+  async function setBounds(marker, bounds) {
+    const newMarker = {
+      ...marker
+    }
+    delete newMarker.bounds
+    if (bounds != null) {
+      newMarker.bounds = {
+        '@type': 'bounds',
+        ...bounds
+      }
+    }
+
+    markers.value.splice(
+      markers.value.findIndex((m) => m['@id'] === marker['@id']),
+      1,
+      newMarker
+    )
+    client.updateDocument(newMarker)
+  }
+
   async function search(term, type) {
     const res = await client.query(
       WOQL.select('v:doc')
@@ -485,6 +505,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     getDocumentsByType,
     search,
     pushBackAllocation,
+    offset,
     getProperties,
     getClasses,
     properties,
@@ -497,6 +518,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     markers,
     deleteMarker,
     setState,
+    setBounds,
     states,
     relatedGraphs
   }

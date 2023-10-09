@@ -6,10 +6,11 @@ import { useRoute } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
 import { useCanvasStore } from '@/stores/canvas'
+import { useSyncStore } from '@/stores/sync'
 import CanvasDocumentCard from './CanvasDocumentCard.vue'
 import CanvasEdge from './CanvasEdge.vue'
 
-import { MODE_COMPOSE } from '@/assets/js/constants'
+import { MODE_COMPOSE, MODE_COUPLE } from '@/assets/js/constants'
 import SvgMarker from './svg/SvgMarker.vue'
 import SvgPattern from './svg/SvgPattern.vue'
 import CanvasEdgeDrawing from './CanvasEdgeDrawing.vue'
@@ -21,14 +22,25 @@ const route = useRoute()
 const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
 const canvasStore = useCanvasStore()
+const syncStore = useSyncStore()
 
-// const transform = ref(zoomIdentity)
 const zoomBehaviour = ref(null)
 
 const scaleExtent = ref([0.1, 2])
 
 const context = computed(() => `${route.name}/${route.params.id}`)
 const mode = computed(() => viewStore.mode)
+
+const bounds = computed(() => {
+  const bounds = syncStore.atMarker?.bounds || canvasStore.bounds
+  if (bounds == null) return
+  return {
+    x1: bounds.x1 + terminusStore.offset.x,
+    x2: bounds.x2 + terminusStore.offset.x,
+    y1: bounds.y1 + terminusStore.offset.y,
+    y2: bounds.y2 + terminusStore.offset.y
+  }
+})
 
 onMounted(async () => {
   // await terminusStore.getGraph(context.value, true)
@@ -73,23 +85,17 @@ function onDragOver(e) {
 function zoomToFit() {
   if (zoomBehaviour.value == null) return
   if (terminusStore.allocations.length < 1) return
-
   const xs = terminusStore.allocations.map(({ x }) => x)
   const ys = terminusStore.allocations.map(({ y }) => y)
-
   const padding = 150
-
   const minX = Math.min(...xs) - padding
   const maxX = Math.max(...xs) + padding
   const minY = Math.min(...ys) - padding
   const maxY = Math.max(...ys) + padding
-
   const diffX = maxX - minX
   const diffY = maxY - minY
-
   const x = minX + diffX / 2
   const y = minY + diffY / 2
-
   const scale = Math.min(innerWidth / diffX, innerHeight / diffY, 1)
   container.value
     .transition()
@@ -142,6 +148,11 @@ watch(
             :edge="edge"
           />
         </g>
+        <polygon
+          class="bounds"
+          v-if="mode === MODE_COUPLE && bounds"
+          :points="`${bounds.x1},${bounds.y1} ${bounds.x2},${bounds.y1} ${bounds.x2},${bounds.y2} ${bounds.x1},${bounds.y2}`"
+        />
       </g>
     </svg>
     <div
@@ -174,8 +185,12 @@ watch(
     display: block;
     isolation: isolate;
 
-    foreignObject {
-      overflow: visible;
+    .bounds {
+      pointer-events: none;
+      stroke: var(--ui-accent);
+      fill: none;
+      vector-effect: non-scaling-stroke;
+      stroke-dasharray: 5 5;
     }
   }
   .nodes {

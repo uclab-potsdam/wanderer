@@ -33,6 +33,7 @@ button {
 
   &:disabled {
     color: var(--ui-text-disabled);
+    pointer-events: none;
     cursor: default;
   }
 

@@ -5,6 +5,7 @@ import { zoomIdentity } from 'd3-zoom'
 export const useCanvasStore = defineStore('canvas', () => {
   const transform = ref(zoomIdentity)
   const nodes = ref({})
+  const bounds = ref(null)
 
   function updateNode(id, n) {
     const node = { ...(nodes.value[id] || {}), ...n }
@@ -28,7 +29,8 @@ export const useCanvasStore = defineStore('canvas', () => {
     transform,
     nodes,
     updateNode,
-    deleteNode
+    deleteNode,
+    bounds
   }
 })
 
