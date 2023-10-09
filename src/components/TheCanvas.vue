@@ -10,7 +10,7 @@ import { useSyncStore } from '@/stores/sync'
 import CanvasDocumentCard from './CanvasDocumentCard.vue'
 import CanvasEdge from './CanvasEdge.vue'
 
-import { MODE_COMPOSE, MODE_COUPLE } from '@/assets/js/constants'
+import { MODE_COMPOSE, MODE_COUPLE, MODE_VIEW } from '@/assets/js/constants'
 import SvgMarker from './svg/SvgMarker.vue'
 import SvgPattern from './svg/SvgPattern.vue'
 import CanvasEdgeDrawing from './CanvasEdgeDrawing.vue'
@@ -32,7 +32,10 @@ const context = computed(() => `${route.name}/${route.params.id}`)
 const mode = computed(() => viewStore.mode)
 
 const bounds = computed(() => {
-  const bounds = syncStore.atMarker?.bounds || canvasStore.bounds
+  const bounds =
+    mode.value === MODE_COUPLE
+      ? syncStore.atMarker?.bounds || canvasStore.bounds
+      : syncStore.currentMarker?.bounds
   if (bounds == null) return
   return {
     x1: bounds.x1 + terminusStore.offset.x,
@@ -121,6 +124,33 @@ watch(
   },
   { immediate: true, deep: true }
 )
+
+watch(bounds, (newBounds, oldBounds) => {
+  if (
+    mode.value !== MODE_VIEW ||
+    newBounds == null ||
+    (oldBounds != null &&
+      newBounds.x1 === oldBounds.x1 &&
+      newBounds.x2 === oldBounds.x2 &&
+      newBounds.y1 === oldBounds.y1 &&
+      newBounds.y2 === oldBounds.y2)
+  )
+    return
+
+  const scaleX = innerWidth / (newBounds.x2 - newBounds.x1)
+  const scaleY = innerHeight / (newBounds.y2 - newBounds.y1)
+  const scale = Math.min(scaleX, scaleY)
+
+  const width = innerWidth / scale
+  const height = innerHeight / scale
+  const x = -newBounds.x1 + width / 2 - (newBounds.x2 - newBounds.x1) / 2
+  const y = -newBounds.y1 + height / 2 - (newBounds.y2 - newBounds.y1) / 2
+
+  container.value
+    .transition()
+    .duration(2000)
+    .call(zoomBehaviour.value.transform, zoomIdentity.scale(scale).translate(x, y))
+})
 </script>
 
 <template>
