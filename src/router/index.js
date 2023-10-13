@@ -55,6 +55,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/play',
+      name: 'play',
+      component: () => import('@/views/PlayView.vue'),
+      meta: {
+        requiresAuth: true,
+        hideMenuBar: true
+      }
+    },
+    {
       path: '/:type/:id',
       name: 'inspect',
       component: () => import('@/views/InspectView.vue'),

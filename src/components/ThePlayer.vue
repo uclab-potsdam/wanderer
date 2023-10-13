@@ -1,9 +1,7 @@
 <script setup>
 // import { useTerminusStore } from '@/stores/terminus'
-import { MODE_COMPOSE } from '@/assets/js/constants'
 import { useSyncStore } from '@/stores/sync'
-import { useViewStore } from '@/stores/view'
-import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
+import { ref, watch, computed, onMounted, nextTick } from 'vue'
 // import { useRoute } from 'vue-router'
 
 defineProps({
@@ -15,7 +13,6 @@ defineProps({
 })
 
 const syncStore = useSyncStore()
-const viewStore = useViewStore()
 // const sources = ref([])
 const sources = computed(() => syncStore.sources)
 const subtitles = computed(() => syncStore.subtitles)
@@ -23,29 +20,14 @@ const subtitles = computed(() => syncStore.subtitles)
 const video = ref(null)
 const pip = ref(false)
 
-onMounted(() => {
-  requestAnimationFrame(update)
-})
-
-onUnmounted(() => {
-  cancelAnimationFrame(updateLoop)
-})
-
-let updateLoop = null
-
-function update() {
-  let currentTime = video.value?.currentTime
-  // if (currentTime < range[0] || currentTime > range[1]) video.value.currentTime = currentTime = range[0];
-  if (syncStore.playing || currentTime !== syncStore.time) syncStore.updateTime(currentTime)
-
-  updateLoop = requestAnimationFrame(update)
+function onTimeUpdate(e) {
+  syncStore.updateTime(e.target.currentTime)
 }
 watch(
-  () => syncStore.timeOverwrite,
+  () => syncStore.forcedTime,
   () => {
-    if (syncStore.timeOverwrite == null) return
-    video.value.currentTime = syncStore.timeOverwrite
-    syncStore.timeOverwrite = null
+    if (video.value == null || syncStore.forcedTime == null) return
+    video.value.currentTime = syncStore.forcedTime
   }
 )
 
@@ -63,17 +45,16 @@ watch(
   }
 )
 
-function onVolumeChange() {
-  syncStore.setMute(video.value.muted)
-}
+watch(
+  () => video.value,
+  () => {
+    if (video.value == null || syncStore.forcedTime == null) return
+    video.value.currentTime = syncStore.forcedTime
+  }
+)
 
 function setDuration() {
   syncStore.setDuration(video.value.duration)
-}
-
-function setPlaying(value) {
-  return value
-  // syncStore.setPlaying(value)
 }
 </script>
 
@@ -82,16 +63,14 @@ function setPlaying(value) {
     <video
       crossorigin="anonymous"
       :loop="syncStore.loop"
-      x-muted
+      controls
       ref="video"
       :style="{ width: isNaN(width) ? width : `${width}px` }"
       @durationchange="setDuration"
       @enterpictureinpicture="pip = true"
       @leavepictureinpicture="pip = false"
-      @play="setPlaying(true)"
-      @pause="setPlaying(false)"
-      @volumechange="onVolumeChange"
       @ended="syncStore.requestNext()"
+      @timeupdate="onTimeUpdate"
       :src="sources[0]"
     >
       <track

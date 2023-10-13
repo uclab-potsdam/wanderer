@@ -3,11 +3,10 @@ import { useSyncStore } from '@/stores/sync'
 import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
 import { computed, onMounted, ref, watch } from 'vue'
+import { MODE_VIEW } from '@/assets/js/constants'
 
 import IconPlay from '~icons/default/Play'
 import IconPause from '~icons/default/Pause'
-import IconMute from '~icons/default/Mute'
-import IconUnmute from '~icons/default/Unmute'
 
 import BaseButton from '@/components/BaseButton.vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -27,17 +26,9 @@ const viewStore = useViewStore()
 const formattedTime = computed(() => formatTime(syncStore.time))
 
 watch(
-  () => terminusStore.graphDoc.next,
-  () => {
-    syncStore.setLoop(terminusStore.graphDoc.next == null)
-  },
-  { immediate: true }
-)
-
-watch(
   () => syncStore.next,
   () => {
-    if (route.name !== 'screen' || terminusStore.graphDoc.next == null) return
+    if (viewStore.mode !== MODE_VIEW || terminusStore.graphDoc.next == null) return
     router.push({
       params: {
         // type: terminusStore.graphDoc.next.split('/')[0],
@@ -77,7 +68,7 @@ function showProgress(e) {
   userTime.value = Math.max(0, userProgress.value * syncStore.duration)
   formattedUserTime.value = formatTime(userTime.value)
   if (props.scrubbing && !syncStore.playing) {
-    syncStore.setTime(userTime.value)
+    syncStore.forceTime(userTime.value)
   }
   // userLabel.value = timestamps.value.find(
   //   (timestamp) => timestamp.in <= userTime.value && timestamp.out > userTime.value
@@ -93,7 +84,7 @@ function hideProgress() {
 }
 
 function setProgress(time) {
-  syncStore.setTime(time ?? userTime.value)
+  syncStore.forceTime(time ?? userTime.value)
   if (props.scrubbing && !syncStore.playing) {
     storedTime = time ?? userTime.value
   }
@@ -101,9 +92,6 @@ function setProgress(time) {
 
 function togglePlay() {
   syncStore.togglePlay()
-}
-function toggleMute() {
-  syncStore.toggleMute()
 }
 
 const showControls = computed(() => props.persistent || viewStore.activity)
@@ -129,7 +117,6 @@ function onKeyDown({ code, altKey, shiftKey }) {
 }
 
 onMounted(() => {
-  syncStore.requestDuration()
   window.addEventListener('keydown', onKeyDown)
 })
 
@@ -173,9 +160,6 @@ function seekForward() {
     <BaseButtonGroup class="controls-media" v-if="showControls">
       <BaseButton @click="togglePlay" small control>
         <IconPause v-if="syncStore.playing" /><IconPlay v-else />
-      </BaseButton>
-      <BaseButton @click="toggleMute" small control>
-        <IconMute v-if="syncStore.mute" /><IconUnmute v-else />
       </BaseButton>
       <div
         class="progress-bar"
@@ -255,7 +239,7 @@ function seekForward() {
 .controls-media {
   // position: absolute;
   display: grid;
-  grid-template-columns: auto auto 1fr auto;
+  grid-template-columns: auto 1fr auto;
   // gap: var(--spacing-xs);
   width: 100%;
   // background: black;

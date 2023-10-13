@@ -65,7 +65,7 @@ function seekBackward() {
     if (Math.abs(a.timestamp - syncStore.time) < Math.abs(b.timestamp - syncStore.time)) return a
     return b
   }, null)
-  syncStore.setTime(previous?.timestamp ?? 0)
+  syncStore.forceTime(previous?.timestamp ?? 0)
 }
 
 function seekForward() {
@@ -75,7 +75,7 @@ function seekForward() {
     if (Math.abs(a.timestamp - syncStore.time) < Math.abs(b.timestamp - syncStore.time)) return a
     return b
   }, null)
-  syncStore.setTime(next?.timestamp ?? syncStore.duration - 1 / syncStore.framerate)
+  syncStore.forceTime(next?.timestamp ?? syncStore.duration - 1 / syncStore.framerate)
 }
 </script>
 <template>

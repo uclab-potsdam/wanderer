@@ -1,7 +1,8 @@
 import { computed, ref, watch } from 'vue'
-import { defineStore /*, acceptHMRUpdate */ } from 'pinia'
+import { defineStore, acceptHMRUpdate } from 'pinia'
 import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
+import { idgen } from '@/assets/js/utils'
 
 export const useSyncStore = defineStore('sync', () => {
   const terminusStore = useTerminusStore()
@@ -9,7 +10,7 @@ export const useSyncStore = defineStore('sync', () => {
   const channel = new BroadcastChannel('sync')
   const time = ref(0)
   const framerate = ref(23.98)
-  const timeOverwrite = ref(null)
+  const forcedTime = ref(null)
   const playing = ref(false)
   const duration = ref(100)
   const mute = ref(false)
@@ -21,54 +22,45 @@ export const useSyncStore = defineStore('sync', () => {
   const sources = ref([])
   const subtitles = ref(null)
 
-  watch(
-    () => terminusStore.media,
-    () => {
-      sources.value = terminusStore.media?.file?.map((d) => viewStore.getMediaUrl(d)) || []
-    }
-  )
+  let id = null
+  const isPlayer = ref(false)
+  const isCanvas = ref(false)
+  const hasPlayer = ref(false)
+  const hasCanvas = ref(false)
 
   watch(
     () => terminusStore.media,
     () => {
+      sources.value = terminusStore.media?.file?.map((d) => viewStore.getMediaUrl(d)) || []
       const st = viewStore.localize(terminusStore.media?.subtitle ?? {})
       subtitles.value = st ? { lang: st.lang, value: viewStore.getMediaUrl(st.text) } : null
+      loop.value = terminusStore.graphDoc.next == null
+      updateMedia()
     }
   )
-  // const doubleCount = computed(() => count.value * 2);
+
   function updateTime(t) {
     time.value = t
     channel.postMessage({
       action: 'update_time',
-      value: time.value
+      value: time.value,
+      id
     })
   }
-  function setTime(t) {
-    timeOverwrite.value = t
+  function forceTime(t) {
+    forcedTime.value = t
     channel.postMessage({
-      action: 'set_time',
-      value: t
+      action: 'force_time',
+      value: t,
+      id
     })
   }
   function setDuration(t) {
     duration.value = t
     channel.postMessage({
       action: 'set_duration',
-      value: duration.value
-    })
-  }
-  function setLoop(l) {
-    loop.value = l
-    channel.postMessage({
-      action: 'set_loop',
-      value: loop.value
-    })
-  }
-  function setPlaying(p) {
-    playing.value = p
-    channel.postMessage({
-      action: 'set_playing',
-      value: playing.value
+      value: duration.value,
+      id
     })
   }
   function togglePlay() {
@@ -78,31 +70,12 @@ export const useSyncStore = defineStore('sync', () => {
       value: playing.value
     })
   }
-  function setMute(m) {
-    mute.value = m
-    channel.postMessage({
-      action: 'set_mute',
-      value: mute.value
-    })
-  }
-  function toggleMute() {
-    mute.value = !mute.value
-    channel.postMessage({
-      action: 'set_mute',
-      value: mute.value
-    })
-  }
-
-  function requestDuration() {
-    channel.postMessage({
-      action: 'request_duration'
-    })
-  }
 
   function requestNext() {
     next.value = !next.value
     channel.postMessage({
-      action: 'request_next'
+      action: 'request_next',
+      id
     })
   }
 
@@ -121,74 +94,103 @@ export const useSyncStore = defineStore('sync', () => {
     }, null)
   )
 
-  async function getSources() {
-    sources.value = (await terminusStore.getMedia())?.sources
+  function openCanvas() {
+    isCanvas.value = true
+    id = id ?? idgen()
+    channel.postMessage({
+      action: 'open_canvas',
+      id,
+      time: time.value || 0
+    })
+    updateMedia()
   }
 
-  function handshake() {
+  function closeCanvas() {
+    isCanvas.value = false
     channel.postMessage({
-      action: 'handshake'
+      action: 'close_canvas',
+      id
     })
   }
 
-  function releaseHandshake() {
+  function openPlayer() {
+    id = id ?? idgen()
+    isPlayer.value = true
     channel.postMessage({
-      action: 'handshake-release'
+      action: 'open_player',
+      id
     })
   }
 
-  function playFromStart() {
+  function closePlayer() {
+    isPlayer.value = false
     channel.postMessage({
-      action: 'post_sources',
-      value: JSON.stringify(sources.value)
+      action: 'close_player',
+      id,
+      time: time.value || 0
     })
+  }
 
-    updateTime(0)
+  function updateMedia() {
+    channel.postMessage({
+      action: 'update_media',
+      value: JSON.stringify({
+        sources: sources.value,
+        subtitles: subtitles.value,
+        loop: loop.value
+      }),
+      id
+    })
   }
 
   const progress = computed(() => time.value / duration.value)
 
   channel.addEventListener('message', ({ data }) => {
+    if (id !== data.id && data.action !== 'open_player' && data.action !== 'open_canvas') return
     switch (data.action) {
+      case 'open_canvas':
+        if (isCanvas.value || hasCanvas.value) break
+        hasCanvas.value = true
+        id = data.id
+        forcedTime.value = data.time
+        openPlayer()
+        break
+      case 'open_player':
+        if (isPlayer.value || hasPlayer.value) break
+        hasPlayer.value = true
+        id = data.id
+        openCanvas()
+        break
+      case 'close_canvas':
+        hasCanvas.value = false
+        id = null
+        break
+      case 'close_player':
+        hasPlayer.value = false
+        forcedTime.value = data.time
+        id = null
+        break
+      case 'update_media': {
+        const value = JSON.parse(data.value)
+        sources.value = value.sources
+        subtitles.value = value.subtitles
+        loop.value = value.loop
+        break
+      }
+      case 'force_time':
+        forcedTime.value = data.value
+        break
       case 'update_time':
         time.value = data.value
-        break
-      case 'set_time':
-        timeOverwrite.value = data.value
         break
       case 'set_playing':
         playing.value = data.value
         break
-      case 'set_mute':
-        mute.value = data.value
-        break
       case 'set_duration':
         duration.value = data.value
         break
-      case 'handshake':
-        playsExternal.value = true
-        channel.postMessage({
-          action: 'post_sources',
-          value: JSON.stringify(sources.value)
-        })
-        break
-      case 'handshake-release':
-        playsExternal.value = false
-        break
-      case 'post_sources':
-        sources.value = JSON.parse(data.value)
-        break
-      case 'request_duration':
-        channel.postMessage({
-          action: 'set_duration',
-          value: duration.value
-        })
-        break
       case 'request_next':
         next.value = !next.value
-        break
-      case 'set_loop':
-        loop.value = data.value
         break
     }
   })
@@ -201,7 +203,7 @@ export const useSyncStore = defineStore('sync', () => {
     mute,
     duration,
     progress,
-    timeOverwrite,
+    forcedTime,
     atMarker,
     currentMarker,
     framerate,
@@ -210,22 +212,19 @@ export const useSyncStore = defineStore('sync', () => {
     next,
     loop,
     subtitles,
-    getSources,
     updateTime,
-    setTime,
-    setPlaying,
-    setMute,
+    forceTime,
     setDuration,
     togglePlay,
-    toggleMute,
-    requestDuration,
-    handshake,
-    releaseHandshake,
-    playFromStart,
-    setLoop
+    openCanvas,
+    closeCanvas,
+    openPlayer,
+    closePlayer,
+    hasCanvas,
+    hasPlayer
   }
 })
 
-// if (import.meta.hot) {
-//   import.meta.hot.accept(acceptHMRUpdate(useSyncStore, import.meta.hot))
-// }
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useSyncStore, import.meta.hot))
+}
