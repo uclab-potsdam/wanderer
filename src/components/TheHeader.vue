@@ -4,27 +4,22 @@ import IconCog from '~icons/base/Cog'
 import BaseButton from '@/components/BaseButton.vue'
 import ModalSettings from '@/components/modals/ModalSettings.vue'
 
-import { ref, watch } from 'vue'
+import { ref, computed } from 'vue'
 import ControlsModeSwitch from '@/components/controls/ControlsModeSwitch.vue'
-import { useRoute } from 'vue-router'
+import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
 
 const projectTitle = ref(import.meta.env.VITE_PROJECT_TITLE)
 
-const route = useRoute()
+// const route = useRoute()
+const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
 
-const pageTitle = ref(null)
+const pageTitle = computed(() => {
+  return viewStore.localize(terminusStore.graphDoc?.label)
+})
 
 const showSettings = ref(false)
-
-watch(
-  () => route,
-  async () => {
-    pageTitle.value = await viewStore.getTitle(route)
-  },
-  { immediate: true, deep: true }
-)
 </script>
 
 <template>

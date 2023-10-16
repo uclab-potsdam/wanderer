@@ -32,8 +32,7 @@ const router = createRouter({
       name: 'graph',
       component: () => import('@/views/CanvasView.vue'),
       meta: {
-        requiresAuth: true,
-        resolveTitle: true
+        requiresAuth: true
       }
     },
     {
@@ -41,8 +40,7 @@ const router = createRouter({
       name: 'entity',
       component: () => import('@/views/CanvasView.vue'),
       meta: {
-        requiresAuth: true,
-        resolveTitle: true
+        requiresAuth: true
       }
     },
     {
@@ -50,8 +48,7 @@ const router = createRouter({
       name: 'media',
       component: () => import('@/views/InspectView.vue'),
       meta: {
-        requiresAuth: true,
-        resolveTitle: true
+        requiresAuth: true
       }
     },
     {
@@ -68,8 +65,7 @@ const router = createRouter({
       name: 'inspect',
       component: () => import('@/views/InspectView.vue'),
       meta: {
-        requiresAuth: true,
-        resolveTitle: true
+        requiresAuth: true
       }
     }
   ]

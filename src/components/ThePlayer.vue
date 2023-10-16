@@ -1,7 +1,7 @@
 <script setup>
 // import { useTerminusStore } from '@/stores/terminus'
 import { useSyncStore } from '@/stores/sync'
-import { ref, watch, computed, onMounted, nextTick } from 'vue'
+import { ref, watch, computed } from 'vue'
 // import { useRoute } from 'vue-router'
 
 defineProps({

@@ -32,6 +32,8 @@ export const useTerminusStore = defineStore('terminus', () => {
 
   let client = null
 
+  let isAuthorized = ref(false)
+
   async function connect(u, p) {
     const user = u ?? localStorage.getItem('USER') ?? import.meta.env.VITE_READ_USER
     const pass = p ?? localStorage.getItem('PASS') ?? import.meta.env.VITE_READ_PASS
@@ -51,6 +53,7 @@ export const useTerminusStore = defineStore('terminus', () => {
         .getTeamUserRoles(user, organization)
         .then((r) => r.capability.find((c) => c.scope.match(organization))?.role)
       userInfo.value.name = user
+      isAuthorized.value = true
     } catch (error) {
       if (error.status === 401) return 'INCORRECT_CREDENTIALS'
       return 'UNEXPECTED_ERROR'
@@ -69,6 +72,8 @@ export const useTerminusStore = defineStore('terminus', () => {
     //   return 'UNEXPECTED ERROR'
     // }
     // getClasses()
+    getProperties()
+    getClasses()
     return 'SUCCESS'
   }
 
@@ -82,10 +87,6 @@ export const useTerminusStore = defineStore('terminus', () => {
 
   const isSignedIn = computed(() => {
     return userInfo.value.name && userInfo.value.name !== import.meta.env.VITE_READ_USER
-  })
-
-  const isAuthorized = computed(() => {
-    return client != null
   })
 
   const languages = computed(() => {
@@ -230,20 +231,44 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   async function getGraph(id, clear = false) {
-    graphDoc.value = await getDocument(id)
-    graph.value = id
     if (clear.value) allocations.value = []
-    const nodes = await client.query(
-      WOQL.triple('v:allocation', 'rdf:type', '@schema:allocation')
-        .triple('v:allocation', 'graph', id)
-        .triple('v:allocation', 'node', 'v:node_id')
-        .triple('v:allocation', 'x', 'v:x')
-        .triple('v:allocation', 'y', 'v:y')
-        .read_document('v:node_id', 'v:node')
+    graph.value = id
+    const res = await client.query(
+      WOQL.or(
+        // graph
+        WOQL.read_document(id, 'v:graph').opt(
+          WOQL.triple(id, 'media', 'v:media_id').read_document('v:media_id', 'v:media')
+        ),
+        // allocations/nodes
+        WOQL.triple('v:allocation', 'rdf:type', '@schema:allocation')
+          .triple('v:allocation', 'graph', id)
+          .triple('v:allocation', 'node', 'v:node_id')
+          .triple('v:allocation', 'x', 'v:x')
+          .triple('v:allocation', 'y', 'v:y')
+          .read_document('v:node_id', 'v:node'),
+        // edges
+        WOQL.triple('v:edge_id', 'rdf:type', '@schema:edge')
+          .triple('v:edge_id', 'graph', id)
+          .read_document('v:edge_id', 'v:edge'),
+        // marker
+        WOQL.order_by('v:ts')
+          .triple('v:marker_id', 'rdf:type', '@schema:marker')
+          .triple('v:marker_id', 'graph', graph.value)
+          .triple('v:marker_id', 'timestamp', 'v:ts')
+          .read_document('v:marker_id', 'v:marker')
+      )
     )
+    graphDoc.value = res.bindings.find((d) => d.graph != null)?.graph
+    media.value = res.bindings.find((d) => d.graph != null)?.media ?? {}
+    const nodes = res.bindings.filter((b) => b.node != null)
+    edges.value = res.bindings
+      .filter((b) => b.edge != null)
+      .map(({ edge }) => edge)
+      .filter((d) => d.source != null && d.target != null)
+    markers.value = res.bindings.filter((b) => b.marker != null).map(({ marker }) => marker)
 
     // perpetuate offset to reduce movement
-    const newPosition = nodes.bindings.find((binding) => binding.node['@id'] === offset.value.id)
+    const newPosition = nodes.find((binding) => binding.node['@id'] === offset.value.id)
     // could be optimized to use center point if newPosition is not available
     if (newPosition != null) {
       offset.value.x -= newPosition.x['@value']
@@ -252,36 +277,12 @@ export const useTerminusStore = defineStore('terminus', () => {
     // reset id to stop perpetuating offset from previous entity
     offset.value.id = null
 
-    allocations.value = nodes.bindings.map(({ node, x, y, allocation }) => ({
+    allocations.value = nodes.map(({ node, x, y, allocation }) => ({
       '@id': allocation,
       node,
       x: x['@value'] + offset.value.x,
       y: y['@value'] + offset.value.y
     }))
-
-    // allocations.value = nodes
-
-    const entityIds = allocations.value.map(({ node }) => node['@id'])
-
-    const edgeData = await client.query(
-      WOQL.triple('v:edge_id', 'rdf:type', '@schema:edge')
-        .and(
-          WOQL.once(WOQL.or(...entityIds.map((id) => WOQL.triple('v:edge_id', 'source', id)))),
-          WOQL.once(WOQL.or(...entityIds.map((id) => WOQL.triple('v:edge_id', 'target', id))))
-        )
-        .read_document('v:edge_id', 'v:edge')
-    )
-
-    edges.value = edgeData.bindings
-      .map(({ edge }) => edge)
-      .filter((d) => d.source != null && d.target != null)
-
-    await Promise.all([getProperties(), getClasses(), getMarkers()])
-    if (graphDoc.value.media != null) {
-      media.value = await getDocument(graphDoc.value.media)
-    } else {
-      media.value = {}
-    }
   }
 
   async function getNetwork(id) {

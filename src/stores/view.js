@@ -73,14 +73,6 @@ export const useViewStore = defineStore('view', () => {
     return null
   })
 
-  async function getTitle(route) {
-    if (route.meta.resolveTitle) {
-      return localize(
-        await terminusStore.getLabel(`${route.params.type ?? route.name}/${route.params.id}`)
-      )
-    }
-  }
-
   const stateLevelCount = ref(+import.meta.env.VITE_STATE_LEVEL_COUNT)
   const stateLevelDefault = ref(+import.meta.env.VITE_STATE_LEVEL_DEFAULT)
 
@@ -115,7 +107,6 @@ export const useViewStore = defineStore('view', () => {
     mode,
     modeSetting,
     modeClass,
-    getTitle,
     stateLevelCount,
     stateLevelDefault,
     startActivityTracking,
