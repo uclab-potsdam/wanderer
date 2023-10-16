@@ -1,11 +1,10 @@
 <script setup>
 import { useViewStore } from '@/stores/view'
-import { MODE_COMPOSE, MODE_COUPLE, MODE_VIEW } from '@/assets/js/constants'
+import { MODE_COMPOSE, MODE_COUPLE } from '@/assets/js/constants'
 
 import { useRoute } from 'vue-router'
 import ControlsCompose from './controls/ControlsCompose.vue'
 import ControlsCouple from './controls/ControlsCouple.vue'
-import ControlsMedia from './controls/ControlsMedia.vue'
 
 const route = useRoute()
 
@@ -15,7 +14,6 @@ const viewStore = useViewStore()
   <div class="the-toolbar" v-if="route.name === 'graph'">
     <ControlsCompose v-if="viewStore.mode === MODE_COMPOSE" />
     <ControlsCouple v-if="viewStore.mode === MODE_COUPLE" />
-    <ControlsMedia v-if="viewStore.mode === MODE_VIEW" />
   </div>
 </template>
 <style lang="scss" scoped>
