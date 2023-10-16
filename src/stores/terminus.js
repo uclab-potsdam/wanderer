@@ -286,41 +286,57 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   async function getNetwork(id) {
+    const res = await client.query(
+      WOQL.or(
+        WOQL.read_document(id, 'v:center'),
+        WOQL.or(
+          WOQL.triple('v:edge_id', 'source', id).triple('v:edge_id', 'target', 'v:node_id'),
+          WOQL.triple('v:edge_id', 'target', id).triple('v:edge_id', 'source', 'v:node_id')
+        )
+          .read_document('v:edge_id', 'v:edge')
+          .read_document('v:node_id', 'v:node'),
+        WOQL.triple('v:allocation', 'rdf:type', '@schema:allocation')
+          .triple('v:allocation', 'node', id)
+          .triple('v:allocation', 'graph', 'v:graph_id')
+          .read_document('v:graph_id', 'v:graph')
+      )
+    )
+
     const center = allocations.value.find((allocation) => allocation.node['@id'] === id) ?? {
       x: 0,
       y: 0,
-      node: await getDocument(id)
+      node: res.bindings.find((d) => d.center != null)?.center
     }
 
     offset.value = { x: center.x, y: center.y, id: center.node['@id'] }
 
-    const edgeData = (
-      await client.query(
-        WOQL.or(
-          WOQL.triple('v:edge_id', 'source', id),
-          WOQL.triple('v:edge_id', 'target', id)
-        ).read_document('v:edge_id', 'v:edge')
-      )
-    ).bindings.map(({ edge }) => edge)
+    const edgeData = res.bindings.filter((d) => d.edge != null).map(({ edge }) => edge)
 
     // in order to preserve existing positions only fetch nodes that are currently not allocated
-    const satelliteIds = edgeData.map((edge) => (edge.source === id ? edge.target : edge.source))
-    const exisitngSatellites = allocations.value.filter((allocation) =>
-      satelliteIds.includes(allocation.node['@id'])
-    )
-    const remainingSatelliteIds = satelliteIds.filter(
-      (id) => !exisitngSatellites.map((allocation) => allocation.node['@id']).includes(id)
-    )
-    const newSatellites =
-      remainingSatelliteIds.length === 0
-        ? []
-        : (
-            await client.query(
-              WOQL.or(...remainingSatelliteIds.map((id) => WOQL.read_document(id, 'v:node')))
-            )
-          ).bindings.map(({ node }) => node)
+    // const satelliteIds = edgeData.map((edge) => (edge.source === id ? edge.target : edge.source))
+    // const exisitngSatellites = allocations.value.filter((allocation) =>
+    //   satelliteIds.includes(allocation.node['@id'])
+    // )
+    // const remainingSatelliteIds = satelliteIds.filter(
+    //   (id) => !exisitngSatellites.map((allocation) => allocation.node['@id']).includes(id)
+    // )
+    // const newSatellites =
+    //   remainingSatelliteIds.length === 0
+    //     ? []
+    //     : (
+    //         await client.query(
+    //           WOQL.or(...remainingSatelliteIds.map((id) => WOQL.read_document(id, 'v:node')))
+    //         )
+    //       ).bindings.map(({ node }) => node)
 
-    const satellites = [...exisitngSatellites, ...newSatellites.map((node) => ({ node }))]
+    const satellites = res.bindings
+      .filter((d) => d.node != null)
+      .map(({ node }) => ({
+        ...allocations.value.find((allocation) => node['@id'] === allocation.node['@id']),
+        node
+      }))
+      // move existing nodes forward to assign new positions to them first
+      .sort((a, b) => (a.x != null && b.x == null ? -1 : a.x == null && b.x != null ? 1 : 0))
 
     // calculate coordinates for radial layout, might need improvement to make more use of screen dimensions
     const radius = 400
@@ -355,17 +371,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     allocations.value = [center, ...satelliteAllocations]
     edges.value = edgeData
 
-    getProperties()
-    getClasses()
-
-    relatedGraphs.value = (
-      await client.query(
-        WOQL.triple('v:allocation', 'rdf:type', '@schema:allocation')
-          .triple('v:allocation', 'node', id)
-          .triple('v:allocation', 'graph', 'v:graph_id')
-          .read_document('v:graph_id', 'v:graph')
-      )
-    ).bindings.map(({ graph }) => graph)
+    relatedGraphs.value = res.bindings.filter((d) => d.graph != null).map(({ graph }) => graph)
   }
 
   async function getLabel(id) {
