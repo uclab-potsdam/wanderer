@@ -2,7 +2,7 @@
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
 import { ref, onMounted, computed, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
 import { useCanvasStore } from '@/stores/canvas'
@@ -19,6 +19,7 @@ const containerRef = ref(null)
 const container = ref(null)
 
 const route = useRoute()
+const router = useRouter()
 const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
 const canvasStore = useCanvasStore()
@@ -44,6 +45,14 @@ const bounds = computed(() => {
     y2: bounds.y2 + terminusStore.offset.y
   }
 })
+
+watch(
+  () => syncStore.next,
+  () => {
+    if (viewStore.mode !== MODE_VIEW || terminusStore.graphDoc.next == null) return
+    router.push(`/${terminusStore.graphDoc.next}`)
+  }
+)
 
 onMounted(async () => {
   // await terminusStore.getGraph(context.value, true)

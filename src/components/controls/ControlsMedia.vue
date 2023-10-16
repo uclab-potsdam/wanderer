@@ -2,18 +2,13 @@
 import { useSyncStore } from '@/stores/sync'
 import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
-import { computed, onMounted, ref, watch } from 'vue'
-import { MODE_VIEW } from '@/assets/js/constants'
+import { computed, onMounted, ref } from 'vue'
 
 import IconPlay from '~icons/default/Play'
 import IconPause from '~icons/default/Pause'
 
 import BaseButton from '@/components/BaseButton.vue'
-import { useRoute, useRouter } from 'vue-router'
 import BaseButtonGroup from '../BaseButtonGroup.vue'
-
-const route = useRoute()
-const router = useRouter()
 
 const framerate = 23.98
 
@@ -24,19 +19,6 @@ const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
 
 const formattedTime = computed(() => formatTime(syncStore.time))
-
-watch(
-  () => syncStore.next,
-  () => {
-    if (viewStore.mode !== MODE_VIEW || terminusStore.graphDoc.next == null) return
-    router.push({
-      params: {
-        // type: terminusStore.graphDoc.next.split('/')[0],
-        id: terminusStore.graphDoc.next.split('/')[1]
-      }
-    })
-  }
-)
 
 function formatTime(seconds) {
   const s = `${Math.floor(seconds) % 60}`.padStart(2, 0)
