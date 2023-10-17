@@ -105,6 +105,9 @@ function onDragStart(e) {
     &.mode-couple:has(.actions:hover) .card {
       opacity: 0;
     }
+    &.mode-view .card {
+      transition: all var(--transition-extended);
+    }
   }
 
   &.level-1:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
@@ -117,6 +120,9 @@ function onDragStart(e) {
       filter: blur(15px);
       // background: var(--node-background-light);
       color: var(--flow-color-inactive);
+    }
+    &.mode-view .card {
+      transition: all var(--transition-extended);
     }
   }
 

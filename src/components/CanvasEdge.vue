@@ -372,6 +372,7 @@ const level = computed(() => {
   .path {
     stroke-width: 1;
     stroke: var(--edge-stroke);
+    transition: all var(--transition);
 
     // transition: all var(--transition-extended);
 
@@ -391,6 +392,8 @@ const level = computed(() => {
     font-weight: var(--light);
     pointer-events: none;
     text-anchor: middle;
+
+    transition: all var(--transition);
 
     dominant-baseline: middle;
     &.shadow {
@@ -416,21 +419,35 @@ const level = computed(() => {
 
   &.level-0:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     opacity: 0;
-    path.path {
-      stroke: var(--hidden);
+    &.mode-view {
+      transition: all var(--transition-extended);
     }
-    text {
-      fill: var(--hidden);
-    }
+    // path.path {
+    //   transition: all var(--transition-extended);
+    //   // stroke: var(--hidden);
+    // }
+    // text {
+    //   transition: all var(--transition-extended);
+    //   // fill: var(--hidden);
+    // }
   }
   &.level-1:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     filter: blur(8px);
-    path.path {
-      stroke: var(--inactive);
+    opacity: 0.2;
+
+    &.mode-view {
+      transition: all var(--transition-extended);
     }
-    text {
-      fill: var(--inactive);
-    }
+    // path.path {
+    //   transition: all var(--transition-extended);
+    //   // stroke: var(--inactive);
+    //   opacity: 0.2;
+    // }
+    // text {
+    //   transition: all var(--transition-extended);
+    //   // fill: var(--inactive);
+    //   opacity: 0.2;
+    // }
   }
   &.level-2:not(.mode-compose) {
     path.path {

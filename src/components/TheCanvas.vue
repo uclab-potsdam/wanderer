@@ -174,7 +174,6 @@ watch(bounds, (newBounds, oldBounds) => {
     <svg width="100%" height="100%">
       <SvgMarker />
       <SvgPattern v-if="mode === MODE_COMPOSE" :transform="canvasStore.transform" />
-
       <g
         :transform="`translate(${canvasStore.transform.x}, ${canvasStore.transform.y}) scale(${canvasStore.transform.k})`"
       >
