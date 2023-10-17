@@ -303,8 +303,8 @@ export const useTerminusStore = defineStore('terminus', () => {
     )
 
     const center = allocations.value.find((allocation) => allocation.node['@id'] === id) ?? {
-      x: 0,
-      y: 0,
+      x: innerWidth / 2,
+      y: innerHeight / 2,
       node: res.bindings.find((d) => d.center != null)?.center
     }
 
