@@ -14,7 +14,6 @@ export const useSyncStore = defineStore('sync', () => {
   const playing = ref(false)
   const duration = ref(100)
   const mute = ref(false)
-  const playsExternal = ref(false)
   const next = ref(false)
 
   const loop = ref(false)
@@ -208,7 +207,6 @@ export const useSyncStore = defineStore('sync', () => {
     currentMarker,
     framerate,
     sources,
-    playsExternal,
     next,
     loop,
     subtitles,
