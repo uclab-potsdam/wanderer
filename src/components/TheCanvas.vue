@@ -137,6 +137,7 @@ watch(
 watch(bounds, (newBounds, oldBounds) => {
   if (
     mode.value !== MODE_VIEW ||
+    route.name === 'entity' ||
     newBounds == null ||
     (oldBounds != null &&
       newBounds.x1 === oldBounds.x1 &&
