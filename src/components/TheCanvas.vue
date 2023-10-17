@@ -181,9 +181,10 @@ watch(bounds, (newBounds, oldBounds) => {
           <CanvasEdgeDrawing v-if="mode === MODE_COMPOSE" />
           <!-- <CanvasEdge v-if="composeStore.drawingEdge" :edge="composeStore.drawingEdge" /> -->
           <CanvasEdge
-            v-for="(edge, i) in terminusStore.edges"
+            v-for="edge in terminusStore.edges"
             :interactive="mode === MODE_COMPOSE"
-            :key="edge.edge?.['@id'] || i"
+            :key="edge['@id']"
+            :id="edge['@id']"
             :edge="edge"
           />
         </g>
