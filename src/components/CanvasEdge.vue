@@ -67,7 +67,7 @@ const points = computed(() => {
   const cornerTarget = { x: vTarget[0].x, y: hTarget[0].y }
   const dirTarget = pTarget.x === cornerTarget.x ? 'horizontal' : 'vertical'
   const diaTarget = closeToCorner(pTarget, cornerTarget)
-
+  // console.log(dirSource, diaSource, dirTarget, diaTarget)
   const midpoints = (() => {
     if (!diaSource && !diaTarget) {
       if (dirSource === 'vertical' && dirTarget === 'vertical') {
@@ -90,7 +90,7 @@ const points = computed(() => {
         return [{ x: pTarget.x, y: pSource.y }]
       }
     }
-    // console.log(dirSource, dirTarget)
+
     const dir =
       Math.abs(pSource.x - pTarget.x) > Math.abs(pSource.y - pTarget.y) ? 'horizontal' : 'vertical'
     if (diaSource && diaTarget) {
@@ -138,7 +138,7 @@ const points = computed(() => {
         (pSource.y - pTarget.y) *
         (pSource.x > pTarget.x ? -1 : 1) *
         (pSource.y > pTarget.y ? 1 : -1)
-      return [{ x: pSource.x + diff, y: pTarget.y }]
+      return [{ x: pTarget.x - diff, y: pSource.y }]
     }
     const diffX =
       ((pSource.y - pTarget.y) / 2) *
@@ -372,9 +372,7 @@ const level = computed(() => {
   .path {
     stroke-width: 1;
     stroke: var(--edge-stroke);
-    transition: all var(--transition);
-
-    // transition: all var(--transition-extended);
+    // transition: all var(--transition);
 
     marker-end: url(#arrow);
     // marker-start: url(#arrow-flipped);
@@ -384,6 +382,11 @@ const level = computed(() => {
     // &:not(.end) {
     //   marker-start: url(#arrow-muted-flipped);
     // }
+  }
+  &.mode-view {
+    path {
+      transition: all var(--transition-extended);
+    }
   }
 
   text {
