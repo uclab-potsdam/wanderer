@@ -6,18 +6,17 @@ export const useCanvasStore = defineStore('canvas', () => {
   const transform = ref(zoomIdentity)
   const nodes = ref({})
   const bounds = ref(null)
+  const offset = { x: 45, y: 32.5 }
 
   function updateNode(id, n) {
     const node = { ...(nodes.value[id] || {}), ...n }
 
-    const margin = 10
-    const offset = 45
-    node.bounds = [
-      { x: node.x - (margin + offset), y: node.y - (margin + offset) },
-      { x: node.x + (node.width + margin - offset), y: node.y - (margin + offset) },
-      { x: node.x + (node.width + margin - offset), y: node.y + (node.height + margin - offset) },
-      { x: node.x - (margin + offset), y: node.y + (node.height + margin - offset) }
-    ]
+    node.bounds = {
+      top: node.y - offset.y,
+      right: node.x + (node.width - offset.x),
+      bottom: node.y + (node.height - offset.y),
+      left: node.x - offset.x
+    }
     nodes.value[id] = node
   }
 
@@ -30,7 +29,8 @@ export const useCanvasStore = defineStore('canvas', () => {
     nodes,
     updateNode,
     deleteNode,
-    bounds
+    bounds,
+    offset
   }
 })
 

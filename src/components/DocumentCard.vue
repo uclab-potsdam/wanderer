@@ -103,6 +103,7 @@ function onDragStart(e) {
     }
     &:not(.mode-couple:hover) .card,
     &.mode-couple:has(.actions:hover) .card {
+      filter: blur(15px);
       opacity: 0;
     }
     &.mode-view .card {

@@ -350,15 +350,11 @@ export const useTerminusStore = defineStore('terminus', () => {
     // satellites should move as little as possible form their current position
     // could be improved to check against all positions and prioritise instead of remaining ones
     const satelliteAllocations = satellites.map((satellite) => {
-      if (satellite.x == null || satellite.y == null)
-        return { ...satellite, ...coordinates.splice(0, 1)[0] }
+      if (satellite.x == null || satellite.y == null) return { ...satellite, ...coordinates.splice(0, 1)[0] }
 
       // get closest remaining coordinate
       const index = coordinates
-        .map(
-          (coordinate) =>
-            Math.pow(coordinate.x - satellite.x, 2) + Math.pow(coordinate.y - satellite.y, 2)
-        )
+        .map((coordinate) => Math.pow(coordinate.x - satellite.x, 2) + Math.pow(coordinate.y - satellite.y, 2))
         // find index of closest
         .reduce(
           (accIndex, currentValue, currentIndex, values) =>
@@ -375,9 +371,7 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   async function getLabel(id) {
-    const res = await client.query(
-      WOQL.triple(id, 'label', 'v:label_id').read_document('v:label_id', 'v:label')
-    )
+    const res = await client.query(WOQL.triple(id, 'label', 'v:label_id').read_document('v:label_id', 'v:label'))
     return res.bindings[0]?.label
   }
 
@@ -470,11 +464,7 @@ export const useTerminusStore = defineStore('terminus', () => {
         .order_by(['v:dist', 'desc'])
         .triple('v:id', '@schema:label', 'v:text')
         .triple('v:id', 'rdf:type', `@schema:${type}`)
-        .once(
-          WOQL.or(
-            ...languageList.value.map((lang) => WOQL.triple('v:text', `@schema:${lang}`, 'v:label'))
-          )
-        )
+        .once(WOQL.or(...languageList.value.map((lang) => WOQL.triple('v:text', `@schema:${lang}`, 'v:label'))))
         .like(term, 'v:label', 'v:dist')
         .greater('v:dist', 0.6)
         .read_document('v:id', 'v:doc')
