@@ -9,6 +9,7 @@ import DocumentCard from './DocumentCard.vue'
 import NodeButtonDrawEdge from './NodeButtonDrawEdge.vue'
 import NodeButtonRaiseLevel from './NodeButtonRaiseLevel.vue'
 import IconEdit from '~icons/default/Edit'
+import IconClose from '~icons/default/Close'
 import ModalEdit from './modals/ModalEdit.vue'
 
 import { MODE_COMPOSE, MODE_COUPLE, MODE_VIEW } from '@/assets/js/constants'
@@ -150,7 +151,7 @@ const showEditModal = ref(false)
         <NodeButtonRaiseLevel v-if="mode === MODE_COUPLE" :allocation="allocation" :level="state?.level" />
       </template>
       <template v-slot:right>
-        <!-- <IconClose @click="deleteAllocation" /> -->
+        <IconClose @click="deleteAllocation" />
         <IconEdit @click="showEditModal = true" />
         <Teleport to="#modals">
           <ModalEdit
