@@ -92,13 +92,13 @@ function update() {
   terminusStore.getGraph(terminusStore.graph)
 }
 
-// async function deleteAllocation() {
-//   terminusStore.deleteDocument(props.allocation['@id'])
-//   const index = terminusStore.allocations.findIndex((n) => n['@id'] === props.allocation['@id'])
-//   if (index >= 0) {
-//     terminusStore.allocations.splice(index, 1)
-//   }
-// }
+async function deleteAllocation() {
+  terminusStore.deleteDocument(props.allocation['@id'])
+  const index = terminusStore.allocations.findIndex((n) => n['@id'] === props.allocation['@id'])
+  if (index >= 0) {
+    terminusStore.allocations.splice(index, 1)
+  }
+}
 
 function onMouseEnter() {
   if (mode.value !== MODE_COMPOSE || composeStore.sourceNode == null) return
