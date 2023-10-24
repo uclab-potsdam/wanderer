@@ -92,7 +92,10 @@ function onDragStart(e) {
 
   &.graph {
     .card {
-      background: rgb(var(--gray-10));
+      background: color-mix(in lab, var(--ui-accent), transparent 80%);
+      color: color-mix(in lab, var(--ui-accent), black 50%);
+      // var(--ui-accent);
+      border-radius: var(--ui-border-radius);
     }
   }
 
@@ -133,8 +136,7 @@ function onDragStart(e) {
     }
   }
 
-  &.level-3:not(.mode-compose, .view-entity),
-  &.active-graph {
+  &.level-3:not(.mode-compose, .view-entity) {
     .card {
       // color: var(--flow-color-highlight);
 
