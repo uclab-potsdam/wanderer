@@ -63,6 +63,7 @@ function setDuration() {
     <video
       crossorigin="anonymous"
       :loop="syncStore.loop"
+      autoplay
       controls
       ref="video"
       :style="{ width: isNaN(width) ? width : `${width}px` }"
@@ -81,13 +82,6 @@ function setDuration() {
         :src="subtitles.value"
         default
       />
-      <!-- <source
-        v-for="(source, i) in sources"
-        :key="i"
-        :src="source"
-        :type="`video/${source.replace(/^.*\./, '')}`"
-        preload
-      /> -->
     </video>
     <div v-if="$slots.default && $slots.default()" class="center"><slot></slot></div>
   </div>
@@ -110,8 +104,6 @@ function setDuration() {
     margin: calc(var(--spacing-s) + var(--spacing-xs));
     position: absolute;
     max-width: 90%;
-    // box-shadow: 2px 2px 5px var(--shadow);
-    // max-height: 90%;
 
     &.top-left {
       left: 0;
