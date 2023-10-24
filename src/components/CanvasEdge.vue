@@ -298,250 +298,19 @@ watch(
       // const midpoints p
       points.value = p // [pSource, pTarget]
     }
-
-    // function closeToCorner(point, corner) {
-    //   const limit = 35
-    //   return Math.abs(point.x - corner.x) < limit && Math.abs(point.y - corner.y) < limit
-    // }
-
-    // const cornerSource = { x: vSource[0].x, y: hSource[0].y }
-    // const dirSource = pSource.x === cornerSource.x ? 'horizontal' : 'vertical'
-    // const diaSource = closeToCorner(pSource, cornerSource)
-    // const cornerTarget = { x: vTarget[0].x, y: hTarget[0].y }
-    // const dirTarget = pTarget.x === cornerTarget.x ? 'horizontal' : 'vertical'
-    // const diaTarget = closeToCorner(pTarget, cornerTarget)
-    // // console.log(dirSource, diaSource, dirTarget, diaTarget)
-    // const midpoints = (() => {
-    //   if (!diaSource && !diaTarget) {
-    //     if (dirSource === 'vertical' && dirTarget === 'vertical') {
-    //       // if (pSource.x === pTarget.x)
-    //       return [
-    //         { x: pSource.x, y: (pSource.y + pTarget.y) / 2 },
-    //         { x: pTarget.x, y: (pSource.y + pTarget.y) / 2 }
-    //       ]
-    //     }
-    //     if (dirSource === 'horizontal' && dirTarget === 'horizontal') {
-    //       return [
-    //         { x: (pSource.x + pTarget.x) / 2, y: pSource.y },
-    //         { x: (pSource.x + pTarget.x) / 2, y: pTarget.y }
-    //       ]
-    //     }
-    //     if (dirSource === 'vertical' && dirTarget === 'horizontal') {
-    //       return [{ x: pSource.x, y: pTarget.y }]
-    //     }
-    //     if (dirSource === 'horizontal' && dirTarget === 'vertical') {
-    //       return [{ x: pTarget.x, y: pSource.y }]
-    //     }
-    //   }
-
-    //   const dir =
-    //     Math.abs(pSource.x - pTarget.x) > Math.abs(pSource.y - pTarget.y)
-    //       ? 'horizontal'
-    //       : 'vertical'
-    //   if (diaSource && diaTarget) {
-    //     if (dir === 'horizontal') {
-    //       const diff =
-    //         ((pSource.y - pTarget.y) / 2) *
-    //         (pSource.x > pTarget.x ? -1 : 1) *
-    //         (pSource.y > pTarget.y ? -1 : 1)
-    //       return [
-    //         { x: pSource.x - diff, y: (pSource.y + pTarget.y) / 2 },
-    //         { x: pTarget.x + diff, y: (pSource.y + pTarget.y) / 2 }
-    //       ]
-    //     }
-    //     const diff =
-    //       ((pSource.x - pTarget.x) / 2) *
-    //       (pSource.x > pTarget.x ? -1 : 1) *
-    //       (pSource.y > pTarget.y ? -1 : 1)
-    //     return [
-    //       { x: (pSource.x + pTarget.x) / 2, y: pSource.y - diff },
-    //       { x: (pSource.x + pTarget.x) / 2, y: pTarget.y + diff }
-    //     ]
-    //   }
-
-    //   if (diaSource) {
-    //     if (dir === 'vertical') {
-    //       const diff =
-    //         (pSource.x - pTarget.x) *
-    //         (pSource.x > pTarget.x ? -1 : 1) *
-    //         (pSource.y > pTarget.y ? 1 : -1)
-    //       return [{ x: pTarget.x, y: pSource.y + diff }]
-    //     }
-    //     const diffX =
-    //       ((pSource.y - pTarget.y) / 2) *
-    //       (pSource.x > pTarget.x ? -1 : 1) *
-    //       (pSource.y > pTarget.y ? 1 : -1)
-    //     const diffY = (pSource.y - pTarget.y) / 2
-    //     return [
-    //       { x: pSource.x + diffX, y: pSource.y - diffY },
-    //       { x: pTarget.x, y: pSource.y - diffY }
-    //     ]
-    //     // console.log(diaSource)
-    //   }
-    //   if (dir === 'horizontal') {
-    //     const diff =
-    //       (pSource.y - pTarget.y) *
-    //       (pSource.x > pTarget.x ? -1 : 1) *
-    //       (pSource.y > pTarget.y ? 1 : -1)
-    //     return [{ x: pTarget.x - diff, y: pSource.y }]
-    //   }
-    //   const diffX =
-    //     ((pSource.y - pTarget.y) / 2) *
-    //     (pSource.x > pTarget.x ? -1 : 1) *
-    //     (pSource.y > pTarget.y ? 1 : -1)
-    //   const diffY = (pSource.y - pTarget.y) / 2
-    //   return [
-    //     { x: pSource.x + diffX, y: pSource.y - diffY },
-    //     { x: pTarget.x, y: pSource.y - diffY }
-    //   ]
-    // })()
-    // if (dirSource === dirTarget === 'vertical')
-
-    //   source.center.y < target.center.y
-    //     ? [source.bounds[0], source.bounds[1]]
-    //     : [source.bounds[2], source.bounds[3]]
-    // const sourceVertical =
-    //   source.center.x < target.center.x
-    //     ? [source.bounds[1], source.bounds[2]]
-    //     : [source.bounds[3], source.bounds[4]]
-
-    // const targetHorizontal =
-    //   target.center.y < target.center.y
-    //     ? [target.bounds[0], target.bounds[1]]
-    //     : [target.bounds[2], target.bounds[3]]
-    // const sourceVertical =
-    //   source.center.x < target.center.x
-    //     ? [source.bounds[1], source.bounds[2]]
-    //     : [source.bounds[3], source.bounds[4]]
-
-    // if (props.edge.active) return `M${source.x},${source.y}L${target.x},${target.y}`
-
-    // const diffX = target.x - source.x
-    // const diffY = target.y - source.y
-
-    // const offsetX = 140
-    // const offsetY = 70
-
-    // const horizontal = Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > offsetX * 2
-
-    // const direction =
-    //   (horizontal && source.x < target.x) || (!horizontal && source.y < target.y) ? 1 : -1
-
-    // const flip = (horizontal && source.y < target.y) || (!horizontal && source.x < target.x) ? 1 : -1
-
-    // const push = horizontal ? (diffX > 0 ? -15 : +15) : diffY > 0 ? -60 : 60
-
-    // const start = {
-    //   x: horizontal ? source.x + offsetX * direction : source.x + push,
-    //   y: horizontal ? source.y + push : source.y + offsetY * direction
-    // }
-    // const end = {
-    //   x: horizontal ? target.x + offsetX * direction * -1 : target.x + push,
-    //   y: horizontal ? target.y + push : target.y + offsetY * direction * -1
-    // }
-
-    // const r = Math.min(10, Math.abs(horizontal ? diffY : diffX) / 2)
-
-    // const anchor1 = horizontal
-    //   ? { x: source.x + diffX / 2, y: start.y }
-    //   : { x: start.x, y: source.y + diffY / 2 }
-
-    // const anchor2 = horizontal
-    //   ? { x: source.x + diffX / 2, y: end.y }
-    //   : { x: end.x, y: source.y + diffY / 2 }
-
-    // const points = [
-    //   start,
-    //   {
-    //     x: horizontal ? anchor1.x - r * direction : anchor1.x,
-    //     y: horizontal ? anchor1.y : anchor1.y - r * direction
-    //   },
-    //   anchor1,
-    //   {
-    //     x: horizontal ? anchor1.x : anchor1.x + r * flip,
-    //     y: horizontal ? anchor1.y + r * flip : anchor1.y
-    //   },
-    //   {
-    //     x: horizontal ? anchor2.x : anchor2.x - r * flip,
-    //     y: horizontal ? anchor2.y - r * flip : anchor2.y
-    //   },
-    //   anchor2,
-    //   {
-    //     x: horizontal ? anchor2.x + r * direction : anchor2.x,
-    //     y: horizontal ? anchor2.y : anchor2.y + r * direction
-    //   },
-    //   end
-    // ]
-
-    // if (source.x > target.x) points.reverse()
-
-    // return `M${points
-    //   .map((point) => `${point.x} ${point.y}`)
-    //   .reduce((a, b, i) => `${a} ${' LQ'[i % 3]}${b} `)}`
-    // console.log(midpoints)
-    // return `M${pSource.x},${pSource.y}${midpoints.map((p) => `L${p.x},${p.y}`).join()}L${pTarget.x},${
-    //   pTarget.y
-    // }`
-    // points.value = [pSource, ...midpoints, pTarget]
   },
   { immediate: true, deep: true }
 )
-// const points = computed(() => {
-
-// })
 
 const path = computed(() => {
   if (!points.value?.length) return null
-  // M0,200 C100,100 100,100 200,100 C300,100 300,100 400,0
-  // return `M${points.value.map((p) => `${p.x},${p.y}`).join('L')}`
   const p = points.value.map((p) => `${p.x},${p.y}`)
   return `M${p[0]} C${p[1]} ${p[1]} ${p[2]} C${p[3]} ${p[3]} ${p[4]}`
 })
 
-// midpoint calculation from https://codepen.io/Maher-Fa/pen/pezdbe?editors=0010
-function getPointByDistance(pnts, distance) {
-  var cl = 0
-  var ol
-  var result
-  pnts.forEach(function (point, i, points) {
-    ol = cl
-    cl += i ? lineLen([points[i - 1], point]) : 0
-    if (distance <= cl && distance > ol) {
-      var dd = distance - ol
-      result = pntOnLine([points[i - 1], point], dd)
-    }
-  })
-  return result
-}
-// returns a point on a single line (two points) using distance // line=[[x0,y0],[x1,y1]]
-function pntOnLine(line, distance) {
-  var t = distance / lineLen(line)
-  var xt = (1 - t) * line[0].x + t * line[1].x
-  var yt = (1 - t) * line[0].y + t * line[1].y
-  return { x: xt, y: yt }
-}
-// returns the total length of a linestring (multiple points) // pnts=[[x0,y0],[x1,y1],[x2,y2],...]
-function totalLen(pnts) {
-  var tl = 0
-  pnts.forEach(function (point, i, points) {
-    tl += i ? lineLen([points[i - 1], point]) : 0
-  })
-  return tl
-}
-// returns the length of a line (two points) // line=[[x0,y0],[x1,y1]]
-function lineLen(line) {
-  var xd = line[0].x - line[1].x
-  var yd = line[0].y - line[1].y
-  return Math.sqrt(xd * xd + yd * yd)
-}
-
 const midPoint = computed(() => {
-  var totalLength = totalLen(points.value)
-  var midDistance = totalLength / 2
-  var midPoint = getPointByDistance(points.value, midDistance)
-  if (vertical.value) midPoint.x -= 25
-
-  return midPoint
+  if (vertical.value) return { x: points.value[2].x - 25, y: points.value[2].y }
+  return points.value[2]
 })
 
 const vertical = computed(
@@ -619,16 +388,7 @@ const level = computed(() => {
   .path {
     stroke-width: 1;
     stroke: var(--edge-stroke);
-    // transition: all var(--transition);
-
     marker-end: url(#arrow);
-    // marker-start: url(#arrow-flipped);
-    // &.end {
-    //   marker-end: url(#arrow-muted);
-    // }
-    // &:not(.end) {
-    //   marker-start: url(#arrow-muted-flipped);
-    // }
   }
   &.mode-view {
     path {
@@ -676,14 +436,6 @@ const level = computed(() => {
     &.mode-view {
       transition: all var(--transition-extended);
     }
-    // path.path {
-    //   transition: all var(--transition-extended);
-    //   // stroke: var(--hidden);
-    // }
-    // text {
-    //   transition: all var(--transition-extended);
-    //   // fill: var(--hidden);
-    // }
   }
   &.level-1:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     filter: blur(8px);
@@ -692,16 +444,6 @@ const level = computed(() => {
     &.mode-view {
       transition: all var(--transition-extended);
     }
-    // path.path {
-    //   transition: all var(--transition-extended);
-    //   // stroke: var(--inactive);
-    //   opacity: 0.2;
-    // }
-    // text {
-    //   transition: all var(--transition-extended);
-    //   // fill: var(--inactive);
-    //   opacity: 0.2;
-    // }
   }
   &.level-2:not(.mode-compose) {
     path.path {
