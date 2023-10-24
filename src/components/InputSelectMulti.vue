@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import InputSelect from './InputSelect.vue'
+import InputSelect from '@/components/inputs/InputSelect.vue'
 
 const props = defineProps({
   modelValue: [String, Number, Boolean],
@@ -58,7 +58,7 @@ function updateValue(key, value) {
 
   &:focus-within {
     :deep(.input-text:first-child > label > span:first-child) {
-      color: var(--accent);
+      color: var(--ui-accent-dark);
     }
   }
 }

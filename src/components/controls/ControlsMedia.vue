@@ -1,22 +1,14 @@
 <script setup>
 import { useSyncStore } from '@/stores/sync'
 import { useTerminusStore } from '@/stores/terminus'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useViewStore } from '@/stores/view'
+import { computed, onMounted, ref } from 'vue'
 
 import IconPlay from '~icons/default/Play'
 import IconPause from '~icons/default/Pause'
-import IconMute from '~icons/default/Mute'
-import IconUnmute from '~icons/default/Unmute'
 
-import IconSeekBack from '~icons/default/SeekBack'
-import IconSeekForward from '~icons/default/SeekForward'
-import IconMarkerAdd from '~icons/default/MarkerAdd'
-import IconMarkerRemove from '~icons/default/MarkerRemove'
-import BaseButton from './BaseButton.vue'
-import { useRoute, useRouter } from 'vue-router'
-
-const route = useRoute()
-const router = useRouter()
+import BaseButton from '@/components/BaseButton.vue'
+import BaseButtonGroup from '../BaseButtonGroup.vue'
 
 const framerate = 23.98
 
@@ -24,44 +16,9 @@ const props = defineProps({ persistent: Boolean, scrubbing: Boolean, mark: Boole
 
 const syncStore = useSyncStore()
 const terminusStore = useTerminusStore()
+const viewStore = useViewStore()
 
 const formattedTime = computed(() => formatTime(syncStore.time))
-
-watch(
-  () => terminusStore.graphDoc.next,
-  () => {
-    syncStore.setLoop(terminusStore.graphDoc.next == null)
-  },
-  { immediate: true }
-)
-
-watch(
-  () => syncStore.next,
-  () => {
-    if (route.name !== 'screen' || terminusStore.graphDoc.next == null) return
-    router.push({
-      params: {
-        type: terminusStore.graphDoc.next.split('/')[0],
-        id: terminusStore.graphDoc.next.split('/')[1]
-      }
-    })
-  }
-)
-// const atMarker = computed(() =>
-//   terminusStore.markers.find((marker) => {
-//     return Math.abs(syncStore.time - marker.timestamp) <= 1 / framerate / 2
-//   })
-// )
-
-// const timestamps = computed(() => {
-//   return dataStore.currentEntityTimestamps.map((timestamp) => {
-//     return {
-//       ...timestamp,
-//       progress: timestamp.in / syncStore.duration,
-//       duration: (timestamp.out - timestamp.in) / syncStore.duration
-//     }
-//   })
-// })
 
 function formatTime(seconds) {
   const s = `${Math.floor(seconds) % 60}`.padStart(2, 0)
@@ -93,7 +50,7 @@ function showProgress(e) {
   userTime.value = Math.max(0, userProgress.value * syncStore.duration)
   formattedUserTime.value = formatTime(userTime.value)
   if (props.scrubbing && !syncStore.playing) {
-    syncStore.setTime(userTime.value)
+    syncStore.forceTime(userTime.value)
   }
   // userLabel.value = timestamps.value.find(
   //   (timestamp) => timestamp.in <= userTime.value && timestamp.out > userTime.value
@@ -109,7 +66,7 @@ function hideProgress() {
 }
 
 function setProgress(time) {
-  syncStore.setTime(time ?? userTime.value)
+  syncStore.forceTime(time ?? userTime.value)
   if (props.scrubbing && !syncStore.playing) {
     storedTime = time ?? userTime.value
   }
@@ -118,22 +75,8 @@ function setProgress(time) {
 function togglePlay() {
   syncStore.togglePlay()
 }
-function toggleMute() {
-  syncStore.toggleMute()
-}
 
-let userInteractedTimeout = null
-const showControls = ref(true)
-
-function userInteracted() {
-  showControls.value = true
-  clearTimeout(userInteractedTimeout)
-  if (!props.persistent) {
-    userInteractedTimeout = setTimeout(() => {
-      showControls.value = false
-    }, 2500)
-  }
-}
+const showControls = computed(() => props.persistent || viewStore.activity)
 
 function onKeyDown({ code, altKey, shiftKey }) {
   const amount = shiftKey ? 30 : altKey ? 1 / framerate : 5
@@ -153,17 +96,10 @@ function onKeyDown({ code, altKey, shiftKey }) {
       toggleMarker()
       break
   }
-  userInteracted()
 }
 
 onMounted(() => {
-  syncStore.requestDuration()
-  window.addEventListener('mousemove', userInteracted)
   window.addEventListener('keydown', onKeyDown)
-})
-onUnmounted(() => {
-  window.removeEventListener('mousemove', userInteracted)
-  userInteracted()
 })
 
 function addMarker() {
@@ -203,15 +139,10 @@ function seekForward() {
 
 <template>
   <Transition name="default">
-    <div class="controls" v-if="showControls">
-      <div class="button-group">
-        <BaseButton @click="togglePlay">
-          <IconPause v-if="syncStore.playing" /><IconPlay v-else />
-        </BaseButton>
-        <BaseButton @click="toggleMute">
-          <IconMute v-if="syncStore.mute" /><IconUnmute v-else />
-        </BaseButton>
-      </div>
+    <BaseButtonGroup class="controls-media" v-if="showControls">
+      <BaseButton @click="togglePlay" small control>
+        <IconPause v-if="syncStore.playing" /><IconPlay v-else />
+      </BaseButton>
       <div
         class="progress-bar"
         @mousemove="showProgress"
@@ -266,7 +197,7 @@ function seekForward() {
         </div>
       </div>
       <div class="controls-end">
-        <div v-if="mark" class="mark">
+        <!-- <div v-if="mark" class="mark">
           <BaseButton>
             <IconSeekBack @click="seekBackward" />
           </BaseButton>
@@ -279,26 +210,24 @@ function seekForward() {
           <BaseButton>
             <IconSeekForward @click="seekForward" />
           </BaseButton>
-        </div>
+        </div> -->
         <div class="time">{{ formattedTime }}</div>
       </div>
-    </div>
+    </BaseButtonGroup>
   </Transition>
 </template>
 
 <style scoped lang="scss">
-.controls {
-  position: absolute;
+.controls-media {
+  // position: absolute;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  padding: var(--spacing-l);
-  gap: var(--spacing-l);
-  width: 100vw;
-  height: 62px;
+  // gap: var(--spacing-xs);
+  width: 100%;
   // background: black;
   bottom: 0px;
   font-size: var(--font-size-s);
-  font-weight: var(--medium);
+  // font-weight: var(--medium);
 
   > div {
     height: 100%;
@@ -310,26 +239,8 @@ function seekForward() {
     // font-weight: var(--bold);
     // background: red;
   }
-
-  .button-group {
-    gap: var(--spacing);
-    > div {
-      &:hover {
-        color: var(--accent);
-      }
-      color: var(--primary);
-      transition: color 0.2s;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      // width: 24px;
-      // height: 24px;
-      // border: 1.5px solid currentColor;
-      border-radius: 50%;
-    }
-  }
   .progress-bar {
+    // padding: 0 var(--spacing);
     position: relative;
     cursor: default;
     > div {
@@ -496,6 +407,7 @@ function seekForward() {
     }
   }
   .time {
+    padding: 0 var(--spacing);
     justify-content: flex-end;
     font-feature-settings: 'tnum';
   }

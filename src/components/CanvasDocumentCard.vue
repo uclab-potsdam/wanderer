@@ -1,208 +1,205 @@
 <script setup>
 import { useTerminusStore } from '@/stores/terminus'
-import { ref, computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { useComposeStore } from '@/stores/compose'
+import { useViewStore } from '@/stores/view'
+import { useSyncStore } from '@/stores/sync'
+import { useCanvasStore } from '@/stores/canvas'
+import { ref, watch, computed, onUnmounted, onMounted } from 'vue'
 import DocumentCard from './DocumentCard.vue'
-import IconArrow from '~icons/default/Arrow'
-import IconClose from '~icons/default/Close'
+import NodeButtonDrawEdge from './NodeButtonDrawEdge.vue'
+import NodeButtonRaiseLevel from './NodeButtonRaiseLevel.vue'
 import IconEdit from '~icons/default/Edit'
+import ModalEdit from './modals/ModalEdit.vue'
+
+import { MODE_COMPOSE, MODE_COUPLE, MODE_VIEW } from '@/assets/js/constants'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   allocation: Object,
-  transform: Object,
-  connectingTo: Boolean
+  transform: Object
 })
-const emit = defineEmits([
-  'update-position',
-  'connect-start',
-  'connect-end',
-  'connect',
-  'mouse-enter',
-  'mouse-out'
-])
 
 const terminusStore = useTerminusStore()
+const composeStore = useComposeStore()
+const viewStore = useViewStore()
+const syncStore = useSyncStore()
+const canvasStore = useCanvasStore()
 
-let dragStartX = null
-let dragStartY = null
+const router = useRouter()
 
-const dragX = ref(0)
-const dragY = ref(0)
+const mode = computed(() => viewStore.mode)
 
-const x = computed(() => dragX.value + props.allocation.x)
-const y = computed(() => dragY.value + props.allocation.y)
+const node = ref(null)
 
-const connectable = ref(true) // computed(() => props.allocation.node['@type'] !== 'graph')
+const moving = computed(() => props.allocation.node['@id'] === composeStore.movingNode)
+const drawingSource = computed(() => props.allocation.node['@id'] === composeStore.sourceNode)
+const drawingTarget = computed(
+  () => composeStore.sourceNode && props.allocation.node['@id'] !== composeStore.sourceNode
+)
 
-const arrowX = ref(0)
-const arrowY = ref(0)
-const arrowDeg = ref(0)
-const connectingFrom = ref(false)
-
-function moveCard(e) {
+function onMouseDown(e) {
+  if (mode.value !== MODE_COMPOSE) return
   e.stopPropagation()
-  dragStartX = e.x
-  dragStartY = e.y
-
-  const controller = new AbortController()
-
-  window.addEventListener(
-    'mouseup',
-    () => {
-      emit('update-position', { x: x.value, y: y.value })
-      dragX.value = 0
-      dragY.value = 0
-      controller.abort()
-    },
-    { once: true }
-  )
-
-  window.addEventListener(
-    'mousemove',
-    (e) => {
-      dragX.value = (e.x - dragStartX) / props.transform.k
-      dragY.value = (e.y - dragStartY) / props.transform.k
-    },
-    { signal: controller.signal }
+  composeStore.moveNode(
+    props.allocation.node['@id'],
+    { x: props.allocation.x, y: props.allocation.y },
+    { x: e.x, y: e.y }
   )
 }
 
-function connect(e) {
-  e.stopPropagation()
-  dragStartX = e.x
-  dragStartY = e.y
-  connectingFrom.value = true
-  emit('connect-start')
-
-  const controller = new AbortController()
-
-  window.addEventListener(
-    'mouseup',
-    () => {
-      emit('connect-end')
-      // emit("updatePosition", { x: x.value, y: y.value });
-      arrowX.value = 0
-      arrowY.value = 0
-      connectingFrom.value = false
-      controller.abort()
-    },
-    { once: true }
-  )
-
-  window.addEventListener(
-    'mousemove',
-    (e) => {
-      arrowX.value = (e.x - dragStartX) / props.transform.k
-      arrowY.value = (e.y - dragStartY) / props.transform.k
-      updateArrowDeg(e)
-      emit('connect', {
-        x: arrowX.value,
-        y: arrowY.value
+const resizeObserver = new ResizeObserver((entries) => {
+  for (const entry of entries) {
+    if (entry.contentRect) {
+      canvasStore.updateNode(props.allocation.node['@id'], {
+        width: entry.contentRect.width,
+        height: entry.contentRect.height,
+        x: props.allocation.x,
+        y: props.allocation.y
       })
-    },
-    { signal: controller.signal }
-  )
-}
-function onMouseMove(e) {
-  updateArrowDeg(e)
-}
-
-function updateArrowDeg(e) {
-  const vectorX =
-    e.x / props.transform.k - (props.allocation.x + props.transform.x / props.transform.k)
-  const vectorY =
-    e.y / props.transform.k - (props.allocation.y + props.transform.y / props.transform.k)
-  arrowDeg.value = Math.atan(vectorY / vectorX) * (180 / Math.PI) + (vectorX > 0 ? 0 : 180)
-}
-
-async function deleteAllocation() {
-  terminusStore.deleteDocument(props.allocation['@id'])
-  const index = terminusStore.allocations.findIndex((n) => n['@id'] === props.allocation['@id'])
-  if (index >= 0) {
-    terminusStore.allocations.splice(index, 1)
+    }
   }
+})
+
+watch(
+  () => props.allocation.y,
+  () => {
+    canvasStore.updateNode(props.allocation.node['@id'], {
+      y: props.allocation.y
+    })
+  }
+)
+
+watch(
+  () => props.allocation.x,
+  () => {
+    canvasStore.updateNode(props.allocation.node['@id'], {
+      x: props.allocation.x
+    })
+  }
+)
+
+onMounted(() => {
+  resizeObserver.observe(node.value)
+})
+
+onUnmounted(() => {
+  if (node.value != null) resizeObserver.unobserve(node.value)
+  canvasStore.deleteNode(props.allocation.node['@id'])
+})
+
+function update() {
+  terminusStore.getGraph(terminusStore.graph)
 }
+
+// async function deleteAllocation() {
+//   terminusStore.deleteDocument(props.allocation['@id'])
+//   const index = terminusStore.allocations.findIndex((n) => n['@id'] === props.allocation['@id'])
+//   if (index >= 0) {
+//     terminusStore.allocations.splice(index, 1)
+//   }
+// }
 
 function onMouseEnter() {
-  if (connectable.value) emit('mouse-enter')
+  if (mode.value !== MODE_COMPOSE || composeStore.sourceNode == null) return
+  composeStore.targetNode = props.allocation.node['@id']
 }
 
 function onMouseOut() {
-  if (connectable.value) emit('mouse-out')
+  if (mode.value !== MODE_COMPOSE || composeStore.sourceNode == null) return
+  composeStore.targetNode = null
 }
+
+const state = computed(() =>
+  terminusStore.states.findLast(
+    (state) => state.node === props.allocation.node['@id'] && state.timestamp <= syncStore.time
+  )
+)
+
+// watch(state, () => {
+//   canvasStore.updateNode(props.allocation.node['@id'], { level: state.value.level })
+// })
+
+function onClick() {
+  if (mode.value !== MODE_VIEW) return
+  router.push(`/${props.allocation.node['@id']}`)
+}
+
+const showEditModal = ref(false)
 </script>
 
 <template>
-  <foreignObject width="100" height="100" :x="x" :y="y">
+  <div
+    ref="node"
+    class="canvas-document-card"
+    :style="{
+      transform: `translate(${allocation.x}px, ${allocation.y}px) translate(-45px, -32.5px)`
+    }"
+    :class="[viewStore.modeClass, { moving, 'drawing-source': drawingSource, 'drawing-target': drawingTarget }]"
+    @click="onClick"
+  >
     <DocumentCard
-      @mousedown="moveCard"
+      @mousedown="onMouseDown"
       @mouseover="onMouseEnter"
       @mouseout="onMouseOut"
-      @mousemove="onMouseMove"
       :document="allocation.node"
-      :class="{
-        'connecting-from': connectingFrom,
-        'connecting-to': connectingTo,
-        connectable: connectable
-      }"
-      show-hover
+      :level="state?.level"
+      :class="[viewStore.modeClass]"
     >
       <template v-slot:center>
-        <IconArrow
-          v-if="connectable"
-          :style="{
-            transform: `translate(${arrowX}px, ${arrowY}px) rotate(${arrowDeg}deg)`
-          }"
-          @mousedown="connect"
-        />
+        <NodeButtonDrawEdge v-if="mode === MODE_COMPOSE" :allocation="allocation" />
+        <NodeButtonRaiseLevel v-if="mode === MODE_COUPLE" :allocation="allocation" :level="state?.level" />
       </template>
       <template v-slot:right>
-        <IconClose @click="deleteAllocation" />
-        <RouterLink :to="`/edit/${allocation.node['@id']}`">
-          <IconEdit />
-        </RouterLink>
+        <!-- <IconClose @click="deleteAllocation" /> -->
+        <IconEdit @click="showEditModal = true" />
+        <Teleport to="#modals">
+          <ModalEdit
+            :show="showEditModal"
+            :id="allocation.node['@id']"
+            :type="allocation.node['@type']"
+            @close="showEditModal = false"
+            @update="update"
+          />
+        </Teleport>
       </template>
     </DocumentCard>
-  </foreignObject>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-foreignObject {
-  > section.document {
-    transform: translate(-50%, -50%);
-    outline: 3px solid var(--secondary);
-    &.connecting-from {
-      pointer-events: none;
-      :deep(.buttons) {
-        display: block;
-        .center {
-          .icon {
-            color: var(--secondary);
-            background-color: var(--accent);
-          }
+.canvas-document-card {
+  user-select: none;
+
+  &.mode-view {
+    transition: transform var(--transition-extended);
+  }
+
+  &.moving,
+  &.drawing-source {
+    z-index: 1;
+  }
+
+  &.drawing-source {
+    pointer-events: none;
+    :deep(.buttons) {
+      display: block;
+      .center {
+        .icon {
+          color: var(--secondary);
+          background-color: var(--ui-accent-dark);
         }
       }
     }
   }
-  // &.connectable {
-  > section.document.connecting-to {
-    &:hover {
-      background: var(--accent);
+
+  &.drawing-target:hover .node {
+    :deep(.card) {
+      background: var(--ui-accent-dark);
       color: var(--secondary);
-      :deep(.buttons) {
-        display: none;
-      }
     }
-
-    &:not(.connectable) {
-      pointer-events: none;
-    }
-
-    &.connecting-from {
-      background: var(--secondary);
-      color: var(--accent);
+    :deep(.actions) {
+      display: none;
     }
   }
-  // }
 }
 </style>

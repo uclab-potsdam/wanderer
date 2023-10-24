@@ -1,29 +1,30 @@
 <script setup>
-import InputButton from '@/components/InputButton.vue'
-import { useRoute, useRouter } from 'vue-router'
+import ModalWrapper from '@/components/modals/ModalWrapper.vue'
+
+import BaseButton from '@/components/BaseButton.vue'
+import { useRoute } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
 import { ref, watch } from 'vue'
-import DocumentForm from '../components/DocumentForm.vue'
+import DocumentForm from '@/components/DocumentForm.vue'
 
 const route = useRoute()
-const router = useRouter()
 const terminusStore = useTerminusStore()
 
 const props = defineProps({
-  type: String,
-  disableRouting: Boolean
+  type: String
 })
 
-const emit = defineEmits(['completed'])
+const emit = defineEmits(['close', 'update'])
 
 const document = ref({ '@type': props.type || route.params.type })
 
 async function addDocument() {
   await terminusStore.addDocument([document.value])
-  props.disableRouting ? emit('completed') : router.go(-1)
+  emit('close')
+  emit('update')
 }
 function cancel() {
-  props.disableRouting ? emit('completed') : router.go(-1)
+  emit('close')
 }
 
 // watchEffect(async () => {
@@ -38,18 +39,26 @@ watch(
 </script>
 
 <template>
-  <main>
-    <DocumentForm v-model="document" />
-    <div class="button-group">
-      <InputButton primary @click="addDocument">Create {{ route.meta.filter }}</InputButton>
-      <InputButton secondary @click="cancel">cancel</InputButton>
-    </div>
-  </main>
+  <ModalWrapper
+    @close="$emit('close')"
+    show-header
+    :title="`Create ${props.type || route.params.type}`"
+  >
+    <main>
+      <DocumentForm v-model="document" />
+      <div class="button-group">
+        <BaseButton primary @click="addDocument"
+          >create {{ props.type || route.params.type }}</BaseButton
+        >
+        <BaseButton secondary @click="cancel">cancel</BaseButton>
+      </div>
+    </main>
+  </ModalWrapper>
 </template>
 
 <style lang="scss" scoped>
 main {
-  margin: var(--spacing) var(--spacing) var(--spacing) var(--offset-left);
+  // margin: var(--spacing);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);
@@ -59,18 +68,10 @@ main {
     gap: var(--spacing-l);
   }
 
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xl);
-  }
-
   .button-group {
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-s);
-    margin-left: calc(var(--spacing) * -1);
   }
 }
 </style>

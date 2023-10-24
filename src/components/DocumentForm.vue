@@ -1,7 +1,7 @@
 <script setup>
 import InputTextMulti from '../components/InputTextMulti.vue'
-import InputText from '../components/InputText.vue'
-import InputSelect from '../components/InputSelect.vue'
+import InputText from '../components/inputs/InputText.vue'
+import InputSelect from '../components/inputs/InputSelect.vue'
 import InputSelectMulti from '../components/InputSelectMulti.vue'
 import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
@@ -15,7 +15,7 @@ const props = defineProps({ type: String, modelValue: Object })
 const emit = defineEmits(['update:modelValue'])
 
 async function getFrame() {
-  const schema = terminusStore.schema[props.modelValue['@type']]
+  const schema = (await terminusStore.getSchema())[props.modelValue['@type']]
   frame.value = await Promise.all(
     Object.keys(schema)
       .filter((key) => /^[^@]/.test(key))
@@ -55,7 +55,7 @@ async function getFrame() {
         }
 
         let options = []
-        if (type !== 'text' && !/:/.test(type)) {
+        if (type !== 'text' && isSet && !/:/.test(type)) {
           if (type['@type'] === 'Enum') {
             options = type['@values']
           } else {
@@ -120,7 +120,13 @@ watch(
             :lang="prop.label.lang"
             v-model="prop.value"
           />
-          <InputText v-else :label="prop.label.text" :lang="prop.label.lang" v-model="prop.value" />
+          <InputText
+            v-else
+            class="single-input"
+            :label="prop.label.text"
+            :lang="prop.label.lang"
+            v-model="prop.value"
+          />
         </template>
         <template v-else>
           <InputSelectMulti
@@ -131,14 +137,14 @@ watch(
             v-model="prop.value"
             :options="prop.options"
           />
-          <InputSelect
-            v-else
-            :label="prop.label.text"
-            :lang="prop.label.lang"
-            allow-null
-            v-model="prop.value"
-            :options="prop.options"
-          />
+          <div v-else>
+            <InputSelect
+              :label="prop.label.text"
+              :lang="prop.label.lang"
+              v-model="prop.value"
+              :type="prop.type"
+            />
+          </div>
         </template>
       </template>
     </template>
@@ -149,6 +155,11 @@ watch(
 .form {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-l);
+  align-items: flex-start;
+
+  :deep(input) {
+    width: var(--input-width);
+  }
 }
 </style>

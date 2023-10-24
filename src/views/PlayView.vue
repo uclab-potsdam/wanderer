@@ -4,11 +4,10 @@ import { useSyncStore } from '@/stores/sync'
 
 const syncStore = useSyncStore()
 
-syncStore.handshake()
+syncStore.openPlayer()
 
 addEventListener('beforeunload', () => {
-  syncStore.releaseHandshake()
-  // return null
+  syncStore.closePlayer()
 })
 </script>
 

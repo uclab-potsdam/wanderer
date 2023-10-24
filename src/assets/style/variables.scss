@@ -15,20 +15,27 @@
   --icon-width: 25px;
 
   --menu-bar-height: 45px;
-
-  --offset-left: calc(var(--spacing) * 3 + var(--icon-width));
   --input-width: 250px;
 
   --font-family-sans: "Inter", sans-serif;
 
   --font-size-s: 12px;
+  --font-size-m: 16px;
   --font-size: 20px;
-  --font-size-l: 20px;
+  --font-size-l: 36px;
 
   --border-radius: var(--spacing-l);
 
+  --light: 270;
   --regular: 360;
   --medium: 500;
   --bold: 600;
   --black: 900;
+
+  --ui-border-radius: 5px;
+  --ui-border-radius-s: 2.5px;
+  --ui-border-radius-l: 15px;
+
+  --ui-transition: 0.2s;
+  --transition-extended: 2s;
 }

@@ -1,48 +1,33 @@
 <script setup>
 // import { useTerminusStore } from '@/stores/terminus'
 import { useSyncStore } from '@/stores/sync'
-// import { useViewStore } from '@/stores/view'
-import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
+import { ref, watch, computed } from 'vue'
 // import { useRoute } from 'vue-router'
 
 defineProps({
   letterbox: Boolean,
   width: { type: [Number, String] },
   height: { type: [Number, String] },
-  position: { type: String, default: 'top-right' }
+  position: { type: String, default: 'bottom-right' }
   // sources: { Array, default: () => [] }
 })
 
 const syncStore = useSyncStore()
 // const sources = ref([])
 const sources = computed(() => syncStore.sources)
+const subtitles = computed(() => syncStore.subtitles)
 
 const video = ref(null)
 const pip = ref(false)
 
-onMounted(() => {
-  requestAnimationFrame(update)
-})
-
-onUnmounted(() => {
-  cancelAnimationFrame(updateLoop)
-})
-
-let updateLoop = null
-
-function update() {
-  let currentTime = video.value?.currentTime
-  // if (currentTime < range[0] || currentTime > range[1]) video.value.currentTime = currentTime = range[0];
-  if (syncStore.playing || currentTime !== syncStore.time) syncStore.updateTime(currentTime)
-
-  updateLoop = requestAnimationFrame(update)
+function onTimeUpdate(e) {
+  syncStore.updateTime(e.target.currentTime)
 }
 watch(
-  () => syncStore.timeOverwrite,
+  () => syncStore.forcedTime,
   () => {
-    if (syncStore.timeOverwrite == null) return
-    video.value.currentTime = syncStore.timeOverwrite
-    syncStore.timeOverwrite = null
+    if (video.value == null || syncStore.forcedTime == null) return
+    video.value.currentTime = syncStore.forcedTime
   }
 )
 
@@ -60,45 +45,43 @@ watch(
   }
 )
 
-function onVolumeChange() {
-  syncStore.setMute(video.value.muted)
-}
+watch(
+  () => video.value,
+  () => {
+    if (video.value == null || syncStore.forcedTime == null) return
+    video.value.currentTime = syncStore.forcedTime
+  }
+)
 
 function setDuration() {
   syncStore.setDuration(video.value.duration)
 }
-
-function setPlaying(value) {
-  return value
-  // syncStore.setPlaying(value)
-}
 </script>
 
 <template>
-  <div class="the-player" :class="[{ letterbox }, position]">
+  <div class="the-player" v-if="sources.length > 0" :class="[{ letterbox }, position]">
     <video
-      v-if="sources.length > 0"
+      crossorigin="anonymous"
       :loop="syncStore.loop"
       autoplay
-      x-muted
+      controls
       ref="video"
       :style="{ width: isNaN(width) ? width : `${width}px` }"
       @durationchange="setDuration"
       @enterpictureinpicture="pip = true"
       @leavepictureinpicture="pip = false"
-      @play="setPlaying(true)"
-      @pause="setPlaying(false)"
-      @volumechange="onVolumeChange"
       @ended="syncStore.requestNext()"
+      @timeupdate="onTimeUpdate"
       :src="sources[0]"
     >
-      <!-- <source
-        v-for="(source, i) in sources"
-        :key="i"
-        :src="source"
-        :type="`video/${source.replace(/^.*\./, '')}`"
-        preload
-      /> -->
+      <track
+        v-if="subtitles"
+        kind="subtitles"
+        label="Deutsch"
+        :srclang="subtitles.lang"
+        :src="subtitles.value"
+        default
+      />
     </video>
     <div v-if="$slots.default && $slots.default()" class="center"><slot></slot></div>
   </div>
@@ -116,13 +99,11 @@ function setPlaying(value) {
     }
   }
   &:not(.letterbox) {
-    border-radius: var(--border-radius);
+    border-radius: var(--ui-border-radius);
     overflow: hidden;
-    margin: var(--spacing);
+    margin: calc(var(--spacing-s) + var(--spacing-xs));
     position: absolute;
     max-width: 90%;
-    box-shadow: 2px 2px 5px var(--shadow);
-    // max-height: 90%;
 
     &.top-left {
       left: 0;
@@ -138,7 +119,7 @@ function setPlaying(value) {
 
     &.bottom-right {
       right: 0;
-      bottom: 0;
+      bottom: 47.5px;
     }
   }
 

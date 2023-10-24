@@ -2,56 +2,65 @@
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
 import { ref, onMounted, computed, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useTerminusStore } from '@/stores/terminus'
+import { useViewStore } from '@/stores/view'
+import { useCanvasStore } from '@/stores/canvas'
+import { useSyncStore } from '@/stores/sync'
 import CanvasDocumentCard from './CanvasDocumentCard.vue'
-import CanvasDocumentCardStatic from './CanvasDocumentCardStatic.vue'
-import CanvasDocumentCardCouple from './CanvasDocumentCardCouple.vue'
-import CanvasDocumentCardScreen from './CanvasDocumentCardScreen.vue'
 import CanvasEdge from './CanvasEdge.vue'
-import CanvasEdgeCouple from './CanvasEdgeCouple.vue'
+
+import { MODE_COMPOSE, MODE_COUPLE, MODE_VIEW } from '@/assets/js/constants'
+import SvgMarker from './svg/SvgMarker.vue'
+import SvgPattern from './svg/SvgPattern.vue'
+import CanvasEdgeDrawing from './CanvasEdgeDrawing.vue'
 
 const containerRef = ref(null)
 const container = ref(null)
 
 const route = useRoute()
+const router = useRouter()
 const terminusStore = useTerminusStore()
+const viewStore = useViewStore()
+const canvasStore = useCanvasStore()
+const syncStore = useSyncStore()
 
-const transform = ref(zoomIdentity)
 const zoomBehaviour = ref(null)
-
-const connecting = ref(false)
-const connectingLine = ref(null)
-const connectable = ref(null)
-
-const pattern = computed(() => {
-  const scale = transform.value.k
-  return {
-    width: 125 * scale,
-    height: 125 * scale,
-    x: transform.value.x,
-    y: transform.value.y
-  }
-})
 
 const scaleExtent = ref([0.1, 2])
 
-const context = computed(() => `${route.params.type}/${route.params.id}`)
-const mode = computed(() => `${route.name}`)
+const context = computed(() => `${route.name}/${route.params.id}`)
+const mode = computed(() => viewStore.mode)
 
-// terminusStore.getGraph(context.value)
+const bounds = computed(() => {
+  const bounds =
+    mode.value === MODE_COUPLE
+      ? syncStore.atMarker?.bounds || canvasStore.bounds
+      : syncStore.currentMarker?.bounds
+  if (bounds == null) return
+  return {
+    x1: bounds.x1 + terminusStore.offset.x,
+    x2: bounds.x2 + terminusStore.offset.x,
+    y1: bounds.y1 + terminusStore.offset.y,
+    y2: bounds.y2 + terminusStore.offset.y
+  }
+})
 
-// watch(
-//   () => route.params,
-//   () => terminusStore.getGraph(context.value, true)
-// )
+watch(
+  () => syncStore.next,
+  () => {
+    if (viewStore.mode !== MODE_VIEW || terminusStore.graphDoc.next == null) return
+    router.push(`/${terminusStore.graphDoc.next}`)
+  }
+)
 
-onMounted(() => {
+onMounted(async () => {
+  // await terminusStore.getGraph(context.value, true)
   container.value = select(containerRef.value)
   zoomBehaviour.value = zoom()
     .scaleExtent(scaleExtent.value)
     .on('zoom', (e) => {
-      transform.value = e.transform
+      canvasStore.transform = e.transform
     })
   // .filter((e) => {
   //   if (e.type === "touchstart" && e.touches?.length === 1) return false;
@@ -64,7 +73,7 @@ onMounted(() => {
 })
 
 function onDrop(e) {
-  if (mode.value !== 'compose') return
+  if (mode.value !== MODE_COMPOSE) return
   e.preventDefault()
   // console.log(e.dataTransfer.getData("text/uri-list"));
   const uri = e.dataTransfer.getData('text/uri-list').replace(location.origin, 'workbench:/')
@@ -74,82 +83,84 @@ function onDrop(e) {
     // .replace(new RegExp(`^${location.origin}/?`), "");
     .replace(new RegExp(`^workbench://`), '')
 
-  terminusStore.addAllocation(node, context.value, {
-    x: (e.x - transform.value.x) / transform.value.k,
-    y: (e.y - transform.value.y) / transform.value.k
+  terminusStore.updateAllocation(node, {
+    x: (e.x - canvasStore.transform.x) / canvasStore.transform.k,
+    y: (e.y - canvasStore.transform.y) / canvasStore.transform.k
   })
 }
 
-function onUpdatePosition(allocation, position) {
-  if (mode.value !== 'compose') return
-  terminusStore.addAllocation(allocation, context.value, position)
-}
-
-function onConnectStart(allocation) {
-  if (mode.value !== 'compose') return
-  connecting.value = true
-  terminusStore.pushBackAllocation(allocation)
-}
-
-function onConnect(allocation, position) {
-  if (mode.value !== 'compose') return
-  connectingLine.value = {
-    active: true,
-    source: { x: allocation.x, y: allocation.y },
-    target: { x: allocation.x + position.x, y: allocation.y + position.y }
-  }
-}
-
-function onConnectEnd(allocation) {
-  if (mode.value !== 'compose') return
-  connecting.value = false
-  connectingLine.value = null
-  if (connectable.value == null) return
-  terminusStore.addEdge(allocation.node['@id'], connectable.value.node['@id'])
-}
-
 function onDragOver(e) {
-  if (mode.value !== 'compose') return
+  if (mode.value !== MODE_COMPOSE) return
   e.preventDefault()
 }
 
 function zoomToFit() {
   if (zoomBehaviour.value == null) return
   if (terminusStore.allocations.length < 1) return
-
   const xs = terminusStore.allocations.map(({ x }) => x)
   const ys = terminusStore.allocations.map(({ y }) => y)
-
   const padding = 150
-
   const minX = Math.min(...xs) - padding
   const maxX = Math.max(...xs) + padding
   const minY = Math.min(...ys) - padding
   const maxY = Math.max(...ys) + padding
-
   const diffX = maxX - minX
   const diffY = maxY - minY
-
   const x = minX + diffX / 2
   const y = minY + diffY / 2
-
   const scale = Math.min(innerWidth / diffX, innerHeight / diffY, 1)
-  container.value.call(
-    zoomBehaviour.value.transform,
-    zoomIdentity
-      .translate(innerWidth / 2, innerHeight / 2)
-      .scale(scale)
-      .translate(-x, -y)
-  )
+  container.value
+    .transition()
+    .duration(2000)
+    .call(
+      zoomBehaviour.value.transform,
+      zoomIdentity
+        .translate(innerWidth / 2, innerHeight / 2)
+        .scale(scale)
+        .translate(-x, -y)
+    )
 }
 
 watch(
   () => route,
-  () => {
+  async () => {
+    if (route.name === 'graph') {
+      await terminusStore.getGraph(context.value, true)
+    } else if (route.name === 'entity') {
+      await terminusStore.getNetwork(context.value, true)
+    }
     zoomToFit()
   },
   { immediate: true, deep: true }
 )
+
+watch(bounds, (newBounds, oldBounds) => {
+  if (
+    mode.value !== MODE_VIEW ||
+    route.name === 'entity' ||
+    newBounds == null ||
+    (oldBounds != null &&
+      newBounds.x1 === oldBounds.x1 &&
+      newBounds.x2 === oldBounds.x2 &&
+      newBounds.y1 === oldBounds.y1 &&
+      newBounds.y2 === oldBounds.y2)
+  )
+    return
+
+  const scaleX = innerWidth / (newBounds.x2 - newBounds.x1)
+  const scaleY = innerHeight / (newBounds.y2 - newBounds.y1)
+  const scale = Math.min(scaleX, scaleY)
+
+  const width = innerWidth / scale
+  const height = innerHeight / scale
+  const x = -newBounds.x1 + width / 2 - (newBounds.x2 - newBounds.x1) / 2
+  const y = -newBounds.y1 + height / 2 - (newBounds.y2 - newBounds.y1) / 2
+
+  container.value
+    .transition()
+    .duration(2000)
+    .call(zoomBehaviour.value.transform, zoomIdentity.scale(scale).translate(x, y))
+})
 </script>
 
 <template>
@@ -161,161 +172,71 @@ watch(
     @dragover="onDragOver"
   >
     <svg width="100%" height="100%">
-      <defs>
-        <pattern id="bg" v-bind="pattern" patternUnits="userSpaceOnUse">
-          <circle class="point" r="0.75" :transform="`translate(1 ${pattern.height / 2 + 1})`" />
-          <circle class="point" r="0.75" :transform="`translate(${pattern.width / 2 + 1} 1)`" />
-        </pattern>
-        <marker id="arrow" markerWidth="15" markerHeight="10" refX="7" refY="5" orient="auto">
-          <path d="M2,1 L7,5 L2,9" fill="none" />
-        </marker>
-        <marker id="arrow-muted" markerWidth="15" markerHeight="10" refX="7" refY="5" orient="auto">
-          <path d="M2,1 L7,5 L2,9" fill="none" />
-        </marker>
-        <marker
-          id="arrow-accent"
-          markerWidth="15"
-          markerHeight="10"
-          refX="7"
-          refY="5"
-          orient="auto"
-        >
-          <path d="M2,1 L7,5 L2,9" fill="none" />
-        </marker>
-        <marker
-          id="arrow-flipped"
-          markerWidth="15"
-          markerHeight="10"
-          refX="8"
-          refY="5"
-          orient="auto"
-        >
-          <path d="M13,1 L8,5 L13,9" fill="none" />
-        </marker>
-        <marker
-          id="arrow-muted-flipped"
-          markerWidth="15"
-          markerHeight="10"
-          refX="8"
-          refY="5"
-          orient="auto"
-        >
-          <path d="M13,1 L8,5 L13,9" fill="none" />
-        </marker>
-        <marker
-          id="arrow-accent-flipped"
-          markerWidth="15"
-          markerHeight="10"
-          refX="8"
-          refY="5"
-          orient="auto"
-        >
-          <path d="M13,1 L8,5 L13,9" fill="none" />
-        </marker>
-      </defs>
-      <rect v-if="mode === 'compose'" x="0" y="0" width="100%" height="100%" fill="url(#bg)" />
-      <g :transform="transform">
+      <SvgMarker />
+      <SvgPattern v-if="mode === MODE_COMPOSE" :transform="canvasStore.transform" />
+      <g
+        :transform="`translate(${canvasStore.transform.x}, ${canvasStore.transform.y}) scale(${canvasStore.transform.k})`"
+      >
         <g class="edges">
-          <template v-if="mode !== 'couple' && mode !== 'screen'">
-            <CanvasEdge
-              v-for="(edge, i) in terminusStore.edges"
-              :interactive="mode === 'compose'"
-              :key="edge.edge?.['@id'] || i"
-              :edge="edge"
-            />
-          </template>
-          <template v-else>
-            <CanvasEdgeCouple
-              v-for="(edge, i) in terminusStore.edges"
-              :mode="mode"
-              :key="edge.edge?.['@id'] || i"
-              :edge="edge"
-            />
-          </template>
-          <CanvasEdge v-if="connectingLine" :edge="connectingLine" />
+          <CanvasEdgeDrawing v-if="mode === MODE_COMPOSE" />
+          <!-- <CanvasEdge v-if="composeStore.drawingEdge" :edge="composeStore.drawingEdge" /> -->
+          <CanvasEdge
+            v-for="edge in terminusStore.edges"
+            :interactive="mode === MODE_COMPOSE"
+            :key="edge['@id']"
+            :id="edge['@id']"
+            :edge="edge"
+          />
         </g>
-        <g class="nodes">
-          <template v-if="mode === 'compose'">
-            <CanvasDocumentCard
-              v-for="allocation in terminusStore.allocations"
-              :key="allocation.node['@id']"
-              :allocation="allocation"
-              :transform="transform"
-              @update-position="($event) => onUpdatePosition(allocation.node['@id'], $event)"
-              :connecting-to="connecting"
-              @connect-start="onConnectStart(allocation)"
-              @connect="onConnect(allocation, $event)"
-              @connect-end="onConnectEnd(allocation)"
-              @mouse-enter="connectable = allocation"
-              @mouse-out="connectable = null"
-            />
-          </template>
-          <template v-else-if="mode === 'couple'">
-            <CanvasDocumentCardCouple
-              v-for="allocation in terminusStore.allocations"
-              :key="allocation.node['@id']"
-              :allocation="allocation"
-            />
-          </template>
-          <template v-else-if="mode === 'screen'">
-            <CanvasDocumentCardScreen
-              v-for="allocation in terminusStore.allocations"
-              :key="allocation.node['@id']"
-              :allocation="allocation"
-            />
-          </template>
-          <template v-else>
-            <CanvasDocumentCardStatic
-              v-for="allocation in terminusStore.allocations"
-              :key="allocation.node['@id']"
-              :allocation="allocation"
-            />
-          </template>
-        </g>
+        <polygon
+          class="bounds"
+          v-if="mode === MODE_COUPLE && bounds"
+          :points="`${bounds.x1},${bounds.y1} ${bounds.x2},${bounds.y1} ${bounds.x2},${bounds.y2} ${bounds.x1},${bounds.y2}`"
+        />
       </g>
     </svg>
+    <div
+      class="nodes"
+      :style="{
+        transform: `translate(${canvasStore.transform.x}px, ${canvasStore.transform.y}px) scale(${canvasStore.transform.k})`
+      }"
+    >
+      <CanvasDocumentCard
+        v-for="allocation in terminusStore.allocations"
+        :key="allocation.node['@id']"
+        :allocation="allocation"
+        :transform="canvasStore.transform"
+      />
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .container {
   position: absolute;
+  overflow: hidden;
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
 
   svg {
+    position: absolute;
     display: block;
     isolation: isolate;
 
-    foreignObject {
-      overflow: visible;
+    .bounds {
+      pointer-events: none;
+      stroke: var(--ui-accent);
+      fill: none;
+      vector-effect: non-scaling-stroke;
+      stroke-dasharray: 5 5;
     }
-
-    pattern {
-      circle {
-        fill: var(--primary);
-      }
-    }
-
-    #arrow,
-    #arrow-flipped {
-      path {
-        stroke: var(--flow-edge);
-      }
-    }
-    #arrow-muted,
-    #arrow-muted-flipped {
-      path {
-        stroke: var(--flow-edge);
-      }
-    }
-    #arrow-accent,
-    #arrow-accent-flipped {
-      path {
-        stroke: var(--flow-edge-highlight);
-      }
+  }
+  .nodes {
+    position: absolute;
+    > * {
+      position: absolute;
     }
   }
 }
