@@ -18,7 +18,7 @@ const route = useRoute()
 
 const viewClass = computed(() => `view-${route.name}`)
 
-const props = defineProps({ edge: Object, interactive: Boolean, displayRemoteStyle: Boolean })
+const props = defineProps({ edge: Object, interactive: Boolean })
 
 const label = computed(() => {
   const propertyClass = terminusStore.properties.find((c) => c['@id'] === props.edge.property)
@@ -34,270 +34,270 @@ const points = ref([])
 watch(() => [canvasStore.nodes[props.edge.source], canvasStore.nodes[props.edge.target]], computePoints)
 
 function computePoints() {
-    const source = canvasStore.nodes[props.edge.source]
-    const target = canvasStore.nodes[props.edge.target]
-    const offset = canvasStore.offset
+  const source = canvasStore.nodes[props.edge.source]
+  const target = canvasStore.nodes[props.edge.target]
+  const offset = canvasStore.offset
 
   if (source == null || target == null) return (points.value = null)
 
-    if (route.name === 'graph') {
-      // FLOWCHART – draw edges using line segments at 45° angles
-      const buffer = 20
-      const alignHorizontally =
-        target.bounds.bottom > source.bounds.top + buffer && target.bounds.top < source.bounds.bottom + buffer
-      const alignVertically =
-        target.bounds.right > source.bounds.left + buffer && target.bounds.left < source.bounds.right + buffer
-      const stubSize = 15
-      if (alignHorizontally && !alignVertically) {
-        // HORIZONTAL
-        const sourceAnchor = {
-          x: source.bounds[source.x < target.x ? 'right' : 'left'],
-          y: source.bounds.top + offset.y
-        }
-        const targetAnchor = {
-          x: target.bounds[source.x < target.x ? 'left' : 'right'],
-          y: target.bounds.top + offset.y
-        }
-        const delta = {
-          x: sourceAnchor.x - targetAnchor.x,
-          y: sourceAnchor.y - targetAnchor.y
-        }
-        const center = {
-          x: sourceAnchor.x - delta.x / 2,
-          y: sourceAnchor.y - delta.y / 2
-        }
-        if (Math.abs(delta.x) > Math.abs(delta.y) + stubSize * 2) {
-          points.value = [
-            sourceAnchor,
-            { x: center.x - Math.abs(delta.y / 2) * (delta.x > 0 ? -1 : 1), y: sourceAnchor.y },
-            center,
-            { x: center.x + Math.abs(delta.y / 2) * (delta.x > 0 ? -1 : 1), y: targetAnchor.y },
-            targetAnchor
-          ]
-        } else {
-          points.value = [
-            sourceAnchor,
-            { x: center.x, y: sourceAnchor.y },
-            center,
-            { x: center.x, y: targetAnchor.y },
-            targetAnchor
-          ]
-        }
-      } else if (alignVertically && !alignHorizontally) {
-        // VERTICAL
-        const sourceAnchor = {
-          x: source.bounds.left + offset.x,
-          y: source.bounds[source.y < target.y ? 'bottom' : 'top']
-        }
-        const targetAnchor = {
-          x: target.bounds.left + offset.x,
-          y: target.bounds[source.y < target.y ? 'top' : 'bottom']
-        }
-        const delta = {
-          x: sourceAnchor.x - targetAnchor.x,
-          y: sourceAnchor.y - targetAnchor.y
-        }
-        const center = {
-          x: sourceAnchor.x - delta.x / 2,
-          y: sourceAnchor.y - delta.y / 2
-        }
-        if (Math.abs(delta.y) > Math.abs(delta.x) + stubSize * 2) {
-          points.value = [
-            sourceAnchor,
-            { x: sourceAnchor.x, y: center.y - Math.abs(delta.x / 2) * (delta.y > 0 ? -1 : 1) },
-            center,
-            { x: targetAnchor.x, y: center.y + Math.abs(delta.x / 2) * (delta.y > 0 ? -1 : 1) },
-            targetAnchor
-          ]
-        } else {
-          points.value = [
-            sourceAnchor,
-            { x: sourceAnchor.x, y: center.y },
-            { x: targetAnchor.x, y: center.y },
-            targetAnchor
-          ]
-        }
-      } else if (!alignVertically && !alignHorizontally) {
-        // DIAGONAL
-        if (source.x < target.x) {
-          if (source.y < target.y) {
-            // ↘↘↘
-            const sourceAnchor = { x: source.bounds.right, y: source.bounds.bottom }
-            const targetAnchor = { x: target.bounds.left, y: target.bounds.top }
+  if (route.name === 'graph') {
+    // FLOWCHART – draw edges using line segments at 45° angles
+    const buffer = 20
+    const alignHorizontally =
+      target.bounds.bottom > source.bounds.top + buffer && target.bounds.top < source.bounds.bottom + buffer
+    const alignVertically =
+      target.bounds.right > source.bounds.left + buffer && target.bounds.left < source.bounds.right + buffer
+    const stubSize = 15
+    if (alignHorizontally && !alignVertically) {
+      // HORIZONTAL
+      const sourceAnchor = {
+        x: source.bounds[source.x < target.x ? 'right' : 'left'],
+        y: source.bounds.top + offset.y
+      }
+      const targetAnchor = {
+        x: target.bounds[source.x < target.x ? 'left' : 'right'],
+        y: target.bounds.top + offset.y
+      }
+      const delta = {
+        x: sourceAnchor.x - targetAnchor.x,
+        y: sourceAnchor.y - targetAnchor.y
+      }
+      const center = {
+        x: sourceAnchor.x - delta.x / 2,
+        y: sourceAnchor.y - delta.y / 2
+      }
+      if (Math.abs(delta.x) > Math.abs(delta.y) + stubSize * 2) {
+        points.value = [
+          sourceAnchor,
+          { x: center.x - Math.abs(delta.y / 2) * (delta.x > 0 ? -1 : 1), y: sourceAnchor.y },
+          center,
+          { x: center.x + Math.abs(delta.y / 2) * (delta.x > 0 ? -1 : 1), y: targetAnchor.y },
+          targetAnchor
+        ]
+      } else {
+        points.value = [
+          sourceAnchor,
+          { x: center.x, y: sourceAnchor.y },
+          center,
+          { x: center.x, y: targetAnchor.y },
+          targetAnchor
+        ]
+      }
+    } else if (alignVertically && !alignHorizontally) {
+      // VERTICAL
+      const sourceAnchor = {
+        x: source.bounds.left + offset.x,
+        y: source.bounds[source.y < target.y ? 'bottom' : 'top']
+      }
+      const targetAnchor = {
+        x: target.bounds.left + offset.x,
+        y: target.bounds[source.y < target.y ? 'top' : 'bottom']
+      }
+      const delta = {
+        x: sourceAnchor.x - targetAnchor.x,
+        y: sourceAnchor.y - targetAnchor.y
+      }
+      const center = {
+        x: sourceAnchor.x - delta.x / 2,
+        y: sourceAnchor.y - delta.y / 2
+      }
+      if (Math.abs(delta.y) > Math.abs(delta.x) + stubSize * 2) {
+        points.value = [
+          sourceAnchor,
+          { x: sourceAnchor.x, y: center.y - Math.abs(delta.x / 2) * (delta.y > 0 ? -1 : 1) },
+          center,
+          { x: targetAnchor.x, y: center.y + Math.abs(delta.x / 2) * (delta.y > 0 ? -1 : 1) },
+          targetAnchor
+        ]
+      } else {
+        points.value = [
+          sourceAnchor,
+          { x: sourceAnchor.x, y: center.y },
+          { x: targetAnchor.x, y: center.y },
+          targetAnchor
+        ]
+      }
+    } else if (!alignVertically && !alignHorizontally) {
+      // DIAGONAL
+      if (source.x < target.x) {
+        if (source.y < target.y) {
+          // ↘↘↘
+          const sourceAnchor = { x: source.bounds.right, y: source.bounds.bottom }
+          const targetAnchor = { x: target.bounds.left, y: target.bounds.top }
 
-            const delta = {
-              x: sourceAnchor.x - targetAnchor.x,
-              y: sourceAnchor.y - targetAnchor.y
-            }
-            const center = {
-              x: sourceAnchor.x - delta.x / 2,
-              y: sourceAnchor.y - delta.y / 2
-            }
+          const delta = {
+            x: sourceAnchor.x - targetAnchor.x,
+            y: sourceAnchor.y - targetAnchor.y
+          }
+          const center = {
+            x: sourceAnchor.x - delta.x / 2,
+            y: sourceAnchor.y - delta.y / 2
+          }
 
-            if (Math.abs(delta.x) < Math.abs(delta.y)) {
-              points.value = [
-                sourceAnchor,
-                { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y - delta.x / 2 },
-                center,
-                { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y + delta.x / 2 },
-                targetAnchor
-              ]
-            } else {
-              points.value = [
-                sourceAnchor,
-                { x: sourceAnchor.x - delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
-                center,
-                { x: targetAnchor.x + delta.y / 2, y: targetAnchor.y + delta.y / 2 },
-                targetAnchor
-              ]
-            }
+          if (Math.abs(delta.x) < Math.abs(delta.y)) {
+            points.value = [
+              sourceAnchor,
+              { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y - delta.x / 2 },
+              center,
+              { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y + delta.x / 2 },
+              targetAnchor
+            ]
           } else {
-            // ↗↗↗
-            const sourceAnchor = { x: source.bounds.right, y: source.bounds.top }
-            const targetAnchor = { x: target.bounds.left, y: target.bounds.bottom }
-
-            const delta = {
-              x: sourceAnchor.x - targetAnchor.x,
-              y: sourceAnchor.y - targetAnchor.y
-            }
-            const center = {
-              x: sourceAnchor.x - delta.x / 2,
-              y: sourceAnchor.y - delta.y / 2
-            }
-
-            if (Math.abs(delta.x) < Math.abs(delta.y)) {
-              points.value = [
-                sourceAnchor,
-                { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y + delta.x / 2 },
-                center,
-                { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y - delta.x / 2 },
-                targetAnchor
-              ]
-            } else {
-              points.value = [
-                sourceAnchor,
-                { x: sourceAnchor.x + delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
-                center,
-                { x: targetAnchor.x - delta.y / 2, y: targetAnchor.y + delta.y / 2 },
-                targetAnchor
-              ]
-            }
+            points.value = [
+              sourceAnchor,
+              { x: sourceAnchor.x - delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
+              center,
+              { x: targetAnchor.x + delta.y / 2, y: targetAnchor.y + delta.y / 2 },
+              targetAnchor
+            ]
           }
         } else {
-          if (source.y < target.y) {
-            // ↙↙↙
-            const sourceAnchor = { x: source.bounds.left, y: source.bounds.bottom }
-            const targetAnchor = { x: target.bounds.right, y: target.bounds.top }
+          // ↗↗↗
+          const sourceAnchor = { x: source.bounds.right, y: source.bounds.top }
+          const targetAnchor = { x: target.bounds.left, y: target.bounds.bottom }
 
-            const delta = {
-              x: sourceAnchor.x - targetAnchor.x,
-              y: sourceAnchor.y - targetAnchor.y
-            }
-            const center = {
-              x: sourceAnchor.x - delta.x / 2,
-              y: sourceAnchor.y - delta.y / 2
-            }
+          const delta = {
+            x: sourceAnchor.x - targetAnchor.x,
+            y: sourceAnchor.y - targetAnchor.y
+          }
+          const center = {
+            x: sourceAnchor.x - delta.x / 2,
+            y: sourceAnchor.y - delta.y / 2
+          }
 
-            if (Math.abs(delta.x) < Math.abs(delta.y)) {
-              points.value = [
-                sourceAnchor,
-                { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y + delta.x / 2 },
-                center,
-                { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y - delta.x / 2 },
-                targetAnchor
-              ]
-            } else {
-              points.value = [
-                sourceAnchor,
-                { x: sourceAnchor.x + delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
-                center,
-                { x: targetAnchor.x - delta.y / 2, y: targetAnchor.y + delta.y / 2 },
-                targetAnchor
-              ]
-            }
+          if (Math.abs(delta.x) < Math.abs(delta.y)) {
+            points.value = [
+              sourceAnchor,
+              { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y + delta.x / 2 },
+              center,
+              { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y - delta.x / 2 },
+              targetAnchor
+            ]
           } else {
-            // ↖↖↖
-            const sourceAnchor = { x: source.bounds.left, y: source.bounds.top }
-            const targetAnchor = { x: target.bounds.right, y: target.bounds.bottom }
+            points.value = [
+              sourceAnchor,
+              { x: sourceAnchor.x + delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
+              center,
+              { x: targetAnchor.x - delta.y / 2, y: targetAnchor.y + delta.y / 2 },
+              targetAnchor
+            ]
+          }
+        }
+      } else {
+        if (source.y < target.y) {
+          // ↙↙↙
+          const sourceAnchor = { x: source.bounds.left, y: source.bounds.bottom }
+          const targetAnchor = { x: target.bounds.right, y: target.bounds.top }
 
-            const delta = {
-              x: sourceAnchor.x - targetAnchor.x,
-              y: sourceAnchor.y - targetAnchor.y
-            }
-            const center = {
-              x: sourceAnchor.x - delta.x / 2,
-              y: sourceAnchor.y - delta.y / 2
-            }
+          const delta = {
+            x: sourceAnchor.x - targetAnchor.x,
+            y: sourceAnchor.y - targetAnchor.y
+          }
+          const center = {
+            x: sourceAnchor.x - delta.x / 2,
+            y: sourceAnchor.y - delta.y / 2
+          }
 
-            if (Math.abs(delta.x) < Math.abs(delta.y)) {
-              points.value = [
-                sourceAnchor,
-                { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y - delta.x / 2 },
-                center,
-                { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y + delta.x / 2 },
-                targetAnchor
-              ]
-            } else {
-              points.value = [
-                sourceAnchor,
-                { x: sourceAnchor.x - delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
-                center,
-                { x: targetAnchor.x + delta.y / 2, y: targetAnchor.y + delta.y / 2 },
-                targetAnchor
-              ]
-            }
+          if (Math.abs(delta.x) < Math.abs(delta.y)) {
+            points.value = [
+              sourceAnchor,
+              { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y + delta.x / 2 },
+              center,
+              { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y - delta.x / 2 },
+              targetAnchor
+            ]
+          } else {
+            points.value = [
+              sourceAnchor,
+              { x: sourceAnchor.x + delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
+              center,
+              { x: targetAnchor.x - delta.y / 2, y: targetAnchor.y + delta.y / 2 },
+              targetAnchor
+            ]
+          }
+        } else {
+          // ↖↖↖
+          const sourceAnchor = { x: source.bounds.left, y: source.bounds.top }
+          const targetAnchor = { x: target.bounds.right, y: target.bounds.bottom }
+
+          const delta = {
+            x: sourceAnchor.x - targetAnchor.x,
+            y: sourceAnchor.y - targetAnchor.y
+          }
+          const center = {
+            x: sourceAnchor.x - delta.x / 2,
+            y: sourceAnchor.y - delta.y / 2
+          }
+
+          if (Math.abs(delta.x) < Math.abs(delta.y)) {
+            points.value = [
+              sourceAnchor,
+              { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y - delta.x / 2 },
+              center,
+              { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y + delta.x / 2 },
+              targetAnchor
+            ]
+          } else {
+            points.value = [
+              sourceAnchor,
+              { x: sourceAnchor.x - delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
+              center,
+              { x: targetAnchor.x + delta.y / 2, y: targetAnchor.y + delta.y / 2 },
+              targetAnchor
+            ]
           }
         }
       }
-    } else {
-      // check falling through to here if no nice edge could be drawn
+    }
+  } else {
+    // check falling through to here if no nice edge could be drawn
 
-      // NETWORK – Draw edge on source-target staight, stopping at node bounds
-      const straight = [
-        { x: source.x, y: source.y },
-        { x: target.x, y: target.y }
-      ]
-      // only check plausible rect edges (i.e. one vertical and one horizontal per node)
-      const above = source.y < target.y
-      const left = source.x < target.x
+    // NETWORK – Draw edge on source-target staight, stopping at node bounds
+    const straight = [
+      { x: source.x, y: source.y },
+      { x: target.x, y: target.y }
+    ]
+    // only check plausible rect edges (i.e. one vertical and one horizontal per node)
+    const above = source.y < target.y
+    const left = source.x < target.x
 
-      const hSource = [
-        { x: source.bounds.left, y: source.bounds[above ? 'bottom' : 'top'] },
-        { x: source.bounds.right, y: source.bounds[above ? 'bottom' : 'top'] }
-      ]
-      const hTarget = [
-        { x: target.bounds.left, y: target.bounds[above ? 'top' : 'bottom'] },
-        { x: target.bounds.right, y: target.bounds[above ? 'top' : 'bottom'] }
-      ]
+    const hSource = [
+      { x: source.bounds.left, y: source.bounds[above ? 'bottom' : 'top'] },
+      { x: source.bounds.right, y: source.bounds[above ? 'bottom' : 'top'] }
+    ]
+    const hTarget = [
+      { x: target.bounds.left, y: target.bounds[above ? 'top' : 'bottom'] },
+      { x: target.bounds.right, y: target.bounds[above ? 'top' : 'bottom'] }
+    ]
 
-      const vSource = [
-        { x: source.bounds[left ? 'right' : 'left'], y: source.bounds.top },
-        { x: source.bounds[left ? 'right' : 'left'], y: source.bounds.bottom }
-      ]
-      const vTarget = [
-        { x: target.bounds[left ? 'left' : 'right'], y: target.bounds.top },
-        { x: target.bounds[left ? 'left' : 'right'], y: target.bounds.bottom }
-      ]
+    const vSource = [
+      { x: source.bounds[left ? 'right' : 'left'], y: source.bounds.top },
+      { x: source.bounds[left ? 'right' : 'left'], y: source.bounds.bottom }
+    ]
+    const vTarget = [
+      { x: target.bounds[left ? 'left' : 'right'], y: target.bounds.top },
+      { x: target.bounds[left ? 'left' : 'right'], y: target.bounds.bottom }
+    ]
 
-      const pSource = lineIntersect(straight, hSource) || lineIntersect(straight, vSource)
-      const pTarget = lineIntersect(straight, hTarget) || lineIntersect(straight, vTarget)
+    const pSource = lineIntersect(straight, hSource) || lineIntersect(straight, vSource)
+    const pTarget = lineIntersect(straight, hTarget) || lineIntersect(straight, vTarget)
 
     if (!pSource || !pTarget) return (points.value = null)
-      const p = []
-      const segments = 4
-      const delta = {
-        x: pSource.x - pTarget.x,
-        y: pSource.y - pTarget.y
-      }
-      for (let i = 0; i <= segments; i++) {
-        p.push({
-          x: pSource.x - (delta.x / segments) * i,
-          y: pSource.y - (delta.y / segments) * i
-        })
-      }
-      // const midpoints p
-      points.value = p // [pSource, pTarget]
+    const p = []
+    const segments = 4
+    const delta = {
+      x: pSource.x - pTarget.x,
+      y: pSource.y - pTarget.y
     }
+    for (let i = 0; i <= segments; i++) {
+      p.push({
+        x: pSource.x - (delta.x / segments) * i,
+        y: pSource.y - (delta.y / segments) * i
+      })
+    }
+    // const midpoints p
+    points.value = p // [pSource, pTarget]
+  }
 }
 
 const path = computed(() => {
