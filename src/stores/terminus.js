@@ -41,6 +41,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     const server = import.meta.env.VITE_SERVER
     const organization = import.meta.env.VITE_ORGANIZATION
     const db = import.meta.env.VITE_DB
+    const branch = import.meta.env.VITE_BRANCH
 
     const accessControl = new AccessControl(server, {
       organization,
@@ -65,6 +66,8 @@ export const useTerminusStore = defineStore('terminus', () => {
       organization,
       db
     })
+
+    client.checkout(branch)
     // try {
     //   schema.value = await client.getSchemaFrame()
     // } catch (error) {
