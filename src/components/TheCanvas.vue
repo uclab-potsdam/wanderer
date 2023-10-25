@@ -34,9 +34,7 @@ const mode = computed(() => viewStore.mode)
 
 const bounds = computed(() => {
   const bounds =
-    mode.value === MODE_COUPLE
-      ? syncStore.atMarker?.bounds || canvasStore.bounds
-      : syncStore.currentMarker?.bounds
+    mode.value === MODE_COUPLE ? syncStore.atMarker?.bounds || canvasStore.bounds : syncStore.currentMarker?.bounds
   if (bounds == null) return
   return {
     x1: bounds.x1 + terminusStore.offset.x,
@@ -121,15 +119,51 @@ function zoomToFit() {
     )
 }
 
+function zoomToFitNetwork() {
+  if (zoomBehaviour.value == null) return
+  if (terminusStore.allocations.length < 1) return
+  const xs = terminusStore.allocations.map(({ x }) => x)
+  const ys = terminusStore.allocations.map(({ y }) => y)
+
+  const center = terminusStore.allocations.find(({ node }) => node['@id'] === context.value)
+  console.log(center)
+  const padding = 150
+
+  const x = center.x
+  const y = center.y
+
+  const minX = Math.min(...xs) - padding
+  const maxX = Math.max(...xs) + padding
+  const minY = Math.min(...ys) - padding
+  const maxY = Math.max(...ys) + padding
+
+  const diffX = Math.max(x - minX, maxX - x)
+  const diffY = Math.max(y - minY, maxY - y)
+
+  const scale = Math.min(innerWidth / (diffX * 2), innerHeight / (diffY * 2), 1)
+  container.value
+    .transition()
+    .duration(2000)
+    .call(
+      zoomBehaviour.value.transform,
+      zoomIdentity
+        .translate(innerWidth / 2, innerHeight / 2)
+        .scale(scale)
+        .translate(-x, -y)
+    )
+}
+
 watch(
   () => route,
   async () => {
     if (route.name === 'graph') {
       await terminusStore.getGraph(context.value, true)
+      zoomToFit()
     } else if (route.name === 'entity') {
       await terminusStore.getNetwork(context.value, true)
+      zoomToFitNetwork()
     }
-    zoomToFit()
+    // zoomToFit()
   },
   { immediate: true, deep: true }
 )
@@ -164,13 +198,7 @@ watch(bounds, (newBounds, oldBounds) => {
 </script>
 
 <template>
-  <div
-    class="container"
-    v-resize="(s) => (size = s)"
-    ref="containerRef"
-    @drop="onDrop"
-    @dragover="onDragOver"
-  >
+  <div class="container" v-resize="(s) => (size = s)" ref="containerRef" @drop="onDrop" @dragover="onDragOver">
     <svg width="100%" height="100%">
       <SvgMarker />
       <SvgPattern v-if="mode === MODE_COMPOSE" :transform="canvasStore.transform" />

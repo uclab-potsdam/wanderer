@@ -342,7 +342,9 @@ export const useTerminusStore = defineStore('terminus', () => {
       .sort((a, b) => (a.x != null && b.x == null ? -1 : a.x == null && b.x != null ? 1 : 0))
 
     // calculate coordinates for radial layout, might need improvement to make more use of screen dimensions
-    const radius = { x: innerWidth / 3, y: innerHeight / 3 }
+
+    const ratio = innerWidth / innerHeight
+    const radius = { x: Math.max(300 * ratio, innerWidth / 3), y: Math.max(300 / ratio, innerHeight / 3) }
     const minCoordinates = 9
     const coordinates = [...satellites, ...Array(Math.max(0, minCoordinates - satellites.length)).fill()]
       .map((satellite, i, satellites) => {
