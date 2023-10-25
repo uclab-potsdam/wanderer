@@ -339,13 +339,20 @@ export const useTerminusStore = defineStore('terminus', () => {
       .sort((a, b) => (a.x != null && b.x == null ? -1 : a.x == null && b.x != null ? 1 : 0))
 
     // calculate coordinates for radial layout, might need improvement to make more use of screen dimensions
-    const radius = 400
-    const coordinates = satellites.map((satellite, i, satellites) => {
-      return {
-        x: Math.cos(((Math.PI * 2) / satellites.length) * i) * radius + center.x,
-        y: Math.sin(((Math.PI * 2) / satellites.length) * i) * radius + center.y
-      }
-    })
+    const radius = { x: 400, y: 400 }
+    const minCoordinates = 9
+    const coordinates = [...satellites, ...Array(Math.max(0, minCoordinates - satellites.length)).fill()]
+      .map((satellite, i, satellites) => {
+        return {
+          value: {
+            x: Math.cos(((Math.PI * 2) / Math.max(satellites.length, minCoordinates)) * i) * radius.x + center.x,
+            y: Math.sin(((Math.PI * 2) / Math.max(satellites.length, minCoordinates)) * i) * radius.y + center.y
+          },
+          sort: Math.random()
+        }
+      })
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
 
     // satellites should move as little as possible form their current position
     // could be improved to check against all positions and prioritise instead of remaining ones

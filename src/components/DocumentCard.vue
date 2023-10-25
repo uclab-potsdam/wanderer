@@ -141,7 +141,7 @@ function onDragStart(e) {
       // color: var(--flow-color-highlight);
 
       span {
-        margin: 0 -0.4em;
+        margin: 0 -0.6em;
         padding: 0em 0.6em;
         border-radius: 0.7em 0.3em 0.7em 0.3em;
         // background: transparent;

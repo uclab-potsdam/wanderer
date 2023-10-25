@@ -31,14 +31,14 @@ const id = computed(() => {
 
 const points = ref([])
 
-watch(
-  () => canvasStore.nodes, // check if we can limit that to only update when source or target node changes
-  () => {
+watch(() => [canvasStore.nodes[props.edge.source], canvasStore.nodes[props.edge.target]], computePoints)
+
+function computePoints() {
     const source = canvasStore.nodes[props.edge.source]
     const target = canvasStore.nodes[props.edge.target]
     const offset = canvasStore.offset
 
-    if (source == null || target == null) return (points.value = [])
+  if (source == null || target == null) return (points.value = null)
 
     if (route.name === 'graph') {
       // FLOWCHART – draw edges using line segments at 45° angles
@@ -282,7 +282,7 @@ watch(
       const pSource = lineIntersect(straight, hSource) || lineIntersect(straight, vSource)
       const pTarget = lineIntersect(straight, hTarget) || lineIntersect(straight, vTarget)
 
-      if (!pSource || !pTarget) return (points.value = [])
+    if (!pSource || !pTarget) return (points.value = null)
       const p = []
       const segments = 4
       const delta = {
@@ -298,9 +298,7 @@ watch(
       // const midpoints p
       points.value = p // [pSource, pTarget]
     }
-  },
-  { immediate: true, deep: true }
-)
+}
 
 const path = computed(() => {
   if (!points.value?.length) return null
@@ -310,11 +308,11 @@ const path = computed(() => {
 
 const midPoint = computed(() => {
   if (vertical.value) return { x: points.value[2].x - 25, y: points.value[2].y }
-  return points.value[2]
+  return points.value?.[2]
 })
 
 const vertical = computed(
-  () => points.value.length > 0 && points.value[0].x === points.value[points.value.length - 1].x
+  () => points.value?.length > 0 && points.value?.[0].x === points.value?.[points.value?.length - 1].x
 )
 
 const arrow = computed(() => (props.edge.source.x <= props.edge.target.x ? 'end' : 'start'))
