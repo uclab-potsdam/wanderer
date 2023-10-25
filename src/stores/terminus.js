@@ -375,7 +375,12 @@ export const useTerminusStore = defineStore('terminus', () => {
     })
 
     allocations.value = [center, ...satelliteAllocations]
-    edges.value = edgeData
+
+    edges.value = edgeData.sort(
+      (a, b) =>
+        edges.value.findIndex((edge) => edge['@id'] === a['@id']) -
+        edges.value.findIndex((edge) => edge['@id'] === b['@id'])
+    )
 
     relatedGraphs.value = res.bindings.filter((d) => d.graph != null).map(({ graph }) => graph)
   }
