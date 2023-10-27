@@ -3,10 +3,13 @@ import { useTerminusStore } from '@/stores/terminus'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import DocumentCard from './DocumentCard.vue'
+import { useViewStore } from '@/stores/view'
+import { MODE_VIEW } from '@/assets/js/constants'
 
 const route = useRoute()
 const router = useRouter()
 const terminusStore = useTerminusStore()
+const viewStore = useViewStore()
 
 const activeGraph = computed(() => terminusStore.graphDoc)
 
@@ -15,16 +18,18 @@ const relatedGraphs = computed(() =>
 )
 </script>
 <template>
-  <div class="the-related-graphs" v-if="route.name === 'entity'">
+  <div class="the-related-graphs" v-if="route.name === 'entity' || viewStore.mode === MODE_VIEW">
     <DocumentCard
       v-if="activeGraph['@id']"
       :document="activeGraph"
       @click="router.push(`/${activeGraph['@id']}`)"
       class="active-graph"
     />
-    <div v-for="graph in relatedGraphs" :key="graph['@id']">
-      <DocumentCard :document="graph" @click="router.push(`/${graph['@id']}`)" />
-    </div>
+    <template v-if="route.name === 'entity'">
+      <div v-for="graph in relatedGraphs" :key="graph['@id']">
+        <DocumentCard :document="graph" @click="router.push(`/${graph['@id']}`)" />
+      </div>
+    </template>
   </div>
 </template>
 <style lang="scss" scoped>

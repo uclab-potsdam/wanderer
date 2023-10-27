@@ -24,9 +24,7 @@ export default defineConfig({
             .replace(/<svg/, '<svg class="icon"')
         ),
         base: FileSystemIconLoader('./src/assets/icons2', (svg) =>
-          svg
-            .replace(/fill="#000000"/gi, 'fill="currentColor"')
-            .replace(/<svg/, '<svg class="icon"')
+          svg.replace(/fill="#000000"/gi, 'fill="currentColor"').replace(/<svg/, '<svg class="icon"')
         )
       }
     })

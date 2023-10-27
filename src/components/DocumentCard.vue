@@ -4,6 +4,9 @@ import { useTerminusStore } from '@/stores/terminus'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
+import IconPlay from '~icons/base/CanvasPlay'
+import IconPlaying from '@/components/svg/SvgIconPlaying.vue'
+
 const viewStore = useViewStore()
 const terminusStore = useTerminusStore()
 
@@ -52,10 +55,20 @@ function onDragStart(e) {
   >
     <div class="card">
       <span class="label" :lang="label?.lang"> {{ label?.text }} </span>
-      <br />
-      <span v-if="className" class="class" :lang="className.lang">
-        {{ className.text }}
-      </span>
+      <template>
+        <br />
+        <span v-if="className" class="class" :lang="className.lang">
+          {{ className.text }}
+        </span>
+      </template>
+      <template v-if="document['@type'] === 'graph'">
+        <br />
+        <span class="canvas-play-state">
+          <IconPlaying v-if="document['@id'] === terminusStore.graph" />
+          <IconPlay v-else />
+          7:20
+        </span>
+      </template>
     </div>
     <div class="actions">
       <div class="center"><slot name="center" /></div>
@@ -94,8 +107,15 @@ function onDragStart(e) {
     .card {
       background: color-mix(in lab, var(--ui-accent), transparent 80%);
       color: color-mix(in lab, var(--ui-accent), black 50%);
+      min-width: 200px;
       // var(--ui-accent);
       border-radius: var(--ui-border-radius);
+
+      .canvas-play-state {
+        display: flex;
+        gap: var(--spacing-s);
+        align-items: center;
+      }
     }
   }
 
