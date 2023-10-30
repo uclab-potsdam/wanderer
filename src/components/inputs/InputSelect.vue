@@ -7,15 +7,7 @@ import { useViewStore } from '@/stores/view'
 import BaseButton from '../BaseButton.vue'
 import IconDelete from '~icons/base/Delete'
 
-const props = defineProps([
-  'modelValue',
-  'options',
-  'label',
-  'secondaryLabel',
-  'placeholder',
-  'type',
-  'lang'
-])
+const props = defineProps(['modelValue', 'options', 'label', 'secondaryLabel', 'placeholder', 'type', 'lang'])
 const emit = defineEmits(['update:modelValue'])
 
 const terminusStore = useTerminusStore()

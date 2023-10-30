@@ -21,7 +21,7 @@ function setFocus() {
       <slot></slot>
       <input
         :placeholder="placeholder"
-        :name="name"
+        :id="name"
         :value="modelValue"
         ref="input"
         @input="$emit('update:modelValue', $event.target.value)"

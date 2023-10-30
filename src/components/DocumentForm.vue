@@ -39,6 +39,8 @@ async function getFrame() {
         const isSet = schema[key]['@type'] === 'Set'
         const type = schema[key]['@class']?.['@class'] || schema[key]['@class'] || schema[key]
 
+        const isEnum = type['@type'] === 'Enum'
+
         const hidden = schema['@key']?.['@fields']?.includes(key)
 
         const input = type === 'text' || /:/.test(type) ? 'text' : 'select'
@@ -70,6 +72,7 @@ async function getFrame() {
           key,
           label,
           isSet,
+          isEnum,
           input,
           type,
           value,
@@ -113,7 +116,14 @@ watch(
   <div class="form">
     <template v-for="(prop, i) in frame" :key="i">
       <template v-if="!prop.hidden">
-        <template v-if="prop.input === 'text'">
+        <template v-if="prop.isEnum">
+          <span :style="{ 'font-size': 'var(--font-size-s)' }">{{ prop.label.text }}</span>
+          <select v-model="prop.value">
+            <option :value="null">–</option>
+            <option v-for="v in prop.type['@values']" :key="v" :value="v">{{ v }}</option>
+          </select>
+        </template>
+        <template v-else-if="prop.input === 'text'">
           <InputTextMulti
             v-if="prop.isSet || prop.type === 'text'"
             :label="prop.label.text"
@@ -138,12 +148,7 @@ watch(
             :options="prop.options"
           />
           <div v-else>
-            <InputSelect
-              :label="prop.label.text"
-              :lang="prop.label.lang"
-              v-model="prop.value"
-              :type="prop.type"
-            />
+            <InputSelect :label="prop.label.text" :lang="prop.label.lang" v-model="prop.value" :type="prop.type" />
           </div>
         </template>
       </template>
