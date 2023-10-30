@@ -11,7 +11,6 @@ import CanvasDocumentCard from './CanvasDocumentCard.vue'
 import CanvasEdge from './CanvasEdge.vue'
 
 import { MODE_COMPOSE, MODE_COUPLE, MODE_VIEW } from '@/assets/js/constants'
-import SvgMarker from './svg/SvgMarker.vue'
 import SvgPattern from './svg/SvgPattern.vue'
 import CanvasEdgeDrawing from './CanvasEdgeDrawing.vue'
 
@@ -214,7 +213,6 @@ const accent = computed(() => {
     :style="accent"
   >
     <svg width="100%" height="100%">
-      <SvgMarker />
       <SvgPattern v-if="mode === MODE_COMPOSE" :transform="canvasStore.transform" />
       <g
         :transform="`translate(${canvasStore.transform.x}, ${canvasStore.transform.y}) scale(${canvasStore.transform.k})`"

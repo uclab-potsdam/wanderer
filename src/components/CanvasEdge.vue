@@ -358,8 +358,13 @@ const level = computed(() => {
     @click="onClick"
     :style="color"
   >
+    <!-- <defs> -->
+    <marker :id="`marker-${id}`" markerWidth="10" markerHeight="20" refX="10" refY="10" orient="auto">
+      <path d="M0,0 L10,10 L0,20" />
+    </marker>
+    <!-- </defs> -->
     <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
-    <path :id="id" class="path" :class="[arrow]" :d="path" />
+    <path :id="id" class="path" :class="[arrow]" :d="path" :marker-end="`url('#marker-${id}')`" />
     <template v-if="midPoint">
       <g class="label" :style="{ transform: `translate(${midPoint.x}px, ${midPoint.y}px)` }">
         <text :lang="label.lang" class="shadow" :class="{ vertical }">
@@ -387,6 +392,13 @@ const level = computed(() => {
   path {
     fill: none;
   }
+
+  marker {
+    overflow: visible;
+    path {
+      stroke: var(--edge-color);
+    }
+  }
   .events {
     stroke-width: 20;
     pointer-events: all;
@@ -394,7 +406,6 @@ const level = computed(() => {
   .path {
     stroke-width: 1;
     stroke: var(--edge-color);
-    marker-end: url(#arrow);
   }
   &.mode-view {
     path {
@@ -402,6 +413,9 @@ const level = computed(() => {
     }
     .label {
       transition: all var(--transition-extended);
+      text {
+        transition: all var(--transition-extended);
+      }
     }
   }
 
@@ -428,8 +442,6 @@ const level = computed(() => {
   &:hover {
     .path {
       stroke: var(--edge-color-accent);
-      marker-end: url(#arrow-accent);
-      // marker-start: url(#arrow-accent-flipped);
     }
     text {
       fill: var(--edge-color-accent);
@@ -456,9 +468,13 @@ const level = computed(() => {
     }
   }
   &.level-3:not(.mode-compose, .view-entity) {
+    marker {
+      path {
+        stroke: var(--accent);
+      }
+    }
     path.path {
       stroke: var(--accent);
-      marker-end: url(#arrow-level-3);
     }
     text {
       fill: var(--accent);
