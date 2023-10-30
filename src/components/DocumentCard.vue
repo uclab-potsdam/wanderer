@@ -40,6 +40,13 @@ function onDragStart(e) {
   emit('close')
   e.dataTransfer.setData('text/uri-list', `workbench://${props.document['@id']}`)
 }
+
+const accent = computed(() => {
+  if (!props.document.color) return
+  return {
+    '--accent': `rgb(var(--${props.document.color}-5))`
+  }
+})
 </script>
 
 <template>
@@ -47,6 +54,7 @@ function onDragStart(e) {
     class="node"
     :draggable="draggable === 'native'"
     @dragstart="onDragStart"
+    :style="accent"
     :class="[
       document['@type'],
       viewClass,
@@ -106,11 +114,12 @@ function onDragStart(e) {
 
   &.graph {
     .card {
-      background: color-mix(in lab, var(--ui-accent), transparent 80%);
-      color: color-mix(in lab, var(--ui-accent), black 50%);
+      background: color-mix(in lab, var(--accent), transparent 80%);
+      color: color-mix(in lab, var(--accent), black 50%);
       min-width: 200px;
       // var(--ui-accent);
       border-radius: var(--ui-border-radius);
+      backdrop-filter: blur(7px);
 
       .canvas-play-state {
         display: flex;
@@ -168,9 +177,9 @@ function onDragStart(e) {
         // background: transparent;
         background-image: linear-gradient(
           to right,
-          rgba(var(--red-7), 0.8),
-          rgba(var(--red-7), 0.7) 4%,
-          rgba(var(--red-7), 0.3)
+          color-mix(in lab, var(--accent), transparent 20%),
+          color-mix(in lab, var(--accent), transparent 30%) 4%,
+          color-mix(in lab, var(--accent), transparent 70%)
         );
         box-decoration-break: clone;
       }

@@ -85,7 +85,7 @@ path {
 
 #arrow-level-3 {
   path {
-    stroke: rgb(var(--red-5));
+    stroke: var(--accent);
   }
 }
 </style>

@@ -449,11 +449,11 @@ const level = computed(() => {
   }
   &.level-3:not(.mode-compose, .view-entity) {
     path.path {
-      stroke: rgb(var(--red-5));
+      stroke: var(--accent);
       marker-end: url(#arrow-level-3);
     }
     text {
-      fill: rgb(var(--red-5));
+      fill: var(--accent);
     }
   }
 }

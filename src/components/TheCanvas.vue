@@ -195,10 +195,24 @@ watch(bounds, (newBounds, oldBounds) => {
     .duration(2000)
     .call(zoomBehaviour.value.transform, zoomIdentity.scale(scale).translate(x, y))
 })
+
+const accent = computed(() => {
+  if (route.name !== 'graph' || !terminusStore.graphDoc.color) return
+  return {
+    '--accent': `rgb(var(--${terminusStore.graphDoc.color}-5))`
+  }
+})
 </script>
 
 <template>
-  <div class="container" v-resize="(s) => (size = s)" ref="containerRef" @drop="onDrop" @dragover="onDragOver">
+  <div
+    class="container"
+    v-resize="(s) => (size = s)"
+    ref="containerRef"
+    @drop="onDrop"
+    @dragover="onDragOver"
+    :style="accent"
+  >
     <svg width="100%" height="100%">
       <SvgMarker />
       <SvgPattern v-if="mode === MODE_COMPOSE" :transform="canvasStore.transform" />
