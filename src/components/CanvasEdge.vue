@@ -25,6 +25,13 @@ const label = computed(() => {
   return propertyClass?.label ? viewStore.localize(propertyClass.label) : {}
 })
 
+const color = computed(() => {
+  if (!props.edge.color) return
+  return {
+    '--edge-color': `rgb(var(--${props.edge.color}-5))`
+  }
+})
+
 const id = computed(() => {
   return (props.edge.id || props.edge['@id'] || 'some-path').replace(/%/g, '-')
 })
@@ -349,6 +356,7 @@ const level = computed(() => {
     class="edge"
     :class="[`level-${level}`, viewClass, viewStore.modeClass, { activity: viewStore.activity }]"
     @click="onClick"
+    :style="color"
   >
     <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
     <path :id="id" class="path" :class="[arrow]" :d="path" />
@@ -385,7 +393,7 @@ const level = computed(() => {
   }
   .path {
     stroke-width: 1;
-    stroke: var(--edge-stroke);
+    stroke: var(--edge-color);
     marker-end: url(#arrow);
   }
   &.mode-view {
@@ -398,7 +406,7 @@ const level = computed(() => {
   }
 
   text {
-    fill: var(--edge-text);
+    fill: var(--edge-color);
     font-size: var(--font-size);
     font-weight: var(--light);
     pointer-events: none;
@@ -419,12 +427,12 @@ const level = computed(() => {
 
   &:hover {
     .path {
-      stroke: var(--edge-stroke-accent);
+      stroke: var(--edge-color-accent);
       marker-end: url(#arrow-accent);
       // marker-start: url(#arrow-accent-flipped);
     }
     text {
-      fill: var(--edge-text-accent);
+      fill: var(--edge-color-accent);
     }
   }
 

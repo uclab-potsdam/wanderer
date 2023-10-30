@@ -307,7 +307,8 @@ export const useTerminusStore = defineStore('terminus', () => {
           WOQL.triple('v:edge_id', 'target', id).triple('v:edge_id', 'source', 'v:node_id')
         )
           .read_document('v:edge_id', 'v:edge')
-          .read_document('v:node_id', 'v:node'),
+          .read_document('v:node_id', 'v:node')
+          .opt(WOQL.triple('v:edge_id', 'graph', 'v:graph_id').triple('v:graph_id', 'color', 'v:color')),
         WOQL.triple('v:allocation', 'rdf:type', '@schema:allocation')
           .triple('v:allocation', 'node', id)
           .triple('v:allocation', 'graph', 'v:graph_id')
@@ -324,7 +325,9 @@ export const useTerminusStore = defineStore('terminus', () => {
 
     offset.value = { x: center.x, y: center.y, id: center.node['@id'] }
 
-    const edgeData = res.bindings.filter((d) => d.edge != null).map(({ edge }) => edge)
+    const edgeData = res.bindings
+      .filter((d) => d.edge != null)
+      .map(({ edge, color }) => ({ ...edge, color: color?.replace(/@schema:color\//, '') }))
 
     // in order to preserve existing positions only fetch nodes that are currently not allocated
     // const satelliteIds = edgeData.map((edge) => (edge.source === id ? edge.target : edge.source))

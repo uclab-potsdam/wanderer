@@ -49,11 +49,9 @@
   --node-border-radius: var(--ui-border-radius);
   --node-padding: var(--spacing-l);
 
-  --edge-stroke: rgb(var(--gray-0));
-  --edge-text: rgb(var(--gray-0));
+  --edge-color: rgb(var(--gray-0));
   --edge-text-shadow: var(--ui-background);
-  --edge-stroke-accent: var(--ui-accent);
-  --edge-text-accent: var(--ui-accent);
+  --edge-color-accent: var(--ui-accent);
 }
 
 @media (prefers-color-scheme: dark) {

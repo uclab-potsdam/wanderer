@@ -67,19 +67,19 @@ path {
 #arrow,
 #arrow-flipped {
   path {
-    stroke: var(--edge-stroke);
+    stroke: var(--edge-color);
   }
 }
 #arrow-muted,
 #arrow-muted-flipped {
   path {
-    stroke: var(--edge-stroke);
+    stroke: var(--edge-color);
   }
 }
 #arrow-accent,
 #arrow-accent-flipped {
   path {
-    stroke: var(--edge-stroke-accent);
+    stroke: var(--edge-color-accent);
   }
 }
 
