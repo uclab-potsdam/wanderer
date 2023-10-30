@@ -56,9 +56,9 @@ function onDragStart(e) {
   >
     <div class="card">
       <span class="label" :lang="label?.lang"> {{ label?.text }} </span>
-      <template>
+      <template v-if="className">
         <br />
-        <span v-if="className" class="class" :lang="className.lang">
+        <span class="class" :lang="className.lang">
           {{ className.text }}
         </span>
       </template>
