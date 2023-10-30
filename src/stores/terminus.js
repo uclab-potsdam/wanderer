@@ -248,7 +248,8 @@ export const useTerminusStore = defineStore('terminus', () => {
           .triple('v:allocation', 'node', 'v:node_id')
           .triple('v:allocation', 'x', 'v:x')
           .triple('v:allocation', 'y', 'v:y')
-          .read_document('v:node_id', 'v:node'),
+          .read_document('v:node_id', 'v:node')
+          .opt(WOQL.triple('v:node_id', 'media', 'v:media_id').read_document('v:media_id', 'v:media')),
         // edges
         WOQL.triple('v:edge_id', 'rdf:type', '@schema:edge')
           .triple('v:edge_id', 'graph', id)
@@ -261,9 +262,18 @@ export const useTerminusStore = defineStore('terminus', () => {
           .read_document('v:marker_id', 'v:marker')
       )
     )
-    graphDoc.value = res.bindings.find((d) => d.graph != null)?.graph
-    media.value = res.bindings.find((d) => d.graph != null)?.media ?? {}
-    const nodes = res.bindings.filter((b) => b.node != null)
+    const graphBinding = res.bindings.find((d) => d.graph != null)
+    graphDoc.value = {
+      ...graphBinding?.graph,
+      media: graphBinding?.media
+    }
+    media.value = graphBinding?.media ?? {}
+    const nodes = res.bindings
+      .filter((b) => b.node != null)
+      .map((allocation) => ({
+        ...allocation,
+        node: { ...allocation.node, media: allocation.media }
+      }))
     edges.value = res.bindings
       .filter((b) => b.edge != null)
       .map(({ edge }) => edge)
@@ -302,6 +312,7 @@ export const useTerminusStore = defineStore('terminus', () => {
           .triple('v:allocation', 'node', id)
           .triple('v:allocation', 'graph', 'v:graph_id')
           .read_document('v:graph_id', 'v:graph')
+          .opt(WOQL.triple('v:graph_id', 'media', 'v:media_id').read_document('v:media_id', 'v:media'))
       )
     )
 
@@ -384,7 +395,7 @@ export const useTerminusStore = defineStore('terminus', () => {
         edges.value.findIndex((edge) => edge['@id'] === b['@id'])
     )
 
-    relatedGraphs.value = res.bindings.filter((d) => d.graph != null).map(({ graph }) => graph)
+    relatedGraphs.value = res.bindings.filter((d) => d.graph != null).map(({ graph, media }) => ({ ...graph, media }))
   }
 
   async function getLabel(id) {
@@ -423,6 +434,14 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   async function getDocumentsByType(type) {
+    if (type === 'graph') {
+      const res = await client.query(
+        WOQL.triple('v:id', 'rdf:type', `@schema:${type}`)
+          .read_document('v:id', 'v:doc')
+          .opt(WOQL.triple('v:id', 'media', 'v:media_id').read_document('v:media_id', 'v:media'))
+      )
+      return res.bindings.map(({ doc, media }) => ({ ...doc, media }))
+    }
     return (
       await Promise.all(
         [type].flat().map(async (t) =>
@@ -485,8 +504,9 @@ export const useTerminusStore = defineStore('terminus', () => {
         .like(term, 'v:label', 'v:dist')
         .greater('v:dist', 0.6)
         .read_document('v:id', 'v:doc')
+        .opt(WOQL.triple('v:id', 'media', 'v:media_id').read_document('v:media_id', 'v:media'))
     )
-    return res.bindings.map(({ doc }) => doc)
+    return res.bindings.map(({ doc, media }) => ({ ...doc, media }))
   }
 
   function pushBackAllocation(allocation) {

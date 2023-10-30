@@ -3,6 +3,7 @@ import { useViewStore } from '@/stores/view'
 import { useTerminusStore } from '@/stores/terminus'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { formatTime } from '@/assets/js/utils'
 
 import IconPlay from '~icons/base/CanvasPlay'
 import IconPlaying from '@/components/svg/SvgIconPlaying.vue'
@@ -61,12 +62,12 @@ function onDragStart(e) {
           {{ className.text }}
         </span>
       </template>
-      <template v-if="document['@type'] === 'graph'">
+      <template v-if="document['@type'] === 'graph' && document.media != null">
         <br />
         <span class="canvas-play-state">
           <IconPlaying v-if="document['@id'] === terminusStore.graph" />
           <IconPlay v-else />
-          7:20
+          <template v-if="document.media.duration != null">{{ formatTime(document.media.duration) }}</template>
         </span>
       </template>
     </div>

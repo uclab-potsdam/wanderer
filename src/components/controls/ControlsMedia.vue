@@ -3,6 +3,7 @@ import { useSyncStore } from '@/stores/sync'
 import { useTerminusStore } from '@/stores/terminus'
 import { useViewStore } from '@/stores/view'
 import { computed, onMounted, ref } from 'vue'
+import { formatTime } from '@/assets/js/utils'
 
 import IconPlay from '~icons/default/Play'
 import IconPause from '~icons/default/Pause'
@@ -19,14 +20,6 @@ const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
 
 const formattedTime = computed(() => formatTime(syncStore.time))
-
-function formatTime(seconds) {
-  const s = `${Math.floor(seconds) % 60}`.padStart(2, 0)
-  const m = `${Math.floor(seconds / 60) % 60}`.padStart(2, 0)
-  const totalHours = Math.floor(syncStore.duration / 60 / 60)
-  const h = `${Math.floor(seconds / 60 / 60)}`.padStart(`${totalHours}`.length, 0)
-  return totalHours > 0 ? `${h}:${m}:${s}` : `${m}:${s}`
-}
 
 const userProgress = ref(null)
 const userTime = ref(null)

@@ -4,14 +4,11 @@ function idgen() {
 
 function lineIntersect(line1, line2) {
   const denom =
-    (line2[1].y - line2[0].y) * (line1[1].x - line1[0].x) -
-    (line2[1].x - line2[0].x) * (line1[1].y - line1[0].y)
+    (line2[1].y - line2[0].y) * (line1[1].x - line1[0].x) - (line2[1].x - line2[0].x) * (line1[1].y - line1[0].y)
   const numeA =
-    (line2[1].x - line2[0].x) * (line1[0].y - line2[0].y) -
-    (line2[1].y - line2[0].y) * (line1[0].x - line2[0].x)
+    (line2[1].x - line2[0].x) * (line1[0].y - line2[0].y) - (line2[1].y - line2[0].y) * (line1[0].x - line2[0].x)
   const numeB =
-    (line1[1].x - line1[0].x) * (line1[0].y - line2[0].y) -
-    (line1[1].y - line1[0].y) * (line1[0].x - line2[0].x)
+    (line1[1].x - line1[0].x) * (line1[0].y - line2[0].y) - (line1[1].y - line1[0].y) * (line1[0].x - line2[0].x)
 
   if (denom === 0) return false
 
@@ -26,4 +23,12 @@ function lineIntersect(line1, line2) {
   return false
 }
 
-export { idgen, lineIntersect }
+function formatTime(seconds) {
+  const s = `${Math.floor(seconds) % 60}`.padStart(2, 0)
+  const m = `${Math.floor(seconds / 60) % 60}`.padStart(2, 0)
+  const totalHours = Math.floor(seconds / 60 / 60)
+  const h = `${Math.floor(seconds / 60 / 60)}`.padStart(`${totalHours}`.length, 0)
+  return totalHours > 0 ? `${h}:${m}:${s}` : `${m}:${s}`
+}
+
+export { idgen, lineIntersect, formatTime }
