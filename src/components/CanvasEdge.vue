@@ -336,8 +336,6 @@ const vertical = computed(
   () => points.value?.length > 0 && points.value?.[0].x === points.value?.[points.value?.length - 1].x
 )
 
-const arrow = computed(() => (props.edge.source.x <= props.edge.target.x ? 'end' : 'start'))
-
 const showEditModal = ref(false)
 function onClick() {
   if (!props.interactive) return
@@ -402,7 +400,6 @@ const gradient = computed(() => {
       <path
         :id="id"
         class="path"
-        :class="[arrow]"
         :d="path"
         :marker-end="`url('#marker-${id}')`"
         :style="{ stroke: `url(#gradient-${id})` }"
