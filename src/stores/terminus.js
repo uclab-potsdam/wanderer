@@ -8,6 +8,7 @@ export const useTerminusStore = defineStore('terminus', () => {
   const schema = ref(null)
 
   const allocations = ref([])
+  const proxyAllocations = ref([])
   const edges = ref([])
 
   const properties = ref([])
@@ -301,14 +302,26 @@ export const useTerminusStore = defineStore('terminus', () => {
   async function getNetwork(id) {
     const res = await client.query(
       WOQL.or(
+        // central node
         WOQL.read_document(id, 'v:center'),
-        WOQL.or(
-          WOQL.triple('v:edge_id', 'source', id).triple('v:edge_id', 'target', 'v:node_id'),
-          WOQL.triple('v:edge_id', 'target', id).triple('v:edge_id', 'source', 'v:node_id')
-        )
-          .read_document('v:edge_id', 'v:edge')
+        // edges 1st degree
+        WOQL.group_by(['v:edge_id', 'v:node_id', 'v:node', 'v:color'], ['v:edge', 'node2_id', 'color2'], 'v:edge2')
+          .or(
+            WOQL.triple('v:edge_id', 'source', id).triple('v:edge_id', 'target', 'v:node_id'),
+            WOQL.triple('v:edge_id', 'target', id).triple('v:edge_id', 'source', 'v:node_id')
+          )
+          // .read_document('v:edge_id', 'v:edge')
+          // nodes 1st degree
           .read_document('v:node_id', 'v:node')
-          .opt(WOQL.triple('v:edge_id', 'graph', 'v:graph_id').triple('v:graph_id', 'color', 'v:color')),
+          // .opt(WOQL.triple('v:edge_id', 'graph', 'v:graph_id').triple('v:graph_id', 'color', 'v:color'))
+          .opt(
+            WOQL.or(
+              WOQL.triple('v:edge2_id', 'source', 'v:node_id').triple('v:edge2_id', 'target', 'v:node2_id'),
+              WOQL.triple('v:edge2_id', 'target', 'v:node_id').triple('v:edge2_id', 'source', 'v:node2_id')
+            )
+              .read_document('v:edge2_id', 'v:edge')
+              .opt(WOQL.triple('v:edge2_id', 'graph', 'v:graph2_id').triple('v:graph2_id', 'color', 'v:color2'))
+          ),
         WOQL.triple('v:allocation', 'rdf:type', '@schema:allocation')
           .triple('v:allocation', 'node', id)
           .triple('v:allocation', 'graph', 'v:graph_id')
@@ -325,35 +338,22 @@ export const useTerminusStore = defineStore('terminus', () => {
 
     offset.value = { x: center.x, y: center.y, id: center.node['@id'] }
 
-    const edgeData = res.bindings
-      .filter((d) => d.edge != null)
-      .map(({ edge, color }) => ({ ...edge, color: color?.replace(/@schema:color\//, '') }))
-
-    // in order to preserve existing positions only fetch nodes that are currently not allocated
-    // const satelliteIds = edgeData.map((edge) => (edge.source === id ? edge.target : edge.source))
-    // const exisitngSatellites = allocations.value.filter((allocation) =>
-    //   satelliteIds.includes(allocation.node['@id'])
-    // )
-    // const remainingSatelliteIds = satelliteIds.filter(
-    //   (id) => !exisitngSatellites.map((allocation) => allocation.node['@id']).includes(id)
-    // )
-    // const newSatellites =
-    //   remainingSatelliteIds.length === 0
-    //     ? []
-    //     : (
-    //         await client.query(
-    //           WOQL.or(...remainingSatelliteIds.map((id) => WOQL.read_document(id, 'v:node')))
-    //         )
-    //       ).bindings.map(({ node }) => node)
-
     const satellites = res.bindings
       .filter((d) => d.node != null)
-      .map(({ node }) => ({
+      .map(({ node, edge2 }) => ({
         ...allocations.value.find((allocation) => node['@id'] === allocation.node['@id']),
-        node
+        node,
+        next: edge2.map((e2) => ({
+          edge: e2[0],
+          node: e2[1],
+          color: e2[2]
+        }))
       }))
       // move existing nodes forward to assign new positions to them first
       .sort((a, b) => (a.x != null && b.x == null ? -1 : a.x == null && b.x != null ? 1 : 0))
+
+    // clear proxyAllocations (used for loose edges in network view)
+    proxyAllocations.value = []
 
     // calculate coordinates for radial layout, might need improvement to make more use of screen dimensions
 
@@ -362,10 +362,12 @@ export const useTerminusStore = defineStore('terminus', () => {
     const minCoordinates = 9
     const coordinates = [...satellites, ...Array(Math.max(0, minCoordinates - satellites.length)).fill()]
       .map((satellite, i, satellites) => {
+        const rotation = ((Math.PI * 2) / Math.max(satellites.length, minCoordinates)) * i
         return {
           value: {
-            x: Math.cos(((Math.PI * 2) / Math.max(satellites.length, minCoordinates)) * i) * radius.x + center.x,
-            y: Math.sin(((Math.PI * 2) / Math.max(satellites.length, minCoordinates)) * i) * radius.y + center.y
+            x: Math.cos(rotation) * radius.x + center.x,
+            y: Math.sin(rotation) * radius.y + center.y,
+            rotation
           },
           sort: Math.random()
         }
@@ -373,30 +375,66 @@ export const useTerminusStore = defineStore('terminus', () => {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value)
 
+    const edgeProxy = {}
     // satellites should move as little as possible form their current position
     // could be improved to check against all positions and prioritise instead of remaining ones
     const satelliteAllocations = satellites.map((satellite) => {
-      if (satellite.x == null || satellite.y == null) return { ...satellite, ...coordinates.splice(0, 1)[0] }
+      let index = 0
+      if (satellite.x != null && satellite.y != null) {
+        // get closest remaining coordinate
+        index = coordinates
+          .map((coordinate) => Math.pow(coordinate.x - satellite.x, 2) + Math.pow(coordinate.y - satellite.y, 2))
+          // find index of closest
+          .reduce(
+            (accIndex, currentValue, currentIndex, values) =>
+              currentValue >= values[accIndex] ? accIndex : currentIndex,
+            -1
+          )
+      }
+      const coordinate = coordinates.splice(index, 1)[0]
+      satellite.next
+        .filter((s) => s.node != center.node['@id'])
+        .forEach((s, i, next) => {
+          const range = 0.75
+          const rotation =
+            next.length === 1 ? coordinate.rotation : coordinate.rotation - range / 2 + (range / (next.length - 1)) * i
 
-      // get closest remaining coordinate
-      const index = coordinates
-        .map((coordinate) => Math.pow(coordinate.x - satellite.x, 2) + Math.pow(coordinate.y - satellite.y, 2))
-        // find index of closest
-        .reduce(
-          (accIndex, currentValue, currentIndex, values) =>
-            currentValue >= values[accIndex] ? accIndex : currentIndex,
-          -1
-        )
-      return { ...satellite, ...coordinates.splice(index, 1)[0] }
+          const x = coordinate.x + Math.cos(rotation) * 200
+          const y = coordinate.y + Math.sin(rotation) * 200
+
+          if (satellite.node['@id'] === s.edge.source) {
+            edgeProxy[s.edge['@id']] = {
+              ...edgeProxy[s.edge['@id']],
+              source: { x, y }
+            }
+          } else {
+            edgeProxy[s.edge['@id']] = {
+              ...edgeProxy[s.edge['@id']],
+              target: { x, y }
+            }
+          }
+        })
+      // proxyAllocations.value.push(...next)
+      return { ...satellite, ...coordinate }
     })
 
-    allocations.value = [center, ...satelliteAllocations]
+    const edgeData = res.bindings
+      .filter((d) => d.node != null)
+      .map(({ edge2 }) =>
+        edge2.map((e2) => ({ ...e2[0], proxy: edgeProxy[e2[0]['@id']], color: e2[2]?.replace(/@schema:color\//, '') }))
+      )
+      .flat()
+      // remove duplicates
+      .filter((edge, i, edges) => edges.findIndex((e) => e['@id'] === edge['@id']) === i)
 
+    // maybe just sort alphabetically, but also in getGraph()?
     edges.value = edgeData.sort(
       (a, b) =>
         edges.value.findIndex((edge) => edge['@id'] === a['@id']) -
         edges.value.findIndex((edge) => edge['@id'] === b['@id'])
     )
+
+    allocations.value = [center, ...satelliteAllocations]
 
     relatedGraphs.value = res.bindings.filter((d) => d.graph != null).map(({ graph, media }) => ({ ...graph, media }))
   }
@@ -528,6 +566,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     languages,
     languageList,
     allocations,
+    proxyAllocations,
     edges,
     graph,
     graphDoc,

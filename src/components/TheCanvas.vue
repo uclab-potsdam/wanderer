@@ -125,7 +125,6 @@ function zoomToFitNetwork() {
   const ys = terminusStore.allocations.map(({ y }) => y)
 
   const center = terminusStore.allocations.find(({ node }) => node['@id'] === context.value)
-  console.log(center)
   const padding = 150
 
   const x = center.x

@@ -21,6 +21,7 @@ const viewClass = computed(() => `view-${route.name}`)
 const props = defineProps({ edge: Object, interactive: Boolean })
 
 const label = computed(() => {
+  if (props.edge.proxy != null) return null
   const propertyClass = terminusStore.properties.find((c) => c['@id'] === props.edge.property)
   return propertyClass?.label ? viewStore.localize(propertyClass.label) : {}
 })
@@ -41,13 +42,12 @@ const points = ref([])
 watch(() => [canvasStore.nodes[props.edge.source], canvasStore.nodes[props.edge.target]], computePoints)
 
 function computePoints() {
-  const source = canvasStore.nodes[props.edge.source]
-  const target = canvasStore.nodes[props.edge.target]
   const offset = canvasStore.offset
 
-  if (source == null || target == null) return (points.value = null)
-
   if (route.name === 'graph') {
+    const source = canvasStore.nodes[props.edge.source]
+    const target = canvasStore.nodes[props.edge.target]
+    if (source == null || target == null) return (points.value = null)
     // FLOWCHART – draw edges using line segments at 45° angles
     const buffer = 20
     const alignHorizontally =
@@ -257,39 +257,53 @@ function computePoints() {
       }
     }
   } else {
-    // check falling through to here if no nice edge could be drawn
+    // use proxy position if **either** target or source have a proxy position
+    const source = (!props.edge.proxy?.source && props.edge.proxy?.target) || canvasStore.nodes[props.edge.source]
+    const target = (!props.edge.proxy?.target && props.edge.proxy?.source) || canvasStore.nodes[props.edge.target]
+
+    if (source == null || target == null) {
+      return (points.value = null)
+    }
 
     // NETWORK – Draw edge on source-target staight, stopping at node bounds
     const straight = [
       { x: source.x, y: source.y },
       { x: target.x, y: target.y }
     ]
+
     // only check plausible rect edges (i.e. one vertical and one horizontal per node)
     const above = source.y < target.y
     const left = source.x < target.x
 
-    const hSource = [
-      { x: source.bounds.left, y: source.bounds[above ? 'bottom' : 'top'] },
-      { x: source.bounds.right, y: source.bounds[above ? 'bottom' : 'top'] }
-    ]
-    const hTarget = [
-      { x: target.bounds.left, y: target.bounds[above ? 'top' : 'bottom'] },
-      { x: target.bounds.right, y: target.bounds[above ? 'top' : 'bottom'] }
-    ]
+    let pSource = straight[0]
+    if (source.bounds != null) {
+      const hSource = [
+        { x: source.bounds.left, y: source.bounds[above ? 'bottom' : 'top'] },
+        { x: source.bounds.right, y: source.bounds[above ? 'bottom' : 'top'] }
+      ]
+      const vSource = [
+        { x: source.bounds[left ? 'right' : 'left'], y: source.bounds.top },
+        { x: source.bounds[left ? 'right' : 'left'], y: source.bounds.bottom }
+      ]
+      pSource = lineIntersect(straight, hSource) || lineIntersect(straight, vSource) || pSource
+    }
 
-    const vSource = [
-      { x: source.bounds[left ? 'right' : 'left'], y: source.bounds.top },
-      { x: source.bounds[left ? 'right' : 'left'], y: source.bounds.bottom }
-    ]
-    const vTarget = [
-      { x: target.bounds[left ? 'left' : 'right'], y: target.bounds.top },
-      { x: target.bounds[left ? 'left' : 'right'], y: target.bounds.bottom }
-    ]
+    let pTarget = straight[1]
+    if (target.bounds != null) {
+      const hTarget = [
+        { x: target.bounds.left, y: target.bounds[above ? 'top' : 'bottom'] },
+        { x: target.bounds.right, y: target.bounds[above ? 'top' : 'bottom'] }
+      ]
+      const vTarget = [
+        { x: target.bounds[left ? 'left' : 'right'], y: target.bounds.top },
+        { x: target.bounds[left ? 'left' : 'right'], y: target.bounds.bottom }
+      ]
+      pTarget = lineIntersect(straight, hTarget) || lineIntersect(straight, vTarget) || pTarget
+    }
 
-    const pSource = lineIntersect(straight, hSource) || lineIntersect(straight, vSource)
-    const pTarget = lineIntersect(straight, hTarget) || lineIntersect(straight, vTarget)
-
-    if (!pSource || !pTarget) return (points.value = null)
+    if (!pSource || !pTarget) {
+      return (points.value = null)
+    }
     const p = []
     const segments = 4
     const delta = {
@@ -302,8 +316,8 @@ function computePoints() {
         y: pSource.y - (delta.y / segments) * i
       })
     }
-    // const midpoints p
-    points.value = p // [pSource, pTarget]
+
+    points.value = p
   }
 }
 
@@ -349,37 +363,66 @@ const targetLevel = computed(
 const level = computed(() => {
   return Math.min(sourceLevel.value, targetLevel.value)
 })
+
+const gradient = computed(() => {
+  if (props.edge.proxy == null) return 'gradient-none'
+  if (props.edge.proxy.source && props.edge.proxy.target) return 'gradient-both'
+  if (props.edge.proxy.source) return 'gradient-end'
+  return 'gradient-start'
+})
 </script>
 
 <template>
   <g
     class="edge"
-    :class="[`level-${level}`, viewClass, viewStore.modeClass, { activity: viewStore.activity }]"
-    @click="onClick"
     :style="color"
+    :class="[`level-${level}`, viewClass, viewStore.modeClass, gradient, { activity: viewStore.activity }]"
+    @click="onClick"
   >
-    <!-- <defs> -->
-    <marker :id="`marker-${id}`" markerWidth="10" markerHeight="20" refX="10" refY="10" orient="auto">
-      <path d="M0,0 L10,10 L0,20" />
-    </marker>
-    <!-- </defs> -->
-    <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
-    <path :id="id" class="path" :class="[arrow]" :d="path" :marker-end="`url('#marker-${id}')`" />
-    <template v-if="midPoint">
-      <g class="label" :style="{ transform: `translate(${midPoint.x}px, ${midPoint.y}px)` }">
-        <text :lang="label.lang" class="shadow" :class="{ vertical }">
-          {{ label.text }}
-        </text>
-        <text :lang="label.lang" :class="{ vertical }">
-          {{ label.text }}
-        </text>
-      </g>
-    </template>
-    <foreignObject>
-      <Teleport to="#modals">
-        <ModalEdit :show="showEditModal" :id="id" type="edge" @close="showEditModal = false" @update="update" />
-      </Teleport>
-    </foreignObject>
+    <g>
+      <defs>
+        <marker :id="`marker-${id}`" markerWidth="10" markerHeight="20" refX="10" refY="10" orient="auto">
+          <path d="M0,0 L10,10 L0,20" />
+        </marker>
+        <linearGradient
+          gradientUnits="userSpaceOnUse"
+          :x1="points?.[0]?.x"
+          :y1="points?.[0]?.y"
+          :x2="points?.[4]?.x"
+          :y2="points?.[4]?.y"
+          :id="`gradient-${id}`"
+        >
+          <stop offset="0%" stop-color="var(--gradient-1)" />
+          <stop offset="25%" stop-color="var(--gradient-2)" />
+          <stop offset="75%" stop-color="var(--gradient-3)" />
+          <stop offset="100%" stop-color="var(--gradient-4)" />
+        </linearGradient>
+      </defs>
+      <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
+      <path
+        :id="id"
+        class="path"
+        :class="[arrow]"
+        :d="path"
+        :marker-end="`url('#marker-${id}')`"
+        :style="{ stroke: `url(#gradient-${id})` }"
+      />
+      <template v-if="midPoint">
+        <g v-if="label" class="label" :style="{ transform: `translate(${midPoint.x}px, ${midPoint.y}px)` }">
+          <text :lang="label.lang" class="shadow" :class="{ vertical }">
+            {{ label.text }}
+          </text>
+          <text :lang="label.lang" :class="{ vertical }">
+            {{ label.text }}
+          </text>
+        </g>
+      </template>
+      <foreignObject>
+        <Teleport to="#modals">
+          <ModalEdit :show="showEditModal" :id="id" type="edge" @close="showEditModal = false" @update="update" />
+        </Teleport>
+      </foreignObject>
+    </g>
   </g>
 </template>
 
@@ -393,10 +436,43 @@ const level = computed(() => {
     fill: none;
   }
 
+  --marker: var(--edge-color);
+  &.gradient-none {
+    --gradient-1: var(--edge-color);
+    --gradient-2: var(--edge-color);
+    --gradient-3: var(--edge-color);
+    --gradient-4: var(--edge-color);
+  }
+
+  &.gradient-both {
+    opacity: 0.4;
+    --gradient-1: var(--edge-color);
+    --gradient-2: color-mix(in lab, var(--edge-color), transparent 80%);
+    --gradient-3: color-mix(in lab, var(--edge-color), transparent 80%);
+    --gradient-4: var(--edge-color);
+  }
+
+  &.gradient-start {
+    opacity: 0.4;
+    --gradient-1: color-mix(in lab, var(--edge-color), transparent 100%);
+    --gradient-2: color-mix(in lab, var(--edge-color), transparent 75%);
+    --gradient-3: color-mix(in lab, var(--edge-color), transparent 25%);
+    --gradient-4: var(--edge-color);
+  }
+
+  &.gradient-end {
+    opacity: 0.4;
+    --gradient-1: var(--edge-color);
+    --gradient-2: color-mix(in lab, var(--edge-color), transparent 25%);
+    --gradient-3: color-mix(in lab, var(--edge-color), transparent 75%);
+    --gradient-4: color-mix(in lab, var(--edge-color), transparent 100%);
+    --marker: color-mix(in lab, var(--edge-color), transparent 100%);
+  }
+
   marker {
     overflow: visible;
     path {
-      stroke: var(--edge-color);
+      stroke: var(--marker);
     }
   }
   .events {
@@ -405,8 +481,9 @@ const level = computed(() => {
   }
   .path {
     stroke-width: 1;
-    stroke: var(--edge-color);
+    // stroke: var(--edge-color);
   }
+
   &.mode-view {
     path {
       transition: all var(--transition-extended);
