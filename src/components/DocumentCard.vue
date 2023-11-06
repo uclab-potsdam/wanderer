@@ -36,9 +36,9 @@ const className = computed(() => {
 })
 
 const viewClass = computed(() => `view-${route.name}`)
-// const description = computed(() => {
-//   return viewStore.localize(props.document.description)
-// })
+const description = computed(() => {
+  return viewStore.localize(props.document.description)
+})
 
 const emit = defineEmits(['close'])
 function onDragStart(e) {
@@ -77,17 +77,26 @@ const duration = computed(() => {
       <span class="label" :lang="label?.lang"> {{ label?.text }} </span>
       <template v-if="className">
         <br />
-        <span class="class" :lang="className.lang">
+        <span v-if="className" class="class" :lang="className.lang">
           {{ className.text }}
         </span>
+        <!-- <span v-if="className && description">, </span>
+        <span v-if="description" class="description" :lang="description.lang">
+          {{ description.text }}
+        </span> -->
       </template>
       <template v-if="document['@type'] === 'graph' && document.media != null">
         <br />
-        <span class="canvas-play-state">
-          <IconPlaying v-if="document['@id'] === terminusStore.graph" />
-          <IconPlay v-else />
-          <template v-if="duration != null">{{ formatTime(duration) }}</template>
-        </span>
+        <div class="canvas-meta">
+          <span class="canvas-play-state">
+            <IconPlaying v-if="document['@id'] === terminusStore.graph" />
+            <IconPlay v-else />
+            <template v-if="duration != null">{{ formatTime(duration) }}</template>
+          </span>
+          <span v-if="description" class="description" :lang="description.lang">
+            {{ description.text }}
+          </span>
+        </div>
       </template>
     </div>
     <div class="actions">
@@ -122,6 +131,12 @@ const duration = computed(() => {
     }
     .class {
       font-weight: var(--light);
+      white-space: nowrap;
+    }
+    .description {
+      font-weight: var(--light);
+      // font-style: oblique 8deg;
+      color: color-mix(in lab, var(--accent), black 50%);
     }
   }
 
@@ -133,6 +148,17 @@ const duration = computed(() => {
       // var(--ui-accent);
       border-radius: var(--ui-border-radius);
       backdrop-filter: blur(7px);
+
+      .canvas-meta {
+        display: flex;
+        justify-content: space-between;
+        font-weight: var(--light);
+        gap: var(--spacing-l);
+        flex-direction: co;
+        .description {
+          white-space: nowrap;
+        }
+      }
 
       .canvas-play-state {
         display: flex;
