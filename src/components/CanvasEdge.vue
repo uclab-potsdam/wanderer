@@ -120,6 +120,7 @@ function computePoints() {
         points.value = [
           sourceAnchor,
           { x: sourceAnchor.x, y: center.y },
+          center,
           { x: targetAnchor.x, y: center.y },
           targetAnchor
         ]
