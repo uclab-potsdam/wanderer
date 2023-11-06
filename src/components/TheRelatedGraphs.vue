@@ -42,5 +42,10 @@ const relatedGraphs = computed(() =>
   justify-items: flex-start;
   padding: var(--spacing);
   gap: var(--spacing);
+  pointer-events: none;
+
+  > * {
+    pointer-events: all;
+  }
 }
 </style>

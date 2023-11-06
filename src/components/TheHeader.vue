@@ -54,12 +54,14 @@ header {
   justify-content: space-between;
   gap: var(--spacing-s);
   padding: var(--spacing-s);
+  pointer-events: none;
 
   .left,
   .right {
     display: flex;
     gap: inherit;
     align-items: center;
+    pointer-events: all;
   }
 
   .logo {
