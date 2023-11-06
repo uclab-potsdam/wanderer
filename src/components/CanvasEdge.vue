@@ -442,28 +442,28 @@ const gradient = computed(() => {
   }
 
   &.gradient-both {
-    opacity: 0.4;
+    opacity: 0.6;
     --gradient-1: var(--edge-color);
-    --gradient-2: color-mix(in lab, var(--edge-color), transparent 80%);
-    --gradient-3: color-mix(in lab, var(--edge-color), transparent 80%);
+    --gradient-2: color-mix(in lab, var(--edge-color), transparent 99%);
+    --gradient-3: color-mix(in lab, var(--edge-color), transparent 99%);
     --gradient-4: var(--edge-color);
   }
 
   &.gradient-start {
-    opacity: 0.4;
-    --gradient-1: color-mix(in lab, var(--edge-color), transparent 100%);
+    opacity: 0.6;
+    --gradient-1: color-mix(in lab, var(--edge-color), transparent 99%);
     --gradient-2: color-mix(in lab, var(--edge-color), transparent 75%);
     --gradient-3: color-mix(in lab, var(--edge-color), transparent 25%);
     --gradient-4: var(--edge-color);
   }
 
   &.gradient-end {
-    opacity: 0.4;
+    opacity: 0.6;
     --gradient-1: var(--edge-color);
     --gradient-2: color-mix(in lab, var(--edge-color), transparent 25%);
     --gradient-3: color-mix(in lab, var(--edge-color), transparent 75%);
-    --gradient-4: color-mix(in lab, var(--edge-color), transparent 100%);
-    --marker: color-mix(in lab, var(--edge-color), transparent 100%);
+    --gradient-4: color-mix(in lab, var(--edge-color), transparent 99%);
+    --marker: color-mix(in lab, var(--edge-color), transparent 99%);
   }
 
   marker {
