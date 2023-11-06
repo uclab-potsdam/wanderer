@@ -429,6 +429,10 @@ const gradient = computed(() => {
   pointer-events: none;
   transition: all var(--transition);
 
+  defs stop {
+    transition: all var(--transition-extended);
+  }
+
   path {
     fill: none;
   }
