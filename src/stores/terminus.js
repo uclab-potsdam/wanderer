@@ -291,12 +291,14 @@ export const useTerminusStore = defineStore('terminus', () => {
     // reset id to stop perpetuating offset from previous entity
     offset.value.id = null
 
-    allocations.value = nodes.map(({ node, x, y, allocation }) => ({
-      '@id': allocation,
-      node,
-      x: x['@value'] + offset.value.x,
-      y: y['@value'] + offset.value.y
-    }))
+    allocations.value = nodes
+      .map(({ node, x, y, allocation }) => ({
+        '@id': allocation,
+        node,
+        x: x['@value'] + offset.value.x,
+        y: y['@value'] + offset.value.y
+      }))
+      .sort((a, b) => (a.node['@id'] < b.node['@id'] ? -1 : 1))
   }
 
   async function getNetwork(id) {
@@ -434,7 +436,7 @@ export const useTerminusStore = defineStore('terminus', () => {
         edges.value.findIndex((edge) => edge['@id'] === b['@id'])
     )
 
-    allocations.value = [center, ...satelliteAllocations]
+    allocations.value = [center, ...satelliteAllocations].sort((a, b) => (a.node['@id'] < b.node['@id'] ? -1 : 1))
 
     relatedGraphs.value = res.bindings.filter((d) => d.graph != null).map(({ graph, media }) => ({ ...graph, media }))
   }
@@ -550,10 +552,6 @@ export const useTerminusStore = defineStore('terminus', () => {
     return res.bindings.map(({ doc, media }) => ({ ...doc, media }))
   }
 
-  function pushBackAllocation(allocation) {
-    allocations.value.push(allocations.value.splice(allocations.value.indexOf(allocation), 1)[0])
-  }
-
   return {
     media,
     connect,
@@ -580,7 +578,6 @@ export const useTerminusStore = defineStore('terminus', () => {
     getDocument,
     getDocumentsByType,
     search,
-    pushBackAllocation,
     offset,
     getProperties,
     getClasses,
