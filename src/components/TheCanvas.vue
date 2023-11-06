@@ -66,7 +66,7 @@ onMounted(async () => {
   //   return !e.button && !(e.type === "wheel" && !e.ctrlKey && !e.shiftKey);
   // });
   container.value.call(zoomBehaviour.value) //.on("dblclick.zoom", null);
-  zoomToFit()
+  // zoomToFit(true)
 })
 
 function onDrop(e) {
@@ -91,7 +91,7 @@ function onDragOver(e) {
   e.preventDefault()
 }
 
-function zoomToFit() {
+function zoomToFit(skipTransition = false) {
   if (zoomBehaviour.value == null) return
   if (terminusStore.allocations.length < 1) return
   const xs = terminusStore.allocations.map(({ x }) => x)
@@ -108,7 +108,7 @@ function zoomToFit() {
   const scale = Math.min(innerWidth / diffX, innerHeight / diffY, 1)
   container.value
     .transition()
-    .duration(2000)
+    .duration(skipTransition ? 0 : 2000)
     .call(
       zoomBehaviour.value.transform,
       zoomIdentity
@@ -118,7 +118,7 @@ function zoomToFit() {
     )
 }
 
-function zoomToFitNetwork() {
+function zoomToFitNetwork(skipTransition = false) {
   if (zoomBehaviour.value == null) return
   if (terminusStore.allocations.length < 1) return
   const xs = terminusStore.allocations.map(({ x }) => x)
@@ -141,7 +141,7 @@ function zoomToFitNetwork() {
   const scale = Math.min(innerWidth / (diffX * 2), innerHeight / (diffY * 2), 1)
   container.value
     .transition()
-    .duration(2000)
+    .duration(skipTransition ? 0 : 2000)
     .call(
       zoomBehaviour.value.transform,
       zoomIdentity
@@ -156,12 +156,11 @@ watch(
   async () => {
     if (route.name === 'graph') {
       await terminusStore.getGraph(context.value, true)
-      zoomToFit()
+      zoomToFit(true)
     } else if (route.name === 'entity') {
       await terminusStore.getNetwork(context.value, true)
       zoomToFitNetwork()
     }
-    // zoomToFit()
   },
   { immediate: true, deep: true }
 )

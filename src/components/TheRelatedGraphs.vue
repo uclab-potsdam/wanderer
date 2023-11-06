@@ -24,6 +24,7 @@ const relatedGraphs = computed(() =>
       :document="activeGraph"
       @click="router.push(`/${activeGraph['@id']}`)"
       class="active-graph"
+      is-active-graph
     />
     <template v-if="route.name === 'entity'">
       <div v-for="graph in relatedGraphs" :key="graph['@id']">

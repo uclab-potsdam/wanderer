@@ -7,16 +7,20 @@ import { formatTime } from '@/assets/js/utils'
 
 import IconPlay from '~icons/base/CanvasPlay'
 import IconPlaying from '@/components/svg/SvgIconPlaying.vue'
+import DocumentCardProgress from './DocumentCardProgress.vue'
+import { useSyncStore } from '@/stores/sync'
 
 const viewStore = useViewStore()
 const terminusStore = useTerminusStore()
+const syncStore = useSyncStore()
 
 const route = useRoute()
 
 const props = defineProps({
   document: Object,
   draggable: String,
-  level: Number
+  level: Number,
+  isActiveGraph: Boolean
 })
 
 const label = computed(() => {
@@ -47,6 +51,12 @@ const accent = computed(() => {
     '--accent': `rgb(var(--${props.document.color}-5))`
   }
 })
+
+const duration = computed(() => {
+  if (props.document.media?.duration == null) return null
+  if (props.document['@id'] === terminusStore.graph) return syncStore.duration - syncStore.time
+  return props.document.media.duration
+})
 </script>
 
 <template>
@@ -75,7 +85,7 @@ const accent = computed(() => {
         <span class="canvas-play-state">
           <IconPlaying v-if="document['@id'] === terminusStore.graph" />
           <IconPlay v-else />
-          <template v-if="document.media.duration != null">{{ formatTime(document.media.duration) }}</template>
+          <template v-if="duration != null">{{ formatTime(duration) }}</template>
         </span>
       </template>
     </div>
@@ -83,6 +93,7 @@ const accent = computed(() => {
       <div class="center"><slot name="center" /></div>
       <div class="right"><slot name="right" /></div>
     </div>
+    <DocumentCardProgress v-if="isActiveGraph" />
   </section>
 </template>
 
@@ -125,6 +136,7 @@ const accent = computed(() => {
         display: flex;
         gap: var(--spacing-s);
         align-items: center;
+        font-feature-settings: 'tnum';
       }
     }
     &.is-related-graph,
