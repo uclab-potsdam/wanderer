@@ -156,7 +156,7 @@ watch(
   async () => {
     if (route.name === 'graph') {
       await terminusStore.getGraph(context.value, true)
-      zoomToFit(true)
+      zoomToFit()
     } else if (route.name === 'entity') {
       await terminusStore.getNetwork(context.value, true)
       zoomToFitNetwork()

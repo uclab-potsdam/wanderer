@@ -13,7 +13,7 @@ import IconClose from '~icons/default/Close'
 import ModalEdit from './modals/ModalEdit.vue'
 
 import { MODE_COMPOSE, MODE_COUPLE, MODE_VIEW } from '@/assets/js/constants'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const props = defineProps({
   allocation: Object,
@@ -27,6 +27,7 @@ const syncStore = useSyncStore()
 const canvasStore = useCanvasStore()
 
 const router = useRouter()
+const route = useRoute()
 
 const mode = computed(() => viewStore.mode)
 
@@ -125,6 +126,12 @@ function onClick() {
   router.push(`/${props.allocation.node['@id']}`)
 }
 
+const offset = ref(route.name === 'graph' ? 'translate(-45px, -32.5px)' : 'translate(-50%, -50%)')
+watch(
+  () => terminusStore.allocations,
+  () => (offset.value = route.name === 'graph' ? 'translate(-45px, -32.5px)' : 'translate(-50%, -50%)')
+)
+
 const showEditModal = ref(false)
 </script>
 
@@ -133,7 +140,7 @@ const showEditModal = ref(false)
     ref="node"
     class="canvas-document-card"
     :style="{
-      transform: `translate(${allocation.x}px, ${allocation.y}px) translate(-45px, -32.5px)`
+      transform: `translate(${allocation.x}px, ${allocation.y}px) ${offset}`
     }"
     :class="[viewStore.modeClass, { moving, 'drawing-source': drawingSource, 'drawing-target': drawingTarget }]"
     @click="onClick"

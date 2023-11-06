@@ -276,28 +276,30 @@ function computePoints() {
     const above = source.y < target.y
     const left = source.x < target.x
 
+    console.log(above, left)
+
     let pSource = straight[0]
-    if (source.bounds != null) {
+    if (source.centerBounds != null) {
       const hSource = [
-        { x: source.bounds.left, y: source.bounds[above ? 'bottom' : 'top'] },
-        { x: source.bounds.right, y: source.bounds[above ? 'bottom' : 'top'] }
+        { x: source.centerBounds.left, y: source.centerBounds[above ? 'bottom' : 'top'] },
+        { x: source.centerBounds.right, y: source.centerBounds[above ? 'bottom' : 'top'] }
       ]
       const vSource = [
-        { x: source.bounds[left ? 'right' : 'left'], y: source.bounds.top },
-        { x: source.bounds[left ? 'right' : 'left'], y: source.bounds.bottom }
+        { x: source.centerBounds[left ? 'right' : 'left'], y: source.centerBounds.top },
+        { x: source.centerBounds[left ? 'right' : 'left'], y: source.centerBounds.bottom }
       ]
       pSource = lineIntersect(straight, hSource) || lineIntersect(straight, vSource) || pSource
     }
 
     let pTarget = straight[1]
-    if (target.bounds != null) {
+    if (target.centerBounds != null) {
       const hTarget = [
-        { x: target.bounds.left, y: target.bounds[above ? 'top' : 'bottom'] },
-        { x: target.bounds.right, y: target.bounds[above ? 'top' : 'bottom'] }
+        { x: target.centerBounds.left, y: target.centerBounds[above ? 'top' : 'bottom'] },
+        { x: target.centerBounds.right, y: target.centerBounds[above ? 'top' : 'bottom'] }
       ]
       const vTarget = [
-        { x: target.bounds[left ? 'left' : 'right'], y: target.bounds.top },
-        { x: target.bounds[left ? 'left' : 'right'], y: target.bounds.bottom }
+        { x: target.centerBounds[left ? 'left' : 'right'], y: target.centerBounds.top },
+        { x: target.centerBounds[left ? 'left' : 'right'], y: target.centerBounds.bottom }
       ]
       pTarget = lineIntersect(straight, hTarget) || lineIntersect(straight, vTarget) || pTarget
     }
