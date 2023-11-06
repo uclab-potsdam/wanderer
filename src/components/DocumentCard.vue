@@ -114,7 +114,7 @@ const accent = computed(() => {
 
   &.graph {
     .card {
-      background: color-mix(in lab, var(--accent), transparent 80%);
+      border: 1px solid color-mix(in lab, var(--accent), transparent 60%);
       color: color-mix(in lab, var(--accent), black 50%);
       min-width: 200px;
       // var(--ui-accent);
@@ -125,6 +125,13 @@ const accent = computed(() => {
         display: flex;
         gap: var(--spacing-s);
         align-items: center;
+      }
+    }
+    &.is-related-graph,
+    &.active-graph {
+      .card {
+        border: none;
+        background: color-mix(in lab, var(--accent), transparent 80%);
       }
     }
   }

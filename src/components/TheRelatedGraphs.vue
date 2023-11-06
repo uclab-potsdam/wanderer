@@ -27,7 +27,7 @@ const relatedGraphs = computed(() =>
     />
     <template v-if="route.name === 'entity'">
       <div v-for="graph in relatedGraphs" :key="graph['@id']">
-        <DocumentCard :document="graph" @click="router.push(`/${graph['@id']}`)" />
+        <DocumentCard :document="graph" @click="router.push(`/${graph['@id']}`)" class="is-related-graph" />
       </div>
     </template>
   </div>
