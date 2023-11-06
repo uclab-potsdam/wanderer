@@ -197,7 +197,8 @@ watch(bounds, (newBounds, oldBounds) => {
 const accent = computed(() => {
   if (route.name !== 'graph' || !terminusStore.graphDoc.color) return
   return {
-    '--accent': `rgb(var(--${terminusStore.graphDoc.color}-5))`
+    '--accent': `rgb(var(--${terminusStore.graphDoc.color}-5))`,
+    '--edge-color': `rgb(var(--${terminusStore.graphDoc.color}-5))`
   }
 })
 </script>

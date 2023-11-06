@@ -494,7 +494,7 @@ const gradient = computed(() => {
   }
 
   text {
-    fill: var(--edge-color);
+    fill: color-mix(in lab, var(--edge-color), black 40%);
     font-size: var(--font-size);
     font-weight: var(--light);
     pointer-events: none;
@@ -537,22 +537,22 @@ const gradient = computed(() => {
       transition: all var(--transition-extended);
     }
   }
-  &.level-2:not(.mode-compose) {
-    path.path {
-    }
-  }
-  &.level-3:not(.mode-compose, .view-entity) {
-    marker {
-      path {
-        stroke: var(--accent);
-      }
-    }
-    path.path {
-      stroke: var(--accent);
-    }
-    text {
-      fill: var(--accent);
-    }
-  }
+  // &.level-2:not(.mode-compose) {
+  //   path.path {
+  //   }
+  // }
+  // &.level-3:not(.mode-compose, .view-entity) {
+  //   marker {
+  //     path {
+  //       stroke: var(--accent);
+  //     }
+  //   }
+  //   path.path {
+  //     stroke: var(--accent);
+  //   }
+  //   text {
+  //     fill: var(--accent);
+  //   }
+  // }
 }
 </style>
