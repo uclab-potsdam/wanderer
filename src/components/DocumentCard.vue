@@ -1,6 +1,7 @@
 <script setup>
 import { useViewStore } from '@/stores/view'
 import { useTerminusStore } from '@/stores/terminus'
+import { useSyncStore } from '@/stores/sync'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { formatTime } from '@/assets/js/utils'
@@ -8,7 +9,7 @@ import { formatTime } from '@/assets/js/utils'
 import IconPlay from '~icons/base/CanvasPlay'
 import IconPlaying from '@/components/svg/SvgIconPlaying.vue'
 import DocumentCardProgress from './DocumentCardProgress.vue'
-import { useSyncStore } from '@/stores/sync'
+import DocumentCardNext from './DocumentCardNext.vue'
 
 const viewStore = useViewStore()
 const terminusStore = useTerminusStore()
@@ -54,7 +55,7 @@ const accent = computed(() => {
 
 const duration = computed(() => {
   if (props.document.media?.duration == null) return null
-  if (props.document['@id'] === terminusStore.graph) return syncStore.duration - syncStore.time
+  if (props.document['@id'] === terminusStore.graph && props.isActiveGraph) return syncStore.duration - syncStore.time
   return props.document.media.duration
 })
 </script>
@@ -94,6 +95,7 @@ const duration = computed(() => {
       <div class="right"><slot name="right" /></div>
     </div>
     <DocumentCardProgress v-if="isActiveGraph" />
+    <DocumentCardNext v-if="document['@id'] === terminusStore.graphDoc?.next" />
   </section>
 </template>
 

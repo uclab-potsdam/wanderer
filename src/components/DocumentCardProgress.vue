@@ -14,6 +14,7 @@ const width = computed(() => {
 </template>
 <style lang="scss" scoped>
 .progress {
+  pointer-events: none;
   width: 100%;
   height: var(--spacing-s);
   position: absolute;
