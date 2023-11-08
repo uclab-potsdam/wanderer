@@ -11,10 +11,11 @@ onMounted(() => viewStore.startActivityTracking())
 onUnmounted(() => viewStore.stopActivityTracking())
 
 const route = useRoute()
+const hideMenuBar = route.meta.hideMenuBar || import.meta.env.VITE_HIDE_MENU_BAR === 'true'
 </script>
 
 <template>
-  <TheHeader v-if="!route.meta.hideMenuBar"></TheHeader>
+  <TheHeader v-if="!hideMenuBar"></TheHeader>
   <RouterView />
 </template>
 
