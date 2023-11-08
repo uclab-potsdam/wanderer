@@ -412,7 +412,7 @@ const gradient = computed(() => {
             <stop offset="100%" stop-color="var(--gradient-4)" :id="`stop4-${id}`" />
           </linearGradient>
         </defs>
-        <path v-if="viewStore.mode === MODE_COMPOSE" class="events" />
+        <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
         <path
           :id="id"
           class="path"
@@ -450,6 +450,7 @@ const gradient = computed(() => {
   user-select: none;
   pointer-events: none;
   transition: all var(--transition-extended);
+  mix-blend-mode: var(--default-blend-mode);
 
   defs stop {
     transition: stop-color var(--transition-extended);

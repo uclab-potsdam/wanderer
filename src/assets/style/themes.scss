@@ -10,7 +10,7 @@
   --hidden: rgba(var(--gray-10), 0);
   --hidden-couple: rgba(var(--gray-10), 0.3);
   --inactive: var(--muted);
-  --default-blend-mode: lighten;
+  --default-blend-mode: multiply;
 
   // flowchart
   --flow-background: rgb(var(--indigo-11));
@@ -67,7 +67,7 @@
     --hidden: rgba(var(--gray-1), 0);
     --hidden-couple: rgba(var(--gray-1), 0.3);
     --inactive: var(--muted);
-    --default-blend-mode: darken;
+    --default-blend-mode: multiply;
 
 
     --flow-background: rgb(var(--blue-2));

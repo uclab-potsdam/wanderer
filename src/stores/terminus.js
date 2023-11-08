@@ -355,6 +355,7 @@ export const useTerminusStore = defineStore('terminus', () => {
       }))
       // move existing nodes forward to assign new positions to them first
       .sort((a, b) => (a.x != null && b.x == null ? -1 : a.x == null && b.x != null ? 1 : 0))
+      .filter((satellite, i, satellites) => i === satellites.findIndex((s) => s.node['@id'] === satellite.node['@id']))
 
     // clear proxyAllocations (used for loose edges in network view)
     proxyAllocations.value = []
