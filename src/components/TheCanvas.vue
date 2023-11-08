@@ -221,13 +221,15 @@ const accent = computed(() => {
         <g class="edges">
           <CanvasEdgeDrawing v-if="mode === MODE_COMPOSE" />
           <!-- <CanvasEdge v-if="composeStore.drawingEdge" :edge="composeStore.drawingEdge" /> -->
-          <CanvasEdge
-            v-for="edge in terminusStore.edges"
-            :interactive="mode === MODE_COMPOSE"
-            :key="edge['@id']"
-            :id="edge['@id']"
-            :edge="edge"
-          />
+          <TransitionGroup name="edges">
+            <CanvasEdge
+              v-for="edge in terminusStore.edges"
+              :key="edge['@id']"
+              :interactive="mode === MODE_COMPOSE"
+              :id="edge['@id']"
+              :edge="edge"
+            />
+          </TransitionGroup>
         </g>
         <polygon
           class="bounds"
@@ -242,12 +244,11 @@ const accent = computed(() => {
         transform: `translate(${canvasStore.transform.x}px, ${canvasStore.transform.y}px) scale(${canvasStore.transform.k})`
       }"
     >
-      <CanvasDocumentCard
-        v-for="allocation in terminusStore.allocations"
-        :key="allocation.node['@id']"
-        :allocation="allocation"
-        :transform="canvasStore.transform"
-      />
+      <TransitionGroup name="nodes">
+        <div v-for="allocation in terminusStore.allocations" :key="allocation.node['@id']">
+          <CanvasDocumentCard :allocation="allocation" :transform="canvasStore.transform" />
+        </div>
+      </TransitionGroup>
     </div>
   </div>
 </template>
@@ -279,6 +280,32 @@ const accent = computed(() => {
     > * {
       position: absolute;
     }
+  }
+
+  .nodes-enter-active,
+  .nodes-leave-active {
+    // transition: opacity 0.5s ease;
+  }
+
+  .nodes-enter-active {
+    transition: opacity var(--transition-extended-half) var(--transition-extended-half);
+  }
+  .nodes-leave-active {
+    transition: opacity var(--transition-extended-half);
+  }
+
+  .edges-enter-active {
+    transition: opacity var(--transition-extended) var(--transition-extended-half);
+  }
+  .edges-leave-active {
+    transition: opacity var(--transition-extended-half);
+  }
+
+  .edges-enter-from,
+  .nodes-enter-from,
+  .edges-leave-to,
+  .nodes-leave-to {
+    opacity: 0;
   }
 }
 </style>

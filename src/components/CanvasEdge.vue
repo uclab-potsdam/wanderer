@@ -7,7 +7,9 @@ import { useViewStore } from '@/stores/view'
 import { useCanvasStore } from '@/stores/canvas'
 import { lineIntersect } from '@/assets/js/utils'
 import ModalEdit from './modals/ModalEdit.vue'
-import { MODE_COMPOSE } from '@/assets/js/constants'
+import { MODE_COMPOSE, MODE_VIEW } from '@/assets/js/constants'
+
+import BaseInterpolate from '@/components/BaseInterpolate.vue'
 
 const terminusStore = useTerminusStore()
 const syncStore = useSyncStore()
@@ -21,7 +23,7 @@ const viewClass = computed(() => `view-${route.name}`)
 const props = defineProps({ edge: Object, interactive: Boolean })
 
 const label = computed(() => {
-  if (props.edge.proxy != null) return null
+  // if (props.edge.proxy != null) return null
   const propertyClass = terminusStore.properties.find((c) => c['@id'] === props.edge.property)
   return propertyClass?.label ? viewStore.localize(propertyClass.label) : {}
 })
@@ -47,7 +49,7 @@ function computePoints() {
   if (route.name === 'graph') {
     const source = canvasStore.nodes[props.edge.source]
     const target = canvasStore.nodes[props.edge.target]
-    if (source == null || target == null) return (points.value = null)
+    if (source == null || target == null) return
     // FLOWCHART – draw edges using line segments at 45° angles
     const buffer = 20
     const alignHorizontally =
@@ -263,7 +265,7 @@ function computePoints() {
     const target = (!props.edge.proxy?.target && props.edge.proxy?.source) || canvasStore.nodes[props.edge.target]
 
     if (source == null || target == null) {
-      return (points.value = null)
+      return
     }
 
     // NETWORK – Draw edge on source-target staight, stopping at node bounds
@@ -275,8 +277,6 @@ function computePoints() {
     // only check plausible rect edges (i.e. one vertical and one horizontal per node)
     const above = source.y < target.y
     const left = source.x < target.x
-
-    console.log(above, left)
 
     let pSource = straight[0]
     if (source.centerBounds != null) {
@@ -305,7 +305,7 @@ function computePoints() {
     }
 
     if (!pSource || !pTarget) {
-      return (points.value = null)
+      return
     }
     const p = []
     const segments = 4
@@ -320,7 +320,7 @@ function computePoints() {
       })
     }
 
-    points.value = p
+    points.value = p.map(({ x, y }) => ({ x: Math.round(x), y: Math.round(y) }))
   }
 }
 
@@ -380,49 +380,68 @@ const gradient = computed(() => {
     :class="[`level-${level}`, viewClass, viewStore.modeClass, gradient, { activity: viewStore.activity }]"
     @click="onClick"
   >
-    <g>
-      <defs>
-        <marker :id="`marker-${id}`" markerWidth="10" markerHeight="20" refX="10" refY="10" orient="auto">
-          <path d="M0,0 L10,10 L0,20" />
-        </marker>
-        <linearGradient
-          gradientUnits="userSpaceOnUse"
-          :x1="points?.[0]?.x"
-          :y1="points?.[0]?.y"
-          :x2="points?.[4]?.x"
-          :y2="points?.[4]?.y"
-          :id="`gradient-${id}`"
-        >
-          <stop offset="0%" stop-color="var(--gradient-1)" />
-          <stop offset="25%" stop-color="var(--gradient-2)" />
-          <stop offset="75%" stop-color="var(--gradient-3)" />
-          <stop offset="100%" stop-color="var(--gradient-4)" />
-        </linearGradient>
-      </defs>
-      <path v-if="viewStore.mode === MODE_COMPOSE" class="events" :d="path" />
-      <path
-        :id="id"
-        class="path"
-        :d="path"
-        :marker-end="`url('#marker-${id}')`"
-        :style="{ stroke: `url(#gradient-${id})` }"
-      />
-      <template v-if="midPoint">
-        <g v-if="label" class="label" :style="{ transform: `translate(${midPoint.x}px, ${midPoint.y}px)` }">
-          <text :lang="label.lang" class="shadow" :class="{ vertical }">
-            {{ label.text }}
-          </text>
-          <text :lang="label.lang" :class="{ vertical }">
-            {{ label.text }}
-          </text>
-        </g>
-      </template>
-      <foreignObject>
-        <Teleport to="#modals">
-          <ModalEdit :show="showEditModal" :id="id" type="edge" @close="showEditModal = false" @update="update" />
-        </Teleport>
-      </foreignObject>
-    </g>
+    <BaseInterpolate
+      :props="{
+        x1: points?.[0]?.x ?? 0,
+        y1: points?.[0]?.y ?? 0,
+        x2: points?.[4]?.x ?? 0,
+        y2: points?.[4]?.y ?? 0,
+        path
+      }"
+      :delay="0"
+      :duration="2000"
+      v-slot="value"
+    >
+      <g>
+        <defs>
+          <marker :id="`marker-${id}`" markerWidth="10" markerHeight="20" refX="10" refY="10" orient="auto">
+            <path d="M0,0 L10,10 L0,20" />
+          </marker>
+
+          <linearGradient
+            gradientUnits="userSpaceOnUse"
+            :x1="value.x1"
+            :y1="value.y1"
+            :x2="value.x2"
+            :y2="value.y2"
+            :id="`gradient-${id}`"
+          >
+            <stop offset="0%" stop-color="var(--gradient-1)" :id="`stop1-${id}`" />
+            <stop offset="25%" stop-color="var(--gradient-2)" :id="`stop2-${id}`" />
+            <stop offset="75%" stop-color="var(--gradient-3)" :id="`stop3-${id}`" />
+            <stop offset="100%" stop-color="var(--gradient-4)" :id="`stop4-${id}`" />
+          </linearGradient>
+        </defs>
+        <path v-if="viewStore.mode === MODE_COMPOSE" class="events" />
+        <path
+          :id="id"
+          class="path"
+          :d="viewStore.mode === MODE_VIEW ? value.path : path"
+          :marker-end="`url('#marker-${id}')`"
+          :style="{ stroke: `url(#gradient-${id})` }"
+        />
+        <template v-if="midPoint">
+          <g
+            :class="{ hide: props.edge.proxy != null }"
+            class="label"
+            :style="{ transform: `translate(${midPoint.x}px, ${midPoint.y}px)` }"
+          >
+            <text :lang="label.lang" class="shadow" :class="{ vertical }">
+              {{ label.text }}
+            </text>
+            <text :lang="label.lang" :class="{ vertical }">
+              {{ label.text }}
+            </text>
+          </g>
+        </template>
+
+        <foreignObject>
+          <Teleport to="#modals">
+            <ModalEdit :show="showEditModal" :id="id" type="edge" @close="showEditModal = false" @update="update" />
+          </Teleport>
+        </foreignObject>
+      </g>
+    </BaseInterpolate>
   </g>
 </template>
 
@@ -430,10 +449,10 @@ const gradient = computed(() => {
 .edge {
   user-select: none;
   pointer-events: none;
-  transition: all var(--transition);
+  transition: all var(--transition-extended);
 
   defs stop {
-    transition: all var(--transition-extended);
+    transition: stop-color var(--transition-extended);
   }
 
   path {
@@ -490,12 +509,25 @@ const gradient = computed(() => {
 
   &.mode-view {
     path {
-      transition: all var(--transition-extended);
+      transition: stroke var(--transition-extended);
     }
     .label {
       transition: all var(--transition-extended);
       text {
         transition: all var(--transition-extended);
+      }
+
+      &.label-enter-active {
+        transition: opacity var(--transition-extended-half) var(--transition-extended-half);
+      }
+      &.label-leave-active {
+        transition: opacity var(--transition-extended-half);
+      }
+
+      &.label-enter-from,
+      &.label-leave-to,
+      &.hide {
+        opacity: 0;
       }
     }
   }
@@ -532,17 +564,10 @@ const gradient = computed(() => {
   &.level-0:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     filter: blur(8px);
     opacity: 0;
-    &.mode-view {
-      transition: all var(--transition-extended);
-    }
   }
   &.level-1:not(.mode-compose, .activity:not(.mode-couple), .view-entity) {
     filter: blur(8px);
     opacity: 0.2;
-
-    &.mode-view {
-      transition: all var(--transition-extended);
-    }
   }
   // &.level-2:not(.mode-compose) {
   //   path.path {

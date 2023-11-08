@@ -55,7 +55,6 @@ function getBounds() {
     y1: tl.y,
     y2: tl.y + height
   }
-  console.log(bounds)
   return bounds
 }
 function seekBackward() {

@@ -4,7 +4,7 @@ import { useComposeStore } from '@/stores/compose'
 import { useViewStore } from '@/stores/view'
 import { useSyncStore } from '@/stores/sync'
 import { useCanvasStore } from '@/stores/canvas'
-import { ref, watch, computed, onUnmounted, onMounted } from 'vue'
+import { ref, watch, computed, onMounted, onBeforeUnmount } from 'vue'
 import DocumentCard from './DocumentCard.vue'
 import NodeButtonDrawEdge from './NodeButtonDrawEdge.vue'
 import NodeButtonRaiseLevel from './NodeButtonRaiseLevel.vue'
@@ -84,7 +84,7 @@ onMounted(() => {
   resizeObserver.observe(node.value)
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   if (node.value != null) resizeObserver.unobserve(node.value)
   canvasStore.deleteNode(props.allocation.node['@id'])
 })

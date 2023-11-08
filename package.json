@@ -12,7 +12,7 @@
   "dependencies": {
     "@terminusdb/terminusdb-client": "github:fidelthomet/terminusdb-client-js",
     "autoprefixer": "^10.4.14",
-    "d3-ease": "^3.0.1",
+    "bezier-easing": "^2.1.0",
     "d3-interpolate": "^3.0.1",
     "d3-selection": "^3.0.0",
     "d3-zoom": "^3.0.0",

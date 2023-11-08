@@ -144,7 +144,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     const x = coordinates.x - offset.value.x
     const y = coordinates.y - offset.value.y
     const snapping = true
-    const gridSize = snapping ? 62.5 : 0.5
+    const gridSize = snapping ? 62.5 / 4 : 0.5
     const snapTo = {
       x: Math.round(x / gridSize) * gridSize,
       y: Math.round(y / gridSize) * gridSize
@@ -279,6 +279,8 @@ export const useTerminusStore = defineStore('terminus', () => {
       .filter((b) => b.edge != null)
       .map(({ edge }) => edge)
       .filter((d) => d.source != null && d.target != null)
+      .sort((a, b) => (a['@id'] < b['@id'] ? -1 : 1))
+
     markers.value = res.bindings.filter((b) => b.marker != null).map(({ marker }) => marker)
 
     // perpetuate offset to reduce movement
@@ -430,11 +432,13 @@ export const useTerminusStore = defineStore('terminus', () => {
       .filter((edge, i, edges) => edges.findIndex((e) => e['@id'] === edge['@id']) === i)
 
     // maybe just sort alphabetically, but also in getGraph()?
-    edges.value = edgeData.sort(
-      (a, b) =>
-        edges.value.findIndex((edge) => edge['@id'] === a['@id']) -
-        edges.value.findIndex((edge) => edge['@id'] === b['@id'])
-    )
+    edges.value = edgeData.sort((a, b) => (a['@id'] < b['@id'] ? -1 : 1))
+
+    // .sort(
+    //   (a, b) =>
+    //     edges.value.findIndex((edge) => edge['@id'] === a['@id']) -
+    //     edges.value.findIndex((edge) => edge['@id'] === b['@id'])
+    // )
 
     allocations.value = [center, ...satelliteAllocations].sort((a, b) => (a.node['@id'] < b.node['@id'] ? -1 : 1))
 
