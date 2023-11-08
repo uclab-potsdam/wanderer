@@ -544,7 +544,7 @@ const gradient = computed(() => {
 
     dominant-baseline: middle;
     &.shadow {
-      stroke: #fff;
+      stroke: color-mix(in lab, var(--accent), white 95%);
       stroke-width: 8px;
     }
 

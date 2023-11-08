@@ -262,6 +262,9 @@ const accent = computed(() => {
   left: 0;
   top: 0;
 
+  background: color-mix(in lab, var(--accent), white 95%);
+  transition: background var(--transition-extended);
+
   svg {
     position: absolute;
     display: block;
