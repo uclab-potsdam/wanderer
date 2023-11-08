@@ -98,10 +98,16 @@ watch(
 function setDuration() {
   syncStore.setDuration(video.value.duration)
 }
+
+const airPlay = ref(false)
+
+function onWebkitcurrentplaybacktargetiswirelesschanged(e) {
+  airPlay.value = e.target.webkitCurrentPlaybackTargetIsWireless
+}
 </script>
 
 <template>
-  <div class="the-player" v-if="sources.length > 0" :class="[{ letterbox }, position]">
+  <div class="the-player" v-if="sources.length > 0" :class="[{ letterbox, 'air-play': airPlay }, position]">
     <video
       crossorigin="anonymous"
       :loop="syncStore.loop"
@@ -114,6 +120,7 @@ function setDuration() {
       @leavepictureinpicture="pip = false"
       @ended="syncStore.requestNext()"
       @timeupdate="onTimeUpdate"
+      @webkitcurrentplaybacktargetiswirelesschanged="onWebkitcurrentplaybacktargetiswirelesschanged"
       :src="sources[0]"
     >
       <!-- <track
@@ -215,6 +222,10 @@ function setDuration() {
       right: 20%;
       top: 5%;
     }
+  }
+
+  &.air-play {
+    opacity: 0;
   }
 }
 </style>
