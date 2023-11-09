@@ -276,6 +276,28 @@ function computePoints() {
       { x: target.x, y: target.y }
     ]
 
+    if (props.edge.offset) {
+      const delta = {
+        x: target.x - source.x,
+        y: target.y - source.y
+      }
+      const length = Math.sqrt(Math.pow(delta.x, 2) + Math.pow(delta.y, 2))
+      const norm = {
+        x: delta.x / length,
+        y: delta.y / length
+      }
+
+      const offset = {
+        x: norm.y * 20 * (props.edge.contradict ? 1 : props.edge.offset),
+        y: norm.x * 20 * (props.edge.contradict ? 1 : props.edge.offset)
+      }
+
+      straight[0].x += offset.x
+      straight[0].y += offset.y
+      straight[1].x += offset.x
+      straight[1].y += offset.y
+    }
+
     // only check plausible rect edges (i.e. one vertical and one horizontal per node)
     const above = source.y < target.y
     const left = source.x < target.x
@@ -334,6 +356,8 @@ const path = computed(() => {
 
 const midPoint = computed(() => {
   if (vertical.value) return { x: points.value[2].x - 25, y: points.value[2].y }
+  if (props.edge.contradict === true) return points.value?.[1]
+  if (props.edge.contradict === false) return points.value?.[2 + props.edge.offset]
   return points.value?.[2]
 })
 

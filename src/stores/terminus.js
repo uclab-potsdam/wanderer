@@ -477,7 +477,6 @@ export const useTerminusStore = defineStore('terminus', () => {
             }
           }
         })
-      // proxyAllocations.value.push(...next)
       return { ...satellite, ...coordinate }
     })
 
@@ -489,15 +488,23 @@ export const useTerminusStore = defineStore('terminus', () => {
       .flat()
       // remove duplicates
       .filter((edge, i, edges) => edges.findIndex((e) => e['@id'] === edge['@id']) === i)
+      .map((e1, i1, edges) => {
+        let offset = 0
+        let contradict = null
+        const i2 = edges.findIndex(
+          (e2) =>
+            e1['@id'] !== e2['@id'] &&
+            ((e1.source === e2.source && e1.target === e2.target) ||
+              (e1.source === e2.target && e1.target === e2.source))
+        )
+        if (i2 !== -1) {
+          offset = i1 < i2 ? -1 : 1
+          contradict = e1.source !== edges[i2].source
+        }
+        return { ...e1, offset, contradict }
+      })
 
-    // maybe just sort alphabetically, but also in getGraph()?
     edges.value = edgeData.sort((a, b) => (a['@id'] < b['@id'] ? -1 : 1))
-
-    // .sort(
-    //   (a, b) =>
-    //     edges.value.findIndex((edge) => edge['@id'] === a['@id']) -
-    //     edges.value.findIndex((edge) => edge['@id'] === b['@id'])
-    // )
 
     allocations.value = [center, ...satelliteAllocations].sort((a, b) => (a.node['@id'] < b.node['@id'] ? -1 : 1))
 
