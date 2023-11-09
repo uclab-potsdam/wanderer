@@ -33,7 +33,7 @@ const mode = computed(() => viewStore.mode)
 
 const bounds = computed(() => {
   const bounds =
-    mode.value === MODE_COUPLE ? syncStore.atMarker?.bounds || canvasStore.bounds : syncStore.currentMarker?.bounds
+    mode.value === MODE_COUPLE ? syncStore.atMarker?.bounds || canvasStore.bounds : syncStore.currentBounds?.bounds
   if (bounds == null) return
   return {
     x1: bounds.x1 + terminusStore.offset.x,
@@ -48,6 +48,26 @@ watch(
   () => {
     if (viewStore.mode !== MODE_VIEW || terminusStore.graphDoc.next == null) return
     router.push(`/${terminusStore.graphDoc.next}`)
+  }
+)
+
+watch(
+  () => viewStore.inactivityMid,
+  (inactive) => {
+    if (viewStore.mode !== MODE_VIEW) return
+    if (inactive && route.name === 'graph' && bounds.value != null) {
+      return zoomToBounds()
+    }
+  }
+)
+
+watch(
+  () => viewStore.inactivityLong,
+  (inactive) => {
+    if (viewStore.mode !== MODE_VIEW) return
+    if (inactive && route.name === 'entity' && terminusStore.graph != null) {
+      return router.push(`/${terminusStore.graph}`)
+    }
   }
 )
 
@@ -94,6 +114,7 @@ function onDragOver(e) {
 function zoomToFit(skipTransition = false) {
   if (zoomBehaviour.value == null) return
   if (terminusStore.allocations.length < 1) return
+  if (bounds.value != null) return
   const xs = terminusStore.allocations.map(({ x }) => x)
   const ys = terminusStore.allocations.map(({ y }) => y)
   const padding = 150
@@ -152,6 +173,22 @@ function zoomToFitNetwork(skipTransition = false) {
     )
 }
 
+function zoomToBounds() {
+  const scaleX = innerWidth / (bounds.value.x2 - bounds.value.x1)
+  const scaleY = innerHeight / (bounds.value.y2 - bounds.value.y1)
+  const scale = Math.min(scaleX, scaleY)
+
+  const width = innerWidth / scale
+  const height = innerHeight / scale
+  const x = -bounds.value.x1 + width / 2 - (bounds.value.x2 - bounds.value.x1) / 2
+  const y = -bounds.value.y1 + height / 2 - (bounds.value.y2 - bounds.value.y1) / 2
+
+  container.value
+    .transition()
+    .duration(2000)
+    .call(zoomBehaviour.value.transform, zoomIdentity.scale(scale).translate(x, y))
+}
+
 watch(
   () => route,
   async () => {
@@ -172,6 +209,7 @@ watch(bounds, (newBounds, oldBounds) => {
     mode.value !== MODE_VIEW ||
     route.name === 'entity' ||
     newBounds == null ||
+    !viewStore.inactivityMid ||
     (oldBounds != null &&
       newBounds.x1 === oldBounds.x1 &&
       newBounds.x2 === oldBounds.x2 &&
@@ -180,19 +218,7 @@ watch(bounds, (newBounds, oldBounds) => {
   )
     return
 
-  const scaleX = innerWidth / (newBounds.x2 - newBounds.x1)
-  const scaleY = innerHeight / (newBounds.y2 - newBounds.y1)
-  const scale = Math.min(scaleX, scaleY)
-
-  const width = innerWidth / scale
-  const height = innerHeight / scale
-  const x = -newBounds.x1 + width / 2 - (newBounds.x2 - newBounds.x1) / 2
-  const y = -newBounds.y1 + height / 2 - (newBounds.y2 - newBounds.y1) / 2
-
-  container.value
-    .transition()
-    .duration(2000)
-    .call(zoomBehaviour.value.transform, zoomIdentity.scale(scale).translate(x, y))
+  zoomToBounds()
 })
 
 const accent = computed(() => {

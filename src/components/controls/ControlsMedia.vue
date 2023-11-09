@@ -69,7 +69,7 @@ function togglePlay() {
   syncStore.togglePlay()
 }
 
-const showControls = computed(() => props.persistent || viewStore.activity)
+const showControls = computed(() => props.persistent || !viewStore.inactivityShort)
 
 function onKeyDown({ code, altKey, shiftKey }) {
   const amount = shiftKey ? 30 : altKey ? 1 / framerate : 5

@@ -4,7 +4,14 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 import { usePermanentStore } from '@/stores/permanent'
 import { useTerminusStore } from '@/stores/terminus'
 
-import { MODE_VIEW, MODE_COMPOSE, MODE_COUPLE } from '@/assets/js/constants'
+import {
+  MODE_VIEW,
+  MODE_COMPOSE,
+  MODE_COUPLE,
+  INACTIVITY_SHORT,
+  INACTIVITY_MID,
+  INACTIVITY_LONG
+} from '@/assets/js/constants'
 
 export const useViewStore = defineStore('view', () => {
   const before = ref(null)
@@ -21,8 +28,7 @@ export const useViewStore = defineStore('view', () => {
 
   const language = ref(
     localStorage.getItem('LANGUAGE') ??
-      languageOptions.value.find((option) => option.value === navigator.language.replace(/-.*/, ''))
-        ?.value ??
+      languageOptions.value.find((option) => option.value === navigator.language.replace(/-.*/, ''))?.value ??
       languageOptions.value[0].value
   )
 
@@ -33,9 +39,7 @@ export const useViewStore = defineStore('view', () => {
   watch(
     () => language.value,
     () => {
-      languageList.value = [
-        ...new Set([language.value, ...import.meta.env.VITE_LANGUAGE_LIST.split(',')])
-      ]
+      languageList.value = [...new Set([language.value, ...import.meta.env.VITE_LANGUAGE_LIST.split(',')])]
       terminusStore.languageList = languageList.value
       localStorage.setItem('LANGUAGE', language.value)
     },
@@ -77,24 +81,53 @@ export const useViewStore = defineStore('view', () => {
   const stateLevelDefault = ref(+import.meta.env.VITE_STATE_LEVEL_DEFAULT)
 
   const activityTrackingController = new AbortController()
-  let activityTrackingTimeout = null
-  const activity = ref(false)
+  let lastActivity = document.timeline.currentTime
+  const inactivity = ref(0)
+  let tracking = false
+  const inactivityShort = ref(false)
+  const inactivityMid = ref(false)
+  const inactivityLong = ref(false)
+
+  function updateActivity(t) {
+    inactivity.value = t - lastActivity
+    if (
+      (inactivity.value < INACTIVITY_SHORT && inactivityShort.value) ||
+      (inactivity.value > INACTIVITY_SHORT && !inactivityShort.value)
+    ) {
+      inactivityShort.value = !inactivityShort.value
+    }
+
+    if (
+      (inactivity.value < INACTIVITY_LONG && inactivityLong.value) ||
+      (inactivity.value > INACTIVITY_LONG && !inactivityLong.value)
+    ) {
+      inactivityLong.value = !inactivityLong.value
+    }
+
+    if (
+      (inactivity.value < INACTIVITY_MID && inactivityMid.value) ||
+      (inactivity.value > INACTIVITY_MID && !inactivityMid.value)
+    ) {
+      inactivityMid.value = !inactivityMid.value
+    }
+    if (tracking) {
+      requestAnimationFrame(updateActivity)
+    }
+  }
+
   function startActivityTracking() {
-    window.addEventListener(
-      'mousemove',
-      () => {
-        activity.value = true
-        clearTimeout(activityTrackingTimeout)
-        activityTrackingTimeout = setTimeout(() => {
-          activity.value = false
-        }, 2500)
-      },
-      { signal: activityTrackingController.signal }
-    )
+    tracking = true
+    requestAnimationFrame(updateActivity)
+    const callback = () => (lastActivity = document.timeline.currentTime)
+    const options = { signal: activityTrackingController.signal }
+    window.addEventListener('mousemove', callback, options)
+    window.addEventListener('touchstart', callback, options)
+    window.addEventListener('touchend', callback, options)
   }
 
   function stopActivityTracking() {
     activityTrackingController.abort()
+    tracking = true
   }
 
   return {
@@ -111,7 +144,10 @@ export const useViewStore = defineStore('view', () => {
     stateLevelDefault,
     startActivityTracking,
     stopActivityTracking,
-    activity
+    inactivity,
+    inactivityShort,
+    inactivityMid,
+    inactivityLong
   }
 })
 

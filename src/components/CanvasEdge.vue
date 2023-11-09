@@ -377,7 +377,7 @@ const gradient = computed(() => {
   <g
     class="edge"
     :style="color"
-    :class="[`level-${level}`, viewClass, viewStore.modeClass, gradient, { activity: viewStore.activity }]"
+    :class="[`level-${level}`, viewClass, viewStore.modeClass, gradient, { activity: !viewStore.inactivityShort }]"
     @click="onClick"
   >
     <BaseInterpolate
@@ -449,9 +449,12 @@ const gradient = computed(() => {
 .edge {
   user-select: none;
   pointer-events: none;
-  transition: all var(--transition-extended);
   mix-blend-mode: var(--default-blend-mode);
+  transition: all var(--transition-extended-half);
 
+  &.activity {
+    transition: all var(--transition);
+  }
   defs stop {
     transition: stop-color var(--transition-extended);
   }

@@ -70,7 +70,7 @@ const duration = computed(() => {
       document['@type'],
       viewClass,
       `level-${level ?? viewStore.stateLevelDefault}`,
-      { activity: viewStore.activity }
+      { activity: !viewStore.inactivityShort }
     ]"
   >
     <div class="card">

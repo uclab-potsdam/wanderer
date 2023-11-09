@@ -93,6 +93,17 @@ export const useSyncStore = defineStore('sync', () => {
     }, null)
   )
 
+  const currentBounds = computed(() =>
+    terminusStore.markers
+      .filter((m) => m.bounds != null)
+      .reduce((a, b) => {
+        if (b.timestamp - 1 / framerate.value / 2 > time.value) return a
+        if (a == null) return b
+        if (Math.abs(a.timestamp - time.value) < Math.abs(b.timestamp - time.value)) return a
+        return b
+      }, null)
+  )
+
   function openCanvas() {
     isCanvas.value = true
     id = id ?? idgen()
@@ -205,6 +216,7 @@ export const useSyncStore = defineStore('sync', () => {
     forcedTime,
     atMarker,
     currentMarker,
+    currentBounds,
     framerate,
     sources,
     next,
