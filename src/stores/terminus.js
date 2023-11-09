@@ -15,7 +15,7 @@ export const useTerminusStore = defineStore('terminus', () => {
   const classes = ref([])
   const markers = ref([])
 
-  const graph = ref([])
+  const graph = ref(null)
   const media = ref({})
   const graphDoc = ref({})
 
