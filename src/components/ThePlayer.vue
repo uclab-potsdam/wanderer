@@ -143,10 +143,6 @@ function onWebkitcurrentplaybacktargetiswirelesschanged(e) {
     width: 100%;
     height: 100%;
     display: block;
-
-    &:picture-in-picture {
-      opacity: 0;
-    }
   }
   &:not(.letterbox) {
     border-radius: var(--ui-border-radius);
@@ -224,8 +220,10 @@ function onWebkitcurrentplaybacktargetiswirelesschanged(e) {
     }
   }
 
+  &:has(video:picture-in-picture),
   &.air-play {
     opacity: 0;
+    pointer-events: none;
   }
 }
 </style>
