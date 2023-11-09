@@ -30,7 +30,9 @@ async function updateDocument() {
 }
 
 async function deleteDocument() {
-  await terminusStore.deleteDocument(props.id)
+  if (props.type === 'entity') await terminusStore.deleteEntity(props.id)
+  else if (props.type === 'graph') await terminusStore.deleteGraph(props.id)
+  else await terminusStore.deleteDocument(props.id)
   emit('close')
   emit('update')
 }

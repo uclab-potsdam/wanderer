@@ -41,7 +41,9 @@ const id = computed(() => {
 
 const points = ref([])
 
-watch(() => [canvasStore.nodes[props.edge.source], canvasStore.nodes[props.edge.target]], computePoints)
+watch(() => [canvasStore.nodes[props.edge.source], canvasStore.nodes[props.edge.target]], computePoints, {
+  immediate: true
+})
 
 function computePoints() {
   const offset = canvasStore.offset

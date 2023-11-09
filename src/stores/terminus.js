@@ -138,6 +138,64 @@ export const useTerminusStore = defineStore('terminus', () => {
     return res
   }
 
+  async function deleteGraph(id) {
+    const res = await client.query(
+      // WOQL.read_document(id, 'v:doc')
+      WOQL.delete_document(id).opt(
+        WOQL.or(
+          WOQL.triple('v:id', 'graph', id).delete_document('v:id'),
+          WOQL.triple('v:id', 'node', id).delete_document('v:id')
+        )
+      )
+    )
+    return res
+  }
+
+  async function deleteEntity(id) {
+    const res = await client.query(
+      // WOQL.read_document(id, 'v:doc')
+      WOQL.delete_document(id).opt(
+        WOQL.or(
+          WOQL.triple('v:allocation_id', 'rdf:type', '@schema:allocation')
+            .triple('v:allocation_id', 'node', id)
+            .delete_document('v:allocation_id'),
+          WOQL.triple('v:edge_id', 'source', id).delete_document('v:edge_id'),
+          WOQL.triple('v:edge_id', 'target', id).delete_document('v:edge_id'),
+          WOQL.triple('v:marker_id', 'rdf:type', '@schema:marker')
+            .triple('v:marker_id', 'state', 'v:state_id')
+            .triple('v:state_id', 'node', id)
+            .delete_document('v:state_id')
+        )
+      )
+    )
+    return res
+  }
+
+  async function deleteAllocation(id) {
+    const res = await client.query(
+      // WOQL.read_document(id, 'v:doc')
+      WOQL.triple(id, 'node', 'v:node_id')
+        .triple(id, 'graph', 'v:graph_id')
+        .delete_document(id)
+        .opt(
+          WOQL.or(
+            WOQL.triple('v:edge_id', 'source', 'v:node_id')
+              .triple('v:edge_id', 'graph', 'v:graph_id')
+              .delete_document('v:edge_id'),
+            WOQL.triple('v:edge_id', 'target', 'v:node_id')
+              .triple('v:edge_id', 'graph', 'v:graph_id')
+              .delete_document('v:edge_id'),
+            WOQL.triple('v:marker_id', 'rdf:type', '@schema:marker')
+              .triple('v:marker_id', 'graph', 'v:graph_id')
+              .triple('v:marker_id', 'state', 'v:state_id')
+              .triple('v:state_id', 'node', 'v:node_id')
+              .delete_document('v:state_id')
+          )
+        )
+    )
+    return res
+  }
+
   async function updateAllocation(node, coordinates, local = false) {
     const allocation = allocations.value.find((allocation) => allocation.node['@id'] === node)
 
@@ -577,6 +635,9 @@ export const useTerminusStore = defineStore('terminus', () => {
     updateDocument,
     deleteDocument,
     updateAllocation,
+    deleteAllocation,
+    deleteGraph,
+    deleteEntity,
     addEdge,
     getGraph,
     getNetwork,

@@ -250,9 +250,9 @@ const accent = computed(() => {
           <TransitionGroup name="edges">
             <CanvasEdge
               v-for="edge in terminusStore.edges"
-              :key="edge['@id']"
+              :key="edge['@id'] || 'temp'"
               :interactive="mode === MODE_COMPOSE"
-              :id="edge['@id']"
+              :id="edge['@id'] || 'temp'"
               :edge="edge"
             />
           </TransitionGroup>

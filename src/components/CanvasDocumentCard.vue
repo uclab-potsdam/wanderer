@@ -94,11 +94,14 @@ function update() {
 }
 
 async function deleteAllocation() {
-  terminusStore.deleteDocument(props.allocation['@id'])
+  terminusStore.deleteAllocation(props.allocation['@id'])
   const index = terminusStore.allocations.findIndex((n) => n['@id'] === props.allocation['@id'])
   if (index >= 0) {
     terminusStore.allocations.splice(index, 1)
   }
+  terminusStore.edges = terminusStore.edges.filter(
+    (e) => e.source !== props.allocation.node['@id'] && e.target !== props.allocation.node['@id']
+  )
 }
 
 function onMouseEnter() {
