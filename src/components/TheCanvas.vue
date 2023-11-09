@@ -137,7 +137,6 @@ function zoomToFit(skipTransition = false) {
         .scale(scale)
         .translate(-x, -y)
     )
-    .on('end', () => zoomBehaviour.value.filter(() => true))
 }
 
 function zoomToFitNetwork(skipTransition = false) {
@@ -194,6 +193,7 @@ watch(
   async () => {
     if (route.name === 'graph') {
       await terminusStore.getGraph(context.value, true)
+      zoomBehaviour.value.filter(() => true)
       zoomToFit()
     } else if (route.name === 'entity') {
       await terminusStore.getNetwork(context.value, true)
