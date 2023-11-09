@@ -277,7 +277,7 @@ export const useTerminusStore = defineStore('terminus', () => {
       }))
     edges.value = res.bindings
       .filter((b) => b.edge != null)
-      .map(({ edge }) => edge)
+      .map(({ edge }) => ({ color: graphDoc.value.color, ...edge }))
       .filter((d) => d.source != null && d.target != null)
       .sort((a, b) => (a['@id'] < b['@id'] ? -1 : 1))
 
