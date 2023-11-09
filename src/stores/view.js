@@ -115,14 +115,19 @@ export const useViewStore = defineStore('view', () => {
     }
   }
 
+  function registerActivity() {
+    lastActivity = document.timeline.currentTime
+  }
+
   function startActivityTracking() {
     tracking = true
     requestAnimationFrame(updateActivity)
-    const callback = () => (lastActivity = document.timeline.currentTime)
+
     const options = { signal: activityTrackingController.signal }
-    window.addEventListener('mousemove', callback, options)
-    window.addEventListener('touchstart', callback, options)
-    window.addEventListener('touchend', callback, options)
+    window.addEventListener('wheel', registerActivity, options)
+    window.addEventListener('mousemove', registerActivity, options)
+    window.addEventListener('touchstart', registerActivity, options)
+    window.addEventListener('touchend', registerActivity, options)
   }
 
   function stopActivityTracking() {
@@ -147,7 +152,8 @@ export const useViewStore = defineStore('view', () => {
     inactivity,
     inactivityShort,
     inactivityMid,
-    inactivityLong
+    inactivityLong,
+    registerActivity
   }
 })
 

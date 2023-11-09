@@ -77,6 +77,7 @@ onMounted(async () => {
   zoomBehaviour.value = zoom()
     .scaleExtent(scaleExtent.value)
     .on('zoom', (e) => {
+      if (e.sourceEvent != null) viewStore.registerActivity()
       canvasStore.transform = e.transform
     })
   // .filter((e) => {
