@@ -534,7 +534,7 @@ const gradient = computed(() => {
   }
 
   text {
-    fill: color-mix(in lab, var(--edge-color), black 40%);
+    fill: color-mix(in lab, var(--edge-color), var(--text-base) 40%);
     font-size: var(--font-size);
     font-weight: var(--light);
     pointer-events: none;
@@ -544,7 +544,7 @@ const gradient = computed(() => {
 
     dominant-baseline: middle;
     &.shadow {
-      stroke: color-mix(in lab, var(--accent), white 95%);
+      stroke: var(--background-color);
       stroke-width: 8px;
     }
 

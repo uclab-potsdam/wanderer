@@ -109,6 +109,11 @@ const duration = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+@property --highlight-color {
+  syntax: '<color>';
+  initial-value: transparent;
+  inherits: false;
+}
 .node {
   position: relative;
   // border-radius: var(--node-border-radius);
@@ -118,11 +123,43 @@ const duration = computed(() => {
     // min-height: 90px;
     transition: all var(--transition);
     // background: rgb(var(--gray-10));
-    color: var(--node-background);
+    color: color-mix(in lab, var(--accent), var(--text-base) var(--text-base-opacity));
     background: none;
     // color: var(--node-background);
     // border-radius: var(--node-border-radius);
     padding: var(--node-padding);
+
+    span {
+      padding: 0.1em 10px;
+      margin: -0.1em -10px;
+      border-radius: 10px 2.5px 7.5px 5.5px;
+      box-decoration-break: clone;
+      transition: --highlight-color var(--transition), text-shadow var(--transition);
+      // background-image: linear-gradient(
+      //   to right,
+      //   color-mix(in lab, var(--highlight-color), transparent 20%),
+      //   color-mix(in lab, var(--highlight-color), transparent 30%) 4%,
+      //   color-mix(in lab, var(--highlight-color), transparent 70%)
+      // );
+      background: linear-gradient(
+          100deg,
+          color-mix(in lab, var(--highlight-color), transparent 99%) 5%,
+          color-mix(in lab, var(--highlight-color), transparent 0%) 6.2%,
+          color-mix(in lab, var(--highlight-color), transparent 50%) 7.8%,
+          color-mix(in lab, var(--highlight-color), transparent 80%) 93%,
+          color-mix(in lab, var(--highlight-color), transparent 40%) 96%,
+          color-mix(in lab, var(--highlight-color), transparent 99%) 97%
+        ),
+        linear-gradient(
+          195deg,
+          color-mix(in lab, var(--highlight-color), transparent 99%) 0%,
+          color-mix(in lab, var(--highlight-color), transparent 70%) 7.9%,
+          color-mix(in lab, var(--highlight-color), transparent 99%) 50%
+        );
+
+      // text-shadow: -5px 5px 9.8px color-mix(in lab, var(--highlight-color), transparent 30%),
+      //   21px -18.1px 7.3px var(--background-base), -18.1px -27.3px 30px var(--background-base);
+    }
 
     .label {
       font-weight: var(--black);
@@ -136,14 +173,15 @@ const duration = computed(() => {
     .description {
       font-weight: var(--light);
       // font-style: oblique 8deg;
-      color: color-mix(in lab, var(--accent), black 50%);
+      color: color-mix(in lab, var(--accent), var(--text-base) 50%);
     }
   }
 
   &.graph {
     .card {
-      border: 1px solid color-mix(in lab, var(--accent), transparent 60%);
-      color: color-mix(in lab, var(--accent), black 50%);
+      --color: color-mix(in lab, var(--accent), var(--text-base) 50%);
+      border: 1px solid color-mix(in lab, var(--color), transparent 50%);
+      color: var(--color);
       min-width: 200px;
       // var(--ui-accent);
       border-radius: var(--ui-border-radius);
@@ -216,19 +254,12 @@ const duration = computed(() => {
   &.level-3:not(.mode-compose, .view-entity) {
     .card {
       // color: var(--flow-color-highlight);
+      // background: color-mix(in lab, var(--accent), transparent);
 
       span {
-        margin: 0 -0.6em;
-        padding: 0em 0.6em;
-        border-radius: 0.7em 0.3em 0.7em 0.3em;
-        // background: transparent;
-        background-image: linear-gradient(
-          to right,
-          color-mix(in lab, var(--accent), transparent 20%),
-          color-mix(in lab, var(--accent), transparent 30%) 4%,
-          color-mix(in lab, var(--accent), transparent 70%)
-        );
-        box-decoration-break: clone;
+        --highlight-color: var(--accent);
+        text-shadow: -5px 5px 9.8px color-mix(in lab, var(--highlight-color), transparent 30%),
+          21px -18.1px 7.3px var(--background-base), -18.1px -27.3px 30px var(--background-base);
       }
     }
   }

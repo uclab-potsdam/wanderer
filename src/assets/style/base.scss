@@ -7,8 +7,8 @@
 html {
   font: var(--regular) var(--font-size)/1.25 "Inter", sans-serif;
   box-sizing: border-box;
-  color: var(--primary);
-  background: var(--secondary);
+  color: var(--text-base);
+  background: color-mix(in lab, var(--accent), var(--background-base) var(--background-base-opacity));
   // overflow: hidden; // disabled for storybook
 
   ::selection {

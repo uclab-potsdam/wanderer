@@ -26,7 +26,7 @@ const width = computed(() => {
 
   div {
     height: 100%;
-    background: color-mix(in lab, var(--accent), black 50%);
+    background: color-mix(in lab, var(--accent), var(--text-base) 50%);
   }
 }
 </style>

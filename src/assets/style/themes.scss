@@ -52,6 +52,13 @@
   --edge-color: rgb(var(--gray-0));
   --edge-text-shadow: var(--ui-background);
   --edge-color-accent: var(--ui-accent);
+
+  // NEW
+  --background-base: white;
+  --background-base-opacity: 95%;
+
+  --text-base: black;
+  --text-base-opacity: 85%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -82,13 +89,13 @@
     --flow-edge: rgb(var(--indigo-10));
     --flow-edge-inactive: rgba(var(--blue-2),0.3);
     --flow-edge-highlight: rgb(var(--orange-5));
+
+    // NEW
+    --background-base: black;
+    --background-base-opacity: 90%;
+
+    --text-base: white;
+    --text-base-opacity: 90%;
+
   }
 }
-
-// .blur {
-//   background: rgb(var(--secondary));
-//   @supports ((-webkit-backdrop-filter:saturate(180%) blur(20px)) or (backdrop-filter:saturate(180%) blur(20px))) {
-//     background: rgba(var(--secondary), .5);
-//     backdrop-filter: blur(7px);
-//   }
-// }
