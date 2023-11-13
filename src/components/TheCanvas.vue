@@ -272,7 +272,7 @@ const accent = computed(() => {
       }"
     >
       <TransitionGroup name="nodes">
-        <div v-for="allocation in terminusStore.allocations" :key="allocation.node['@id']">
+        <div v-for="allocation in terminusStore.allocations" :key="allocation.node['@id']" class="node-wrapper">
           <CanvasDocumentCard :allocation="allocation" :transform="canvasStore.transform" />
         </div>
       </TransitionGroup>
@@ -310,6 +310,13 @@ const accent = computed(() => {
     position: absolute;
     > * {
       position: absolute;
+    }
+  }
+
+  .node-wrapper {
+    pointer-events: none;
+    > * {
+      pointer-events: all;
     }
   }
 
