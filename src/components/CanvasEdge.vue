@@ -53,11 +53,13 @@ function computePoints() {
     const target = canvasStore.nodes[props.edge.target]
     if (source == null || target == null) return
     // FLOWCHART – draw edges using line segments at 45° angles
-    const buffer = 20
+    const buffer = 40
     const alignHorizontally =
-      target.bounds.bottom > source.bounds.top + buffer && target.bounds.top < source.bounds.bottom + buffer
+      target.bounds.bottom > source.bounds.top - buffer && target.bounds.top < source.bounds.bottom + buffer
     const alignVertically =
-      target.bounds.right > source.bounds.left + buffer && target.bounds.left < source.bounds.right + buffer
+      target.bounds.right > source.bounds.left - buffer && target.bounds.left < source.bounds.right + buffer
+
+    console.log(alignHorizontally, alignVertically)
     const stubSize = 15
     if (alignHorizontally && !alignVertically) {
       // HORIZONTAL
