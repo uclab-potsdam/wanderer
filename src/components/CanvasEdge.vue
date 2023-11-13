@@ -59,7 +59,6 @@ function computePoints() {
     const alignVertically =
       target.bounds.right > source.bounds.left - buffer && target.bounds.left < source.bounds.right + buffer
 
-    console.log(alignHorizontally, alignVertically)
     const stubSize = 15
     if (alignHorizontally && !alignVertically) {
       // HORIZONTAL
