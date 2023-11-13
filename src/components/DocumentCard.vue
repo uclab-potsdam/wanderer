@@ -74,7 +74,12 @@ const duration = computed(() => {
     ]"
   >
     <div class="card">
-      <span class="label" :lang="label?.lang"> {{ label?.text }} </span>
+      <span class="label" :lang="label?.lang">
+        {{ label?.text }}
+        <span v-if="description && document['@type'] === 'graph'" class="description" :lang="description.lang">
+          – {{ description.text }}
+        </span></span
+      >
       <template v-if="className">
         <br />
         <span v-if="className" class="class" :lang="className.lang">
@@ -93,9 +98,9 @@ const duration = computed(() => {
             <IconPlay v-else />
             <template v-if="duration != null">{{ formatTime(duration) }}</template>
           </span>
-          <span v-if="description" class="description" :lang="description.lang">
+          <!-- <span v-if="description" class="description" :lang="description.lang">
             {{ description.text }}
-          </span>
+          </span> -->
         </div>
       </template>
     </div>
