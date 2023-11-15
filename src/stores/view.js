@@ -19,6 +19,8 @@ export const useViewStore = defineStore('view', () => {
   const permanentStore = usePermanentStore()
   const terminusStore = useTerminusStore()
 
+  const keyPressedShift = ref(false)
+
   const languageOptions = ref(
     import.meta.env.VITE_LANGUAGE_OPTIONS.split(',').map((l) => ({
       value: l.split(':')[0],
@@ -128,6 +130,21 @@ export const useViewStore = defineStore('view', () => {
     window.addEventListener('mousemove', registerActivity, options)
     window.addEventListener('touchstart', registerActivity, options)
     window.addEventListener('touchend', registerActivity, options)
+
+    window.addEventListener(
+      'keydown',
+      ({ key }) => {
+        if (key === 'Shift') keyPressedShift.value = true
+      },
+      options
+    )
+    window.addEventListener(
+      'keyup',
+      ({ key }) => {
+        if (key === 'Shift') keyPressedShift.value = false
+      },
+      options
+    )
   }
 
   function stopActivityTracking() {
@@ -153,7 +170,8 @@ export const useViewStore = defineStore('view', () => {
     inactivityShort,
     inactivityMid,
     inactivityLong,
-    registerActivity
+    registerActivity,
+    keyPressedShift
   }
 })
 

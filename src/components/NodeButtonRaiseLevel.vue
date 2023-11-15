@@ -9,15 +9,25 @@ const terminusStore = useTerminusStore()
 const viewStore = useViewStore()
 const props = defineProps(['allocation', 'level'])
 
-function raiseLevel() {
+function raiseLevel(e) {
   terminusStore.setState(
     syncStore.atMarker,
     props.allocation.node['@id'],
-    ((props.level ?? viewStore.stateLevelDefault) + 1) % viewStore.stateLevelCount
+    ((props.level ?? viewStore.stateLevelDefault) + e.shiftKey ? 1 : viewStore.stateLevelCount - 1) %
+      viewStore.stateLevelCount
   )
 }
 </script>
 <template>
-  <IconRaiseLevel v-if="syncStore.atMarker" @click.stop="raiseLevel" @dblclick.stop />
+  <IconRaiseLevel
+    :class="{ flip: viewStore.keyPressedShift }"
+    v-if="syncStore.atMarker"
+    @click.stop="raiseLevel"
+    @dblclick.stop
+  />
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.flip {
+  transform: scale(-1);
+}
+</style>
