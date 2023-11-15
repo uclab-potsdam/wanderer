@@ -494,6 +494,7 @@ export const useTerminusStore = defineStore('terminus', () => {
         const i2 = edges.findIndex(
           (e2) =>
             e1['@id'] !== e2['@id'] &&
+            (e1.source === id || e1.target === id) &&
             ((e1.source === e2.source && e1.target === e2.target) ||
               (e1.source === e2.target && e1.target === e2.source))
         )

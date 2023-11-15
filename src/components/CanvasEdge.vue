@@ -289,8 +289,8 @@ function computePoints() {
       }
 
       const offset = {
-        x: norm.y * 20 * (props.edge.contradict ? 1 : props.edge.offset),
-        y: norm.x * 20 * (props.edge.contradict ? 1 : props.edge.offset)
+        x: norm.y * 3 * (props.edge.contradict ? 1 : props.edge.offset),
+        y: -norm.x * 3 * (props.edge.contradict ? 1 : props.edge.offset)
       }
 
       straight[0].x += offset.x
