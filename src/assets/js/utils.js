@@ -31,4 +31,8 @@ function formatTime(seconds) {
   return totalHours > 0 ? `${h}:${m}:${s}` : `${m}:${s}`
 }
 
-export { idgen, lineIntersect, formatTime }
+function map(value, inStart, inStop, outStart, outStop) {
+  return ((value - inStart) / (inStop - inStart)) * (outStop - outStart) + outStart
+}
+
+export { idgen, lineIntersect, formatTime, map }

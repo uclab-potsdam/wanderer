@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue'
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { AccessControl, WOQLClient, WOQL } from '@terminusdb/terminusdb-client'
-// import { useViewStore } from './view'
+import { map } from '@/assets/js/utils'
 
 export const useTerminusStore = defineStore('terminus', () => {
   // const viewStore = useViewStore()
@@ -491,18 +491,20 @@ export const useTerminusStore = defineStore('terminus', () => {
       .map((e1, i1, edges) => {
         let offset = 0
         let contradict = null
-        const i2 = edges.findIndex(
+        let plurality = null
+        const parallels = edges.filter(
           (e2) =>
-            e1['@id'] !== e2['@id'] &&
             (e1.source === id || e1.target === id) &&
             ((e1.source === e2.source && e1.target === e2.target) ||
               (e1.source === e2.target && e1.target === e2.source))
         )
-        if (i2 !== -1) {
-          offset = i1 < i2 ? -1 : 1
-          contradict = e1.source !== edges[i2].source
+        if (parallels.length > 1) {
+          let index = parallels.findIndex((p) => p['@id'] === e1['@id'])
+          offset = map(index, 0, parallels.length - 1, -1, 1)
+          plurality = parallels.length > 3
+          contradict = e1.source !== parallels[0].source
         }
-        return { ...e1, offset, contradict }
+        return { ...e1, offset, contradict, plurality }
       })
 
     edges.value = edgeData.sort((a, b) => (a['@id'] < b['@id'] ? -1 : 1))

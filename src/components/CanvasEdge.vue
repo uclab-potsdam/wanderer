@@ -289,8 +289,8 @@ function computePoints() {
       }
 
       const offset = {
-        x: norm.y * 3 * (props.edge.contradict ? 1 : props.edge.offset),
-        y: -norm.x * 3 * (props.edge.contradict ? 1 : props.edge.offset)
+        x: norm.y * 5 * (props.edge.contradict ? 1 : props.edge.offset),
+        y: -norm.x * 5 * (props.edge.contradict ? 1 : props.edge.offset)
       }
 
       straight[0].x += offset.x
@@ -357,8 +357,10 @@ const path = computed(() => {
 
 const midPoint = computed(() => {
   if (vertical.value) return { x: points.value[2].x - 25, y: points.value[2].y }
-  if (props.edge.contradict === true) return points.value?.[1]
-  if (props.edge.contradict === false) return points.value?.[2 + props.edge.offset]
+  if (!props.edge.multitude) {
+    if (props.edge.contradict === true) return points.value?.[2 + Math.abs(props.edge.offset)]
+    if (props.edge.contradict === false) return points.value?.[2 + props.edge.offset]
+  }
   return points.value?.[2]
 })
 
@@ -449,7 +451,7 @@ const gradient = computed(() => {
         />
         <template v-if="midPoint">
           <g
-            :class="{ hide: props.edge.proxy != null }"
+            :class="{ hide: props.edge.proxy != null || props.edge.plurality }"
             class="label"
             :style="{ transform: `translate(${midPoint.x}px, ${midPoint.y}px)` }"
           >
