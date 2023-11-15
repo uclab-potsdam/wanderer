@@ -13,7 +13,7 @@ function raiseLevel(e) {
   terminusStore.setState(
     syncStore.atMarker,
     props.allocation.node['@id'],
-    ((props.level ?? viewStore.stateLevelDefault) + e.shiftKey ? 1 : viewStore.stateLevelCount - 1) %
+    ((props.level ?? viewStore.stateLevelDefault) + (e.shiftKey ? viewStore.stateLevelCount - 1 : 1)) %
       viewStore.stateLevelCount
   )
 }
