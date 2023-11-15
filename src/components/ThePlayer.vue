@@ -46,7 +46,7 @@ watch(
       .then((d) => {
         const items = d
           .trim()
-          .split('\n\n')
+          .split(/\n{2,3}/)
           .map((item) => {
             // const keys = ['index', 'time', 'text']
             // const props = Object.fromEntries(item.split('\n').map((value, i) => [keys[i], value]))
