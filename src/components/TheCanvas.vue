@@ -194,11 +194,11 @@ watch(
   async () => {
     if (route.name === 'graph') {
       await terminusStore.getGraph(context.value, true)
-      zoomBehaviour.value.filter(() => true)
+      // zoomBehaviour.value.filter(() => true)
       zoomToFit()
     } else if (route.name === 'entity') {
       await terminusStore.getNetwork(context.value, true)
-      zoomBehaviour.value.filter(() => false)
+      // zoomBehaviour.value.filter(() => false)
       zoomToFitNetwork()
     }
   },
