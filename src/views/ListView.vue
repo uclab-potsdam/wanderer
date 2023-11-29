@@ -5,6 +5,10 @@ import TheSearch from '../components/TheSearch.vue'
 <template>
   <main>
     <TheSearch class="search" update-route new-item routing />
+
+    <div class="link-to-player">
+      <RouterLink :to="{ name: 'play' }">→ Player</RouterLink>
+    </div>
   </main>
 </template>
 
@@ -19,5 +23,10 @@ main {
   // display: flex;
   // flex-direction: column;
   // gap: var(--spacing-s);
+
+  .link-to-player {
+    margin-top: var(--spacing-xl);
+    font-size: var(--font-size-s);
+  }
 }
 </style>
