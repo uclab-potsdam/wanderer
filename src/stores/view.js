@@ -48,6 +48,24 @@ export const useViewStore = defineStore('view', () => {
     { immediate: true }
   )
 
+  const theme = ref(permanentStore.getTheme() || 'Auto')
+  watch(
+    () => theme.value,
+    () => {
+      if (theme.value === 'Auto') {
+        document.documentElement.classList.remove('dark')
+        document.documentElement.classList.remove('light')
+      } else if (theme.value === 'Light') {
+        document.documentElement.classList.remove('dark')
+        document.documentElement.classList.add('light')
+      } else {
+        document.documentElement.classList.add('dark')
+        document.documentElement.classList.remove('light')
+      }
+      permanentStore.setTheme(theme.value)
+    }
+  )
+
   function localize(text) {
     if (text == null) return null
     return languageList.value.map((lang) => ({ text: text[lang], lang })).find((d) => d.text)
@@ -157,6 +175,7 @@ export const useViewStore = defineStore('view', () => {
     languageList,
     languageOptions,
     language,
+    theme,
     localize,
     getMediaUrl,
     mode,

@@ -1,4 +1,4 @@
-:root {
+@mixin light {
   --secondary: rgb(var(--gray-11));
   --primary: rgb(var(--gray-0));
   --accent: rgb(var(--blue-gray-5));
@@ -61,9 +61,8 @@
   --text-base-opacity: 85%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --secondary: rgb(var(--gray-0));
+@mixin dark {
+  --secondary: rgb(var(--gray-0));
     --primary: rgb(var(--gray-11));
     --accent: rgb(var(--blue-gray-5));
     --muted: rgb(var(--gray-3));
@@ -96,6 +95,22 @@
 
     --text-base: white;
     --text-base-opacity: 90%;
+}
 
+:root {
+  @include light;
+
+  &.dark {
+    @include dark;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include dark;
+
+    &.light {
+      @include light;
+    }
   }
 }
