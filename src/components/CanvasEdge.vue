@@ -374,10 +374,6 @@ function onClick() {
   showEditModal.value = true
 }
 
-function update() {
-  terminusStore.getGraph(terminusStore.graph)
-}
-
 const sourceLevel = computed(
   () =>
     terminusStore.states.findLast((state) => state.node === props.edge.source && state.timestamp <= syncStore.time)
@@ -466,7 +462,7 @@ const gradient = computed(() => {
 
         <foreignObject>
           <Teleport to="#modals">
-            <ModalEdit :show="showEditModal" :id="id" type="edge" @close="showEditModal = false" @update="update" />
+            <ModalEdit :show="showEditModal" :id="id" type="edge" @close="showEditModal = false" />
           </Teleport>
         </foreignObject>
       </g>

@@ -21,7 +21,6 @@ async function getFrame() {
       .filter((key) => /^[^@]/.test(key))
       .sort((a, b) => {
         // TODO: #17 define property order in schema
-        console.log(a)
         if (a === 'label') return -1
         if (a === 'description' && b === 'label') return 1
         if (a === 'description') return -1

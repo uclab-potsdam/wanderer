@@ -24,7 +24,8 @@ watch(
 )
 
 async function updateDocument() {
-  await terminusStore.updateDocument([document.value])
+  const id = await terminusStore.updateDocument([document.value])
+  terminusStore.refreshDocument(id)
   emit('close')
   emit('update')
 }
@@ -33,6 +34,7 @@ async function deleteDocument() {
   if (props.type === 'entity') await terminusStore.deleteEntity(props.id)
   else if (props.type === 'graph') await terminusStore.deleteGraph(props.id)
   else await terminusStore.deleteDocument(props.id)
+  terminusStore.removeDocument(props.type, props.id)
   emit('close')
   emit('update')
 }

@@ -19,7 +19,8 @@ const emit = defineEmits(['close', 'update'])
 const document = ref({ '@type': props.type || route.params.type })
 
 async function addDocument() {
-  await terminusStore.addDocument([document.value])
+  const id = await terminusStore.addDocument([document.value])
+  terminusStore.refreshDocument(id)
   emit('close')
   emit('update')
 }
@@ -39,17 +40,11 @@ watch(
 </script>
 
 <template>
-  <ModalWrapper
-    @close="$emit('close')"
-    show-header
-    :title="`Create ${props.type || route.params.type}`"
-  >
+  <ModalWrapper @close="$emit('close')" show-header :title="`Create ${props.type || route.params.type}`">
     <main>
       <DocumentForm v-model="document" />
       <div class="button-group">
-        <BaseButton primary @click="addDocument"
-          >create {{ props.type || route.params.type }}</BaseButton
-        >
+        <BaseButton primary @click="addDocument">create {{ props.type || route.params.type }}</BaseButton>
         <BaseButton secondary @click="cancel">cancel</BaseButton>
       </div>
     </main>
