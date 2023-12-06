@@ -552,8 +552,12 @@ export const useTerminusStore = defineStore('terminus', () => {
   async function getDocumentsByType(type) {
     if (type === 'graph') {
       const res = await client.query(
-        WOQL.triple('v:id', 'rdf:type', `@schema:${type}`).read_document('v:id', 'v:doc')
-        // .opt(WOQL.triple('v:id', 'media', 'v:media_id').read_document('v:media_id', 'v:media'))
+        WOQL.triple('v:id', 'rdf:type', `@schema:${type}`).once(
+          WOQL.read_document('v:id', 'v:doc').opt(
+            WOQL.triple('v:id', 'media', 'v:media_id').read_document('v:media_id', 'v:media')
+          ),
+          WOQL.read_document('v:id', 'v:doc')
+        )
       )
       return res.bindings.map(({ doc, media }) => ({ ...doc, media }))
     }
