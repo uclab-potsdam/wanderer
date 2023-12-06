@@ -533,6 +533,7 @@ const gradient = computed(() => {
   }
   .events {
     stroke-width: 20;
+    stroke: transparent;
     pointer-events: all;
   }
   .path {
