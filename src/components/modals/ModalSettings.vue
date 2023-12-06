@@ -13,14 +13,11 @@ const viewStore = useViewStore()
     <div class="settings">
       <section>
         <div class="label">Language</div>
-        <InputSegment
-          v-model="viewStore.language"
-          :options="viewStore.languageOptions"
-        ></InputSegment>
+        <InputSegment v-model="viewStore.language" :options="viewStore.languageOptions"></InputSegment>
       </section>
       <section>
         <div class="label">Theme</div>
-        <InputSegment :options="['Auto', 'Light', 'Dark']"></InputSegment>
+        <InputSegment v-model="viewStore.theme" :options="['Auto', 'Light', 'Dark']"></InputSegment>
       </section>
 
       <ModalSettingsAccount> </ModalSettingsAccount>

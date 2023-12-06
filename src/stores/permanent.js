@@ -18,7 +18,14 @@ export const usePermanentStore = defineStore('auth', () => {
     return +localStorage.getItem('MODE')
   }
 
-  return { setCredentials, clearCredentials, setMode, getMode }
+  function setTheme(value) {
+    localStorage.setItem('THEME', value)
+  }
+  function getTheme() {
+    return localStorage.getItem('THEME')
+  }
+
+  return { setCredentials, clearCredentials, setMode, getMode, setTheme, getTheme }
 })
 
 if (import.meta.hot) {
