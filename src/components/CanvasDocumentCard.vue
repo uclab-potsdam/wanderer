@@ -89,10 +89,6 @@ onBeforeUnmount(() => {
   canvasStore.deleteNode(props.allocation.node['@id'])
 })
 
-function update() {
-  terminusStore.getGraph(terminusStore.graph)
-}
-
 async function deleteAllocation() {
   terminusStore.deleteAllocation(props.allocation['@id'])
   const index = terminusStore.allocations.findIndex((n) => n['@id'] === props.allocation['@id'])
@@ -169,7 +165,6 @@ const showEditModal = ref(false)
             :id="allocation.node['@id']"
             :type="allocation.node['@type']"
             @close="showEditModal = false"
-            @update="update"
           />
         </Teleport>
       </template>

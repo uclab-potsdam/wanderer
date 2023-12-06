@@ -293,6 +293,7 @@ export const useTerminusStore = defineStore('terminus', () => {
   }
 
   async function getGraph(id, clear = false) {
+    if (id == null) return
     if (clear.value) allocations.value = []
     graph.value = id
     const res = await client.query(
@@ -549,6 +550,34 @@ export const useTerminusStore = defineStore('terminus', () => {
     )[0]
   }
 
+  async function refreshDocument(id) {
+    const doc = await getDocument(id)
+    const type = doc['@type']
+    if (type === 'class' || type === 'property' || type === 'edge') {
+      const collection = type === 'class' ? classes : type === 'property' ? properties : edges
+      const index = collection.value.findIndex((d) => d['@id'] === doc['@id'])
+      if (index === -1) {
+        collection.value.push(doc)
+      } else {
+        collection.value.splice(index, 1, doc)
+      }
+    } else if (type === 'allocation' || type === 'entity' || type === 'graph') {
+      await getGraph(graph.value)
+    }
+  }
+
+  async function removeDocument(type, id) {
+    if (type === 'class' || type === 'property' || type === 'edge') {
+      const collection = type === 'class' ? classes : type === 'property' ? properties : edges
+      const index = collection.value.findIndex((d) => d['@id'] === id)
+      if (index !== -1) {
+        collection.value.splice(index, 1)
+      }
+    } else if (type === 'allocation' || type === 'entity' || type === 'graph') {
+      await getGraph(graph.value)
+    }
+  }
+
   async function getDocumentsByType(type) {
     if (type === 'graph') {
       const res = await client.query(
@@ -655,6 +684,8 @@ export const useTerminusStore = defineStore('terminus', () => {
     getGraph,
     getNetwork,
     getDocument,
+    refreshDocument,
+    removeDocument,
     getDocumentsByType,
     search,
     offset,
