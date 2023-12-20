@@ -287,7 +287,6 @@ function computePoints() {
     const edge = props.edge.x != null &&
       props.edge.y != null && { x: props.edge.x + offset.x, y: props.edge.y + offset.y }
 
-    console.log(edge, offset)
     const dir1 = getDirection(source, edge || target)
     const dir2 = getDirection(edge || source, target)
 
