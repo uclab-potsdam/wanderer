@@ -15,7 +15,9 @@ export const useCanvasStore = defineStore('canvas', () => {
       top: node.y - offset.y,
       right: node.x + (node.width - offset.x),
       bottom: node.y + (node.height - offset.y),
-      left: node.x - offset.x
+      left: node.x - offset.x,
+      height: node.height,
+      width: node.width
     }
 
     node.centerBounds = {

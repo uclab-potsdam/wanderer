@@ -315,6 +315,7 @@ const accent = computed(() => {
 
   .node-wrapper {
     pointer-events: none;
+    width: max-content;
     > * {
       pointer-events: all;
     }

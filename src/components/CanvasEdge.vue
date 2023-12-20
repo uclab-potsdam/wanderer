@@ -5,6 +5,7 @@ import { useTerminusStore } from '@/stores/terminus'
 import { useSyncStore } from '@/stores/sync'
 import { useViewStore } from '@/stores/view'
 import { useCanvasStore } from '@/stores/canvas'
+import { useComposeStore } from '@/stores/compose'
 import { lineIntersect } from '@/assets/js/utils'
 import ModalEdit from './modals/ModalEdit.vue'
 import { MODE_COMPOSE, MODE_VIEW } from '@/assets/js/constants'
@@ -15,12 +16,15 @@ const terminusStore = useTerminusStore()
 const syncStore = useSyncStore()
 const viewStore = useViewStore()
 const canvasStore = useCanvasStore()
+const composeStore = useComposeStore()
 
 const route = useRoute()
 
 const viewClass = computed(() => `view-${route.name}`)
 
 const props = defineProps({ edge: Object, interactive: Boolean })
+
+const mode = computed(() => viewStore.mode)
 
 const label = computed(() => {
   // if (props.edge.proxy != null) return null
@@ -41,227 +45,270 @@ const id = computed(() => {
 
 const points = ref([])
 
-watch(() => [canvasStore.nodes[props.edge.source], canvasStore.nodes[props.edge.target]], computePoints, {
-  immediate: true
-})
+watch(
+  () => [canvasStore.nodes[props.edge.source], canvasStore.nodes[props.edge.target], props.edge.x, props.edge.y],
+  computePoints,
+  {
+    immediate: true
+  }
+)
+
+function getDirection(a, b) {
+  const buffer = 40
+  if ((a.bounds?.right || a.x) < (b.bounds?.left || b.x)) {
+    if ((a.bounds?.top || a.y) - buffer > (b.bounds?.bottom || b.y)) return '↗'
+    if ((a.bounds?.bottom || a.y) + buffer < (b.bounds?.top || b.y)) return '↘'
+    return '→'
+  }
+
+  if ((a.bounds?.left || a.x) > (b.bounds?.right || b.x)) {
+    if ((a.bounds?.top || a.y) - buffer > (b.bounds?.bottom || b.y)) return '↖'
+    if ((a.bounds?.bottom || a.y) + buffer < (b.bounds?.top || b.y)) return '↙'
+    return '←'
+  }
+
+  if (a.y < b.y) return '↓'
+  return '↑'
+}
+
+function getAnchor(node, dir, inverse) {
+  if (inverse) {
+    const dirs = ['→', '↘', '↓', '↙', '←', '↖', '↑', '↗']
+    dir = dirs[(dirs.indexOf(dir) + 4) % 8]
+  }
+  switch (dir) {
+    case '→': {
+      return {
+        x: node.bounds.right,
+        y: node.y
+      }
+    }
+    case '↘': {
+      return {
+        x: node.bounds.right,
+        y: node.bounds.bottom
+      }
+    }
+    case '↓': {
+      return {
+        x: node.x,
+        y: node.bounds.bottom
+      }
+    }
+    case '↙': {
+      return {
+        x: node.bounds.left,
+        y: node.bounds.bottom
+      }
+    }
+    case '←': {
+      return {
+        x: node.bounds.left,
+        y: node.y
+      }
+    }
+    case '↖': {
+      return {
+        x: node.bounds.left,
+        y: node.bounds.top
+      }
+    }
+    case '↑': {
+      return {
+        x: node.x,
+        y: node.bounds.top
+      }
+    }
+    case '↗': {
+      return {
+        x: node.bounds.right,
+        y: node.bounds.top
+      }
+    }
+  }
+}
+
+function getEncasedDirection(dir, delta, inverse) {
+  if (inverse) {
+    const dirs = ['→', '↘', '↓', '↙', '←', '↖', '↑', '↗']
+    dir = dirs[(dirs.indexOf(dir) + 4) % 8]
+  }
+  switch (dir) {
+    case '→':
+      return delta.y === 0 ? '→' : delta.y > 0 ? '↗' : '↘'
+    case '↘':
+      return Math.abs(delta.x) === Math.abs(delta.y) ? '↘' : Math.abs(delta.x) > Math.abs(delta.y) ? '→' : '↓'
+    case '↓':
+      return delta.x === 0 ? '↓' : delta.x > 0 ? '↙' : '↘'
+    case '↙':
+      return Math.abs(delta.x) === Math.abs(delta.y) ? '↙' : Math.abs(delta.x) > Math.abs(delta.y) ? '←' : '↓'
+    case '←':
+      return delta.y === 0 ? '←' : delta.y > 0 ? '↖' : '↙'
+    case '↖':
+      return Math.abs(delta.x) === Math.abs(delta.y) ? '↖' : Math.abs(delta.x) > Math.abs(delta.y) ? '←' : '↑'
+    case '↑':
+      return delta.x === 0 ? '↑' : delta.x > 0 ? '↖' : '↗'
+    case '↗': {
+      return Math.abs(delta.x) === Math.abs(delta.y) ? '↗' : Math.abs(delta.x) > Math.abs(delta.y) ? '→' : '↑'
+    }
+  }
+}
+
+function streamlinePattern(pattern) {
+  return pattern.replace(/(.)(.)\1\1\2\1/, '$1$1$2$2$1$1')
+}
+
+function getPointsAt(a, b, ratios) {
+  const delta = {
+    x: a.x - b.x,
+    y: a.y - b.y
+  }
+
+  return ratios.map((r) => {
+    return {
+      x: a.x - delta.x * r,
+      y: a.y - delta.y * r
+    }
+  })
+}
+
+function resolvePattern(pattern, sourceAnchor, center, targetAnchor, delta1, delta2) {
+  const seq1 = []
+  if (/^(.)\1\1/.test(pattern)) {
+    seq1.push(...getPointsAt(sourceAnchor, center, [0.25, 0.5, 0.75]))
+  } else {
+    const control1A = resolveDirection(sourceAnchor, pattern[0], delta1)
+    const center1 = resolveDirection(control1A, pattern[1], delta1)
+    const control1B = resolveDirection(center, pattern[2], delta1, true)
+    if (/^(.)\1/.test(pattern)) {
+      // const center1Alt = getPointsAt(control1B, center, [0.9])[0]
+      const center1Alt = getPointsAt(center1, control1B, [0.9])[0]
+      seq1.push(center1, center1Alt, control1B)
+    } else {
+      seq1.push(control1A, center1, control1B)
+    }
+  }
+
+  const seq2 = []
+  if (/(.)\1\1$/.test(pattern)) {
+    seq2.push(...getPointsAt(center, targetAnchor, [0.25, 0.5, 0.75]))
+  } else {
+    const control2B = resolveDirection(targetAnchor, pattern[5], delta2, true)
+    const center2 = resolveDirection(control2B, pattern[4], delta2, true)
+    const control2A = resolveDirection(center, pattern[3], delta2)
+    if (/(.)\1$/.test(pattern)) {
+      // const center2Alt = getPointsAt(center, control2A, [0.1])[0]
+      const center2Alt = getPointsAt(center2, control2A, [0.9])[0]
+      seq2.push(control2A, center2Alt, center2)
+    } else {
+      seq2.push(control2A, center2, control2B)
+    }
+  }
+
+  // const control2B = resolveDirection(targetAnchor, pattern[5], delta2, true)
+  // const center2 = resolveDirection(control2B, pattern[4], delta2, true)
+  // const control2A = resolveDirection(center, pattern[3], delta2)
+
+  // const seq2 = pattern[4] === pattern[5] ? [center2, control2B, control2B] : [control2A, center2, control2B]
+
+  return [sourceAnchor, ...seq1, center, ...seq2, targetAnchor]
+}
+
+function resolveDirection(anchor, dir, delta, inverse) {
+  if (inverse) {
+    const dirs = ['→', '↘', '↓', '↙', '←', '↖', '↑', '↗']
+    dir = dirs[(dirs.indexOf(dir) + 4) % 8]
+  }
+  const buffer = 0
+  switch (dir) {
+    case '→': {
+      return {
+        x: anchor.x + Math.max(buffer, (Math.abs(delta.x) - Math.abs(delta.y)) / 2),
+        y: anchor.y
+      }
+    }
+    case '↘': {
+      const buffer = Math.min(Math.abs(delta.x) / 2, Math.abs(delta.y) / 2)
+      return {
+        x: anchor.x + buffer,
+        y: anchor.y + buffer
+      }
+    }
+    case '↓': {
+      return {
+        x: anchor.x,
+        y: anchor.y + Math.max(buffer, (Math.abs(delta.y) - Math.abs(delta.x)) / 2)
+      }
+    }
+    case '↙': {
+      const buffer = Math.min(Math.abs(delta.x) / 2, Math.abs(delta.y) / 2)
+      return {
+        x: anchor.x - buffer,
+        y: anchor.y + buffer
+      }
+    }
+    case '←': {
+      return {
+        x: anchor.x - (Math.abs(delta.x) - Math.abs(delta.y)) / 2,
+        y: anchor.y
+      }
+    }
+    case '↖': {
+      const buffer = Math.min(Math.abs(delta.x) / 2, Math.abs(delta.y) / 2)
+      return {
+        x: anchor.x - buffer,
+        y: anchor.y - buffer
+      }
+    }
+    case '↑': {
+      return {
+        x: anchor.x,
+        y: anchor.y - Math.max(buffer, (Math.abs(delta.y) - Math.abs(delta.x)) / 2)
+      }
+    }
+    case '↗': {
+      const buffer = Math.min(Math.abs(delta.x) / 2, Math.abs(delta.y) / 2)
+      return {
+        x: anchor.x + buffer,
+        y: anchor.y - buffer
+      }
+    }
+  }
+}
 
 function computePoints() {
-  const offset = canvasStore.offset
-
   if (route.name === 'graph') {
+    const offset = terminusStore.offset
     const source = canvasStore.nodes[props.edge.source]
     const target = canvasStore.nodes[props.edge.target]
     if (source == null || target == null) return
     // FLOWCHART – draw edges using line segments at 45° angles
-    const buffer = 40
-    const alignHorizontally =
-      target.bounds.bottom > source.bounds.top - buffer && target.bounds.top < source.bounds.bottom + buffer
-    const alignVertically =
-      target.bounds.right > source.bounds.left - buffer && target.bounds.left < source.bounds.right + buffer
 
-    const stubSize = 15
-    if (alignHorizontally && !alignVertically) {
-      // HORIZONTAL
-      const sourceAnchor = {
-        x: source.bounds[source.x < target.x ? 'right' : 'left'],
-        y: source.bounds.top + offset.y
-      }
-      const targetAnchor = {
-        x: target.bounds[source.x < target.x ? 'left' : 'right'],
-        y: target.bounds.top + offset.y
-      }
-      const delta = {
-        x: sourceAnchor.x - targetAnchor.x,
-        y: sourceAnchor.y - targetAnchor.y
-      }
-      const center = {
-        x: sourceAnchor.x - delta.x / 2,
-        y: sourceAnchor.y - delta.y / 2
-      }
-      if (Math.abs(delta.x) > Math.abs(delta.y) + stubSize * 2) {
-        points.value = [
-          sourceAnchor,
-          { x: center.x - Math.abs(delta.y / 2) * (delta.x > 0 ? -1 : 1), y: sourceAnchor.y },
-          center,
-          { x: center.x + Math.abs(delta.y / 2) * (delta.x > 0 ? -1 : 1), y: targetAnchor.y },
-          targetAnchor
-        ]
-      } else {
-        points.value = [
-          sourceAnchor,
-          { x: center.x, y: sourceAnchor.y },
-          center,
-          { x: center.x, y: targetAnchor.y },
-          targetAnchor
-        ]
-      }
-    } else if (alignVertically && !alignHorizontally) {
-      // VERTICAL
-      const sourceAnchor = {
-        x: source.bounds.left + offset.x,
-        y: source.bounds[source.y < target.y ? 'bottom' : 'top']
-      }
-      const targetAnchor = {
-        x: target.bounds.left + offset.x,
-        y: target.bounds[source.y < target.y ? 'top' : 'bottom']
-      }
-      const delta = {
-        x: sourceAnchor.x - targetAnchor.x,
-        y: sourceAnchor.y - targetAnchor.y
-      }
-      const center = {
-        x: sourceAnchor.x - delta.x / 2,
-        y: sourceAnchor.y - delta.y / 2
-      }
-      if (Math.abs(delta.y) > Math.abs(delta.x) + stubSize * 2) {
-        points.value = [
-          sourceAnchor,
-          { x: sourceAnchor.x, y: center.y - Math.abs(delta.x / 2) * (delta.y > 0 ? -1 : 1) },
-          center,
-          { x: targetAnchor.x, y: center.y + Math.abs(delta.x / 2) * (delta.y > 0 ? -1 : 1) },
-          targetAnchor
-        ]
-      } else {
-        points.value = [
-          sourceAnchor,
-          { x: sourceAnchor.x, y: center.y },
-          center,
-          { x: targetAnchor.x, y: center.y },
-          targetAnchor
-        ]
-      }
-    } else if (!alignVertically && !alignHorizontally) {
-      // DIAGONAL
-      if (source.x < target.x) {
-        if (source.y < target.y) {
-          // ↘↘↘
-          const sourceAnchor = { x: source.bounds.right, y: source.bounds.bottom }
-          const targetAnchor = { x: target.bounds.left, y: target.bounds.top }
+    const edge = props.edge.x != null &&
+      props.edge.y != null && { x: props.edge.x + offset.x, y: props.edge.y + offset.y }
 
-          const delta = {
-            x: sourceAnchor.x - targetAnchor.x,
-            y: sourceAnchor.y - targetAnchor.y
-          }
-          const center = {
-            x: sourceAnchor.x - delta.x / 2,
-            y: sourceAnchor.y - delta.y / 2
-          }
+    console.log(edge, offset)
+    const dir1 = getDirection(source, edge || target)
+    const dir2 = getDirection(edge || source, target)
 
-          if (Math.abs(delta.x) < Math.abs(delta.y)) {
-            points.value = [
-              sourceAnchor,
-              { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y - delta.x / 2 },
-              center,
-              { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y + delta.x / 2 },
-              targetAnchor
-            ]
-          } else {
-            points.value = [
-              sourceAnchor,
-              { x: sourceAnchor.x - delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
-              center,
-              { x: targetAnchor.x + delta.y / 2, y: targetAnchor.y + delta.y / 2 },
-              targetAnchor
-            ]
-          }
-        } else {
-          // ↗↗↗
-          const sourceAnchor = { x: source.bounds.right, y: source.bounds.top }
-          const targetAnchor = { x: target.bounds.left, y: target.bounds.bottom }
+    const sourceAnchor = getAnchor(source, dir1)
+    const targetAnchor = getAnchor(target, dir2, true)
 
-          const delta = {
-            x: sourceAnchor.x - targetAnchor.x,
-            y: sourceAnchor.y - targetAnchor.y
-          }
-          const center = {
-            x: sourceAnchor.x - delta.x / 2,
-            y: sourceAnchor.y - delta.y / 2
-          }
+    const { center, delta1, delta2 } = getDeltaAndCenter(sourceAnchor, targetAnchor, edge)
 
-          if (Math.abs(delta.x) < Math.abs(delta.y)) {
-            points.value = [
-              sourceAnchor,
-              { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y + delta.x / 2 },
-              center,
-              { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y - delta.x / 2 },
-              targetAnchor
-            ]
-          } else {
-            points.value = [
-              sourceAnchor,
-              { x: sourceAnchor.x + delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
-              center,
-              { x: targetAnchor.x - delta.y / 2, y: targetAnchor.y + delta.y / 2 },
-              targetAnchor
-            ]
-          }
-        }
-      } else {
-        if (source.y < target.y) {
-          // ↙↙↙
-          const sourceAnchor = { x: source.bounds.left, y: source.bounds.bottom }
-          const targetAnchor = { x: target.bounds.right, y: target.bounds.top }
+    const pattern = `${dir1}${getEncasedDirection(dir1, delta1)}${dir1}${dir2}${getEncasedDirection(
+      dir2,
+      delta2
+    )}${dir2}`
 
-          const delta = {
-            x: sourceAnchor.x - targetAnchor.x,
-            y: sourceAnchor.y - targetAnchor.y
-          }
-          const center = {
-            x: sourceAnchor.x - delta.x / 2,
-            y: sourceAnchor.y - delta.y / 2
-          }
-
-          if (Math.abs(delta.x) < Math.abs(delta.y)) {
-            points.value = [
-              sourceAnchor,
-              { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y + delta.x / 2 },
-              center,
-              { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y - delta.x / 2 },
-              targetAnchor
-            ]
-          } else {
-            points.value = [
-              sourceAnchor,
-              { x: sourceAnchor.x + delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
-              center,
-              { x: targetAnchor.x - delta.y / 2, y: targetAnchor.y + delta.y / 2 },
-              targetAnchor
-            ]
-          }
-        } else {
-          // ↖↖↖
-          const sourceAnchor = { x: source.bounds.left, y: source.bounds.top }
-          const targetAnchor = { x: target.bounds.right, y: target.bounds.bottom }
-
-          const delta = {
-            x: sourceAnchor.x - targetAnchor.x,
-            y: sourceAnchor.y - targetAnchor.y
-          }
-          const center = {
-            x: sourceAnchor.x - delta.x / 2,
-            y: sourceAnchor.y - delta.y / 2
-          }
-
-          if (Math.abs(delta.x) < Math.abs(delta.y)) {
-            points.value = [
-              sourceAnchor,
-              { x: sourceAnchor.x - delta.x / 2, y: sourceAnchor.y - delta.x / 2 },
-              center,
-              { x: targetAnchor.x + delta.x / 2, y: targetAnchor.y + delta.x / 2 },
-              targetAnchor
-            ]
-          } else {
-            points.value = [
-              sourceAnchor,
-              { x: sourceAnchor.x - delta.y / 2, y: sourceAnchor.y - delta.y / 2 },
-              center,
-              { x: targetAnchor.x + delta.y / 2, y: targetAnchor.y + delta.y / 2 },
-              targetAnchor
-            ]
-          }
-        }
-      }
-    }
+    points.value = resolvePattern(
+      streamlinePattern(pattern),
+      sourceAnchor,
+      edge || center,
+      targetAnchor,
+      delta1,
+      delta2
+    )
   } else {
     // use proxy position if **either** target or source have a proxy position
     const source = (!props.edge.proxy?.source && props.edge.proxy?.target) || canvasStore.nodes[props.edge.source]
@@ -333,7 +380,8 @@ function computePoints() {
       return
     }
     const p = []
-    const segments = 4
+
+    const segments = 8
     const delta = {
       x: pSource.x - pTarget.x,
       y: pSource.y - pTarget.y
@@ -349,28 +397,56 @@ function computePoints() {
   }
 }
 
+function getDeltaAndCenter(sourceAnchor, targetAnchor, center) {
+  const delta = {
+    x: sourceAnchor.x - targetAnchor.x,
+    y: sourceAnchor.y - targetAnchor.y
+  }
+  center = center || {
+    x: sourceAnchor.x - delta.x / 2,
+    y: sourceAnchor.y - delta.y / 2
+  }
+  const delta1 = {
+    x: sourceAnchor.x - center.x,
+    y: sourceAnchor.y - center.y
+  }
+  const delta2 = {
+    x: center.x - targetAnchor.x,
+    y: center.y - targetAnchor.y
+  }
+  return { delta, center, delta1, delta2 }
+}
+
 const path = computed(() => {
   if (!points.value?.length) return null
   const p = points.value.map((p) => `${p.x},${p.y}`)
-  return `M${p[0]} C${p[1]} ${p[1]} ${p[2]} C${p[3]} ${p[3]} ${p[4]}`
+
+  return `M${p[0]} C${p[1]} ${p[1]} ${p[2]} C ${p[3]} ${p[3]} ${p[4]} C ${p[5]} ${p[5]} ${p[6]} C ${p[7]} ${p[7]} ${p[8]}`
+  // return `M${p[0]} L${p[1]} ${p[1]} ${p[2]} L ${p[3]} ${p[3]} ${p[4]} L ${p[5]} ${p[5]} ${p[6]} L ${p[7]} ${p[7]} ${p[8]} `
 })
 
 const midPoint = computed(() => {
-  if (vertical.value) return { x: points.value[2].x - 25, y: points.value[2].y }
+  if (vertical.value) return { x: points.value[4].x - 25, y: points.value[4].y }
   if (!props.edge.multitude) {
-    if (props.edge.contradict === true) return points.value?.[2 + Math.abs(props.edge.offset)]
-    if (props.edge.contradict === false) return points.value?.[2 + props.edge.offset]
+    if (props.edge.contradict === true) return points.value?.[4 + Math.abs(props.edge.offset)]
+    if (props.edge.contradict === false) return points.value?.[4 + props.edge.offset]
   }
-  return points.value?.[2]
+  return points.value?.[4]
 })
 
-const vertical = computed(
-  () => points.value?.length > 0 && points.value?.[0].x === points.value?.[points.value?.length - 1].x
-)
+// const vertical = computed(
+//   () => points.value?.length > 0 && points.value?.[0].x === points.value?.[points.value?.length - 1].x
+// )
+
+const vertical = false
 
 const showEditModal = ref(false)
 function onClick() {
   if (!props.interactive) return
+  if (composeStore.movingEdge != null) {
+    composeStore.movingEdge = null
+    return
+  }
   showEditModal.value = true
 }
 
@@ -396,6 +472,12 @@ const gradient = computed(() => {
   if (props.edge.proxy.source) return 'gradient-end'
   return 'gradient-start'
 })
+
+function onMouseDown(e) {
+  if (mode.value !== MODE_COMPOSE) return
+  e.stopPropagation()
+  composeStore.moveEdge(props.edge['@id'], { x: midPoint.value.x, y: midPoint.value.y }, { x: e.x, y: e.y })
+}
 </script>
 
 <template>
@@ -403,7 +485,6 @@ const gradient = computed(() => {
     class="edge"
     :style="color"
     :class="[`level-${level}`, viewClass, viewStore.modeClass, gradient, { activity: !viewStore.inactivityShort }]"
-    @click="onClick"
   >
     <BaseInterpolate
       :props="{
@@ -451,11 +532,17 @@ const gradient = computed(() => {
             class="label"
             :style="{ transform: `translate(${midPoint.x}px, ${midPoint.y}px)` }"
           >
-            <text :lang="label.lang" class="shadow" :class="{ vertical }">
-              {{ label.text }}
+            <text
+              :lang="label.lang"
+              class="shadow"
+              :class="{ vertical, unset: label.text == null }"
+              @mousedown="onMouseDown"
+              @click="onClick"
+            >
+              {{ label.text ?? '[?]' }}
             </text>
-            <text :lang="label.lang" :class="{ vertical }">
-              {{ label.text }}
+            <text :lang="label.lang" :class="{ vertical, unset: label.text == null }">
+              {{ label.text ?? '[?]' }}
             </text>
           </g>
         </template>
@@ -568,10 +655,8 @@ const gradient = computed(() => {
     font-weight: var(--light);
     pointer-events: none;
     text-anchor: middle;
-
-    transition: all var(--transition);
-
     dominant-baseline: middle;
+
     &.shadow {
       stroke: var(--background-color);
       stroke-width: 8px;
@@ -582,12 +667,32 @@ const gradient = computed(() => {
     }
   }
 
+  &.mode-compose {
+    text.shadow {
+      pointer-events: all;
+      cursor: pointer;
+    }
+  }
+
+  &:not(.mode-compose) {
+    text.unset {
+      fill: none;
+      stroke: none;
+    }
+  }
+
   &:hover {
     .path {
       stroke: var(--edge-color-accent);
     }
     text {
-      fill: var(--edge-color-accent);
+      fill: var(--background-color);
+
+      &.shadow {
+        stroke-width: 50;
+        clip-path: inset(-5px -10px -5px -10px round 50px);
+        stroke: var(--edge-color);
+      }
     }
   }
 

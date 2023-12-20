@@ -238,6 +238,32 @@ export const useTerminusStore = defineStore('terminus', () => {
     // });
   }
 
+  async function updateEdge(id, coordinates, local = false) {
+    const edge = edges.value.find((edge) => edge['@id'] === id)
+
+    const x = coordinates.x
+    const y = coordinates.y
+    const snapping = true
+    const gridSize = snapping ? 62.5 / 4 : 0.5
+    const snapTo = {
+      x: Math.round(x / gridSize) * gridSize,
+      y: Math.round(y / gridSize) * gridSize
+    }
+
+    // if (allocation != null) {
+    edge.x = snapTo.x
+    edge.y = snapTo.y
+    // }
+    if (local) return
+    await client.updateDocument({
+      ...edge,
+      ...snapTo
+    })
+    // if (allocation == null) {
+    //   getGraph(graph.value)
+    // }
+  }
+
   async function addEdge(source, target) {
     const edge = { source, target, graph: graph.value }
     edges.value.push(edge)
@@ -681,6 +707,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     deleteGraph,
     deleteEntity,
     addEdge,
+    updateEdge,
     getGraph,
     getNetwork,
     getDocument,

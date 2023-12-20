@@ -52,6 +52,51 @@ export const useComposeStore = defineStore('compose', () => {
     }
   }
 
+  const movingEdge = ref(null)
+  function moveEdge(edge, position, offset) {
+    const controller = new AbortController()
+
+    window.addEventListener(
+      'mousemove',
+      (e) => {
+        movingEdge.value = edge
+        terminusStore.updateEdge(edge, getPosition(e), true)
+      },
+      { signal: controller.signal }
+    )
+
+    window.addEventListener(
+      'mouseup',
+      (e) => {
+        terminusStore.updateEdge(edge, getPosition(e))
+        reset()
+      },
+      { once: true, signal: controller.signal }
+    )
+
+    window.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key !== 'Escape') return
+        terminusStore.updateEdge(edge, position, true)
+        reset()
+      },
+      { once: true, signal: controller.signal }
+    )
+
+    function getPosition(e) {
+      return {
+        x: position.x + (e.x - offset.x) / canvasStore.transform.k,
+        y: position.y + (e.y - offset.y) / canvasStore.transform.k
+      }
+    }
+
+    function reset() {
+      // movingEdge.value = null
+      controller.abort()
+    }
+  }
+
   const sourceNode = ref(null)
   const targetNode = ref(null)
   const drawingEdge = ref(null)
@@ -93,12 +138,8 @@ export const useComposeStore = defineStore('compose', () => {
     )
 
     function getArrowRotation(e) {
-      const vectorX =
-        e.x / canvasStore.transform.k -
-        (position.x + canvasStore.transform.x / canvasStore.transform.k)
-      const vectorY =
-        e.y / canvasStore.transform.k -
-        (position.y + canvasStore.transform.y / canvasStore.transform.k)
+      const vectorX = e.x / canvasStore.transform.k - (position.x + canvasStore.transform.x / canvasStore.transform.k)
+      const vectorY = e.y / canvasStore.transform.k - (position.y + canvasStore.transform.y / canvasStore.transform.k)
       return Math.atan(vectorY / vectorX) * (180 / Math.PI) + (vectorX > 0 ? 0 : 180)
     }
 
@@ -115,6 +156,8 @@ export const useComposeStore = defineStore('compose', () => {
   return {
     movingNode,
     moveNode,
+    movingEdge,
+    moveEdge,
     sourceNode,
     targetNode,
     arrow,

@@ -124,7 +124,7 @@ const duration = computed(() => {
   // border-radius: var(--node-border-radius);
   .card {
     // min-width: 90px;
-    // width: 250px;
+    max-width: 250px;
     // min-height: 90px;
     transition: all var(--transition);
     // background: rgb(var(--gray-10));
@@ -169,7 +169,7 @@ const duration = computed(() => {
     .label {
       font-weight: var(--black);
       letter-spacing: 0.2px;
-      white-space: nowrap;
+      // white-space: nowrap;
     }
     .class {
       font-weight: var(--light);
