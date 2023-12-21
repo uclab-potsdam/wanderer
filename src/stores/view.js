@@ -63,6 +63,7 @@ export const useViewStore = defineStore('view', () => {
         document.documentElement.classList.remove('light')
       }
       permanentStore.setTheme(theme.value)
+
     },
     { immediate: true }
   )

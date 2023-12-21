@@ -27,6 +27,7 @@ export const useTerminusStore = defineStore('terminus', () => {
   const offset = ref({ x: 0, y: 0, id: null })
 
   const userInfo = ref({
+    raw: null,
     name: null,
     roles: null
   })
@@ -51,22 +52,25 @@ export const useTerminusStore = defineStore('terminus', () => {
     })
 
     try {
-      userInfo.value.roles = await accessControl
-        .getTeamUserRoles(user, organization)
-        .then((r) => r.capability.find((c) => c.scope.match(organization))?.role)
+      userInfo.value.raw = await accessControl.getTeamUserRoles(user, organization)
       userInfo.value.name = user
       isAuthorized.value = true
+
+      client = new WOQLClient(server, {
+        user,
+        [import.meta.env.VITE_AUTH_MODE]: pass,
+        organization,
+        db
+      })
+      const dbDetails = await client.getDatabases().then((details) => details.find((d) => d.name === db))
+      userInfo.value.roles = userInfo.value.raw.capability
+        .filter((c) => c.scope.match(organization) || c.scope === dbDetails['@id'])
+        .map((c) => c?.role)
+        .flat()
     } catch (error) {
       if (error.status === 401) return 'INCORRECT_CREDENTIALS'
       return 'UNEXPECTED_ERROR'
     }
-
-    client = new WOQLClient(server, {
-      user,
-      [import.meta.env.VITE_AUTH_MODE]: pass,
-      organization,
-      db
-    })
 
     client.checkout(branch)
     // try {
