@@ -296,6 +296,19 @@ export const useTerminusStore = defineStore('terminus', () => {
     getMarkers()
   }
 
+  async function updateMarker(marker, timestamp) {
+    const newMarker = {
+      ...marker,
+      timestamp
+    }
+    await client.updateDocument(newMarker)
+    markers.value.splice(
+      markers.value.findIndex((m) => m['@id'] === marker['@id']),
+      1,
+      newMarker
+    )
+  }
+
   async function deleteMarker(id) {
     await deleteDocument(id)
     getMarkers()
@@ -726,6 +739,7 @@ export const useTerminusStore = defineStore('terminus', () => {
     addMarker,
     getMarkers,
     markers,
+    updateMarker,
     deleteMarker,
     setState,
     setBounds,
