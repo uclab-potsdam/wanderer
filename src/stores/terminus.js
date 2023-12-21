@@ -259,10 +259,13 @@ export const useTerminusStore = defineStore('terminus', () => {
     edge.y = snapTo.y
     // }
     if (local) return
-    await client.updateDocument({
+
+    const newEdge = {
       ...edge,
       ...snapTo
-    })
+    }
+    delete newEdge.color
+    await client.updateDocument(newEdge)
     // if (allocation == null) {
     //   getGraph(graph.value)
     // }
