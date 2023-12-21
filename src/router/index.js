@@ -46,7 +46,8 @@ const router = createRouter({
     {
       path: '/media/:id',
       name: 'media',
-      component: () => import('@/views/InspectView.vue'),
+      // component: () => import('@/views/InspectView.vue'),
+      component: () => import('@/views/CanvasView.vue'),
       meta: {
         requiresAuth: true
       }

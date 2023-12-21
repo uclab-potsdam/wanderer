@@ -106,7 +106,7 @@ watch(
       // '@id': id.value,
       ...(props.modelValue['@id'] != null && { '@id': props.modelValue['@id'] }),
       '@type': props.modelValue['@type'],
-      ...Object.fromEntries(frame.value.map((p) => [p.key, p.value]))
+      ...Object.fromEntries(frame.value.map((p) => [p.key, p.value === '' ? null : p.value]))
     })
   },
   { deep: true }

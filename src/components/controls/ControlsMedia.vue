@@ -71,8 +71,8 @@ function togglePlay() {
 
 const showControls = computed(() => props.persistent || !viewStore.inactivityShort)
 
-function onKeyDown({ code, altKey, shiftKey }) {
-  const amount = shiftKey ? 30 : altKey ? 1 / framerate : 5
+async function onKeyDown({ code, altKey, shiftKey }) {
+  const amount = shiftKey ? 10 : altKey ? 1 / framerate : 1
   switch (code) {
     case 'Space':
       togglePlay()
@@ -84,6 +84,18 @@ function onKeyDown({ code, altKey, shiftKey }) {
     case 'ArrowRight':
       if (shiftKey && props.mark) seekForward()
       else setProgress(syncStore.time + amount)
+      break
+    case 'ArrowUp':
+      if (syncStore.atMarker) {
+        await updateMarker(syncStore.time + amount)
+        setProgress(syncStore.time + amount)
+      }
+      break
+    case 'ArrowDown':
+      if (syncStore.atMarker) {
+        await updateMarker(syncStore.time - amount)
+        setProgress(syncStore.time - amount)
+      }
       break
     case 'KeyM':
       toggleMarker()
@@ -98,6 +110,11 @@ onMounted(() => {
 function addMarker() {
   if (!props.mark) return
   terminusStore.addMarker(syncStore.time)
+}
+
+function updateMarker(time) {
+  if (!props.mark) return
+  terminusStore.updateMarker(syncStore.atMarker, time)
 }
 
 function deleteMarker() {
@@ -163,6 +180,7 @@ function seekForward() {
             :key="marker['@id']"
             :class="{ active: syncStore.atMarker?.['@id'] === marker['@id'] }"
             :style="{ left: `${(marker.timestamp / syncStore.duration) * 100}%` }"
+            @click.stop="setProgress(marker.timestamp)"
           ></div>
         </template>
         <!-- </div> -->
@@ -385,6 +403,13 @@ function seekForward() {
       background: var(--secondary);
       outline: 1px solid var(--secondary);
       z-index: 10;
+
+      pointer-events: all;
+
+      &:hover {
+        border-color: var(--accent);
+        background-color: var(--accent);
+      }
 
       &.active {
         border-color: var(--accent);
