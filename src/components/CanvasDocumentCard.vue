@@ -151,6 +151,7 @@ const showEditModal = ref(false)
       :document="allocation.node"
       :level="state?.level"
       :class="[viewStore.modeClass]"
+      on-canvas
     >
       <template v-slot:center>
         <NodeButtonDrawEdge v-if="mode === MODE_COMPOSE" :allocation="allocation" />

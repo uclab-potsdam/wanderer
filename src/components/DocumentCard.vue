@@ -21,7 +21,8 @@ const props = defineProps({
   document: Object,
   draggable: String,
   level: Number,
-  isActiveGraph: Boolean
+  isActiveGraph: Boolean,
+  onCanvas: Boolean
 })
 
 const label = computed(() => {
@@ -33,6 +34,16 @@ const className = computed(() => {
   const cl = terminusStore.classes.find((cl) => cl['@id'] === props.document.class)
   if (cl == null) return null
   return viewStore.localize(cl.label)
+})
+
+const mediaType = computed(() => {
+  if (props.document['@type'] !== 'media') return
+  return props.document.type ?? 'image'
+})
+
+const mediaUrl = computed(() => {
+  if (!mediaType.value || !props.document.file?.[0]) return
+  return viewStore.getMediaUrl(props.document.file[0])
 })
 
 const viewClass = computed(() => `view-${route.name}`)
@@ -70,10 +81,10 @@ const duration = computed(() => {
       document['@type'],
       viewClass,
       `level-${level ?? viewStore.stateLevelDefault}`,
-      { activity: !viewStore.inactivityShort }
+      { activity: !viewStore.inactivityShort, 'on-canvas': onCanvas, media: mediaType != null }
     ]"
   >
-    <div class="card">
+    <div class="card" v-if="!mediaType">
       <span class="label" :lang="label?.lang">
         {{ label?.text }}
         <span v-if="description && document['@type'] === 'graph'" class="description" :lang="description.lang">
@@ -104,6 +115,11 @@ const duration = computed(() => {
         </div>
       </template>
     </div>
+    <template v-else>
+      <div v-if="!onCanvas" class="media-label" :lang="label.lang">{{ label.text }}</div>
+      <img v-if="mediaType === 'image'" :src="mediaUrl" draggable="false" class="media" />
+      <video v-if="mediaType === 'video'" :src="mediaUrl" loop muted autoplay class="media" />
+    </template>
     <div class="actions">
       <div class="center"><slot name="center" /></div>
       <div class="right"><slot name="right" /></div>
@@ -122,6 +138,11 @@ const duration = computed(() => {
 .node {
   position: relative;
   // border-radius: var(--node-border-radius);
+
+  &.on-canvas:has(.media) {
+    width: 50%;
+  }
+
   .card {
     // min-width: 90px;
     max-width: 250px;
@@ -182,6 +203,21 @@ const duration = computed(() => {
     }
   }
 
+  .media {
+    transition: all var(--transition);
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+  }
+
+  .media-label {
+    position: absolute;
+    display: inline;
+    background: black;
+    color: white;
+  }
+
   &.graph {
     .card {
       --color: color-mix(in lab, var(--accent), var(--text-base) 50%);
@@ -229,7 +265,13 @@ const duration = computed(() => {
       filter: blur(15px);
       opacity: 0;
     }
-    &.mode-view .card {
+
+    &:not(.mode-couple:hover) .media,
+    &.mode-couple:has(.actions:hover) .media {
+      opacity: 0;
+    }
+    &.mode-view .card,
+    &.mode-view .media {
       transition: all var(--transition-extended);
     }
   }
@@ -245,7 +287,13 @@ const duration = computed(() => {
       // background: var(--node-background-light);
       color: var(--flow-color-inactive);
     }
-    &.mode-view .card {
+    &:not(.mode-couple:hover) .media,
+    &.mode-couple:has(.actions:hover) .media {
+      filter: blur(15px);
+      color: var(--flow-color-inactive);
+    }
+    &.mode-view .card,
+    &.mode-view .media {
       transition: all var(--transition-extended);
     }
   }
@@ -254,6 +302,25 @@ const duration = computed(() => {
     .card {
       // default case
     }
+  }
+
+  &.on-canvas {
+    &:not(.mode-compose) .media {
+      // filter: grayscale(1);
+      // mix-blend-mode: luminosity;
+    }
+
+    // &:not(.level-3, .level-0, .mode-compose):has(.media):before {
+    //   content: '';
+    //   display: block;
+    //   position: absolute;
+    //   top: 0;
+    //   bottom: 0;
+    //   left: 0;
+    //   right: 0;
+    //   background: color-mix(in lab, var(--accent), transparent 60%);
+    //   transition: all 0.3s linear;
+    // }
   }
 
   &.level-3:not(.mode-compose, .view-entity) {
@@ -267,7 +334,12 @@ const duration = computed(() => {
           21px -18.1px 7.3px var(--background-base), -18.1px -27.3px 30px var(--background-base);
       }
     }
+    .media {
+      filter: none;
+      mix-blend-mode: normal;
+    }
   }
+
   .actions {
     position: absolute;
     right: 0;

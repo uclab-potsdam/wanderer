@@ -65,7 +65,7 @@ watch(
   () => viewStore.inactivityLong,
   (inactive) => {
     if (viewStore.mode !== MODE_VIEW) return
-    if (inactive && route.name === 'entity' && terminusStore.graph != null) {
+    if (inactive && (route.name === 'entity' || route.name === 'media') && terminusStore.graph != null) {
       return router.push(`/${terminusStore.graph}`)
     }
   }
@@ -196,7 +196,7 @@ watch(
       await terminusStore.getGraph(context.value, true)
       // zoomBehaviour.value.filter(() => true)
       zoomToFit()
-    } else if (route.name === 'entity') {
+    } else if (route.name === 'entity' || route.name === 'media') {
       await terminusStore.getNetwork(context.value, true)
       // zoomBehaviour.value.filter(() => false)
       zoomToFitNetwork()
@@ -209,6 +209,7 @@ watch(bounds, (newBounds, oldBounds) => {
   if (
     mode.value !== MODE_VIEW ||
     route.name === 'entity' ||
+    route.name === 'media' ||
     newBounds == null ||
     !viewStore.inactivityMid ||
     (oldBounds != null &&
