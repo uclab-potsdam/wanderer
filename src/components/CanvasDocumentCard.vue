@@ -52,8 +52,12 @@ function onMouseDown(e) {
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.contentRect) {
+      const labelWidth = [...entry.target.children[0].classList].includes('entity')
+        ? Math.max(...[...entry.target.children[0].children[0].children].map((d) => d.getBoundingClientRect().width)) /
+          props.transform.k
+        : -Infinity
       canvasStore.updateNode(props.allocation.node['@id'], {
-        width: entry.contentRect.width,
+        width: labelWidth > 0 ? labelWidth + 20 : entry.contentRect.width,
         height: entry.contentRect.height,
         x: props.allocation.x,
         y: props.allocation.y
