@@ -9,7 +9,7 @@ export const useSyncStore = defineStore('sync', () => {
   const viewStore = useViewStore()
   const channel = new BroadcastChannel('sync')
   const time = ref(0)
-  const framerate = ref(23.98)
+  const framerate = ref(25)
   const forcedTime = ref(null)
   const playing = ref(false)
   const duration = ref(100)
@@ -79,29 +79,17 @@ export const useSyncStore = defineStore('sync', () => {
   }
 
   const atMarker = computed(() =>
-    terminusStore.markers.find((marker) => {
-      return Math.abs(time.value - marker.timestamp) <= 1 / framerate.value / 2
-    })
+    terminusStore.markers.find((marker) => Math.abs(time.value - marker.timestamp) <= 1 / framerate.value)
   )
 
-  const currentMarker = computed(() =>
-    terminusStore.markers.reduce((a, b) => {
-      if (b.timestamp - 1 / framerate.value / 2 > time.value) return a
-      if (a == null) return b
-      if (Math.abs(a.timestamp - time.value) < Math.abs(b.timestamp - time.value)) return a
-      return b
-    }, null)
+  const activeMarker = computed(() =>
+    terminusStore.markers.findLast((marker) => time.value + 1 / framerate.value > marker.timestamp)
   )
 
   const currentBounds = computed(() =>
     terminusStore.markers
       .filter((m) => m.bounds != null)
-      .reduce((a, b) => {
-        if (b.timestamp - 1 / framerate.value / 2 > time.value) return a
-        if (a == null) return b
-        if (Math.abs(a.timestamp - time.value) < Math.abs(b.timestamp - time.value)) return a
-        return b
-      }, null)
+      .findLast((marker) => time.value + 1 / framerate.value > marker.timestamp)
   )
 
   function openCanvas() {
@@ -215,7 +203,7 @@ export const useSyncStore = defineStore('sync', () => {
     progress,
     forcedTime,
     atMarker,
-    currentMarker,
+    activeMarker,
     currentBounds,
     framerate,
     sources,

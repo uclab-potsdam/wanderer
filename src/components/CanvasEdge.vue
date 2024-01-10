@@ -451,14 +451,16 @@ function onClick() {
 
 const sourceLevel = computed(
   () =>
-    terminusStore.states.findLast((state) => state.node === props.edge.source && state.timestamp <= syncStore.time)
-      ?.level ?? viewStore.stateLevelDefault
+    terminusStore.states.findLast(
+      (state) => state.node === props.edge.source && state.timestamp <= syncStore.activeMarker?.timestamp
+    )?.level ?? viewStore.stateLevelDefault
 )
 
 const targetLevel = computed(
   () =>
-    terminusStore.states.findLast((state) => state.node === props.edge.target && state.timestamp <= syncStore.time)
-      ?.level ?? viewStore.stateLevelDefault
+    terminusStore.states.findLast(
+      (state) => state.node === props.edge.target && state.timestamp <= syncStore.activeMarker?.timestamp
+    )?.level ?? viewStore.stateLevelDefault
 )
 
 const level = computed(() => {

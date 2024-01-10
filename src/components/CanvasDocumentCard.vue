@@ -116,7 +116,7 @@ function onMouseOut() {
 
 const state = computed(() =>
   terminusStore.states.findLast(
-    (state) => state.node === props.allocation.node['@id'] && state.timestamp <= syncStore.time
+    (state) => state.node === props.allocation.node['@id'] && state.timestamp <= syncStore.activeMarker?.timestamp
   )
 )
 

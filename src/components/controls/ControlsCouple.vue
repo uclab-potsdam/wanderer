@@ -58,22 +58,14 @@ function getBounds() {
   return bounds
 }
 function seekBackward() {
-  const previous = terminusStore.markers.reduce((a, b) => {
-    if (b.timestamp >= syncStore.time) return a
-    if (a == null) return b
-    if (Math.abs(a.timestamp - syncStore.time) < Math.abs(b.timestamp - syncStore.time)) return a
-    return b
-  }, null)
+  const previous = syncStore.atMarker
+    ? terminusStore.markers.findLast((marker) => marker.timestamp < (syncStore.activeMarker?.timestamp || 0))
+    : syncStore.activeMarker
   syncStore.forceTime(previous?.timestamp ?? 0)
 }
 
 function seekForward() {
-  const next = terminusStore.markers.reduce((a, b) => {
-    if (b.timestamp <= syncStore.time) return a
-    if (a == null) return b
-    if (Math.abs(a.timestamp - syncStore.time) < Math.abs(b.timestamp - syncStore.time)) return a
-    return b
-  }, null)
+  const next = terminusStore.markers.find((marker) => marker.timestamp > (syncStore.activeMarker?.timestamp || 0))
   syncStore.forceTime(next?.timestamp ?? syncStore.duration - 1 / syncStore.framerate)
 }
 </script>

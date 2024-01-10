@@ -11,8 +11,6 @@ import IconPause from '~icons/default/Pause'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseButtonGroup from '../BaseButtonGroup.vue'
 
-const framerate = 23.98
-
 const props = defineProps({ persistent: Boolean, scrubbing: Boolean, mark: Boolean })
 
 const syncStore = useSyncStore()
@@ -72,7 +70,7 @@ function togglePlay() {
 const showControls = computed(() => props.persistent || !viewStore.inactivityShort)
 
 async function onKeyDown({ code, altKey, shiftKey }) {
-  const amount = shiftKey ? 10 : altKey ? 1 / framerate : 1
+  const amount = shiftKey ? 10 : altKey ? 1 / syncStore.framerate : 1
   switch (code) {
     case 'Space':
       togglePlay()
@@ -127,23 +125,15 @@ function toggleMarker() {
 }
 
 function seekBackward() {
-  const previous = terminusStore.markers.reduce((a, b) => {
-    if (b.timestamp >= syncStore.time) return a
-    if (a == null) return b
-    if (Math.abs(a.timestamp - syncStore.time) < Math.abs(b.timestamp - syncStore.time)) return a
-    return b
-  }, null)
-  setProgress(previous?.timestamp ?? 0)
+  const previous = syncStore.atMarker
+    ? terminusStore.markers.findLast((marker) => marker.timestamp < (syncStore.activeMarker?.timestamp || 0))
+    : syncStore.activeMarker
+  syncStore.forceTime(previous?.timestamp ?? 0)
 }
 
 function seekForward() {
-  const previous = terminusStore.markers.reduce((a, b) => {
-    if (b.timestamp <= syncStore.time) return a
-    if (a == null) return b
-    if (Math.abs(a.timestamp - syncStore.time) < Math.abs(b.timestamp - syncStore.time)) return a
-    return b
-  }, null)
-  setProgress(previous?.timestamp ?? syncStore.duration - 1 / framerate)
+  const next = terminusStore.markers.find((marker) => marker.timestamp > (syncStore.activeMarker?.timestamp || 0))
+  syncStore.forceTime(next?.timestamp ?? syncStore.duration - 1 / syncStore.framerate)
 }
 </script>
 
