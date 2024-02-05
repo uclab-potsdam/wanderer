@@ -491,8 +491,8 @@ function onMouseDown(e) {
       :props="{
         x1: points?.[0]?.x ?? 0,
         y1: points?.[0]?.y ?? 0,
-        x2: points?.[4]?.x ?? 0,
-        y2: points?.[4]?.y ?? 0,
+        x2: points?.[8]?.x ?? 0,
+        y2: points?.[8]?.y ?? 0,
         path
       }"
       :delay="0"
