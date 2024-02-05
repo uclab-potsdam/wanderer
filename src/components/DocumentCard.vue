@@ -203,6 +203,17 @@ const duration = computed(() => {
     }
   }
 
+  &.media {
+    &.level-2 {
+      background-color: color-mix(in lab, var(--accent), var(--background-color) 50%);
+
+      .media {
+        mix-blend-mode: luminosity;
+        background-color: var(--background-color);
+      }
+    }
+  }
+
   .media {
     transition: all var(--transition);
     object-fit: cover;
