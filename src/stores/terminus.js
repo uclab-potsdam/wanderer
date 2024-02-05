@@ -467,8 +467,9 @@ export const useTerminusStore = defineStore('terminus', () => {
 
     // calculate coordinates for radial layout, might need improvement to make more use of screen dimensions
 
-    const ratio = innerWidth / innerHeight
-    const radius = { x: Math.max(300 * ratio, innerWidth / 3), y: Math.max(300 / ratio, innerHeight / 3) }
+    // const ratio = innerWidth / innerHeight
+    // const radius = { x: Math.max(300 * ratio, innerWidth / 3), y: Math.max(300 / ratio, innerHeight / 3) }
+    const radius = { x: Math.min(innerHeight, innerWidth) / 3, y: Math.min(innerHeight, innerWidth) / 3 }
     const minCoordinates = 9
     const coordinates = [...satellites, ...Array(Math.max(0, minCoordinates - satellites.length)).fill()]
       .map((satellite, i, satellites) => {
@@ -509,8 +510,8 @@ export const useTerminusStore = defineStore('terminus', () => {
           const rotation =
             next.length === 1 ? coordinate.rotation : coordinate.rotation - range / 2 + (range / (next.length - 1)) * i
 
-          const x = coordinate.x + Math.cos(rotation) * 200
-          const y = coordinate.y + Math.sin(rotation) * 200
+          const x = coordinate.x + Math.cos(rotation) * (radius.x / 2)
+          const y = coordinate.y + Math.sin(rotation) * (radius.y / 2)
 
           if (satellite.node['@id'] === s.edge.source) {
             edgeProxy[s.edge['@id']] = {
