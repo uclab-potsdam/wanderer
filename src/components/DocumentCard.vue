@@ -115,11 +115,11 @@ const duration = computed(() => {
         </div>
       </template>
     </div>
-    <template v-else>
+    <div class="media-wrapper" v-else>
       <div v-if="!onCanvas" class="media-label" :lang="label.lang">{{ label.text }}</div>
       <img v-if="mediaType === 'image'" :src="mediaUrl" draggable="false" class="media" />
       <video v-if="mediaType === 'video'" :src="mediaUrl" loop muted autoplay class="media" />
-    </template>
+    </div>
     <div class="actions">
       <div class="center"><slot name="center" /></div>
       <div class="right"><slot name="right" /></div>
@@ -205,11 +205,16 @@ const duration = computed(() => {
 
   &.media {
     &.level-2 {
-      background-color: color-mix(in lab, var(--accent), var(--background-color) 50%);
+      background-color: var(--background-color);
 
-      .media {
-        mix-blend-mode: luminosity;
-        background-color: var(--background-color);
+      .media-wrapper {
+        background-color: var(--accent);
+        mix-blend-mode: multiply;
+
+        .media {
+          mix-blend-mode: luminosity;
+          background-color: var(--background-base);
+        }
       }
     }
   }
