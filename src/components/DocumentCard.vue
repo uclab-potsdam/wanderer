@@ -36,6 +36,10 @@ const className = computed(() => {
   return viewStore.localize(cl.label)
 })
 
+const text = computed(() => {
+  return viewStore.localize(props.document.text)
+})
+
 const mediaType = computed(() => {
   if (props.document['@type'] !== 'media') return
   return props.document.type ?? 'image'
@@ -85,34 +89,41 @@ const duration = computed(() => {
     ]"
   >
     <div class="card" v-if="!mediaType">
-      <span class="label" :lang="label?.lang">
-        {{ label?.text }}
-        <span v-if="description && document['@type'] === 'graph'" class="description" :lang="description.lang">
-          – {{ description.text }}
-        </span></span
-      >
-      <template v-if="className">
-        <br />
-        <span v-if="className" class="class" :lang="className.lang">
-          {{ className.text }}
-        </span>
-        <!-- <span v-if="className && description">, </span>
+      <template v-if="document['@type'] !== 'note'">
+        <span class="label" :lang="label?.lang">
+          {{ label?.text }}
+          <span v-if="description && document['@type'] === 'graph'" class="description" :lang="description.lang">
+            – {{ description.text }}
+          </span></span
+        >
+        <template v-if="className">
+          <br />
+          <span v-if="className" class="class" :lang="className.lang">
+            {{ className.text }}
+          </span>
+          <!-- <span v-if="className && description">, </span>
         <span v-if="description" class="description" :lang="description.lang">
           {{ description.text }}
         </span> -->
-      </template>
-      <template v-if="document['@type'] === 'graph' && document.media != null">
-        <br />
-        <div class="canvas-meta">
-          <span class="canvas-play-state">
-            <IconPlaying v-if="document['@id'] === terminusStore.graph" />
-            <IconPlay v-else />
-            <template v-if="duration != null">{{ formatTime(duration) }}</template>
-          </span>
-          <!-- <span v-if="description" class="description" :lang="description.lang">
+        </template>
+        <template v-if="document['@type'] === 'graph' && document.media != null">
+          <br />
+          <div class="canvas-meta">
+            <span class="canvas-play-state">
+              <IconPlaying v-if="document['@id'] === terminusStore.graph" />
+              <IconPlay v-else />
+              <template v-if="duration != null">{{ formatTime(duration) }}</template>
+            </span>
+            <!-- <span v-if="description" class="description" :lang="description.lang">
             {{ description.text }}
           </span> -->
-        </div>
+          </div>
+        </template>
+      </template>
+      <template v-else>
+        <span v-if="text" class="note-text" :lang="text.lang">
+          {{ text.text }}
+        </span>
       </template>
     </div>
     <div class="media-wrapper" v-else>
@@ -201,6 +212,17 @@ const duration = computed(() => {
       // font-style: oblique 8deg;
       color: color-mix(in lab, var(--accent), var(--text-base) 50%);
     }
+
+    .note-text {
+      color: var(--accent);
+      font-style: oblique 8deg;
+      color: color-mix(in lab, var(--accent), var(--text-base) 40%);
+    }
+  }
+
+  &.note .card {
+    border: 1.2px dashed var(--accent);
+    border-radius: var(--ui-border-radius);
   }
 
   &.media.on-canvas {

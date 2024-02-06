@@ -76,7 +76,8 @@ const navOptions = [
   { label: 'Entities', value: 'entity' },
   { label: 'Media', value: 'media' },
   { label: 'Classes', value: 'class' },
-  { label: 'Properties', value: 'property' }
+  { label: 'Properties', value: 'property' },
+  { label: 'Notes', value: 'note' }
 ]
 const items = computed(() => results.value ?? documents.value)
 
