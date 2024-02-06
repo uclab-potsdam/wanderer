@@ -73,7 +73,7 @@
     --hidden: rgba(var(--gray-1), 0);
     --hidden-couple: rgba(var(--gray-1), 0.3);
     --inactive: var(--muted);
-    --default-blend-mode: multiply;
+    --default-blend-mode: difference;
 
 
     --flow-background: rgb(var(--blue-2));

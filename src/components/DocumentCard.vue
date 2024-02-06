@@ -203,14 +203,13 @@ const duration = computed(() => {
     }
   }
 
-  &.media {
+  &.media.on-canvas {
     &.level-2 {
       background-color: var(--background-color);
 
       .media-wrapper {
         background-color: var(--accent);
-        mix-blend-mode: multiply;
-
+        mix-blend-mode: var(--default-blend-mode);
         .media {
           mix-blend-mode: luminosity;
           background-color: var(--background-base);
