@@ -53,6 +53,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/note/:id',
+      name: 'note',
+      // component: () => import('@/views/InspectView.vue'),
+      component: () => import('@/views/CanvasView.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/play',
       name: 'play',
       component: () => import('@/views/PlayView.vue'),
