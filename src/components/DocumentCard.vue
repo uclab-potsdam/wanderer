@@ -89,7 +89,7 @@ const duration = computed(() => {
     ]"
   >
     <div class="card" v-if="!mediaType">
-      <template v-if="document['@type'] !== 'note'">
+      <template v-if="document['@type'] !== 'note' && document['@type'] !== 'predicate'">
         <span class="label" :lang="label?.lang">
           {{ label?.text }}
           <span v-if="description && document['@type'] === 'graph'" class="description" :lang="description.lang">
@@ -121,7 +121,7 @@ const duration = computed(() => {
         </template>
       </template>
       <template v-else>
-        <span v-if="text" class="note-text" :lang="text.lang">
+        <span v-if="text" :class="[`${document['@type']}-text`]" :lang="text.lang">
           {{ text.text }}
         </span>
       </template>
@@ -214,8 +214,13 @@ const duration = computed(() => {
     }
 
     .note-text {
-      color: var(--accent);
+      // color: var(--accent);
       font-style: oblique 8deg;
+      color: color-mix(in lab, var(--accent), var(--text-base) 40%);
+    }
+    .predicate-text {
+      // color: var(--accent);
+      // font-style: oblique 8deg;
       color: color-mix(in lab, var(--accent), var(--text-base) 40%);
     }
   }
