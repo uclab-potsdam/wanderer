@@ -1,33 +1,30 @@
 <script setup>
-import { useDataStore } from '@/stores/data'
 import { computed, ref, watch, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import GraphNode from '@/components/GraphNode.vue'
-
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
 
-const dataStore = useDataStore()
+import { useRoute } from 'vue-router'
+import { useDataStore } from '@/stores/data'
+
+import GraphNode from '@/components/GraphNode.vue'
+import GraphEdge from '@/components/GraphEdge.vue'
+
 const route = useRoute()
+const dataStore = useDataStore()
 
 const zoomElement = ref(null)
 const zoomElementSelection = ref(null)
 const zoomBehaviour = ref(null)
+const transform = ref({ x: 0, y: 0, k: 1 })
 
 const id = computed(() => route.params.id)
 const node = computed(() => dataStore.data.nodes[id.value])
-
-watch(node, () => zoomToBounds(bounds.value))
-
 const allocations = computed(() =>
   route.params.type === 'graph' ? node.value.allocations : computeAllocations(id.value)
 )
-
-const transform = ref({ x: 0, y: 0, k: 1 })
 const transformString = computed(
   () => `translate(${transform.value.x}px, ${transform.value.y}px) scale(${transform.value.k})`
 )
-
 const bounds = computed(() => {
   const values = Object.values(allocations.value)
   const valuesX = values.map(({ x }) => x)
@@ -46,6 +43,26 @@ const bounds = computed(() => {
       y: Math.max(...valuesY) + yOffset
     }
   }
+})
+const edges = computed(() => {
+  const nodes = Object.keys(allocations.value)
+  return dataStore.data.edges.filter(
+    (edge) => nodes.includes(edge.nodes[0]) && nodes.includes(edge.nodes[1])
+  )
+})
+
+watch(node, () => zoomToBounds(bounds.value))
+
+onMounted(() => {
+  zoomElementSelection.value = select(zoomElement.value)
+  zoomBehaviour.value = zoom()
+    .scaleExtent([0.1, 2])
+    .on('zoom', (e) => {
+      transform.value = e.transform
+    })
+  zoomElementSelection.value.call(zoomBehaviour.value)
+
+  zoomToBounds(bounds.value)
 })
 
 function zoomToBounds(bounds, duration = 0) {
@@ -80,18 +97,6 @@ function computeAllocations(id) {
     }
   }
 }
-
-onMounted(() => {
-  zoomElementSelection.value = select(zoomElement.value)
-  zoomBehaviour.value = zoom()
-    .scaleExtent([0.1, 2])
-    .on('zoom', (e) => {
-      transform.value = e.transform
-    })
-  zoomElementSelection.value.call(zoomBehaviour.value)
-
-  zoomToBounds(bounds.value)
-})
 </script>
 
 <template>
@@ -101,6 +106,13 @@ onMounted(() => {
         <GraphNode :id="id" :position="position" />
       </template>
     </div>
+    <svg>
+      <g :style="{ transform: transformString }">
+        <template v-for="edge in edges" :key="edge.nodes.join('/')">
+          <GraphEdge :edge="edge" />
+        </template>
+      </g>
+    </svg>
   </main>
 </template>
 
@@ -108,13 +120,20 @@ onMounted(() => {
 .graph {
   grid-column: 1 / -1;
   grid-row: 1 / -1;
-  position: absolute;
+  /* position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100vh; */
+
   .nodes {
     position: absolute;
+  }
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
   }
 }
 </style>
