@@ -21,6 +21,7 @@ header {
   grid-column: center-start / center-end;
   grid-row: 1 / center-start;
 
+  z-index: 1;
   display: flex;
   align-items: center;
 }

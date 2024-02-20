@@ -10,8 +10,11 @@ const router = useRouter()
 <template>
   <main class="list">
     <template v-for="(node, id) in dataStore.data.nodes" :key="id">
-      <RouterLink :to="{ name: 'graph', params: { type: node.type, id } }">
-        <div v-if="node.type === route.params.type">
+      <RouterLink
+        :to="{ name: 'graph', params: { type: node.type, id } }"
+        v-if="node.type === route.params.type"
+      >
+        <div>
           {{ node.text?.en ?? 'untitled' }}
         </div>
       </RouterLink>
