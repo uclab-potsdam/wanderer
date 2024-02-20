@@ -1,0 +1,8 @@
+:root {
+  /* Dimensions */
+  --spacing: 25px;
+
+  /* Typography */
+  --regular: 400;
+  --font-size: 25px;
+}
