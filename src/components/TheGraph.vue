@@ -2,6 +2,7 @@
 import { computed, ref, watch, onMounted } from 'vue'
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
+import { computeAllocations } from '@/assets/js/nodeAllocation'
 
 import { useRoute } from 'vue-router'
 import { useDataStore } from '@/stores/data'
@@ -12,6 +13,8 @@ import GraphEdge from '@/components/GraphEdge.vue'
 const route = useRoute()
 const dataStore = useDataStore()
 
+const allocations = ref([])
+
 const zoomElement = ref(null)
 const zoomElementSelection = ref(null)
 const zoomBehaviour = ref(null)
@@ -19,9 +22,7 @@ const transform = ref({ x: 0, y: 0, k: 1 })
 
 const id = computed(() => route.params.id)
 const node = computed(() => dataStore.data.nodes[id.value])
-const allocations = computed(() =>
-  route.params.type === 'graph' ? node.value.allocations : computeAllocations(id.value)
-)
+
 const transformString = computed(
   () => `translate(${transform.value.x}px, ${transform.value.y}px) scale(${transform.value.k})`
 )
@@ -51,7 +52,7 @@ const edges = computed(() => {
   )
 })
 
-watch(node, () => zoomToBounds(bounds.value))
+watch(node, initGraph)
 
 onMounted(() => {
   zoomElementSelection.value = select(zoomElement.value)
@@ -62,8 +63,15 @@ onMounted(() => {
     })
   zoomElementSelection.value.call(zoomBehaviour.value)
 
-  zoomToBounds(bounds.value)
+  initGraph()
 })
+
+function initGraph() {
+  allocations.value =
+    route.params.type === 'graph' ? node.value.allocations : computeAllocations(id.value)
+
+  zoomToBounds(bounds.value)
+}
 
 function zoomToBounds(bounds, duration = 0) {
   const diff = {
@@ -87,15 +95,6 @@ function zoomToBounds(bounds, duration = 0) {
         .scale(scale)
         .translate(-x, -y)
     )
-}
-
-function computeAllocations(id) {
-  return {
-    [id]: {
-      x: 0,
-      y: 0
-    }
-  }
 }
 </script>
 
