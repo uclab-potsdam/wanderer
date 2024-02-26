@@ -12,7 +12,9 @@ const router = useRouter()
 
 <template>
   <header>
-    <h1>{{ projectTitle }}</h1>
+    <RouterLink to="/"
+      ><h1>{{ projectTitle }}</h1></RouterLink
+    >
   </header>
 </template>
 
@@ -24,5 +26,10 @@ header {
   z-index: 1;
   display: flex;
   align-items: center;
+
+  a {
+    text-decoration: none;
+    color: currentColor;
+  }
 }
 </style>
