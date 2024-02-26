@@ -1,11 +1,12 @@
 import { useDataStore } from '@/stores/data'
 import { useLayoutStore } from '@/stores/layout'
+import { forceManyBody, forceSimulation, forceLink, forceCenter } from 'd3-force'
 
 const dataStore = useDataStore()
 const layoutStore = useLayoutStore()
 
 function computeAllocations(id) {
-  const depth = 3
+  const depth = 2
   const offset = layoutStore.nodes[id] ?? {
     x: 0,
     y: 0
@@ -13,11 +14,35 @@ function computeAllocations(id) {
   const neighbors = [...new Set(getNeighbors(id, depth).flat(depth + 1))]
   // const uniqueNeighbors = removeNeighborDuplicates([id, neighbors])
 
-  return Object.fromEntries(
-    neighbors.map((node) => {
-      return [node, getCoordinates(node)]
+  const nodes = neighbors.map((node) => {
+    return { id: node, ...getCoordinates(node) }
+  })
+
+  const simulation = forceSimulation(nodes)
+    .force(
+      'link',
+      forceLink(
+        dataStore.data.edges
+          .filter((edge) => neighbors.includes(edge.nodes[0]) && neighbors.includes(edge.nodes[1]))
+          .map((edge) => ({
+            source: edge.nodes[0],
+            target: edge.nodes[1]
+          }))
+      ).id((n) => n.id)
+    )
+    .force('charge', forceManyBody().strength(-1000))
+    .force('center', forceCenter())
+    .on('tick', () => {
+      console.log(nodes)
     })
-  )
+    .stop()
+
+  for (let i = 0; i < 1000; i++) {
+    simulation.tick()
+  }
+  // simulation.tick()
+
+  return Object.fromEntries(nodes.map(({ id, x, y }) => [id, { x, y }]))
 
   function getCoordinates(node) {
     if (node === id) return offset
