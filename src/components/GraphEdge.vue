@@ -24,5 +24,6 @@ const d = computed(() => {
 <style scoped>
 .edge {
   stroke: black;
+  transition: d var(--transition);
 }
 </style>

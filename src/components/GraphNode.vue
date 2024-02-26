@@ -58,6 +58,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div
+    :id="id"
     @click="router.push({ name: 'graph', params: { type: node.type, id } })"
     ref="nodeElement"
     class="node"
@@ -71,5 +72,6 @@ onBeforeUnmount(() => {
 .node {
   position: absolute;
   transform: translate(-50%, -50%);
+  transition: top var(--transition), left var(--transition);
 }
 </style>

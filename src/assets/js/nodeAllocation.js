@@ -30,7 +30,7 @@ function computeAllocations(id) {
           }))
       ).id((n) => n.id)
     )
-    .force('charge', forceManyBody().strength(-1000))
+    .force('charge', forceManyBody().strength(-5000))
     .force('center', forceCenter())
     .on('tick', () => {
       console.log(nodes)

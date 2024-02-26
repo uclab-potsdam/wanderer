@@ -6,12 +6,14 @@ import { computeAllocations } from '@/assets/js/nodeAllocation'
 
 import { useRoute } from 'vue-router'
 import { useDataStore } from '@/stores/data'
+import { useConstantStore } from '@/stores/constant'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
 
 const route = useRoute()
 const dataStore = useDataStore()
+const constantStore = useConstantStore()
 
 const allocations = ref([])
 
@@ -52,7 +54,9 @@ const edges = computed(() => {
   )
 })
 
-watch(node, initGraph)
+const allocationOrder = computed(() => Object.keys(allocations.value).sort())
+
+watch(node, () => initGraph(constantStore.transition))
 
 onMounted(() => {
   zoomElementSelection.value = select(zoomElement.value)
@@ -63,14 +67,14 @@ onMounted(() => {
     })
   zoomElementSelection.value.call(zoomBehaviour.value)
 
-  initGraph()
+  initGraph(0)
 })
 
-function initGraph() {
+function initGraph(duration) {
   allocations.value =
     route.params.type === 'graph' ? node.value.allocations : computeAllocations(id.value)
 
-  zoomToBounds(bounds.value)
+  zoomToBounds(bounds.value, duration)
 }
 
 function zoomToBounds(bounds, duration = 0) {
@@ -101,15 +105,15 @@ function zoomToBounds(bounds, duration = 0) {
 <template>
   <main class="graph" ref="zoomElement">
     <div class="nodes" :style="{ transform: transformString }">
-      <template v-for="(position, id) in allocations" :key="id">
-        <GraphNode :id="id" :position="position" />
-      </template>
+      <TransitionGroup name="nodes">
+        <GraphNode v-for="id in allocationOrder" :key="id" :id="id" :position="allocations[id]" />
+      </TransitionGroup>
     </div>
     <svg>
       <g :style="{ transform: transformString }">
-        <template v-for="edge in edges" :key="edge.nodes.join('/')">
-          <GraphEdge :edge="edge" />
-        </template>
+        <TransitionGroup name="edges">
+          <GraphEdge v-for="edge in edges" :key="edge.nodes.join('/')" :edge="edge" />
+        </TransitionGroup>
       </g>
     </svg>
   </main>
@@ -133,6 +137,28 @@ function zoomToBounds(bounds, duration = 0) {
     width: 100%;
     height: 100%;
     pointer-events: none;
+  }
+
+  /* transitions */
+  .nodes-enter-active {
+    transition: opacity var(--transition) var(--transition);
+  }
+  .nodes-leave-active {
+    transition: opacity var(--transition);
+  }
+
+  .edges-enter-active {
+    transition: opacity var(--transition) var(--transition);
+  }
+  .edges-leave-active {
+    transition: opacity var(--transition);
+  }
+
+  .edges-enter-from,
+  .nodes-enter-from,
+  .edges-leave-to,
+  .nodes-leave-to {
+    opacity: 0;
   }
 }
 </style>

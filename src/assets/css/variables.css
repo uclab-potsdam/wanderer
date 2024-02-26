@@ -5,4 +5,7 @@
   /* Typography */
   --regular: 400;
   --font-size: 25px;
+
+  /* Transitions */
+  --transition: 2000ms;
 }
