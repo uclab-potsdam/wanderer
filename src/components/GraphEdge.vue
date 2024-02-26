@@ -1,5 +1,6 @@
 <script setup>
 import { useLayoutStore } from '@/stores/layout'
+import { getLineRoundedRectangleIntersection } from '@/assets/js/intersection'
 import { computed } from 'vue'
 
 const layoutStore = useLayoutStore()
@@ -13,7 +14,40 @@ const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
 
 const d = computed(() => {
   if (source.value == null || target.value == null) return
-  return `M${source.value?.x},${source.value?.y} L${target.value?.x},${target.value?.y}`
+
+  const margin = 20
+  const radius = 10
+
+  const sourceWidth = source.value.width + margin
+  const sourceHeight = source.value.height + margin
+  const targetWidth = target.value.width + margin
+  const targetHeight = target.value.height + margin
+
+  const start = getLineRoundedRectangleIntersection(
+    source.value.x,
+    source.value.y,
+    target.value.x,
+    target.value.y,
+    source.value.x - sourceWidth / 2,
+    source.value.y - sourceHeight / 2,
+    sourceWidth,
+    sourceHeight,
+    radius
+  )[0]
+
+  const end = getLineRoundedRectangleIntersection(
+    source.value.x,
+    source.value.y,
+    target.value.x,
+    target.value.y,
+    target.value.x - targetWidth / 2,
+    target.value.y - targetHeight / 2,
+    targetWidth,
+    targetHeight,
+    radius
+  )[0]
+
+  return `M${start[0]},${start[1]} L${end[0]},${end[1]}`
 })
 
 const id = computed(() => props.edge.nodes.join('-'))
@@ -47,7 +81,6 @@ const markerStart = computed(
 <style scoped>
 .edge {
   stroke: black;
-  transition: d var(--transition);
 
   marker {
     overflow: visible;
@@ -55,6 +88,10 @@ const markerStart = computed(
       stroke: var(--marker);
       fill: none;
     }
+  }
+
+  path {
+    transition: d var(--transition);
   }
 }
 </style>
