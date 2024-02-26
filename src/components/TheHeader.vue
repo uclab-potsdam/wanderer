@@ -12,9 +12,9 @@ const router = useRouter()
 
 <template>
   <header>
-    <RouterLink to="/"
-      ><h1>{{ projectTitle }}</h1></RouterLink
-    >
+    <RouterLink to="/">
+      <h1>{{ projectTitle }}</h1>
+    </RouterLink>
   </header>
 </template>
 

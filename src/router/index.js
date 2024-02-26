@@ -38,6 +38,9 @@ router.beforeEach(async (to) => {
   if (dataStore.data === null && ['list', 'graph'].includes(to.name)) {
     await dataStore.init()
   }
+  if (to.name === 'graph') {
+    dataStore.nodeId = to.params.id
+  }
 })
 
 export default router

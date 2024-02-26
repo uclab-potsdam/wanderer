@@ -10,6 +10,7 @@ import { useConstantStore } from '@/stores/constant'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
+import NavigationNodeOccurances from '@/components/NavigationNodeOccurances.vue'
 
 const route = useRoute()
 const dataStore = useDataStore()
@@ -117,6 +118,7 @@ function zoomToBounds(bounds, duration = 0) {
       </g>
     </svg>
   </main>
+  <NavigationNodeOccurances v-if="dataStore.nodeOccurances" />
 </template>
 
 <style scoped>
