@@ -47,6 +47,7 @@ const d = computed(() => {
     radius
   )[0]
 
+  if (start == null || end == null) return
   return `M${start[0]},${start[1]} L${end[0]},${end[1]}`
 })
 
