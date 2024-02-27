@@ -2,8 +2,10 @@
 import { useLayoutStore } from '@/stores/layout'
 import { getLineRoundedRectangleIntersection } from '@/assets/js/intersection'
 import { computed } from 'vue'
+import { useDisplayStore } from '@/stores/display'
 
 const layoutStore = useLayoutStore()
+const displayStore = useDisplayStore()
 
 const props = defineProps({
   edge: Object
@@ -11,6 +13,8 @@ const props = defineProps({
 
 const source = computed(() => layoutStore.nodes[props.edge.nodes[0]])
 const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
+
+const display = computed(() => displayStore.inheritStateFromNodes(props.edge.nodes))
 
 const d = computed(() => {
   if (source.value == null || target.value == null) return
@@ -62,7 +66,7 @@ const markerStart = computed(
 </script>
 
 <template>
-  <g class="edge">
+  <g class="edge" :class="[display]">
     <defs>
       <marker
         :id="`marker-${id}`"
@@ -82,6 +86,14 @@ const markerStart = computed(
 <style scoped>
 .edge {
   stroke: black;
+
+  &.hide {
+    opacity: 0;
+  }
+
+  &.highlight {
+    stroke: red;
+  }
 
   marker {
     overflow: visible;

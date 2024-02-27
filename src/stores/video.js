@@ -7,6 +7,7 @@ export const useVideoStore = defineStore('video', () => {
 
   const history = ref([])
   const graphId = ref(null)
+  const time = ref(0)
 
   const video = computed(() => dataStore.data.nodes[graphId.value]?.media)
   const playSplitScreen = computed(() => video.value != null)
@@ -16,5 +17,5 @@ export const useVideoStore = defineStore('video', () => {
     if (history.value.length > 3) history.value.splice(0, 1)
   })
 
-  return { history, graphId, video, playSplitScreen }
+  return { history, graphId, video, playSplitScreen, time }
 })

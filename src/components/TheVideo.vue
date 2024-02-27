@@ -3,19 +3,30 @@ import { useVideoStore } from '@/stores/video'
 import { useHelperStore } from '@/stores/helper'
 import { computed } from 'vue'
 
+defineProps({
+  letterbox: Boolean
+})
+
 const videoStore = useVideoStore()
 const helperStore = useHelperStore()
 
 const source = computed(() => helperStore.getMediaUrl(videoStore.video.file[0]))
 
-defineProps({
-  letterbox: Boolean
-})
+function onTimeUpdate(e) {
+  videoStore.time = e.target.currentTime
+}
 </script>
 
 <template>
   <main class="video">
-    <video crossorigin="anonymous" autoplay controls muted :src="source"></video>
+    <video
+      crossorigin="anonymous"
+      autoplay
+      controls
+      muted
+      :src="source"
+      @timeupdate="onTimeUpdate"
+    ></video>
   </main>
 </template>
 
@@ -36,6 +47,7 @@ defineProps({
     grid-row: 1 / -1;
     width: 100%;
     height: 100%;
+    overflow: hidden;
   }
 }
 </style>

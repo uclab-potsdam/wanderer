@@ -112,7 +112,7 @@ function zoomToBounds(bounds, duration = 0) {
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.contentRect) {
-      zoomToBounds(bounds.value, constantStore.transition)
+      zoomToBounds(bounds.value, 0)
     }
   }
 })

@@ -21,6 +21,8 @@ const videoStore = useVideoStore()
   grid-column: 1 / -1;
   grid-row: 1 / -1;
 
+  max-height: 100vh;
+
   display: grid;
 
   grid-template-columns:

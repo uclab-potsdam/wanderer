@@ -4,6 +4,7 @@ import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { useLayoutStore } from '@/stores/layout'
+import { useDisplayStore } from '@/stores/display'
 
 const props = defineProps({
   id: String,
@@ -13,6 +14,7 @@ const props = defineProps({
 const router = useRouter()
 const dataStore = useDataStore()
 const layoutStore = useLayoutStore()
+const displayStore = useDisplayStore()
 
 const nodeElement = ref(null)
 
@@ -21,6 +23,12 @@ const positioning = computed(() => ({
   left: `${props.position.x}px`,
   top: `${props.position.y}px`
 }))
+
+const display = computed(() => {
+  if (!node.value.inheritDisplay) return displayStore.states[props.id]
+  // fallback for depricated edges imported from terminus
+  return displayStore.inheritStateFromNeighbor(props.id)
+})
 
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
@@ -62,6 +70,7 @@ onBeforeUnmount(() => {
     @click="router.push({ name: 'graph', params: { type: node.type, id } })"
     ref="nodeElement"
     class="node"
+    :class="[display]"
     :style="positioning"
   >
     {{ node?.text?.en || 'untitled' }}
@@ -73,5 +82,12 @@ onBeforeUnmount(() => {
   position: absolute;
   transform: translate(-50%, -50%);
   transition: top var(--transition), left var(--transition);
+
+  &.hide {
+    opacity: 0;
+  }
+  &.highlight {
+    color: red;
+  }
 }
 </style>
