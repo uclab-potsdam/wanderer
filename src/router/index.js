@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useDataStore } from '@/stores/data'
+import { useVideoStore } from '@/stores/video'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,9 +8,6 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      meta: {
-        requiresAuth: true
-      },
       redirect: { name: 'list', params: { type: 'graph' } }
     },
     {
@@ -23,9 +21,9 @@ const router = createRouter({
       component: () => import('@/views/GraphView.vue')
     },
     {
-      path: '/player',
-      name: 'player',
-      component: () => import('@/views/PlayerView.vue'),
+      path: '/video',
+      name: 'video',
+      component: () => import('@/views/VideoView.vue'),
       meta: {
         hideMenuBar: true
       }
@@ -33,14 +31,19 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach(async (to) => {
+router.beforeEach(async (to, from) => {
   const dataStore = useDataStore()
+  const videoStore = useVideoStore()
   if (dataStore.data === null && ['list', 'graph'].includes(to.name)) {
     await dataStore.init()
   }
   if (to.name === 'graph') {
     dataStore.nodeId = to.params.id
   }
+  if (to.params.type === 'graph') {
+    videoStore.graphId = to.params.id
+  }
+  to.meta.initializeView = to.name !== from.name
 })
 
 export default router

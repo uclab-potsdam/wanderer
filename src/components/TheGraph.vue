@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch, onMounted } from 'vue'
+import { computed, ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
 import { computeAllocations } from '@/assets/js/nodeAllocation'
@@ -67,8 +67,12 @@ onMounted(() => {
       transform.value = e.transform
     })
   zoomElementSelection.value.call(zoomBehaviour.value)
-
   initGraph(0)
+  resizeObserver.observe(zoomElement.value)
+})
+
+onBeforeUnmount(() => {
+  if (zoomElement.value != null) resizeObserver.unobserve(zoomElement.value)
 })
 
 function initGraph(duration) {
@@ -83,8 +87,11 @@ function zoomToBounds(bounds, duration = 0) {
     x: bounds.max.x - bounds.min.x,
     y: bounds.max.y - bounds.min.y
   }
-  const scaleX = innerWidth / diff.x
-  const scaleY = innerHeight / diff.y
+
+  const zoomElementDimensions = zoomElement.value.getBoundingClientRect()
+
+  const scaleX = zoomElementDimensions.width / diff.x
+  const scaleY = zoomElementDimensions.height / diff.y
   const scale = Math.min(scaleX, scaleY)
 
   const x = bounds.min.x + diff.x / 2
@@ -96,15 +103,23 @@ function zoomToBounds(bounds, duration = 0) {
     .call(
       zoomBehaviour.value.transform,
       zoomIdentity
-        .translate(innerWidth / 2, innerHeight / 2)
+        .translate(zoomElementDimensions.width / 2, zoomElementDimensions.height / 2)
         .scale(scale)
         .translate(-x, -y)
     )
 }
+
+const resizeObserver = new ResizeObserver((entries) => {
+  for (const entry of entries) {
+    if (entry.contentRect) {
+      zoomToBounds(bounds.value, constantStore.transition)
+    }
+  }
+})
 </script>
 
 <template>
-  <main class="graph" ref="zoomElement">
+  <main class="graph" ref="zoomElement" :class="{ initializing: route.meta.initializeView }">
     <div class="nodes" :style="{ transform: transformString }">
       <TransitionGroup name="nodes">
         <GraphNode v-for="id in allocationOrder" :key="id" :id="id" :position="allocations[id]" />
@@ -123,8 +138,14 @@ function zoomToBounds(bounds, duration = 0) {
 
 <style scoped>
 .graph {
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
+  grid-column: graph-start-x / graph-end-x;
+  grid-row: graph-start-y / graph-end-y;
+  position: relative;
+  overflow: hidden;
+
+  &.initializing {
+    --transition: 0s;
+  }
   /* position: absolute;
   top: 0;
   left: 0;

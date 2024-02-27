@@ -18,7 +18,8 @@ const dataStore = useDataStore()
 
 <style scoped>
 .navigation-node-occurances {
-  grid-column: 1 / -1;
+  position: relative;
+  grid-column: graph-start-x / graph-end-x;
   grid-row: -1 / -2;
 
   display: flex;
