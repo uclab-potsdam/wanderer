@@ -7,6 +7,7 @@ import { computeAllocations } from '@/assets/js/nodeAllocation'
 import { useRoute } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { useConstantStore } from '@/stores/constant'
+import { useDisplayStore } from '@/stores/display'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
@@ -15,6 +16,7 @@ import NavigationNodeOccurances from '@/components/NavigationNodeOccurances.vue'
 const route = useRoute()
 const dataStore = useDataStore()
 const constantStore = useConstantStore()
+const displayStore = useDisplayStore()
 
 const allocations = ref([])
 
@@ -30,6 +32,7 @@ const transformString = computed(
   () => `translate(${transform.value.x}px, ${transform.value.y}px) scale(${transform.value.k})`
 )
 const bounds = computed(() => {
+  if (displayStore.bounds != null) return displayStore.bounds
   const values = Object.values(allocations.value)
   const valuesX = values.map(({ x }) => x)
   const valuesY = values.map(({ y }) => y)
@@ -38,14 +41,10 @@ const bounds = computed(() => {
   const yOffset = 100
 
   return {
-    min: {
-      x: Math.min(...valuesX) - xOffset,
-      y: Math.min(...valuesY) - yOffset
-    },
-    max: {
-      x: Math.max(...valuesX) + xOffset,
-      y: Math.max(...valuesY) + yOffset
-    }
+    x1: Math.min(...valuesX) - xOffset,
+    y1: Math.min(...valuesY) - yOffset,
+    x2: Math.max(...valuesX) + xOffset,
+    y2: Math.max(...valuesY) + yOffset
   }
 })
 const edges = computed(() => {
@@ -58,6 +57,10 @@ const edges = computed(() => {
 const allocationOrder = computed(() => Object.keys(allocations.value).sort())
 
 watch(node, () => initGraph(constantStore.transition))
+
+watch(bounds, () => {
+  zoomToBounds(bounds.value, constantStore.transition)
+})
 
 onMounted(() => {
   zoomElementSelection.value = select(zoomElement.value)
@@ -84,8 +87,8 @@ function initGraph(duration) {
 
 function zoomToBounds(bounds, duration = 0) {
   const diff = {
-    x: bounds.max.x - bounds.min.x,
-    y: bounds.max.y - bounds.min.y
+    x: bounds.x2 - bounds.x1,
+    y: bounds.y2 - bounds.y1
   }
 
   const zoomElementDimensions = zoomElement.value.getBoundingClientRect()
@@ -94,8 +97,8 @@ function zoomToBounds(bounds, duration = 0) {
   const scaleY = zoomElementDimensions.height / diff.y
   const scale = Math.min(scaleX, scaleY)
 
-  const x = bounds.min.x + diff.x / 2
-  const y = bounds.min.y + diff.y / 2
+  const x = bounds.x1 + diff.x / 2
+  const y = bounds.y1 + diff.y / 2
 
   zoomElementSelection.value
     .transition()

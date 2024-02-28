@@ -18,6 +18,8 @@ export const useDisplayStore = defineStore('display', () => {
     return markers.value.reduce((a, b) => ({ ...a, ...b.states }), { states: {} })
   })
 
+  const bounds = computed(() => markers.value.findLast((m) => m.bounds != null)?.bounds)
+
   function getLowestState(states) {
     if (states.includes('hide')) return 'hide'
     if (states.every((state) => state === 'highlight')) return 'highlight'
@@ -42,5 +44,5 @@ export const useDisplayStore = defineStore('display', () => {
     return getLowestState(neighborStates)
   }
 
-  return { states, markers, inheritStateFromNodes, inheritStateFromNeighbor }
+  return { markers, states, bounds, inheritStateFromNodes, inheritStateFromNeighbor }
 })
