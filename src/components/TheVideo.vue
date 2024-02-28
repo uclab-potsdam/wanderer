@@ -75,6 +75,7 @@ watch(
   }
 
   .subtitle {
+    position: relative;
     grid-column: st-start / st-end;
     grid-row: 1 / -2;
     display: flex;
