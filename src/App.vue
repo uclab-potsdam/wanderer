@@ -1,9 +1,10 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import TheHeader from './components/TheHeader.vue'
+const route = useRoute()
 </script>
 
 <template>
-  <TheHeader />
+  <TheHeader v-if="!route.meta.hideMenuBar" />
   <RouterView />
 </template>

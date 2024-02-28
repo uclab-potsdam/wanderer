@@ -1,7 +1,7 @@
 <script setup>
 import { useVideoStore } from '@/stores/video'
 import { useHelperStore } from '@/stores/helper'
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 defineProps({
   letterbox: Boolean
@@ -10,21 +10,39 @@ defineProps({
 const videoStore = useVideoStore()
 const helperStore = useHelperStore()
 
+const video = ref(null)
+
 const source = computed(() => helperStore.getMediaUrl(videoStore.video.file[0]))
 
 function onTimeUpdate(e) {
   videoStore.time = e.target.currentTime
 }
+
+function onLoadStart(e) {
+  e.target.currentTime = videoStore.playFrom ?? 0
+  videoStore.playFrom = null
+}
+
+watch(
+  () => videoStore.playFrom,
+  (time) => {
+    if (time == null) return
+    video.value.currentTime = time
+    videoStore.playFrom = null
+  }
+)
 </script>
 
 <template>
   <main class="video">
     <video
+      ref="video"
       crossorigin="anonymous"
       autoplay
       controls
       muted
       :src="source"
+      @loadstart="onLoadStart"
       @timeupdate="onTimeUpdate"
     ></video>
     <div class="subtitle">

@@ -34,7 +34,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   const dataStore = useDataStore()
   const videoStore = useVideoStore()
-  if (dataStore.data === null && ['list', 'graph'].includes(to.name)) {
+  if (dataStore.data === null && ['list', 'graph', 'video'].includes(to.name)) {
     await dataStore.init()
   }
   if (to.name === 'graph') {
