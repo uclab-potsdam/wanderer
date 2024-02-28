@@ -1,6 +1,8 @@
 <script setup>
 import { useDataStore } from '@/stores/data'
+import { useHelperStore } from '@/stores/helper'
 const dataStore = useDataStore()
+const helperStore = useHelperStore()
 </script>
 
 <template>
@@ -11,7 +13,7 @@ const dataStore = useDataStore()
       :key="id"
       :to="{ name: 'graph', params: { type: 'graph', id } }"
     >
-      {{ graph.text.en }}
+      {{ helperStore.localize(graph.text) }}
     </RouterLink>
   </nav>
 </template>

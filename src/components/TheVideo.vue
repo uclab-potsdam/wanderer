@@ -27,6 +27,9 @@ function onTimeUpdate(e) {
       :src="source"
       @timeupdate="onTimeUpdate"
     ></video>
+    <div class="subtitle">
+      {{ videoStore.subtitle }}
+    </div>
   </main>
 </template>
 
@@ -36,8 +39,11 @@ function onTimeUpdate(e) {
   grid-row: video-start-y / video-end-y;
 
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 80px;
+  grid-template-columns:
+    1fr
+    [st-start] min(100% - 100px, 800px)
+    [st-end] 1fr;
+  grid-template-rows: 1fr 50px;
 
   background: black;
 
@@ -48,6 +54,21 @@ function onTimeUpdate(e) {
     width: 100%;
     height: 100%;
     overflow: hidden;
+  }
+
+  .subtitle {
+    grid-column: st-start / st-end;
+    grid-row: 1 / -2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    text-align: center;
+    font-size: var(--font-size-subtitle);
+    text-wrap: balance;
+    color: white;
+    text-shadow: -2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000, 2px 2px 0 #000,
+      0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000;
   }
 }
 </style>

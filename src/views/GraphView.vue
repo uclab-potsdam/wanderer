@@ -18,11 +18,12 @@ const videoStore = useVideoStore()
 
 <style scoped>
 .graph-view {
+  --font-size-subtitle: max(2vw, 40px);
+
   grid-column: 1 / -1;
   grid-row: 1 / -1;
 
   max-height: 100vh;
-
   display: grid;
 
   grid-template-columns:

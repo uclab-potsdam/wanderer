@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { useLayoutStore } from '@/stores/layout'
 import { useDisplayStore } from '@/stores/display'
+import { useHelperStore } from '@/stores/helper'
 
 const props = defineProps({
   id: String,
@@ -15,6 +16,7 @@ const router = useRouter()
 const dataStore = useDataStore()
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
+const helperStore = useHelperStore()
 
 const nodeElement = ref(null)
 
@@ -29,6 +31,8 @@ const display = computed(() => {
   // fallback for depricated edges imported from terminus
   return displayStore.inheritStateFromNeighbor(props.id)
 })
+
+const text = computed(() => helperStore.localize(node.value.text))
 
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
@@ -73,7 +77,7 @@ onBeforeUnmount(() => {
     :class="[display]"
     :style="positioning"
   >
-    {{ node?.text?.en || 'untitled' }}
+    {{ text }}
   </div>
 </template>
 

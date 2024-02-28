@@ -1,10 +1,12 @@
 <script setup>
 import { useDataStore } from '@/stores/data'
-import { useRoute, useRouter } from 'vue-router'
+import { useHelperStore } from '@/stores/helper'
+import { useRoute } from 'vue-router'
 
 const dataStore = useDataStore()
+const helperStore = useHelperStore()
+
 const route = useRoute()
-const router = useRouter()
 </script>
 
 <template>
@@ -15,7 +17,7 @@ const router = useRouter()
         v-if="node.type === route.params.type"
       >
         <div>
-          {{ node.text?.en ?? 'untitled' }}
+          {{ helperStore.localize(node.text) }}
         </div>
       </RouterLink>
     </template>
