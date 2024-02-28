@@ -52,12 +52,12 @@ function onMouseDown(e) {
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.contentRect) {
-      const labelWidth = [...entry.target.children[0].classList].includes('entity')
-        ? Math.max(...[...entry.target.children[0].children[0].children].map((d) => d.getBoundingClientRect().width)) /
-          props.transform.k
-        : -Infinity
+      // const labelWidth = [...entry.target.children[0].classList].includes('entity')
+      //   ? Math.max(...[...entry.target.children[0].children[0].children].map((d) => d.getBoundingClientRect().width)) /
+      //     props.transform.k
+      //   : -Infinity
       canvasStore.updateNode(props.allocation.node['@id'], {
-        width: labelWidth > 0 ? labelWidth + 20 : entry.contentRect.width,
+        width: /* useLabelWidth ? labelWidth + 20 : */ entry.contentRect.width,
         height: entry.contentRect.height,
         x: props.allocation.x,
         y: props.allocation.y
@@ -129,10 +129,10 @@ function onClick() {
   router.push(`/${props.allocation.node['@id']}`)
 }
 
-const offset = ref(route.name === 'graph' ? 'translate(-45px, -32.5px)' : 'translate(-50%, -50%)')
+const offset = 'translate(-50%, -50%)'
 watch(
   () => terminusStore.allocations,
-  () => (offset.value = route.name === 'graph' ? 'translate(-45px, -32.5px)' : 'translate(-50%, -50%)')
+  () => (offset.value = 'translate(-50%, -50%)')
 )
 
 const showEditModal = ref(false)

@@ -277,7 +277,7 @@ function resolveDirection(anchor, dir, delta, inverse) {
 }
 
 function computePoints() {
-  if (route.name === 'graph') {
+  if (route.name === '-graph') {
     const offset = terminusStore.offset
     const source = canvasStore.nodes[props.edge.source]
     const target = canvasStore.nodes[props.edge.target]
