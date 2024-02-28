@@ -2,6 +2,7 @@
 import { useVideoStore } from '@/stores/video'
 import { useHelperStore } from '@/stores/helper'
 import { computed, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 defineProps({
   letterbox: Boolean
@@ -9,6 +10,8 @@ defineProps({
 
 const videoStore = useVideoStore()
 const helperStore = useHelperStore()
+
+const router = useRouter()
 
 const video = ref(null)
 
@@ -21,6 +24,14 @@ function onTimeUpdate(e) {
 function onLoadStart(e) {
   e.target.currentTime = videoStore.playFrom ?? 0
   videoStore.playFrom = null
+}
+
+function requestNext() {
+  if (videoStore.isExternalPlayer) {
+    videoStore.requestNext()
+  } else {
+    router.push({ name: 'graph', params: { type: 'graph', id: videoStore.next } })
+  }
 }
 
 watch(
@@ -44,6 +55,7 @@ watch(
       :src="source"
       @loadstart="onLoadStart"
       @timeupdate="onTimeUpdate"
+      @ended="requestNext"
     ></video>
     <div class="subtitle">
       {{ videoStore.subtitle }}

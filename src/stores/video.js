@@ -3,11 +3,14 @@ import { computed, ref, watch, watchEffect } from 'vue'
 import { parseSRT } from '@/assets/js/subtitles'
 
 import { useDataStore } from '@/stores/data'
-import { useHelperStore } from './helper'
+import { useHelperStore } from '@/stores/helper'
+
+import { useRouter } from 'vue-router'
 
 export const useVideoStore = defineStore('video', () => {
   const dataStore = useDataStore()
   const helperStore = useHelperStore()
+  const router = useRouter()
 
   const channel = new BroadcastChannel('video')
 
@@ -18,6 +21,7 @@ export const useVideoStore = defineStore('video', () => {
   const subtitles = ref(null)
   const hasExternalPlayer = ref(false)
   const isExternalPlayer = ref(false)
+  const next = ref(null)
 
   const video = computed(() => dataStore.data?.nodes[graphId.value]?.media)
   const playSplitScreen = computed(() => video.value != null && !hasExternalPlayer.value)
@@ -31,13 +35,15 @@ export const useVideoStore = defineStore('video', () => {
     const url = helperStore.getMediaUrl(file)
 
     const text = await fetch(url).then((d) => d.text())
-
     subtitles.value = parseSRT(text)
   })
 
   watch(graphId, (id) => {
+    if (isExternalPlayer.value) return
     history.value.push(id)
     if (history.value.length > 3) history.value.splice(0, 1)
+    next.value = getNextGraph()
+
     if (hasExternalPlayer.value) setGraph()
   })
 
@@ -45,6 +51,26 @@ export const useVideoStore = defineStore('video', () => {
     if (!isExternalPlayer.value) return
     channel.postMessage({ action: 'set_time', time })
   })
+
+  function getNextGraph() {
+    let relatedGraphs = Object.keys(dataStore.data?.nodes[graphId.value].allocations).filter(
+      (id) => dataStore.data.nodes[id].type === 'graph'
+    )
+
+    if (relatedGraphs.length === 0) {
+      relatedGraphs = Object.keys(dataStore.data?.nodes).filter(
+        (id) => dataStore.data.nodes[id].type === 'graph'
+      )
+    }
+
+    history.value.toReversed().forEach((id) => {
+      if (relatedGraphs.length <= 0) return
+      relatedGraphs = relatedGraphs.filter((r) => r !== id)
+    })
+
+    const index = Math.floor(Math.random() * relatedGraphs.length)
+    return relatedGraphs[index]
+  }
 
   function attachPlayer() {
     isExternalPlayer.value = true
@@ -57,6 +83,10 @@ export const useVideoStore = defineStore('video', () => {
   function detachPlayer() {
     isExternalPlayer.value = false
     channel.postMessage({ action: 'detach_player', time: time.value })
+  }
+
+  function requestNext() {
+    channel.postMessage({ action: 'request_next' })
   }
 
   function setGraph(time = 0) {
@@ -85,6 +115,9 @@ export const useVideoStore = defineStore('video', () => {
         time.value = data.time
         if (!hasExternalPlayer.value) channel.postMessage({ action: 'reattach_player' })
         break
+      case 'request_next':
+        router.push({ name: 'graph', params: { type: 'graph', id: next.value } })
+        break
     }
   })
 
@@ -98,6 +131,9 @@ export const useVideoStore = defineStore('video', () => {
     subtitles,
     subtitle,
     attachPlayer,
-    detachPlayer
+    detachPlayer,
+    requestNext,
+    isExternalPlayer,
+    next
   }
 })
