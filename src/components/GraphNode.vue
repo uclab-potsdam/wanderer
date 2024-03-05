@@ -6,6 +6,7 @@ import { useDataStore } from '@/stores/data'
 import { useLayoutStore } from '@/stores/layout'
 import { useDisplayStore } from '@/stores/display'
 import { useHelperStore } from '@/stores/helper'
+import { useActivityStore } from '@/stores/activity'
 
 const props = defineProps({
   id: String,
@@ -17,6 +18,7 @@ const dataStore = useDataStore()
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
 const helperStore = useHelperStore()
+const activityStore = useActivityStore()
 
 const nodeElement = ref(null)
 
@@ -74,7 +76,7 @@ onBeforeUnmount(() => {
     @click="router.push({ name: 'graph', params: { type: node.type, id } })"
     ref="nodeElement"
     class="node"
-    :class="[display]"
+    :class="[display, { 'user-active': !activityStore.inactivityShort }]"
     :style="positioning"
   >
     {{ text }}
@@ -85,10 +87,16 @@ onBeforeUnmount(() => {
 .node {
   position: absolute;
   transform: translate(-50%, -50%);
-  transition: top var(--transition), left var(--transition);
+  transition:
+    top var(--transition),
+    left var(--transition);
 
   &.hide {
     opacity: 0;
+
+    &.user-active {
+      opacity: 0.6;
+    }
   }
   &.highlight {
     color: red;

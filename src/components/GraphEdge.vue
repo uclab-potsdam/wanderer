@@ -3,9 +3,11 @@ import { useLayoutStore } from '@/stores/layout'
 import { getLineRoundedRectangleIntersection } from '@/assets/js/intersection'
 import { computed } from 'vue'
 import { useDisplayStore } from '@/stores/display'
+import { useActivityStore } from '@/stores/activity'
 
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
+const activityStore = useActivityStore()
 
 const props = defineProps({
   edge: Object
@@ -66,7 +68,7 @@ const markerStart = computed(
 </script>
 
 <template>
-  <g class="edge" :class="[display]">
+  <g class="edge" :class="[display, { 'user-active': !activityStore.inactivityShort }]">
     <defs>
       <marker
         :id="`marker-${id}`"
@@ -89,6 +91,10 @@ const markerStart = computed(
 
   &.hide {
     opacity: 0;
+
+    &.user-active {
+      opacity: 0.6;
+    }
   }
 
   &.highlight {

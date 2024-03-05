@@ -4,19 +4,24 @@ import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
 import { computeAllocations } from '@/assets/js/nodeAllocation'
 
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { useConstantStore } from '@/stores/constant'
 import { useDisplayStore } from '@/stores/display'
+import { useActivityStore } from '@/stores/activity'
+import { useVideoStore } from '@/stores/video'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
 import NavigationNodeOccurances from '@/components/NavigationNodeOccurances.vue'
 
 const route = useRoute()
+const router = useRouter()
 const dataStore = useDataStore()
 const constantStore = useConstantStore()
 const displayStore = useDisplayStore()
+const activityStore = useActivityStore()
+const videoStore = useVideoStore()
 
 const allocations = ref([])
 
@@ -61,6 +66,22 @@ watch(node, () => initGraph(constantStore.transition))
 watch(bounds, () => {
   zoomToBounds(bounds.value, constantStore.transition)
 })
+
+watch(
+  () => activityStore.inactivityShort,
+  () => {
+    zoomToBounds(bounds.value, constantStore.transition)
+  }
+)
+
+watch(
+  () => activityStore.inactivityLong,
+  () => {
+    if (route.name === 'graph' && route.params.type !== 'graph' && videoStore.graphId != null) {
+      router.push({ name: 'graph', params: { type: 'graph', id: videoStore.graphId } })
+    }
+  }
+)
 
 onMounted(() => {
   zoomElementSelection.value = select(zoomElement.value)
