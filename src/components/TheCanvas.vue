@@ -307,6 +307,8 @@ const accent = computed(() => {
     position: absolute;
     display: block;
     isolation: isolate;
+    z-index: 100;
+    pointer-events: none;
 
     .bounds {
       pointer-events: none;
