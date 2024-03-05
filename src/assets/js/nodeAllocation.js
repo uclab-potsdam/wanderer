@@ -11,6 +11,8 @@ function computeAllocations(id) {
     x: 0,
     y: 0
   }
+
+  console.log(offset)
   const neighbors = [...new Set(getNeighbors(id, depth).flat(depth + 1))]
   // const uniqueNeighbors = removeNeighborDuplicates([id, neighbors])
 
@@ -31,7 +33,7 @@ function computeAllocations(id) {
       ).id((n) => n.id)
     )
     .force('charge', forceManyBody().strength(-5000))
-    .force('center', forceCenter())
+    .force('center', forceCenter(offset.x, offset.y))
     .on('tick', () => {
       console.log(nodes)
     })

@@ -5,9 +5,13 @@ import { computed } from 'vue'
 import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
 
+import BaseInterpolate from '@/components/BaseInterpolate.vue'
+import { useConstantStore } from '@/stores/constant'
+
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
+const constantStore = useConstantStore()
 
 const props = defineProps({
   edge: Object
@@ -81,7 +85,16 @@ const markerStart = computed(
         <path d="M0,0 L10,10 L0,20" />
       </marker>
     </defs>
-    <path :d="d" :marker-end="markerEnd" :marker-start="markerStart" />
+    <BaseInterpolate
+      :props="{
+        d
+      }"
+      :delay="0"
+      :duration="constantStore.transition"
+      v-slot="value"
+    >
+      <path :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
+    </BaseInterpolate>
   </g>
 </template>
 
@@ -110,7 +123,7 @@ const markerStart = computed(
   }
 
   path {
-    transition: d var(--transition);
+    /* transition: d var(--transition); */
   }
 }
 </style>
