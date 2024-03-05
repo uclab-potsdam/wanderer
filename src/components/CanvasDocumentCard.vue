@@ -129,7 +129,7 @@ function onClick() {
   router.push(`/${props.allocation.node['@id']}`)
 }
 
-const offset = 'translate(-50%, -50%)'
+const offset = ref('translate(-50%, -50%)')
 watch(
   () => terminusStore.allocations,
   () => (offset.value = 'translate(-50%, -50%)')
