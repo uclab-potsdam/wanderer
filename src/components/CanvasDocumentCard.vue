@@ -145,7 +145,15 @@ const showEditModal = ref(false)
     :style="{
       transform: `translate(${allocation.x}px, ${allocation.y}px) ${offset}`
     }"
-    :class="[viewStore.modeClass, { moving, 'drawing-source': drawingSource, 'drawing-target': drawingTarget }]"
+    :class="[
+      viewStore.modeClass,
+      {
+        moving,
+        'drawing-source': drawingSource,
+        'drawing-target': drawingTarget,
+        'no-events': /^media\//.test(allocation.node['@id'])
+      }
+    ]"
     @click="onClick"
   >
     <DocumentCard
@@ -183,6 +191,14 @@ const showEditModal = ref(false)
 
   &.mode-view {
     transition: transform var(--transition-extended);
+  }
+
+  &.no-events {
+    pointer-events: none !important;
+
+    > * {
+      pointer-events: all;
+    }
   }
 
   &.moving,
