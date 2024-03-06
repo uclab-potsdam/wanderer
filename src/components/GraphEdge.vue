@@ -26,7 +26,7 @@ const d = computed(() => {
   if (source.value == null || target.value == null) return
 
   const margin = 0
-  const radius = 10
+  const radius = constantStore.spacing
 
   const sourceWidth = source.value.width + margin
   const sourceHeight = source.value.height + margin
