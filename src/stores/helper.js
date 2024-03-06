@@ -11,7 +11,7 @@ export const useHelperStore = defineStore('helper', () => {
   }
 
   function localize(text) {
-    return text?.[settingsStore.lang] ?? text?.universal ?? text?.en
+    return text?.[settingsStore.lang] || text?.universal || text?.en
   }
 
   return { getMediaUrl, localize }

@@ -7,10 +7,16 @@ import { useLayoutStore } from '@/stores/layout'
 import { useDisplayStore } from '@/stores/display'
 import { useHelperStore } from '@/stores/helper'
 import { useActivityStore } from '@/stores/activity'
+import { useConstantStore } from '@/stores/constant'
+
+import { getComponentForType } from '@/assets/js/nodes'
+
+// import {GraphNodeEntity} from '@/components/GraphNodeEntity.vue'
 
 const props = defineProps({
   id: String,
-  position: Object
+  position: Object,
+  transform: Object
 })
 
 const router = useRouter()
@@ -19,6 +25,7 @@ const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
 const helperStore = useHelperStore()
 const activityStore = useActivityStore()
+const constantStore = useConstantStore()
 
 const nodeElement = ref(null)
 
@@ -26,7 +33,10 @@ const node = computed(() => dataStore.data.nodes[props.id])
 const positioning = computed(() => ({
   left: `${props.position.x}px`,
   top: `${props.position.y}px`
+  // transform: `translate(${props.position.x}px, ${props.position.y}px)`
 }))
+
+const component = computed(() => getComponentForType(node.value.type))
 
 const display = computed(() => {
   if (!node.value.inheritDisplay) return displayStore.states[props.id]
@@ -39,10 +49,18 @@ const text = computed(() => helperStore.localize(node.value.text))
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.contentRect) {
+      const measuredWidth = Math.max(
+        ...[...entry.target.querySelectorAll('.measure-width')].map(
+          (d) => d.getBoundingClientRect().width / props.transform.k + constantStore.spacing
+        )
+      )
       layoutStore.nodes[props.id] = {
-        width: entry.contentRect.width,
+        width: measuredWidth > 0 ? measuredWidth : entry.contentRect.width,
         height: entry.contentRect.height,
-        x: props.position.x,
+        x:
+          measuredWidth > 0
+            ? props.position.x - entry.contentRect.width / 2 + measuredWidth / 2
+            : props.position.x,
         y: props.position.y
       }
     }
@@ -68,6 +86,10 @@ onBeforeUnmount(() => {
   if (nodeElement.value != null) resizeObserver.unobserve(nodeElement.value)
   delete layoutStore.nodes[props.id]
 })
+
+function updateWidth(a) {
+  console.log(a)
+}
 </script>
 
 <template>
@@ -76,10 +98,16 @@ onBeforeUnmount(() => {
     @click="router.push({ name: 'graph', params: { type: node.type, id } })"
     ref="nodeElement"
     class="node"
-    :class="[display, { 'user-active': !activityStore.inactivityShort }]"
     :style="positioning"
   >
-    {{ text }}
+    <component
+      :is="component"
+      :class="[display, { 'user-active': !activityStore.inactivityShort }]"
+      :node="node"
+      @update-width="updateWidth"
+    >
+      {{ text }}
+    </component>
   </div>
 </template>
 

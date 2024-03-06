@@ -64,6 +64,8 @@ const allocationOrder = computed(() => Object.keys(allocations.value).sort())
 watch(node, () => initGraph(constantStore.transition))
 
 watch(bounds, () => {
+  console.log('inactive', activityStore.inactivityShort)
+  if (!activityStore.inactivityShort) return
   zoomToBounds(bounds.value, constantStore.transition)
 })
 
@@ -146,7 +148,13 @@ const resizeObserver = new ResizeObserver((entries) => {
   <main class="graph" ref="zoomElement" :class="{ initializing: route.meta.initializeView }">
     <div class="nodes" :style="{ transform: transformString }">
       <TransitionGroup name="nodes">
-        <GraphNode v-for="id in allocationOrder" :key="id" :id="id" :position="allocations[id]" />
+        <GraphNode
+          v-for="id in allocationOrder"
+          :key="id"
+          :id="id"
+          :position="allocations[id]"
+          :transform="transform"
+        />
       </TransitionGroup>
     </div>
     <svg>
