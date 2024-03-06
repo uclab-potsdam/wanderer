@@ -56,6 +56,8 @@ watch(
       @loadstart="onLoadStart"
       @timeupdate="onTimeUpdate"
       @ended="requestNext"
+      @pause="videoStore.playing = false"
+      @play="videoStore.playing = true"
     ></video>
     <div class="subtitle">
       {{ videoStore.subtitle }}

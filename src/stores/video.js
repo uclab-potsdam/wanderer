@@ -22,6 +22,7 @@ export const useVideoStore = defineStore('video', () => {
   const hasExternalPlayer = ref(false)
   const isExternalPlayer = ref(false)
   const next = ref(null)
+  const playing = ref(false)
 
   const video = computed(() => dataStore.data?.nodes[graphId.value]?.media)
   const playSplitScreen = computed(() => video.value != null && !hasExternalPlayer.value)
@@ -134,6 +135,7 @@ export const useVideoStore = defineStore('video', () => {
     detachPlayer,
     requestNext,
     isExternalPlayer,
-    next
+    next,
+    playing
   }
 })

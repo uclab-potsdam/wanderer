@@ -72,6 +72,7 @@ watch(bounds, () => {
 watch(
   () => activityStore.inactivityShort,
   () => {
+    if (!videoStore.playing) return
     zoomToBounds(bounds.value, constantStore.transition)
   }
 )
@@ -79,6 +80,7 @@ watch(
 watch(
   () => activityStore.inactivityLong,
   () => {
+    if (!videoStore.playing) return
     if (route.name === 'graph' && route.params.type !== 'graph' && videoStore.graphId != null) {
       router.push({ name: 'graph', params: { type: 'graph', id: videoStore.graphId } })
     }
