@@ -64,7 +64,6 @@ const allocationOrder = computed(() => Object.keys(allocations.value).sort())
 watch(node, () => initGraph(constantStore.transition))
 
 watch(bounds, () => {
-  console.log('inactive', activityStore.inactivityShort)
   if (!activityStore.inactivityShort) return
   zoomToBounds(bounds.value, constantStore.transition)
 })

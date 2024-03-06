@@ -86,10 +86,6 @@ onBeforeUnmount(() => {
   if (nodeElement.value != null) resizeObserver.unobserve(nodeElement.value)
   delete layoutStore.nodes[props.id]
 })
-
-function updateWidth(a) {
-  console.log(a)
-}
 </script>
 
 <template>
@@ -104,7 +100,6 @@ function updateWidth(a) {
       :is="component"
       :class="[display, { 'user-active': !activityStore.inactivityShort }]"
       :node="node"
-      @update-width="updateWidth"
     >
       {{ text }}
     </component>
