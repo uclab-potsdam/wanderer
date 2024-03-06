@@ -49,7 +49,7 @@ watch(
     <video
       ref="video"
       crossorigin="anonymous"
-      autoplay
+      x-autoplay
       controls
       muted
       :src="source"
@@ -100,8 +100,15 @@ watch(
     font-size: var(--font-size-subtitle);
     text-wrap: balance;
     color: white;
-    text-shadow: -2px -2px 0 #000, 0 -2px 0 #000, 2px -2px 0 #000, 2px 0 0 #000, 2px 2px 0 #000,
-      0 2px 0 #000, -2px 2px 0 #000, -2px 0 0 #000;
+    text-shadow:
+      -2px -2px 0 #000,
+      0 -2px 0 #000,
+      2px -2px 0 #000,
+      2px 0 0 #000,
+      2px 2px 0 #000,
+      0 2px 0 #000,
+      -2px 2px 0 #000,
+      -2px 0 0 #000;
   }
 }
 </style>
