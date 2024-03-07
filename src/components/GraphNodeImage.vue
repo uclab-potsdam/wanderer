@@ -8,12 +8,9 @@ const props = defineProps({
 
 const helperStore = useHelperStore()
 
-const textElement = ref(null)
-
 const el = ref(null)
 
-const text = computed(() => helperStore.localize(props.node.text))
-const image = computed(() => `url("${helperStore.getMediaUrl(props.node.image)}")`)
+const url = computed(() => helperStore.getMediaUrl(props.node.file))
 
 defineExpose({
   el
@@ -21,23 +18,11 @@ defineExpose({
 </script>
 
 <template>
-  <div class="entity" ref="el" :style="{ 'background-image': image }">
-    <span class="text measure-width" ref="textElement">{{ text }}</span>
-  </div>
+  <img ref="el" class="image" :srcset="`${url} 2x`" />
 </template>
 
 <style scoped>
-.entity {
-  width: 250px;
-  height: 150px;
-  border: 1px solid;
-  padding: calc(var(--spacing) * 0.5);
-  border-radius: calc(var(--spacing) * 0.25);
-
-  background-size: cover;
-  background-position: center center;
-  .text {
-    font-weight: 900;
-  }
+.image {
+  z-index: -1;
 }
 </style>

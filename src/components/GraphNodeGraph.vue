@@ -22,7 +22,7 @@ defineExpose({
 
 <template>
   <div class="entity" ref="el" :style="{ 'background-image': image }">
-    <span class="text measure-width" ref="textElement">{{ text }}</span>
+    <span class="text" ref="textElement">{{ text }}</span>
   </div>
 </template>
 
@@ -33,6 +33,7 @@ defineExpose({
   border: 1px solid;
   padding: calc(var(--spacing) * 0.5);
   border-radius: calc(var(--spacing) * 0.25);
+  z-index: -1;
 
   background-size: cover;
   background-position: center center;
