@@ -40,7 +40,7 @@ router.beforeEach(async (to, from) => {
   if (to.name === 'graph') {
     dataStore.nodeId = to.params.id
   }
-  if (to.params.type === 'graph') {
+  if (to.params.type === 'graph' && to.name === 'graph') {
     videoStore.graphId = to.params.id
   }
   to.meta.initializeView = to.name !== from.name
