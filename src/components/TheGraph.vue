@@ -60,7 +60,10 @@ const edges = computed(() => {
 })
 
 const allocationOrder = computed(() => Object.keys(allocations.value).sort())
-
+const cssProps = computed(() => {
+  if (node.value.color == null) return
+  return { '--graph-accent': `var(--${node.value.color})` }
+})
 watch(node, () => initGraph(constantStore.transition))
 
 watch(bounds, () => {
@@ -146,7 +149,12 @@ const resizeObserver = new ResizeObserver((entries) => {
 </script>
 
 <template>
-  <main class="graph" ref="zoomElement" :class="{ initializing: route.meta.initializeView }">
+  <main
+    class="graph"
+    ref="zoomElement"
+    :class="{ initializing: route.meta.initializeView }"
+    :style="cssProps"
+  >
     <div class="nodes" :style="{ transform: transformString }">
       <TransitionGroup name="nodes">
         <GraphNode

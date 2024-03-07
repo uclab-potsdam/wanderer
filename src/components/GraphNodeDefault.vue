@@ -31,6 +31,7 @@ export default {
 
 <style scoped>
 .entity {
+  color: var(--graph-accent);
   max-width: 250px;
   padding: calc(var(--spacing) * 0.5);
   width: max-content;

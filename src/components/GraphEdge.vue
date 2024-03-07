@@ -107,7 +107,7 @@ const markerStart = computed(
 
 <style scoped>
 .edge {
-  stroke: black;
+  stroke: var(--graph-accent);
 
   &.hide {
     opacity: 0;

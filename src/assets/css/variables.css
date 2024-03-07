@@ -8,4 +8,7 @@
 
   /* Transitions */
   --transition: 2000ms;
+
+  /* Colors */
+  --graph-accent: var(--gray)
 }
