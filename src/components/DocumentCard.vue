@@ -128,7 +128,7 @@ const duration = computed(() => {
     </div>
     <div class="media-wrapper" v-else>
       <div v-if="!onCanvas" class="media-label" :lang="label.lang">{{ label.text }}</div>
-      <img v-if="mediaType === 'image'" :src="mediaUrl" draggable="false" class="media" />
+      <img v-if="mediaType === 'image'" :srcset="`${mediaUrl} 2x`" draggable="false" class="media" />
       <video v-if="mediaType === 'video'" :src="mediaUrl" loop muted autoplay class="media" />
     </div>
     <div class="actions">
@@ -151,7 +151,7 @@ const duration = computed(() => {
   // border-radius: var(--node-border-radius);
 
   &.on-canvas:has(.media) {
-    width: 50%;
+    // width: 50%;
   }
 
   .card {
