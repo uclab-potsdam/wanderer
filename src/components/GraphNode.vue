@@ -47,12 +47,11 @@ const display = computed(() => {
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.contentRect) {
-      const measuredWidth = Math
-        .max
-        // ...[...entry.target.querySelectorAll('.measure-width')].map(
-        //   (d) => d.getBoundingClientRect().width / props.transform.k + constantStore.spacing
-        // )
-        ()
+      const measuredWidth = Math.max(
+        ...[...entry.target.querySelectorAll('.measure-width')].map(
+          (d) => d.getBoundingClientRect().width / props.transform.k
+        )
+      )
       layoutStore.nodes[props.id] = {
         width: measuredWidth > 0 ? measuredWidth : entry.contentRect.width,
         height: entry.contentRect.height,
