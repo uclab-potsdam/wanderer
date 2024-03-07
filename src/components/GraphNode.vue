@@ -6,7 +6,7 @@ import { useDataStore } from '@/stores/data'
 import { useLayoutStore } from '@/stores/layout'
 import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
-// import { useConstantStore } from '@/stores/constant'
+import { useVideoStore } from '@/stores/video'
 
 import { getComponentForType } from '@/assets/js/nodes'
 
@@ -23,7 +23,7 @@ const dataStore = useDataStore()
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
-// const constantStore = useConstantStore()
+const videoStore = useVideoStore()
 
 const componentRef = ref(null)
 
@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
     ref="componentRef"
     :id="id"
     class="node"
-    :class="[display, { 'user-active': !activityStore.inactivityShort }]"
+    :class="[display, { 'user-active': !activityStore.inactivityShort || !videoStore.playing }]"
     :style="positioning"
     :node="node"
     @click="router.push({ name: 'graph', params: { type: node.type, id } })"

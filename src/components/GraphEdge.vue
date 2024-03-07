@@ -4,14 +4,16 @@ import { getLineRoundedRectangleIntersection } from '@/assets/js/intersection'
 import { computed } from 'vue'
 import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
+import { useConstantStore } from '@/stores/constant'
+import { useVideoStore } from '@/stores/video'
 
 import BaseInterpolate from '@/components/BaseInterpolate.vue'
-import { useConstantStore } from '@/stores/constant'
 
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
 const constantStore = useConstantStore()
+const videoStore = useVideoStore()
 
 const props = defineProps({
   edge: Object
@@ -57,7 +59,9 @@ const d = computed(() => {
     Math.min(radius, targetHeight / 2 - 0.1) // fix issue when radius >= height / 2
   )[0]
 
-  if (start == null || end == null) return
+  if (start == null || end == null) {
+    return
+  }
   return `M${start[0]},${start[1]} L${end[0]},${end[1]}`
 })
 
@@ -72,7 +76,10 @@ const markerStart = computed(
 </script>
 
 <template>
-  <g class="edge" :class="[display, { 'user-active': !activityStore.inactivityShort }]">
+  <g
+    class="edge"
+    :class="[display, { 'user-active': !activityStore.inactivityShort || !videoStore.playing }]"
+  >
     <defs>
       <marker
         :id="`marker-${id}`"
