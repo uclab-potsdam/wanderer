@@ -1347,27 +1347,27 @@
     },
     "media-NWvRMxzqTdCtfgHk": {
       "type": "image",
-      "file": ["timbo_plant.png"],
+      "file": "timbo_plant.png",
       "text": { "universal": "timbo" }
     },
     "media-kIwxlG5yR0WUwTdH": {
       "type": "image",
-      "file": ["kusu.png"],
+      "file": "kusu.png",
       "text": { "en": "kusu", "universal": "kusu" }
     },
     "media-4IOhDgzbSwMabdkd": {
       "type": "image",
-      "file": ["Glass_tetra_fish.png"],
+      "file": "Glass_tetra_fish.png",
       "text": { "en": "Glass tetra fish" }
     },
     "media-Cz7xvqnCp80lFyH1": {
       "type": "image",
-      "file": ["takeout.png"],
+      "file": "takeout.png",
       "text": { "en": "takeout" }
     },
-    "media-_8m-ctyu7OHynUdY": { "type": "image", "file": ["wrap.png"], "text": { "en": "wrap" } },
-    "media-pmT_HP2tW1cBTRTQ": { "type": "image", "file": ["tie.png"], "text": { "en": "tie" } },
-    "media-w7u40g-krDvSEFRZ": { "type": "image", "file": ["bake.png"], "text": { "en": "bake" } },
+    "media-_8m-ctyu7OHynUdY": { "type": "image", "file": "wrap.png", "text": { "en": "wrap" } },
+    "media-pmT_HP2tW1cBTRTQ": { "type": "image", "file": "tie.png", "text": { "en": "tie" } },
+    "media-w7u40g-krDvSEFRZ": { "type": "image", "file": "bake.png", "text": { "en": "bake" } },
     "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
       "type": "graph",
       "text": { "de": "Orte", "en": "Territory", "pt": "Lugares" },
