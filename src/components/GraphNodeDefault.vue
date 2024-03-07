@@ -1,21 +1,31 @@
-<script setup>
-import { computed, ref } from 'vue'
+<script>
 import { useHelperStore } from '@/stores/helper'
+import { mapStores } from 'pinia'
+export default {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  props: { node: Object },
+  computed: {
+    text() {
+      return this.helperStore.localize(this.node.text)
+    },
+    ...mapStores(useHelperStore)
+  }
+}
+// import { computed } from 'vue'
 
-const props = defineProps({
-  node: Object
-})
+// const helperStore = useHelperStore()
 
-const helperStore = useHelperStore()
-
-const textElement = ref(null)
-
-const text = computed(() => helperStore.localize(props.node.text))
+// const text = computed(() => helperStore.localize(props.node.text))
+// const el = ref(null)
 </script>
 
 <template>
-  <div class="entity">
-    <span class="text measure-width" ref="textElement">{{ text }}</span>
+  <div class="entity" ref="el">
+    <span class="text measure-width">{{ text }}</span>
   </div>
 </template>
 

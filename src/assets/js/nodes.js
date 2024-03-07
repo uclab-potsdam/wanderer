@@ -1,9 +1,11 @@
 import GraphNodeEntity from '@/components/GraphNodeEntity.vue'
 import GraphNodeDefault from '@/components/GraphNodeDefault.vue'
+import GraphNodeGraph from '@/components/GraphNodeGraph.vue'
 
 export const types = {
+  default: GraphNodeDefault,
   entity: GraphNodeEntity,
-  default: GraphNodeDefault
+  graph: GraphNodeGraph
 }
 
 export function getComponentForType(type) {

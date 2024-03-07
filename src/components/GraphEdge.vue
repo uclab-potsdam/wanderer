@@ -25,7 +25,7 @@ const display = computed(() => displayStore.inheritStateFromNodes(props.edge.nod
 const d = computed(() => {
   if (source.value == null || target.value == null) return
 
-  const margin = 0
+  const margin = constantStore.spacing
   const radius = constantStore.spacing
 
   const sourceWidth = source.value.width + margin

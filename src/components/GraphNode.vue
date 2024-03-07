@@ -5,9 +5,8 @@ import { useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { useLayoutStore } from '@/stores/layout'
 import { useDisplayStore } from '@/stores/display'
-import { useHelperStore } from '@/stores/helper'
 import { useActivityStore } from '@/stores/activity'
-import { useConstantStore } from '@/stores/constant'
+// import { useConstantStore } from '@/stores/constant'
 
 import { getComponentForType } from '@/assets/js/nodes'
 
@@ -23,11 +22,10 @@ const router = useRouter()
 const dataStore = useDataStore()
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
-const helperStore = useHelperStore()
 const activityStore = useActivityStore()
-const constantStore = useConstantStore()
+// const constantStore = useConstantStore()
 
-const nodeElement = ref(null)
+const componentRef = ref(null)
 
 const node = computed(() => dataStore.data.nodes[props.id])
 const positioning = computed(() => ({
@@ -38,22 +36,23 @@ const positioning = computed(() => ({
 
 const component = computed(() => getComponentForType(node.value.type))
 
+const nodeElement = computed(() => componentRef.value.el ?? componentRef.value.$el)
+
 const display = computed(() => {
   if (!node.value.inheritDisplay) return displayStore.states[props.id]
   // fallback for depricated edges imported from terminus
   return displayStore.inheritStateFromNeighbor(props.id)
 })
 
-const text = computed(() => helperStore.localize(node.value.text))
-
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.contentRect) {
-      const measuredWidth = Math.max(
-        ...[...entry.target.querySelectorAll('.measure-width')].map(
-          (d) => d.getBoundingClientRect().width / props.transform.k + constantStore.spacing
-        )
-      )
+      const measuredWidth = Math
+        .max
+        // ...[...entry.target.querySelectorAll('.measure-width')].map(
+        //   (d) => d.getBoundingClientRect().width / props.transform.k + constantStore.spacing
+        // )
+        ()
       layoutStore.nodes[props.id] = {
         width: measuredWidth > 0 ? measuredWidth : entry.contentRect.width,
         height: entry.contentRect.height,
@@ -89,21 +88,16 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div
+  <component
+    :is="component"
+    ref="componentRef"
     :id="id"
-    @click="router.push({ name: 'graph', params: { type: node.type, id } })"
-    ref="nodeElement"
     class="node"
+    :class="[display, { 'user-active': !activityStore.inactivityShort }]"
     :style="positioning"
-  >
-    <component
-      :is="component"
-      :class="[display, { 'user-active': !activityStore.inactivityShort }]"
-      :node="node"
-    >
-      {{ text }}
-    </component>
-  </div>
+    :node="node"
+    @click="router.push({ name: 'graph', params: { type: node.type, id } })"
+  />
 </template>
 
 <style scoped>

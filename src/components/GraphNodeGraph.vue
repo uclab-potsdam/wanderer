@@ -8,10 +8,12 @@ const props = defineProps({
 
 const helperStore = useHelperStore()
 
+const textElement = ref(null)
+
 const el = ref(null)
 
 const text = computed(() => helperStore.localize(props.node.text))
-const className = computed(() => helperStore.localize(props.node.class))
+const image = computed(() => `url("${helperStore.getMediaUrl(props.node.image)}")`)
 
 defineExpose({
   el
@@ -19,17 +21,21 @@ defineExpose({
 </script>
 
 <template>
-  <div class="entity" ref="el">
-    <span class="text measure-width">{{ text }}</span>
-    <span class="class measure-width" v-if="className != null"><br />{{ className }}</span>
+  <div class="entity" ref="el" :style="{ 'background-image': image }">
+    <span class="text measure-width" ref="textElement">{{ text }}</span>
   </div>
 </template>
 
 <style scoped>
 .entity {
-  max-width: 250px;
+  width: 250px;
+  height: 150px;
+  border: 1px solid;
   padding: calc(var(--spacing) * 0.5);
-  width: max-content;
+  border-radius: calc(var(--spacing) * 0.25);
+
+  background-size: cover;
+  background-position: center center;
   .text {
     font-weight: 900;
   }
