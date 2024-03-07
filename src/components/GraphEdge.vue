@@ -42,7 +42,7 @@ const d = computed(() => {
     source.value.y - sourceHeight / 2,
     sourceWidth,
     sourceHeight,
-    radius
+    Math.min(radius, sourceHeight / 2 - 0.1) // fix issue when radius >= height / 2
   )[0]
 
   const end = getLineRoundedRectangleIntersection(
@@ -54,7 +54,7 @@ const d = computed(() => {
     target.value.y - targetHeight / 2,
     targetWidth,
     targetHeight,
-    radius
+    Math.min(radius, targetHeight / 2 - 0.1) // fix issue when radius >= height / 2
   )[0]
 
   if (start == null || end == null) return
