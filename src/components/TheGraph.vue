@@ -187,8 +187,8 @@ const resizeObserver = new ResizeObserver((entries) => {
         </TransitionGroup>
       </g>
     </svg>
-    <div class="tint" />
   </main>
+  <div class="tint" />
 </template>
 
 <style scoped>
@@ -242,15 +242,15 @@ const resizeObserver = new ResizeObserver((entries) => {
       transition: opacity var(--transition);
     }
   }
-
-  .tint {
-    transition: all var(--transition);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: var(--graph-accent);
-    opacity: 0.05;
-    pointer-events: none;
-  }
+}
+.tint {
+  transition: all var(--transition);
+  /* position: absolute; */
+  grid-column: graph-start-x / graph-end-x;
+  grid-row: graph-start-y / graph-end-y;
+  background: var(--graph-accent);
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 5;
 }
 </style>

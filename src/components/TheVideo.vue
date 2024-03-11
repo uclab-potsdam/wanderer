@@ -34,6 +34,10 @@ function requestNext() {
   }
 }
 
+function setDuration() {
+  videoStore.duration = video.value.duration
+}
+
 watch(
   () => videoStore.playFrom,
   (time) => {
@@ -58,6 +62,7 @@ watch(
       @ended="requestNext"
       @pause="videoStore.playing = false"
       @play="videoStore.playing = true"
+      @durationchange="setDuration"
     ></video>
     <div class="subtitle">
       {{ videoStore.subtitle }}

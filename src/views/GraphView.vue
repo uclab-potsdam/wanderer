@@ -3,6 +3,7 @@ import { useVideoStore } from '@/stores/video'
 
 import TheGraph from '@/components/TheGraph.vue'
 import TheVideo from '@/components/TheVideo.vue'
+import TheControls from '@/components/TheControls.vue'
 
 const videoStore = useVideoStore()
 </script>
@@ -11,6 +12,7 @@ const videoStore = useVideoStore()
   <div class="graph-view" :class="{ 'split-screen': videoStore.playSplitScreen }">
     <TheGraph />
     <TheVideo v-if="videoStore.playSplitScreen" />
+    <TheControls />
   </div>
   <!-- <ThePlayer width="450" v-if="!syncStore.hasPlayer" /> -->
   <!-- <TheRelatedGraphs /> -->
@@ -27,24 +29,19 @@ const videoStore = useVideoStore()
   display: grid;
 
   grid-template-columns:
-    [graph-start-x video-start-x] 1fr
-    [graph-end-x video-end-x];
+    [graph-start-x video-start-x controls-start-x] 1fr
+    [graph-end-x video-end-x controls-end-x];
 
   grid-template-rows:
     [graph-start-y video-start-y] 1fr
-    calc(var(--spacing) * 2)
-    [graph-end-y video-end-y];
+    [controls-start-y] calc(var(--spacing) * 2)
+    [graph-end-y video-end-y controls-end-y];
 
   &.split-screen {
     grid-template-columns:
-      [graph-start-x] 1fr
-      [graph-end-x video-start-x] 1fr
+      [graph-start-x controls-start-x] 1fr
+      [graph-end-x controls-end-x video-start-x] 1fr
       [video-end-x];
-
-    grid-template-rows:
-      [graph-start-y video-start-y] 1fr
-      calc(var(--spacing) * 2)
-      [graph-end-y video-end-y];
   }
 }
 </style>
