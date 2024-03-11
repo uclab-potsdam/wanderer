@@ -15,21 +15,45 @@ function computeAllocations(id) {
   const neighbors = [...new Set(getNeighbors(id, depth).flat(depth + 1))]
   // const uniqueNeighbors = removeNeighborDuplicates([id, neighbors])
 
-  const nodes = neighbors.map((node) => {
-    return { id: node, ...getCoordinates(node) }
-  })
+  const nodes = [
+    ...neighbors.map((node) => {
+      return { id: node, ...getCoordinates(node) }
+    }),
+    ...Object.entries(dataStore.nodeOccurances)
+      .map((graph) => {
+        return [
+          { id: graph[0], ...getCoordinates(graph[0]) },
+          { id: `${graph[0]}-proxy`, ...getCoordinates(`${graph[0]}-proxy`), proxy: true }
+        ]
+      })
+      .flat()
+  ]
+
+  const edges = [
+    ...dataStore.data.edges
+      .filter((edge) => neighbors.includes(edge.nodes[0]) && neighbors.includes(edge.nodes[1]))
+      .map((edge) => ({
+        source: edge.nodes[0],
+        target: edge.nodes[1]
+      })),
+    ...Object.entries(dataStore.nodeOccurances)
+      .map((graph) => [
+        {
+          source: id,
+          target: `${graph[0]}-proxy`
+        },
+        {
+          source: `${graph[0]}-proxy`,
+          target: graph[0]
+        }
+      ])
+      .flat()
+  ]
 
   const simulation = forceSimulation(nodes)
     .force(
       'link',
-      forceLink(
-        dataStore.data.edges
-          .filter((edge) => neighbors.includes(edge.nodes[0]) && neighbors.includes(edge.nodes[1]))
-          .map((edge) => ({
-            source: edge.nodes[0],
-            target: edge.nodes[1]
-          }))
-      ).id((n) => n.id)
+      forceLink(edges).id((n) => n.id)
     )
     .force('charge', forceManyBody().strength(-5000))
     .force('center', forceCenter(offset.x, offset.y))
@@ -42,7 +66,9 @@ function computeAllocations(id) {
   }
   // simulation.tick()
 
-  return Object.fromEntries(nodes.map(({ id, x, y }) => [id, { x, y }]))
+  return Object.fromEntries(
+    nodes.filter(({ proxy }) => !proxy).map(({ id, x, y }) => [id, { x, y }])
+  )
 
   function getCoordinates(node) {
     if (node === id) return offset

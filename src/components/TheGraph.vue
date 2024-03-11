@@ -13,7 +13,6 @@ import { useVideoStore } from '@/stores/video'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
-import NavigationNodeOccurances from '@/components/NavigationNodeOccurances.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -174,7 +173,6 @@ const resizeObserver = new ResizeObserver((entries) => {
       </g>
     </svg>
   </main>
-  <NavigationNodeOccurances v-if="dataStore.nodeOccurances" />
 </template>
 
 <style scoped>
