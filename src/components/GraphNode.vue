@@ -38,6 +38,10 @@ const component = computed(() => getComponentForType(node.value.type))
 
 const nodeElement = computed(() => componentRef.value.el ?? componentRef.value.$el)
 
+const occurances = computed(() =>
+  dataStore.graphs.filter((d) => Object.prototype.hasOwnProperty.call(d.allocations, props.id))
+)
+
 const display = computed(() => {
   if (!node.value.inheritDisplay) return displayStore.states[props.id]
   // fallback for depricated edges imported from terminus
@@ -95,6 +99,7 @@ onBeforeUnmount(() => {
     :class="[display, { 'user-active': !activityStore.inactivityShort || !videoStore.playing }]"
     :style="positioning"
     :node="node"
+    :occurances="occurances"
     @click="router.push({ name: 'graph', params: { type: node.type, id } })"
   />
 </template>

@@ -1,11 +1,13 @@
 <script setup>
-import { useLayoutStore } from '@/stores/layout'
-import { getLineRoundedRectangleIntersection } from '@/assets/js/intersection'
 import { computed } from 'vue'
+import { getLineRoundedRectangleIntersection } from '@/assets/js/intersection'
+
+import { useLayoutStore } from '@/stores/layout'
 import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
 import { useConstantStore } from '@/stores/constant'
 import { useVideoStore } from '@/stores/video'
+import { useDataStore } from '@/stores/data'
 
 import BaseInterpolate from '@/components/BaseInterpolate.vue'
 
@@ -14,6 +16,7 @@ const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
 const constantStore = useConstantStore()
 const videoStore = useVideoStore()
+const dataStore = useDataStore()
 
 const props = defineProps({
   edge: Object
@@ -21,6 +24,29 @@ const props = defineProps({
 
 const source = computed(() => layoutStore.nodes[props.edge.nodes[0]])
 const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
+
+const occurances = computed(() => {
+  const predicate =
+    dataStore.data.nodes[props.edge.nodes[0]].type === 'predicate'
+      ? props.edge.nodes[0]
+      : dataStore.data.nodes[props.edge.nodes[1]].type === 'predicate'
+        ? props.edge.nodes[1]
+        : null
+  if (predicate === null) return
+  return dataStore.graphs.filter((d) =>
+    Object.prototype.hasOwnProperty.call(d.allocations, predicate)
+  )
+})
+
+const color = computed(() => {
+  if (
+    occurances.value == null ||
+    occurances.value.length === 0 ||
+    occurances.value[0].color == null
+  )
+    return
+  return { '--graph-accent': `var(--${occurances.value[0].color})` }
+})
 
 const display = computed(() => displayStore.inheritStateFromNodes(props.edge.nodes))
 
@@ -79,6 +105,7 @@ const markerStart = computed(
   <g
     class="edge"
     :class="[display, { 'user-active': !activityStore.inactivityShort || !videoStore.playing }]"
+    :style="color"
   >
     <defs>
       <marker

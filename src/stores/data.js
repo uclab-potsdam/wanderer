@@ -22,5 +22,14 @@ export const useDataStore = defineStore('data', () => {
 
   const node = computed(() => data.value.nodes[nodeId.value])
 
-  return { init, data, node, nodeId, nodeOccurances }
+  const graphs = computed(() =>
+    Object.entries(data.value.nodes)
+      .filter((d) => d[1].type === 'graph')
+      .map((d) => ({
+        id: d[0],
+        ...d[1]
+      }))
+  )
+
+  return { init, data, node, graphs, nodeId, nodeOccurances }
 })
