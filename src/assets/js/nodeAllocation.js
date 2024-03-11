@@ -7,7 +7,7 @@ const layoutStore = useLayoutStore()
 
 function computeAllocations(id) {
   const depth = 2
-  const offset = layoutStore.nodes[id] ?? {
+  layoutStore.offset = layoutStore.nodes[id] ?? {
     x: 0,
     y: 0
   }
@@ -56,7 +56,7 @@ function computeAllocations(id) {
       forceLink(edges).id((n) => n.id)
     )
     .force('charge', forceManyBody().strength(-5000))
-    .force('center', forceCenter(offset.x, offset.y))
+    .force('center', forceCenter(layoutStore.offset.x, layoutStore.offset.y))
     // .on('tick', () => {
     // })
     .stop()
@@ -71,12 +71,12 @@ function computeAllocations(id) {
   )
 
   function getCoordinates(node) {
-    if (node === id) return offset
+    if (node === id) return layoutStore.offset
     if (layoutStore.nodes[node] != null) return layoutStore.nodes[node]
     const rad = Math.random() * Math.PI * 2
     return {
-      x: offset.x + Math.cos(rad) * 250,
-      y: offset.y + Math.sin(rad) * 250
+      x: layoutStore.offset.x + Math.cos(rad) * 250,
+      y: layoutStore.offset.y + Math.sin(rad) * 250
     }
   }
 }

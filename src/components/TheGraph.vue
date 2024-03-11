@@ -13,6 +13,7 @@ import { useVideoStore } from '@/stores/video'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
+import { useLayoutStore } from '@/stores/layout'
 
 const route = useRoute()
 const router = useRouter()
@@ -21,6 +22,7 @@ const constantStore = useConstantStore()
 const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
 const videoStore = useVideoStore()
+const layoutStore = useLayoutStore()
 
 const allocations = ref([])
 
@@ -106,9 +108,22 @@ onBeforeUnmount(() => {
 
 function initGraph(duration) {
   allocations.value =
-    route.params.type === 'graph' ? node.value.allocations : computeAllocations(id.value)
+    route.params.type === 'graph' ? translate(node.value.allocations) : computeAllocations(id.value)
 
   zoomToBounds(bounds.value, duration)
+}
+
+function translate(allocations) {
+  return Object.fromEntries(
+    Object.entries(allocations).map((allocation) => [
+      allocation[0],
+      {
+        ...allocation[1],
+        x: allocation[1].x + layoutStore.offset.x,
+        y: allocation[1].y + layoutStore.offset.y
+      }
+    ])
+  )
 }
 
 function zoomToBounds(bounds, duration = 0) {
