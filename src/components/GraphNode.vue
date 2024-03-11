@@ -59,11 +59,12 @@ const resizeObserver = new ResizeObserver((entries) => {
       layoutStore.nodes[props.id] = {
         width: measuredWidth > 0 ? measuredWidth : entry.contentRect.width,
         height: entry.contentRect.height,
-        x:
-          measuredWidth > 0
-            ? props.position.x - entry.contentRect.width / 2 + measuredWidth / 2
-            : props.position.x,
-        y: props.position.y
+        x: props.position.x,
+        // measuredWidth > 0
+        //   ? props.position.x - entry.contentRect.width / 2 + measuredWidth / 2
+        //   : props.position.x,
+        y: props.position.y,
+        xOffset: -entry.contentRect.width / 2 + measuredWidth / 2
       }
     }
   }
