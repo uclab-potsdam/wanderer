@@ -127,25 +127,24 @@ const markerStart = computed(
       :duration="constantStore.transition"
       v-slot="value"
     >
-      <path :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
+      <path class="test" :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
     </BaseInterpolate>
   </g>
 </template>
 
 <style scoped>
 .edge {
-  stroke: var(--graph-accent);
+  stroke: color-mix(in lab, var(--graph-accent), var(--color-text) 40%);
+  transition: all var(--transition);
 
   &.hide {
-    opacity: 0;
+    opacity: 0.2;
+    filter: blur(10px);
 
     &.user-active {
       opacity: 0.6;
+      filter: blur(0px);
     }
-  }
-
-  &.highlight {
-    stroke: red;
   }
 
   marker {
@@ -157,7 +156,11 @@ const markerStart = computed(
   }
 
   path {
-    /* transition: d var(--transition); */
+    /* transition: all var(--transition); */
+  }
+
+  &.highlight {
+    stroke: var(--graph-accent);
   }
 }
 </style>

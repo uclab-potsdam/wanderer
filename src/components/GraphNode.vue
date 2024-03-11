@@ -111,17 +111,18 @@ onBeforeUnmount(() => {
   transform: translate(-50%, -50%);
   transition:
     top var(--transition),
-    left var(--transition);
+    left var(--transition),
+    opacity var(--transition),
+    filter var(--transition);
 
   &.hide {
-    opacity: 0;
+    opacity: 0.2;
+    filter: blur(10px);
 
     &.user-active {
-      opacity: 0.6;
+      opacity: 1;
+      filter: none;
     }
-  }
-  &.highlight {
-    color: red;
   }
 }
 </style>

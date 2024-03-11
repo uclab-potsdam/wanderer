@@ -182,9 +182,6 @@ const resizeObserver = new ResizeObserver((entries) => {
   position: relative;
   overflow: hidden;
 
-  &.initializing {
-    --transition: 0s;
-  }
   /* position: absolute;
   top: 0;
   left: 0;
@@ -221,6 +218,13 @@ const resizeObserver = new ResizeObserver((entries) => {
   .edges-leave-to,
   .nodes-leave-to {
     opacity: 0;
+  }
+
+  &.initializing {
+    .nodes-enter-active,
+    .edges-enter-active {
+      transition: opacity var(--transition);
+    }
   }
 }
 </style>

@@ -7,8 +7,10 @@
   --font-size: 20px;
 
   /* Transitions */
-  --transition: 2000ms;
+  --transition: 1000ms;
 
   /* Colors */
+  --color-background: white;
+  --color-text: black;
   --graph-accent: var(--gray)
 }

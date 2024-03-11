@@ -26,9 +26,13 @@ defineExpose({ el })
 
 <style scoped>
 .entity {
-  color: var(--graph-accent);
+  color: color-mix(in lab, var(--graph-accent), var(--color-text) 40%);
   max-width: 250px;
   padding: calc(var(--spacing) * 0.5);
   width: max-content;
+
+  &.highlight {
+    color: var(--graph-accent);
+  }
 }
 </style>
