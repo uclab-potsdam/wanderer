@@ -5,6 +5,7 @@
 
 html {
   font: var(--regular) var(--font-size)/1.25 "Inter", sans-serif;
+  text-rendering: geometricPrecision;
 
   #app {
     display: grid;
