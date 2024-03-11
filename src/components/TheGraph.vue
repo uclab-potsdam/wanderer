@@ -172,6 +172,7 @@ const resizeObserver = new ResizeObserver((entries) => {
         </TransitionGroup>
       </g>
     </svg>
+    <div class="tint" />
   </main>
 </template>
 
@@ -225,6 +226,16 @@ const resizeObserver = new ResizeObserver((entries) => {
     .edges-enter-active {
       transition: opacity var(--transition);
     }
+  }
+
+  .tint {
+    transition: all var(--transition);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--graph-accent);
+    opacity: 0.05;
+    pointer-events: none;
   }
 }
 </style>

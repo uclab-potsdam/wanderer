@@ -19,7 +19,9 @@ defineExpose({ el })
 
 <template>
   <div class="entity" ref="el" :style="color">
-    <span class="text measure-width">{{ text }}</span>
+    <div class="wrap">
+      <span class="text measure-width">{{ text }}</span>
+    </div>
   </div>
 </template>
 
@@ -29,9 +31,18 @@ defineExpose({ el })
   max-width: 250px;
   padding: calc(var(--spacing) * 0.5);
   width: max-content;
+  text-wrap: balance;
+  hyphens: auto;
+
+  font-size: 14px;
 
   &.highlight {
     color: var(--graph-accent);
+  }
+  .wrap {
+    border: 1px dashed var(--graph-accent);
+    padding: calc(var(--spacing) * 0.5);
+    border-radius: calc(var(--spacing) * 0.25);
   }
 }
 </style>
