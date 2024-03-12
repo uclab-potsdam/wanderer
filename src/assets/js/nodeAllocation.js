@@ -1,6 +1,13 @@
 import { useDataStore } from '@/stores/data'
 import { useLayoutStore } from '@/stores/layout'
-import { forceManyBody, forceSimulation, forceLink, forceCenter } from 'd3-force'
+import {
+  forceManyBody,
+  forceSimulation,
+  forceLink,
+  forceCenter,
+  forceRadial,
+  forceCollide
+} from 'd3-force'
 
 const dataStore = useDataStore()
 const layoutStore = useLayoutStore()
@@ -12,18 +19,32 @@ function computeAllocations(id) {
     y: 0
   }
 
-  const neighbors = [...new Set(getNeighbors(id, depth).flat(depth + 1))]
+  const neighborsWithDuplicates = getNeighbors(id, depth).flat(depth + 1)
+  const neighborsUniqueIds = [...new Set(neighborsWithDuplicates.map((d) => d.id))]
+  const neighbors = neighborsUniqueIds.map((id) => {
+    const depths = neighborsWithDuplicates.filter((n) => n.id === id).map(({ depth }) => depth)
+    return { id, depth: depth - Math.max(...depths) }
+  })
+  // console.log(neighborsWithDepth)
+  // const neighbors = [
+  //   ...new Set(
+  //     getNeighbors(id, depth)
+  //       .flat(depth + 1)
+  //       .map((d) => d.id)
+  //   )
+  // ]
+  // console.log(neighbors)
   // const uniqueNeighbors = removeNeighborDuplicates([id, neighbors])
 
   const nodes = [
-    ...neighbors.map((node) => {
-      return { id: node, ...getCoordinates(node) }
+    ...neighbors.map(({ id, depth }) => {
+      return { id, depth, ...getCoordinates(id) }
     }),
     ...Object.entries(dataStore.nodeOccurances)
       .map((graph) => {
         return [
-          { id: graph[0], ...getCoordinates(graph[0]) },
-          { id: `${graph[0]}-proxy`, ...getCoordinates(`${graph[0]}-proxy`), proxy: true }
+          { id: graph[0], ...getCoordinates(graph[0]), depth: 2 },
+          { id: `${graph[0]}-proxy`, ...getCoordinates(`${graph[0]}-proxy`), proxy: true, depth: 1 }
         ]
       })
       .flat()
@@ -31,7 +52,10 @@ function computeAllocations(id) {
 
   const edges = [
     ...dataStore.data.edges
-      .filter((edge) => neighbors.includes(edge.nodes[0]) && neighbors.includes(edge.nodes[1]))
+      .filter(
+        (edge) =>
+          neighborsUniqueIds.includes(edge.nodes[0]) && neighborsUniqueIds.includes(edge.nodes[1])
+      )
       .map((edge) => ({
         source: edge.nodes[0],
         target: edge.nodes[1]
@@ -53,15 +77,25 @@ function computeAllocations(id) {
   const simulation = forceSimulation(nodes)
     .force(
       'link',
-      forceLink(edges).id((n) => n.id)
+      forceLink(edges)
+        .id((n) => n.id)
+        .distance(200)
     )
+    // .force('collide', forceCollide(100))
     .force('charge', forceManyBody().strength(-5000))
     .force('center', forceCenter(layoutStore.offset.x, layoutStore.offset.y))
-    // .on('tick', () => {
-    // })
+    .force(
+      'radial',
+      // forceRadial(200)
+      forceRadial((d) => d.depth * 200, layoutStore.offset.x, layoutStore.offset.y).strength(2)
+    )
+    .on('tick', () => {
+      console.log('t')
+    })
     .stop()
 
   for (let i = 0; i < 1000; i++) {
+    // if (i === 900) simulation.force('collide', forceCollide(100))
     simulation.tick()
   }
   // simulation.tick()
@@ -83,12 +117,12 @@ function computeAllocations(id) {
 
 function getNeighbors(id, depth = 1) {
   return [
-    id,
+    { id, depth },
     ...dataStore.data.edges
       .filter((edge) => edge.nodes.includes(id))
       .map((edge) => {
         const neighbor = edge.nodes.find((node) => node !== id)
-        if (depth === 1) return neighbor
+        if (depth === 1) return { id: neighbor, depth: 0 }
         return getNeighbors(neighbor, depth - 1)
       })
   ]
