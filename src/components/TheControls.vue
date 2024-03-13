@@ -8,10 +8,13 @@ import { useHelperStore } from '@/stores/helper'
 import IconPlay from '~icons/base/IconPlay'
 import IconPlaying from '@/components/IconPlaying.vue'
 import { RouterLink } from 'vue-router'
+import InputSegment from '@/components/InputSegment.vue'
+import { useSettingsStore } from '@/stores/settings'
 
 const dataStore = useDataStore()
 const videoStore = useVideoStore()
 const helperStore = useHelperStore()
+const settingsStore = useSettingsStore()
 
 const graph = computed(() => {
   return dataStore.data.nodes[videoStore.graphId]
@@ -34,12 +37,17 @@ const progress = computed(() => `${(videoStore.time / videoStore.duration) * 100
 
 <template>
   <section class="controls" :style="color">
-    <RouterLink
-      class="graph-title"
-      :to="{ name: 'graph', params: { type: 'graph', id: videoStore.graphId } }"
-    >
-      <IconPlay v-if="!playing" /> <IconPlaying v-else /> {{ graphTitle }}
-    </RouterLink>
+    <div class="wrapper">
+      <RouterLink
+        class="graph-title"
+        :to="{ name: 'graph', params: { type: 'graph', id: videoStore.graphId } }"
+      >
+        <template v-if="graphTitle"
+          ><IconPlay v-if="!playing" /> <IconPlaying v-else /> {{ graphTitle }}</template
+        >
+      </RouterLink>
+      <InputSegment v-model="settingsStore.lang" :options="['pt', 'en']" />
+    </div>
     <div class="progress">
       <div :style="{ width: progress }"></div>
     </div>
@@ -62,14 +70,21 @@ const progress = computed(() => `${(videoStore.time / videoStore.duration) * 100
 
   --accent: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
 
-  .graph-title {
-    padding: calc(var(--spacing) / 2);
-    color: var(--accent);
+  .wrapper {
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: calc(var(--spacing) / 4);
-    font-weight: 900;
-    text-decoration: none;
+    justify-content: space-between;
+    gap: calc(var(--spacing));
+    .graph-title {
+      padding: calc(var(--spacing) / 2);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: calc(var(--spacing) / 4);
+      font-weight: 900;
+      text-decoration: none;
+    }
   }
 
   .progress {
