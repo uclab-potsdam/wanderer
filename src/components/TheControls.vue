@@ -7,6 +7,7 @@ import { useHelperStore } from '@/stores/helper'
 
 import IconPlay from '~icons/base/IconPlay'
 import IconPlaying from '@/components/IconPlaying.vue'
+import { RouterLink } from 'vue-router'
 
 const dataStore = useDataStore()
 const videoStore = useVideoStore()
@@ -33,10 +34,15 @@ const progress = computed(() => `${(videoStore.time / videoStore.duration) * 100
 
 <template>
   <section class="controls" :style="color">
-    <div class="graph-title">
+    <RouterLink
+      class="graph-title"
+      :to="{ name: 'graph', params: { type: 'graph', id: videoStore.graphId } }"
+    >
       <IconPlay v-if="!playing" /> <IconPlaying v-else /> {{ graphTitle }}
+    </RouterLink>
+    <div class="progress">
+      <div :style="{ width: progress }"></div>
     </div>
-    <div class="progress" :style="{ width: progress }" />
   </section>
 </template>
 
@@ -54,20 +60,29 @@ const progress = computed(() => `${(videoStore.time / videoStore.duration) * 100
   background: color-mix(in lab, var(--color-background), transparent 50%);
   backdrop-filter: blur(20px);
 
+  --accent: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
+
   .graph-title {
     padding: calc(var(--spacing) / 2);
-    color: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
+    color: var(--accent);
     display: flex;
     align-items: center;
     gap: calc(var(--spacing) / 4);
     font-weight: 900;
+    text-decoration: none;
   }
 
   .progress {
     position: absolute;
     height: 5px;
-    background: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
     bottom: 0;
+    width: 100%;
+    background: color-mix(in lab, var(--accent), transparent 70%);
+
+    > div {
+      height: 100%;
+      background: var(--accent);
+    }
   }
 }
 </style>
