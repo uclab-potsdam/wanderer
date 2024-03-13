@@ -135,7 +135,7 @@ function zoomToBounds(bounds, duration = 0) {
   const zoomElementDimensions = zoomElement.value.getBoundingClientRect()
 
   const scaleX = zoomElementDimensions.width / diff.x
-  const scaleY = zoomElementDimensions.height / diff.y
+  const scaleY = (zoomElementDimensions.height - constantStore.spacing * 2.7) / diff.y
   const scale = Math.min(scaleX, scaleY)
 
   const x = bounds.x1 + diff.x / 2

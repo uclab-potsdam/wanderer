@@ -21,6 +21,8 @@ function computeAllocations(id) {
 
   const neighborsWithDuplicates = getNeighbors(id, depth).flat(depth + 1)
   const neighborsUniqueIds = [...new Set(neighborsWithDuplicates.map((d) => d.id))]
+    // only show entities and predicates
+    .filter((id) => ['entity', 'predicate'].includes(dataStore.data.nodes[id].type))
   const neighbors = neighborsUniqueIds.map((id) => {
     const depths = neighborsWithDuplicates.filter((n) => n.id === id).map(({ depth }) => depth)
     return { id, depth: depth - Math.max(...depths) }
@@ -79,9 +81,12 @@ function computeAllocations(id) {
       'link',
       forceLink(edges)
         .id((n) => n.id)
-        .distance(200)
+        .distance(100)
     )
-    // .force('collide', forceCollide(100))
+    .force(
+      'collide',
+      forceCollide().radius((d) => (dataStore.data.nodes[d.id]?.type === 'graph' ? 160 : 50))
+    )
     .force('charge', forceManyBody().strength(-5000))
     .force('center', forceCenter(layoutStore.offset.x, layoutStore.offset.y))
     .force(
@@ -89,9 +94,6 @@ function computeAllocations(id) {
       // forceRadial(200)
       forceRadial((d) => d.depth * 200, layoutStore.offset.x, layoutStore.offset.y).strength(2)
     )
-    .on('tick', () => {
-      console.log('t')
-    })
     .stop()
 
   for (let i = 0; i < 1000; i++) {
