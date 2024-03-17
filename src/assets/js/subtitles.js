@@ -1,10 +1,9 @@
 export const parseSRT = (text) => {
   const items = text
     .trim()
+    .replace(/\r/g, '')
     .split(/\n{2,3}/)
     .map((item) => {
-      // const keys = ['index', 'time', 'text']
-      // const props = Object.fromEntries(item.split('\n').map((value, i) => [keys[i], value]))
       const props = {
         index: item.split('\n')[0],
         time: item.split('\n')[1],
