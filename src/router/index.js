@@ -18,7 +18,10 @@ const router = createRouter({
     {
       path: '/:type/:id',
       name: 'graph',
-      component: () => import('@/views/GraphView.vue')
+      component: () => import('@/views/GraphView.vue'),
+      meta: {
+        hideMenuBar: true
+      }
     },
     {
       path: '/video',
