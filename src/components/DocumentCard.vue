@@ -265,7 +265,10 @@ const duration = computed(() => {
       --color: color-mix(in lab, var(--accent), var(--text-base) 50%);
       border: 1px solid color-mix(in lab, var(--color), transparent 50%);
       color: var(--color);
-      min-width: 200px;
+      // min-width: 200px;
+
+      width: 250px;
+      height: 150px;
       // var(--ui-accent);
       border-radius: var(--ui-border-radius);
       backdrop-filter: blur(7px);
