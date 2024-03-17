@@ -25,13 +25,21 @@ const color = computed(() => {
 })
 const playing = computed(() => videoStore.graphId === props.id && videoStore.playing)
 
+const isNext = computed(() => videoStore.next === props.id)
+const autoplay = computed(() => {
+  if (!isNext.value) return
+  const remaining = videoStore.duration - videoStore.time
+  if (remaining > 5) return
+  return { '--autoplay': `${100 - remaining * 20}%` }
+})
+
 defineExpose({
   el
 })
 </script>
 
 <template>
-  <div class="entity" ref="el" :style="color">
+  <div class="entity" ref="el" :style="{ ...color, ...autoplay }">
     <img :src="image" />
     <div class="text" ref="textElement">
       {{ text }}
@@ -49,6 +57,8 @@ defineExpose({
   border-radius: calc(var(--spacing) * 0.25);
   overflow: hidden;
   z-index: -1;
+
+  --autoplay: 0%;
 
   background-color: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
 
@@ -79,10 +89,19 @@ defineExpose({
     align-items: center;
 
     color: color-mix(in lab, var(--graph-accent), var(--color-background) 100%);
-    background-color: color-mix(
+    --background: color-mix(
       in lab,
       color-mix(in lab, var(--graph-accent), var(--color-text) 60%),
       transparent 40%
+    );
+    --background-autoplay: color-mix(in lab, var(--graph-accent), transparent 40%);
+
+    background: linear-gradient(
+      90deg,
+      var(--background-autoplay) 0%,
+      var(--background-autoplay) var(--autoplay),
+      var(--background) var(--autoplay),
+      var(--background) 100%
     );
     backdrop-filter: blur(7px);
   }

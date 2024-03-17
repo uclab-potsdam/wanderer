@@ -17,13 +17,15 @@ const video = ref(null)
 
 const source = computed(() => helperStore.getMediaUrl(videoStore.video.file[0]))
 
-function onTimeUpdate(e) {
-  videoStore.time = e.target.currentTime
+function onTimeUpdate() {
+  videoStore.time = video.value.currentTime
+  requestAnimationFrame(onTimeUpdate)
 }
 
 function onLoadStart(e) {
   e.target.currentTime = videoStore.playFrom ?? 0
   videoStore.playFrom = null
+  requestAnimationFrame(onTimeUpdate)
 }
 
 function requestNext() {
@@ -58,7 +60,6 @@ watch(
       x-muted
       :src="source"
       @loadstart="onLoadStart"
-      @timeupdate="onTimeUpdate"
       @ended="requestNext"
       @pause="videoStore.playing = false"
       @play="videoStore.playing = true"
