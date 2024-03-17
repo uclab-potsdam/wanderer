@@ -46,6 +46,7 @@ watch(
       .then((d) => {
         const items = d
           .trim()
+          .replace(/\r/g, '')
           .split(/\n{2,3}/)
           .map((item) => {
             // const keys = ['index', 'time', 'text']
