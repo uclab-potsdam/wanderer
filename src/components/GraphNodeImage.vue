@@ -33,6 +33,7 @@ defineExpose({
   img {
     background: var(--color-background);
     mix-blend-mode: hard-light;
+    filter: grayscale(1);
     display: block;
     transform: scale(1.005);
   }
