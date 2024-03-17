@@ -53,9 +53,9 @@ watch(
     <video
       ref="video"
       crossorigin="anonymous"
-      x-autoplay
+      autoplay
       controls
-      muted
+      x-muted
       :src="source"
       @loadstart="onLoadStart"
       @timeupdate="onTimeUpdate"
