@@ -39,7 +39,9 @@ const component = computed(() => getComponentForType(node.value.type))
 const nodeElement = computed(() => componentRef.value.el ?? componentRef.value.$el)
 
 const occurances = computed(() =>
-  dataStore.graphs.filter((d) => Object.prototype.hasOwnProperty.call(d.allocations, props.id))
+  dataStore.graphs.filter((d) =>
+    Object.prototype.hasOwnProperty.call(d.allocations ?? {}, props.id)
+  )
 )
 
 const display = computed(() => {

@@ -34,7 +34,7 @@ const occurances = computed(() => {
         : null
   if (predicate === null) return
   return dataStore.graphs.filter((d) =>
-    Object.prototype.hasOwnProperty.call(d.allocations, predicate)
+    Object.prototype.hasOwnProperty.call(d.allocations ?? {}, predicate)
   )
 })
 

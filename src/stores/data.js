@@ -15,7 +15,7 @@ export const useDataStore = defineStore('data', () => {
       Object.entries(data.value.nodes).filter(
         (d) =>
           d[1].type === 'graph' &&
-          Object.prototype.hasOwnProperty.call(d[1].allocations, nodeId.value)
+          Object.prototype.hasOwnProperty.call(d[1].allocations ?? {}, nodeId.value)
       )
     )
   })

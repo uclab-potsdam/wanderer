@@ -115,7 +115,7 @@ function initGraph(duration) {
 
 function translate(allocations) {
   return Object.fromEntries(
-    Object.entries(allocations).map((allocation) => [
+    Object.entries(allocations ?? {}).map((allocation) => [
       allocation[0],
       {
         ...allocation[1],
