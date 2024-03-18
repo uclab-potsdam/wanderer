@@ -45,8 +45,11 @@ export const useActivityStore = defineStore('activity', () => {
     window.addEventListener('wheel', registerActivity, options)
     window.addEventListener('mousemove', registerActivity, options)
     window.addEventListener('touchstart', registerActivity, options)
+    window.addEventListener('touchmove', registerActivity, options)
+    window.addEventListener('dragstart', registerActivity, options)
     window.addEventListener('touchend', registerActivity, options)
     window.addEventListener('keydown', registerActivity, options)
+    window.addEventListener('touchcancel', registerActivity, options)
   }
 
   function stopActivityTracking() {
