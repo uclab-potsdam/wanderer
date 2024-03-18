@@ -38,7 +38,14 @@ const transformString = computed(
   () => `translate(${transform.value.x}px, ${transform.value.y}px) scale(${transform.value.k})`
 )
 const bounds = computed(() => {
-  if (displayStore.bounds != null) return displayStore.bounds
+  if (displayStore.bounds != null)
+    // return displayStore.bounds
+    return {
+      x1: displayStore.bounds.x1 + layoutStore.offset.x,
+      y1: displayStore.bounds.y1 + layoutStore.offset.y,
+      x2: displayStore.bounds.x2 + layoutStore.offset.x,
+      y2: displayStore.bounds.y2 + layoutStore.offset.y
+    }
   const values = Object.values(allocations.value)
   const valuesX = values.map(({ x }) => x)
   const valuesY = values.map(({ y }) => y)
