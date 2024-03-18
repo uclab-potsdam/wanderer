@@ -104,7 +104,10 @@ onMounted(() => {
     .on('zoom', (e) => {
       transform.value = e.transform
     })
-    .filter((e) => console.log(e.type))
+    .filter((e) => {
+      console.log(e.type)
+      return true
+    })
   zoomElementSelection.value.call(zoomBehaviour.value)
   initGraph(0)
   resizeObserver.observe(zoomElement.value)
