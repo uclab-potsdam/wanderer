@@ -106,6 +106,7 @@ onMounted(() => {
     })
     .filter((e) => {
       console.log(e.type)
+      activityStore.registerActivity()
       return true
     })
   zoomElementSelection.value.call(zoomBehaviour.value)

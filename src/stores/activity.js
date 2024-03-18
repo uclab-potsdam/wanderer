@@ -60,6 +60,7 @@ export const useActivityStore = defineStore('activity', () => {
   return {
     startActivityTracking,
     stopActivityTracking,
+    registerActivity,
     inactivityShort,
     inactivityLong
   }
