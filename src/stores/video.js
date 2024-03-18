@@ -71,7 +71,12 @@ export const useVideoStore = defineStore('video', () => {
 
   watch(time, (time) => {
     if (!isExternalPlayer.value) return
-    channel.postMessage({ action: 'set_time', time, duration })
+    channel.postMessage({
+      action: 'set_time',
+      time,
+      duration: duration.value,
+      playing: playing.value
+    })
   })
 
   function getNextGraph() {
@@ -136,6 +141,7 @@ export const useVideoStore = defineStore('video', () => {
       case 'set_time':
         time.value = data.time
         duration.value = data.duration
+        playing.value = data.playing
         if (!hasExternalPlayer.value) channel.postMessage({ action: 'reattach_player' })
         break
       case 'request_next':
