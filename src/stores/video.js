@@ -4,12 +4,14 @@ import { parseSRT } from '@/assets/js/subtitles'
 
 import { useDataStore } from '@/stores/data'
 import { useHelperStore } from '@/stores/helper'
+import { useSettingsStore } from './settings'
 
 import { useRouter } from 'vue-router'
 
 export const useVideoStore = defineStore('video', () => {
   const dataStore = useDataStore()
   const helperStore = useHelperStore()
+  const settingsStore = useSettingsStore()
   const router = useRouter()
 
   const channel = new BroadcastChannel('video')
@@ -48,6 +50,25 @@ export const useVideoStore = defineStore('video', () => {
 
     if (hasExternalPlayer.value) setGraph()
   })
+
+  watch(playing, (value) => {
+    if (!isExternalPlayer.value) return
+    channel.postMessage({ action: 'set_playing', value })
+  })
+
+  watch(duration, (value) => {
+    if (!isExternalPlayer.value) return
+    channel.postMessage({ action: 'set_duration', value })
+  })
+
+  watch(
+    () => settingsStore.lang,
+    (value) => {
+      if (isExternalPlayer.value) return
+      console.log('lang switch', value)
+      channel.postMessage({ action: 'set_language', value })
+    }
+  )
 
   watch(time, (time) => {
     if (!isExternalPlayer.value) return
@@ -119,6 +140,16 @@ export const useVideoStore = defineStore('video', () => {
         break
       case 'request_next':
         router.push({ name: 'graph', params: { type: 'graph', id: next.value } })
+        break
+      case 'set_playing':
+        playing.value = data.value
+        break
+      case 'set_duration':
+        duration.value = data.value
+        break
+      case 'set_language':
+        console.log('lang switch')
+        settingsStore.lang = data.value
         break
     }
   })

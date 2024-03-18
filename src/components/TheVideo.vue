@@ -18,14 +18,15 @@ const video = ref(null)
 const source = computed(() => helperStore.getMediaUrl(videoStore.video.file[0]))
 
 function onTimeUpdate() {
-  videoStore.time = video.value.currentTime
-  requestAnimationFrame(onTimeUpdate)
+  if (video.value == null) return
+  videoStore.time = video.value?.currentTime ?? 0
+  // requestAnimationFrame(onTimeUpdate)
 }
 
 function onLoadStart(e) {
   e.target.currentTime = videoStore.playFrom ?? 0
   videoStore.playFrom = null
-  requestAnimationFrame(onTimeUpdate)
+  // requestAnimationFrame(onTimeUpdate)
 }
 
 function requestNext() {
@@ -37,6 +38,7 @@ function requestNext() {
 }
 
 function setDuration() {
+  if (video.value == null) return
   videoStore.duration = video.value.duration
 }
 
@@ -61,6 +63,7 @@ watch(
       :src="source"
       @loadstart="onLoadStart"
       @ended="requestNext"
+      @timeupdate="onTimeUpdate"
       @pause="videoStore.playing = false"
       @play="videoStore.playing = true"
       @durationchange="setDuration"
