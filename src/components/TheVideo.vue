@@ -58,7 +58,7 @@ watch(
       ref="video"
       crossorigin="anonymous"
       autoplay
-      controls
+      x-controls
       x-muted
       :src="source"
       @loadstart="onLoadStart"
