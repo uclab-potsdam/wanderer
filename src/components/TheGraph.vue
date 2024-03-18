@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { computed, ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
 import { computeAllocations } from '@/assets/js/nodeAllocation'
@@ -106,7 +106,7 @@ onMounted(() => {
     })
     .filter((e) => {
       console.log(e.type)
-      activityStore.registerActivity()
+      nextTick(() => activityStore.registerActivity())
       return true
     })
   zoomElementSelection.value.call(zoomBehaviour.value)
