@@ -35,7 +35,7 @@ export const useVideoStore = defineStore('video', () => {
 
   watchEffect(async () => {
     const file = helperStore.localize(video.value?.subtitles)
-    if (file == null) return
+    if (file == null) return (subtitles.value = null)
     const url = helperStore.getMediaUrl(file)
 
     const text = await fetch(url).then((d) => d.text())
