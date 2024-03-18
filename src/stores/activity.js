@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-const INACTIVITY_SHORT = 3500
-const INACTIVITY_LONG = 10000
+const INACTIVITY_SHORT = 8000
+const INACTIVITY_LONG = 15000
 
 export const useActivityStore = defineStore('activity', () => {
   const activityTrackingController = new AbortController()
