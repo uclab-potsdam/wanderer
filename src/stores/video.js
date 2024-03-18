@@ -65,14 +65,13 @@ export const useVideoStore = defineStore('video', () => {
     () => settingsStore.lang,
     (value) => {
       if (isExternalPlayer.value) return
-      console.log('lang switch', value)
       channel.postMessage({ action: 'set_language', value })
     }
   )
 
   watch(time, (time) => {
     if (!isExternalPlayer.value) return
-    channel.postMessage({ action: 'set_time', time })
+    channel.postMessage({ action: 'set_time', time, duration })
   })
 
   function getNextGraph() {
@@ -136,6 +135,7 @@ export const useVideoStore = defineStore('video', () => {
         break
       case 'set_time':
         time.value = data.time
+        duration.value = data.duration
         if (!hasExternalPlayer.value) channel.postMessage({ action: 'reattach_player' })
         break
       case 'request_next':
@@ -148,7 +148,6 @@ export const useVideoStore = defineStore('video', () => {
         duration.value = data.value
         break
       case 'set_language':
-        console.log('lang switch')
         settingsStore.lang = data.value
         break
     }
