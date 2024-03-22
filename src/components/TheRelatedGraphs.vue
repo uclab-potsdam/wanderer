@@ -18,7 +18,16 @@ const relatedGraphs = computed(() =>
 )
 </script>
 <template>
-  <div class="the-related-graphs" v-if="route.name === 'entity' || viewStore.mode === MODE_VIEW">
+  <div
+    class="the-related-graphs"
+    v-if="
+      route.name === 'entity' ||
+      route.name === 'media' ||
+      route.name === 'note' ||
+      route.name === 'predicate' ||
+      viewStore.mode === MODE_VIEW
+    "
+  >
     <DocumentCard
       v-if="activeGraph['@id']"
       :document="activeGraph"
@@ -26,7 +35,9 @@ const relatedGraphs = computed(() =>
       class="active-graph"
       is-active-graph
     />
-    <template v-if="route.name === 'entity'">
+    <template
+      v-if="route.name === 'entity' || route.name === 'media' || route.name === 'note' || route.name === 'predicate'"
+    >
       <div v-for="graph in relatedGraphs" :key="graph['@id']">
         <DocumentCard :document="graph" @click="router.push(`/${graph['@id']}`)" class="is-related-graph" />
       </div>

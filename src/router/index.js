@@ -62,6 +62,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/predicate/:id',
+      name: 'predicate',
+      // component: () => import('@/views/InspectView.vue'),
+      component: () => import('@/views/CanvasView.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/play',
       name: 'play',
       component: () => import('@/views/PlayView.vue'),
