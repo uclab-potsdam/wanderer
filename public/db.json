@@ -2,17 +2,17 @@
   "nodes": {
     "entity--1qZGrCAjYjCbxXp": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Sagakagagü" }
     },
     "entity--kNcOEKDjUxVbIdK": {
       "type": "entity",
       "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
-      "text": { "en": "fishing" }
+      "text": { "en": "fishing", "pt": "pescar" }
     },
     "entity-0408bdbe67fd42650e47e9334b7434f553bcd8941b0486f404f44ffa0b86f9fa": {
       "type": "entity",
-      "class": { "en": "village", "pt": "Aldeia" },
+      "class": { "en": "village", "pt": "aldeia" },
       "text": { "en": "", "universal": "Ipatse" }
     },
     "entity-07c32388ceaffeaf81e4ff5ec5681a981824ac2a14edab6dd84dbb85fe5f2ef1": {
@@ -26,17 +26,17 @@
     },
     "entity-1-gYMvPO06kOVXJh": {
       "type": "entity",
-      "class": { "en": "prayer" },
-      "text": { "en": "catching fish" }
+      "class": { "en": "prayer", "pt": "reza" },
+      "text": { "en": "catching fish", "pt": "pegar peixe" }
     },
     "entity-16501e0580b1688b0e6d1c03366ce380170bad0dddac71d77001a68f8f9e0353": {
       "type": "entity",
-      "class": { "en": "territory", "pt": "Território" },
+      "class": { "en": "territory", "pt": "território" },
       "text": { "en": "Xingu Indigenous Park", "pt": "Parque indígena do Xingu" }
     },
     "entity-1931681ce3e7277111a00891deeb03bffdbb96409bfbcf722245cb78a4661f3f": {
       "type": "entity",
-      "class": { "en": "state", "pt": "Estado" },
+      "class": { "en": "state", "pt": "estado" },
       "text": { "en": "Pará" }
     },
     "entity-254ae07c15bcc5ccec4ae1072b20d6028718e2afe63eb90b89c9ac255cd63af3": {
@@ -56,12 +56,12 @@
     },
     "entity-372ec2f8db5f75729d2af0130c9347b336f275266c12347c30dc71632f494fae": {
       "type": "entity",
-      "class": { "en": "state", "pt": "Estado" },
+      "class": { "en": "state", "pt": "estado" },
       "text": { "en": "Mato Grosso" }
     },
     "entity-3a8n7Jrl7SA7Z8QL": {
       "type": "entity",
-      "class": { "en": "place" },
+      "class": { "en": "place", "pt": "lugar" },
       "text": { "en": "Igifunu" }
     },
     "entity-41rptBw5_k_NaE0A": {
@@ -81,7 +81,7 @@
     },
     "entity-5072ecff677d8366c70aa08d4c22cff0898b64fcafc332e675c880d4b87de4ed": {
       "type": "entity",
-      "class": { "en": "river", "pt": "Rio" },
+      "class": { "en": "river", "pt": "rio" },
       "text": { "en": "Rio Curisevo" }
     },
     "entity-50d0942ab18069365bb1bcddb8848e086889f2f7fea742bf8d87bf3258076390": {
@@ -101,7 +101,7 @@
     },
     "entity-5dtwYB0kGzHJeL2B": {
       "type": "entity",
-      "class": { "en": "object part" },
+      "class": { "en": "object part", "pt": "parte do objeto" },
       "text": { "en": "body" }
     },
     "entity-63da69c8729911afdc3332781241bfe86b46719d3591bf734b5380603877b502": {
@@ -115,13 +115,12 @@
     },
     "entity-6ruDXTVaBsaRkb9x": {
       "type": "entity",
-      "class": { "en": "fish" },
-      "text": { "en": "Small Peacock Bass" }
+      "class": { "en": "fish", "pt": "peixe" },
+      "text": { "en": "Small Peacock Bass", "pt": "tucunaré pequeno" }
     },
-    "entity-7AtVIeIBclTQRZzc": { "type": "entity" },
     "entity-7FMS0AyWpqFDD1G-": {
       "type": "entity",
-      "class": { "en": "place" },
+      "class": { "en": "place", "pt": "lugar" },
       "text": { "en": "Iga nutua corner" }
     },
     "entity-7Tie59UhyB20elfN": {
@@ -132,7 +131,7 @@
     },
     "entity-83b12f0080509da038aa09f9d30d804b388373836024827b3246f44051cdf187": {
       "type": "entity",
-      "class": { "en": "territory", "pt": "Território" },
+      "class": { "en": "territory", "pt": "território" },
       "text": { "en": "agribusiness farmland", "pt": "Fazendas do agro" }
     },
     "entity-91589b5173b5b05dba3dd742201a8e215369d30390908556446c75f7e552a4f9": {
@@ -142,17 +141,17 @@
     },
     "entity-95348a16de58ceb5d453ad9075632481f148a174e0dea77172262db32e2b8ca7": {
       "type": "entity",
-      "class": { "en": "country", "pt": "País" },
+      "class": { "en": "country", "pt": "país" },
       "text": { "en": "Brazil", "pt": "Brasil" }
     },
     "entity-9884e2b6da0f53955d94673b6445701e4f0e6703a005b15da4c52810034d1087": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "Planta" },
+      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
       "text": { "universal": "Ambé" }
     },
     "entity-99fd5c25f6f292cf6e1451e00a381d9103f3dc53b4663c4965595fdb96203ce9": {
       "type": "entity",
-      "class": { "en": "river", "pt": "Rio" },
+      "class": { "en": "river", "pt": "rio" },
       "text": { "en": "Amazon", "pt": "Amazonas" }
     },
     "entity-ADCn2FkoxadYiYF0": {
@@ -162,12 +161,12 @@
     },
     "entity-C2-iqFnQBONHBIPb": {
       "type": "entity",
-      "class": { "en": "actor" },
-      "text": { "en": "fish killer" }
+      "class": { "en": "actor", "pt": "ator" },
+      "text": { "en": "fish killer", "pt": "matador de peixe" }
     },
     "entity-CP43OM6fnR-MveQr": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "Planta" },
+      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
       "text": { "en": "vine" }
     },
     "entity-CTmBEgPDvGbRcN1J": {
@@ -182,32 +181,32 @@
     },
     "entity-EILuxGPyNk8DqwRG": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Hyper Piranha" }
     },
     "entity-ESvaV0FzaCQiE1Nj": {
       "type": "entity",
-      "class": { "en": "place" },
-      "text": { "en": "Lagoon of Ipatse" }
+      "class": { "en": "place", "pt": "lugar" },
+      "text": { "en": "Lagoon of Ipatse", "pt": "lagoa de Ipatse" }
     },
     "entity-ExIccARCXy2E74Y3": {
       "type": "entity",
-      "class": { "en": "object part" },
+      "class": { "en": "object part", "pt": "parte do objeto" },
       "text": { "en": "tongue" }
     },
     "entity-Ff4dwLJPkja34oRm": {
       "type": "entity",
-      "class": { "en": "object part" },
-      "text": { "en": "mouth" }
+      "class": { "en": "object part", "pt": "parte do objeto" },
+      "text": { "en": "mouth", "pt": "boca" }
     },
     "entity-Gd-5uvi9PnWL724w": {
       "type": "entity",
-      "class": { "en": "body of water" },
-      "text": { "en": "Arara-Azul Lagoon" }
+      "class": { "en": "body of water", "pt": "águas" },
+      "text": { "en": "Arara-Azul Lagoon", "pt": "Lagoa Arara-azul" }
     },
     "entity-HZDwUFYsoSgPGG0Z": {
       "type": "entity",
-      "class": { "en": "fish" },
+      "class": { "en": "fish", "pt": "peixe" },
       "text": { "de": "Rotflossen-Glassalmler", "en": "Glass Bloodfin", "pt": "piabinha" }
     },
     "entity-HvHg6s-d5ji7unFl": {
@@ -217,27 +216,27 @@
     },
     "entity-IiczFDrzayC_TTle": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "Planta" },
+      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
       "text": { "en": "Entity 4" }
     },
     "entity-J1Psucsa0qzKOMyX": {
       "type": "entity",
       "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
-      "text": { "en": "making the fish trap" }
+      "text": { "en": "making the fish trap", "pt": "fazendo armadilha de pesca" }
     },
     "entity-JYFY_db7RT89biTN": {
       "type": "entity",
-      "class": { "en": "object part" },
+      "class": { "en": "object part", "pt": "parte do objeto" },
       "text": { "de": "Gesäß", "en": "buttocks", "pt": "nádegas" }
     },
     "entity-KO9GLmcwWFAStgkk": {
       "type": "entity",
-      "class": { "en": "prayer" },
+      "class": { "en": "prayer", "pt": "reza" },
       "text": { "en": "setting up Utu" }
     },
     "entity-L-30eMyDg1K1_8Pw": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "spirit animal" }
     },
     "entity-L7vUYITsLNaS_Nrx": {
@@ -247,59 +246,59 @@
     },
     "entity-Mzh6yPBbZGcoBceu": {
       "type": "entity",
-      "class": { "en": "body part" },
+      "class": { "en": "body part", "pt": "parte do corpo" },
       "text": { "en": "Uhi's hair" }
     },
     "entity-OfcVtBgw4_Vhy2Ap": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "Planta" },
+      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
       "description": { "de": "", "en": "", "pt": "" },
       "text": { "universal": "Timbó" }
     },
     "entity-OsjoGY-bEljPPvM1": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Entity 2" }
     },
     "entity-Q2jSY4-cgD9Czt08": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Hyper Bicuda" }
     },
     "entity-Q31pwH9xQ12GaPy-": {
       "type": "entity",
-      "class": { "en": "body part" },
+      "class": { "en": "body part", "pt": "parte do corpo" },
       "text": { "en": "Uhi's veins" }
     },
     "entity-QQmHLrWWr6eaDlc7": {
       "type": "entity",
-      "class": { "en": "plant structure" },
-      "text": { "en": "aerial root" }
+      "class": { "en": "plant structure", "pt": "estrutura vegetal" },
+      "text": { "en": "aerial root", "pt": "raiz aérea" }
     },
     "entity-QfX_k5a66klp9dOO": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "Planta" },
+      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
       "description": { "en": "test" },
       "text": { "en": "test2" }
     },
     "entity-QgKo_1be1ieCeUdg": {
       "type": "entity",
-      "class": { "en": "object part" },
+      "class": { "en": "object part", "pt": "parte do objeto" },
       "text": { "de": "Auge", "en": "eye", "pt": "olho" }
     },
     "entity-QhBvY4JdT_e4jvpx": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "hyper fish" }
     },
     "entity-R4u7NnYuslxbEAkd": {
       "type": "entity",
-      "class": { "en": "object part" },
+      "class": { "en": "object part", "pt": "parte do objeto" },
       "text": { "de": "Rippen", "en": "ribs", "pt": "costelas" }
     },
     "entity-SDCTX18UIWinXcZS": {
       "type": "entity",
-      "class": { "en": "object" },
+      "class": { "en": "object", "pt": "objeto" },
       "description": {
         "de": "weibliche Fischreuse",
         "en": "female fish trap",
@@ -309,12 +308,12 @@
     },
     "entity-TMIO9NZHn9IvsAD9": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "Planta" },
+      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
       "text": { "de": "Baum", "en": "tree", "pt": "árvore" }
     },
     "entity-UTvmNNIEUYwqY_7X": {
       "type": "entity",
-      "class": { "en": "role" },
+      "class": { "en": "role", "pt": "função" },
       "text": { "en": "singer" }
     },
     "entity-UoRdVQNak6yb29pp": {
@@ -334,22 +333,22 @@
     },
     "entity-WXohiggjXizofBRx": {
       "type": "entity",
-      "class": { "en": "fish" },
+      "class": { "en": "fish", "pt": "peixe" },
       "text": { "de": "", "en": "baked wrapped fish", "pt": "" }
     },
     "entity-X3sQDww1P0Y3tNmY": {
       "type": "entity",
-      "class": { "en": "place" },
+      "class": { "en": "place", "pt": "lugar" },
       "text": { "de": "kleiner Bachlauf", "en": "small Watercourse", "pt": "riacho" }
     },
     "entity-XBW7P-3Tu4aLoX2A": {
       "type": "entity",
-      "class": { "en": "fish" },
+      "class": { "en": "fish", "pt": "peixe" },
       "text": { "en": "Pacu" }
     },
     "entity-Y-kpHyGZJTpoaGRE": {
       "type": "entity",
-      "class": { "en": "fish" },
+      "class": { "en": "fish", "pt": "peixe" },
       "description": { "en": "", "pt": "" },
       "text": { "de": "Ölfisch", "en": "Oil fish", "pt": "Peixe sabão", "universal": "" }
     },
@@ -360,7 +359,7 @@
     },
     "entity-ZgZWHecoAS4mh8pB": {
       "type": "entity",
-      "class": { "en": "object" },
+      "class": { "en": "object", "pt": "objeto" },
       "text": { "en": "bow and arrow" }
     },
     "entity-_MgBGt3w-eMJGUmN": {
@@ -370,12 +369,12 @@
     },
     "entity-a8f2f012f225feec47bf22e74ce1ef77ddb945e065bdf159cd33381fe0b9a8cd": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "Planta" },
+      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
       "text": { "de": "Wirtsbaum", "en": "hosting tree", "pt": "árvore hospedeira" }
     },
     "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": {
       "type": "entity",
-      "class": { "en": "object" },
+      "class": { "en": "object", "pt": "objeto" },
       "description": { "de": "Fischreuse", "en": "fish trap", "pt": "armadilha de pesca" },
       "text": { "universal": "Utu" }
     },
@@ -387,12 +386,12 @@
     },
     "entity-b036ec19485bb595518cf54fbd9368b22f7145099b3dc17604091e0a05f9cf22": {
       "type": "entity",
-      "class": { "en": "river", "pt": "Rio" },
+      "class": { "en": "river", "pt": "rio" },
       "text": { "en": "Rio Buriti" }
     },
     "entity-bF5gZkSRorj4ruvB": {
       "type": "entity",
-      "class": { "en": "body part" },
+      "class": { "en": "body part", "pt": "parte do corpo" },
       "text": { "en": "Uhi's back" }
     },
     "entity-b_SX0cDPSfD-nQ1w": {
@@ -403,14 +402,14 @@
     },
     "entity-c3289b0164025a9b98b1c23a3aa8258f169570be790bddf2aaaa2fc4cba02f45": {
       "type": "entity",
-      "class": { "en": "river", "pt": "Rio" },
+      "class": { "en": "river", "pt": "rio" },
       "text": { "en": "Rio Xingu" },
       "match": ["https://d-nb.info/gnd/4104100-8", "wd:Q49544"]
     },
     "entity-c3MsLUyjCbi8983F": {
       "type": "entity",
-      "class": { "en": "animal" },
-      "text": { "en": "fish" }
+      "class": { "en": "animal", "pt": "animal" },
+      "text": { "en": "fish", "pt": "peixe" }
     },
     "entity-cEjaqellkE5X9OCY": {
       "type": "entity",
@@ -419,32 +418,32 @@
     },
     "entity-cYxGAvQBufNHWoNg": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Tãugi" }
     },
     "entity-dgXQzVNqanTV6nnf": {
       "type": "entity",
-      "class": { "en": "place" },
+      "class": { "en": "place", "pt": "lugar" },
       "text": { "en": "Entity 5" }
     },
     "entity-diwYUWjQxQ3FPnJy": {
       "type": "entity",
-      "class": { "en": "fish" },
+      "class": { "en": "fish", "pt": "peixe" },
       "text": { "de": "ausgenommener Fisch", "en": "gutted fish", "pt": "peixe eviscerado" }
     },
     "entity-dqBjxyGL4eopaLS2": {
       "type": "entity",
-      "class": { "en": "object" },
-      "text": { "en": "fish trap" }
+      "class": { "en": "object", "pt": "objeto" },
+      "text": { "en": "fish trap", "pt": "armadilha de pesca" }
     },
     "entity-e0379c2c40f2f281a45dfa50d88a9b523e8a611f5d65a760197d7207dd82e040": {
       "type": "entity",
-      "class": { "en": "river", "pt": "Rio" },
+      "class": { "en": "river", "pt": "rio" },
       "text": { "en": "Rio Ronuro" }
     },
     "entity-ef8d19f18f97c75f5cdac2a6890d8b9f2a15033c73c18943a34e085ac83ee276": {
       "type": "entity",
-      "class": { "en": "river", "pt": "Rio" },
+      "class": { "en": "river", "pt": "rio" },
       "text": { "en": "Rio Negro" }
     },
     "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": {
@@ -465,26 +464,26 @@
     "entity-gpWA05FPYjfitN1u": {
       "type": "entity",
       "class": { "de": "Essen", "en": "food", "pt": "alimento" },
-      "text": { "en": "baked wrapped fish" }
+      "text": { "en": "baked wrapped fish", "pt": "peixe assado embrulhado" }
     },
     "entity-hkPCMUWl74floN6s": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Sun" }
     },
     "entity-iG6_wAKfpwiRxcWu": {
       "type": "entity",
-      "class": { "en": "body part" },
+      "class": { "en": "body part", "pt": "parte do corpo" },
       "text": { "en": "Uhi's shinbone" }
     },
     "entity-iaUryxgF2GTa2Sbp": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Oho aliju nikalamá" }
     },
     "entity-j7GLoiSSuLjM6C96": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Auajulu nuigituani" }
     },
     "entity-j7Zz6fyMiG2zn0y9": {
@@ -494,12 +493,12 @@
     },
     "entity-joDjk6Zvc6I32Bdo": {
       "type": "entity",
-      "class": { "en": "collection" },
+      "class": { "en": "collection", "pt": "coleção" },
       "text": { "en": "Chants of Jamagikumalu" }
     },
     "entity-kCbm3gSkjx_UBpCi": {
       "type": "entity",
-      "class": { "en": "object" },
+      "class": { "en": "object", "pt": "objeto" },
       "text": { "en": "Ataka" }
     },
     "entity-krH3BoegxTDlhwoZ": {
@@ -529,12 +528,12 @@
     },
     "entity-mtGlXiAKUcxCAsFA": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Hyper Star" }
     },
     "entity-oEQwWGKwv9d0342i": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "Planta" },
+      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
       "text": { "en": "Buriti  tree" }
     },
     "entity-pZr6nneF5w6LNJDd": {
@@ -544,18 +543,18 @@
     },
     "entity-qFBK7CACoQCbNL-d": {
       "type": "entity",
-      "class": { "en": "fish" },
+      "class": { "en": "fish", "pt": "peixe" },
       "description": { "en": "", "universal": "Piaractus brachypomus" },
       "text": { "de": "", "en": "", "pt": "pacu", "universal": "Agaga" }
     },
     "entity-qT5xzoPdH8jehATY": {
       "type": "entity",
-      "class": { "en": "place" },
+      "class": { "en": "place", "pt": "lugar" },
       "text": { "en": "Lagoon of Ihumba" }
     },
     "entity-sLZPaUowFR7cmgKg": {
       "type": "entity",
-      "class": { "en": "country", "pt": "País" },
+      "class": { "en": "country", "pt": "país" },
       "description": { "en": "test" },
       "text": { "en": "test with jnjw long name and ic canfbiw" }
     },
@@ -571,63 +570,62 @@
     },
     "entity-t9wfEDwFDiOGPVT3": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Hyper Agafa" }
     },
     "entity-tQ_VwWMLPlY8xl-j": {
       "type": "entity",
-      "class": { "en": "river", "pt": "Rio" },
+      "class": { "en": "river", "pt": "rio" },
       "text": { "en": "stream" }
     },
     "entity-tW83QJ2DEs3NY0fV": {
       "type": "entity",
-      "class": { "en": "fish" },
-      "description": { "en": "", "universal": "Moenkhausia oligolepis" },
-      "text": { "de": "", "en": "Glass Tetra Fish", "pt": "" }
+      "class": { "en": "fish", "pt": "peixe" },
+      "description": { "universal": "Moenkhausia oligolepis" },
+      "text": { "en": "Glass Tetra Fish", "pt": "peixe tetra" }
     },
     "entity-u-MsxGVZDx6iIN1c": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Hyper Fox" }
     },
     "entity-ukrhTbGtDKItSlnZ": {
       "type": "entity",
-      "class": { "en": "fish" },
+      "class": { "en": "fish", "pt": "peixe" },
       "text": { "en": "Jopó" }
     },
-    "entity-vDo4kxrkpUjl9o8X": { "type": "entity" },
     "entity-vW6pmqDJ_zBk3tW3": {
       "type": "entity",
-      "class": { "en": "story" },
+      "class": { "en": "story", "pt": "história" },
       "text": { "en": "Uhi's Death" }
     },
     "entity-wpbEsvHMiLBymLYP": {
       "type": "entity",
-      "class": { "en": "object" },
+      "class": { "en": "object", "pt": "objeto" },
       "text": { "en": "Entity 3" }
     },
     "entity-x3n2WrpEDfloQMKR": {
       "type": "entity",
-      "class": { "en": "object" },
+      "class": { "en": "object", "pt": "objeto" },
       "text": { "de": "Holzstab", "en": "wooden stick" }
     },
     "entity-yM9dTvnq5L4tMyi3": {
       "type": "entity",
-      "class": { "en": "fish" },
+      "class": { "en": "fish", "pt": "peixe" },
       "text": { "en": "Kuigitse" }
     },
     "entity-yx1op9Z2gUuGw03T": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "Planta" },
+      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
       "text": {
         "de": "fischbetäubende Pflanze",
         "en": "Fish-Poison Plant",
-        "pt": "planta que estupefaze peixes"
+        "pt": "planta que envenena peixes"
       }
     },
     "entity-z_kiHAWuwpRs_XxU": {
       "type": "entity",
-      "class": { "en": "place" },
+      "class": { "en": "place", "pt": "lugar" },
       "text": { "de": "Lagune", "en": "lagoon", "pt": "laguna" }
     },
     "entity-zfSB6bk1dk2ZO3ZQ": {
@@ -637,37 +635,37 @@
     },
     "entity-zm-wMGqjsesbrt-3": {
       "type": "entity",
-      "class": { "en": "fish" },
+      "class": { "en": "fish", "pt": "peixe" },
       "text": { "de": "Crenicichla", "en": "Pike cichlids", "pt": "jacundá" }
     },
     "entity-8vqw5f-kURJBoRiS": {
       "type": "entity",
-      "class": { "en": "actor" },
-      "text": { "en": "Xingú women" }
+      "class": { "en": "actor", "pt": "ator" },
+      "text": { "en": "Xingú women", "pt": "mulher xinguana" }
     },
     "entity-lGbXZr2Ky2lL-YxM": {
       "type": "entity",
-      "class": { "en": "actor" },
-      "text": { "en": "Xingú men" }
+      "class": { "en": "actor", "pt": "ator" },
+      "text": { "en": "Xingú men", "pt": "homem xinguano" }
     },
     "entity-uLAe3wIq-DDTPYX9": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Kamasinua" }
     },
     "entity-TNofCIE5fa-UHj5T": {
       "type": "entity",
-      "class": { "en": "actor" },
-      "text": { "en": "father-in-law" }
+      "class": { "en": "actor", "pt": "ator" },
+      "text": { "en": "father-in-law", "pt": "sogro" }
     },
     "entity-R8lDJmp6eDkGwyqr": {
       "type": "entity",
-      "class": { "en": "actor" },
-      "text": { "de": "Weitere", "en": "Others" }
+      "class": { "en": "actor", "pt": "ator" },
+      "text": { "de": "weitere", "en": "others", "pt": "outros" }
     },
     "entity-Hw3F98ZFdOAKXMTf": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "Planta" },
+      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
       "text": { "universal": "Philodendron solimoesense" }
     },
     "entity-WTyDvDUakrIZEPEK": {
@@ -676,160 +674,77 @@
       "description": { "en": "cut ambé vine " },
       "text": { "universal": "tihigo" }
     },
-    "entity-e8_7glwH3Ua4J27l": { "type": "entity" },
-    "entity-Il-VFpwXC0mdmKQu": { "type": "entity" },
     "entity-hxrJu41ra_e2dmMW": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "Hyper Bicudinha" }
     },
     "entity-hLeVNyp8UrhQZGII": {
       "type": "entity",
-      "class": { "en": "object part" },
+      "class": { "en": "object part", "pt": "parte do objeto" },
       "text": { "en": "Arrowhead" }
     },
     "entity-M74ydW7dbPamOI0b": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "spirit women" }
     },
     "entity-B1qOLtj9paWdiukZ": { "type": "entity", "text": { "en": "Uhi´s body" } },
     "entity-35C284BpJRaSlnPQ": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "spirit piranha" }
     },
     "entity-Cxz99bmQ--b-nNzM": {
       "type": "entity",
-      "class": { "en": "actor" },
+      "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "spirit piranha" }
     },
     "entity-_bFQTPSiF7EL2lDz": {
       "type": "entity",
       "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
-      "text": { "en": "singing" }
+      "text": { "de": "singen", "en": "singing", "pt": "canta" }
     },
     "entity-nmAJXvBldgl-xLHP": { "type": "entity", "text": { "en": "and" } },
-    "edge-00a7c374b483210ba753029cb5abeb88a3271279ea78a461e8a32e80866eaded": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "kills" }
-    },
     "edge-033ffa2f7102c95a1e3bf9b2033bea09582087d733387a8f08772dbbf7e14f2b": {
       "type": "predicate",
       "inheritDisplay": true,
       "text": { "en": "located in", "pt": "localizado em" }
     },
-    "edge-08aa1b2fe7eeadf60c921acc9f229019b55713212f225e36f8359ed1daff292d": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "live in" }
-    },
-    "edge-0909e07dbe00a24e15a12493942c3c15493a1eff259fcae93b7e72596970d141": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-0972a4a0ed35d8e414948fda7f3687661e5512c3419d0ad4322c5b670dc51076": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "takes" }
-    },
-    "edge-0a5455630033f8f7cdf138ee7f1a61dd55000d7519113c24b0644b81a3cbb762": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "eat" }
-    },
     "edge-13b79419bfce1c06da8a5745413233c311874b7711d1e3a7650c43365ab6114a": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "invented" }
-    },
-    "edge-13f28f4d8d7b8846cf813838f50332f34657450f4b28c9b49ae2065e4bcb11c0": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "connects" }
+      "text": { "en": "invented", "pt": "inventou" }
     },
     "edge-189df1d5019da9f406ca16dfafe1f5e3ff67f4642d0dc8833232a4cbcd36d3e2": {
       "type": "predicate",
       "inheritDisplay": true,
       "text": { "en": "borders", "pt": "faz fronteira com" }
     },
-    "edge-19cadfdf4ec8b9514d9dc40bed1c196a7564ae9e315876f85eb17c21f150ac1d": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "connects" }
-    },
     "edge-1d49763de71dffec12e4bbcbf49bd3f6d821cceb2adced26fb9179f21b3002c8": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-1e0068aaf08443ec387cbe233dd8f52d77c9ae69dc3f00b2a87f8463f0c9d672": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-1e46b2ceb40cd4a91ebfb78de3430ed384f0c595c4c1183c18e7f6c83bff3b5a": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "owns" }
-    },
-    "edge-1f71ad9601718529a6087a308641497da0a9e66a3a8f3237412382bb865a3191": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-1fa05c4292b4793c6a602990fa18967f63dd36175ce49252dd7b77ecc2a54e29": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "refers to" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-2addbf2c2e6d0d25ad30a42a9ad3f47f53852788cdf60e38ed7d04c524f8ad1f": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-2cc5968b3d1d845f56ccb9465015c2f541b050c0e91df0f11e69d5730055af4e": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "uses" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-317c2be18b618baf1188adeb7501ab8b0ee463763237f440dfada945012e2271": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "invented" }
-    },
-    "edge-32d0081fc6211643938a2b65c91c6ff480339b82a7607dc154403573cac4ee5d": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "transforms into" }
-    },
-    "edge-33720674aa7d74dff1fb87d1f61843fb87cb9f421fe4dd3eebf0db7cfdb69b17": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "takes place from" }
-    },
-    "edge-360633d01540e5ade9e015f6ced05699874dbd70b31804fb4ab58f92ddc72642": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "live in" }
-    },
-    "edge-3975355a827629a01c10ae35b70f0d84f382a3c1d9910a2bef00d5c515ff274b": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "de": "führt aus", "en": "carries out", "pt": "realiza" }
+      "text": { "en": "invented", "pt": "inventou" }
     },
     "edge-397da4756da7453af2e45a19b0b3350b59019a337660626b040d93dbb26e260f": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-39883b53414b4a80939fb0dea38fb244c8ea957b806b4ce51125ad5cfc193ace": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-39935a2d990ab9410e95f7e6a0eef9f88d5c0ce46d85ac341e37c728af745558": {
       "type": "predicate",
@@ -839,331 +754,92 @@
     "edge-3f291ce471f5f1e4c5a64fa932ef13e3d08c91f0506d44cf4ed03b6f5b7a133f": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "grows in" }
-    },
-    "edge-415601000bdf56ef236c07b159e2ebbbdbe0072e2b0485d38b0c01f25344a47c": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
-    },
-    "edge-450e2208c76529b2b23706f5a6f38c22dbef82268c5fd3725ff02cdcbb45ab8b": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "de": "gemacht aus", "en": "made of", "pt": "feito de" }
-    },
-    "edge-4517933988d97de1c7750e62a62d64f0d1cb6987c374306e7413e8065534194c": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "pierces through" }
-    },
-    "edge-49b1562e85a851b7a051a34e010c70b59f10b63a8a5efe1c7592f27942a7c9a0": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "consumed in", "pt": "usado em" }
-    },
-    "edge-4e655da8a61b5df365988f06cc73cab825e535f99ee53dab41b302f6be68827c": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
-    },
-    "edge-56aeac817511c4437868742dd519654c4e3d3330cf1905c83ce025e4f721658d": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "to" }
+      "text": { "en": "grows in", "pt": "cresce em" }
     },
     "edge-58b9a902a9412d665312d8bd240afc4a2dc5c07ac0a462550ea4c2c53391bf6d": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
-    },
-    "edge-5dcd3a0c156b9873813b5bc4b136e81fd661b3c92c41297861db567db58f404b": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
+      "text": { "en": "is part of", "pt": "é parte de" }
     },
     "edge-5f9edea40efd29f2544d7a17d9e30f90a4ff9a1cde06782800dc402004f45718": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-6b0adf8aeaeb77a2cb714a48af2e3c77324db312c6a994560aa16f2181adaf97": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "refers to" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-72654153ad5551ddf56a114bfd00f23effcca2c3595dc57374c25adf938e726c": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-74211f23db81ef69a7e01ab982b012656f60603e8b5251f7720e2675adb5411d": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "catches" }
-    },
-    "edge-74d45c4f61a1228a7dc02c9a9d7543055b95dec16e202d31d39a29a76954b32b": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
-    },
-    "edge-778654f1eb52d9624ac0995591cdca8e4c26a5136abbc942d9891a2874762581": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "de": "führt aus", "en": "carries out", "pt": "realiza" }
-    },
-    "edge-79f9485c416aa38693c415bf8fe3fdb9ac55d4b79f11a61ab5c3ad82070ebde5": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "takes place from" }
-    },
-    "edge-7efc7c86e05bb4eef0d65443e2491db08476b82a9c30f8c95b6a651d619b006f": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-83581057aa3a7b627da60a5483d839e50d9a18c4568a5035a93c02044ece5070": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
-    },
-    "edge-869e4a4b3299a90f1c4fb14e33d631af84c1c2c4b47124a87c05e8bdcf5d1cee": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-88dc42aa80b55c2500da963fdcfe62d2d2a2788520849c33735fafcec0960af5": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "towards" }
-    },
-    "edge-8d064c2bb1027dd6b5d56147a757b9b4fe66581d3b65d0d996fc99c37a8fb725": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-8d107959adc9f8f4f25d814c36e8fc012f8a6e5e0eaf3b0c046dcb80d5190184": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "produces", "pt": "produz" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-93610c928c9d2e17aac1f87e2cd02bf649fe5a457688442ad231a4f3df9c5706": {
       "type": "predicate",
       "inheritDisplay": true,
       "text": { "en": "located in", "pt": "localizado em" }
     },
-    "edge-944547c07faa7fb625cac935cb6b08044274a3a4b86de68af7edfaeb359b5ebc": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "connects" }
-    },
-    "edge-96e026faf77d2b03db560e51de982b36eede915597198fa29879acc48ad0555a": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "towards" }
-    },
-    "edge-9796a647b082864907fe0ebbd58e14f972b9b624fa4d21a26ce32b1ae98feb89": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "has part in" }
-    },
-    "edge-99bedf2c56b26eeb7cf775fdc6eb252f5e81f3497bb514b282058a1ac92e3865": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "transforms into" }
-    },
-    "edge-9d56e6d4d7d795fb38d9ca6ad5439e71a3f9e09c8bb1edfc2644afab898f6191": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "to" }
-    },
-    "edge-9fc717cf66cbbf331974cd3f0b66d712fe2d436935ae20e1d23157ea93c18061": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "de": "führt aus", "en": "carries out", "pt": "realiza" }
-    },
-    "edge-a0d9475c4ec2b42426166dfb60550a20db856e667a1c5bc4d3a3297faade4798": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-aa122717709f542f56b2f771029fea5893fb93700555a3f6d33325a724446523": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
     "edge-aab78521fd040d1717631879bc447202bf6ebf0504abed06dc1e118aaf9d807b": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
-    },
-    "edge-ac97ca60b18d335466c664de99c3ab18278959143080c2aa08ba3ee2394bd200": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
+      "text": { "en": "is part of", "pt": "é parte de" }
     },
     "edge-b0c05310903776c7deaf32ae2aedeeb7fe9d453015d630537466b23749826c81": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
+      "text": { "en": "is part of", "pt": "é parte de" }
     },
     "edge-b26507f4d9142feb7b9e574b0bd2666dc5a61cf0f5318b6dafe81f0a979ce294": {
       "type": "predicate",
       "inheritDisplay": true,
       "text": { "en": "located in", "pt": "localizado em" }
     },
-    "edge-b65f315b1553f5d9b1d8cead31d542efd3687551d905163e705b4789bf1eb85a": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
-    },
     "edge-b7c32f488009d156a3f20df3842cba1a027747807a034a95f095ed3a694cb8d2": {
       "type": "predicate",
       "inheritDisplay": true,
       "text": { "en": "located in", "pt": "localizado em" }
-    },
-    "edge-bdfa601bd063b81c005d0cf59437097f3310dee85dcece4747cf9d40ba1539bc": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "de": "führt aus", "en": "carries out", "pt": "realiza" }
-    },
-    "edge-c34e3c073a916c60e826ff106729037e35dd08b9f266130e6317573be7390600": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
     },
     "edge-cca7a383056849c908eae1321d2aa7b9296b0dfc2066f2a54c88871964b92148": {
       "type": "predicate",
       "inheritDisplay": true,
       "text": { "en": "located in", "pt": "localizado em" }
     },
-    "edge-cfde8b6f6804f909a839e812a94555f765e7058162b3e83b242ed6810ded4b69": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "has role" }
-    },
-    "edge-d26bd173ce945124642dcd20532bb14137210cc0f352348f8acde18f945d89eb": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-d2ebb5f19b32e33e9fc5970340fd723f3c34757aa4db234455b63938a6ad8dc3": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "de": "führt aus", "en": "carries out", "pt": "realiza" }
-    },
-    "edge-d57e749a8a57fbcb7e92db3a84fda20161c4b6034d2f1356192435aaf0ef4eed": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "kills" }
-    },
-    "edge-d59cfe1e53bb0446222f9f344928603ff134de33e573e4bf3229428402f16201": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "de": "führt aus", "en": "carries out", "pt": "realiza" }
-    },
-    "edge-db3bf38b27e29ee81e40d4662e651144d4f1c40d851d9dd554aec95d5eb01cb6": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is type of" }
-    },
-    "edge-dbb610fc0dacd7649c5d38946f13bfad3edc15eaeb289bf3fd52630bd243590e": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "punches" }
-    },
-    "edge-dd39abbdcfed8f2caef8818301e5ef9fef95e160624f3d10f3a770fb25b86962": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "de": "führt aus", "en": "carries out", "pt": "realiza" }
-    },
-    "edge-dedcda4b4f83d7a1c26076aad0daba5fba1cfc33c819577e10d9de25298c5ba1": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
-    },
-    "edge-f48b449c5d6ced2e51330f7012cd94449df1a733202127c162da33377d5aa311": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "towards" }
-    },
-    "edge-f5cb7b8971ec43383fc7ebd8028627917f03af1122aeff945af4467ccd990d46": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is equal to" }
-    },
-    "edge-f708573c891032e7620b805bfe82a2430c21d7907383a73b8906e291f0060d1a": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "connects" }
-    },
     "edge-f9b5ae7f96801942f9a766506a6f19fc645d5c219fae1bc894e46e4272edf886": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
-    },
-    "edge-fb62d3740f2bd68cad46eb327a6f68615907b5a9cdd4bea6de3dff61d993e809": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
-    },
-    "edge-207cb99fd94eca611e2085efb0da85414aba1494f7ef42afc37fa0fe1fc376fe": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "de": "führt aus", "en": "carries out", "pt": "realiza" }
-    },
-    "edge-5886dfb493418c8cfcdcdfcafe7702e3ca802918b5f1fd3ccb6e3c6bfde4f56d": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "owns" }
+      "text": { "en": "is part of", "pt": "é parte de" }
     },
     "edge-3db03ef46fc6b3ea39ecd13a7c7ac22699d736eddd5bd25038fd2c866ae1d325": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "use" }
+      "text": { "en": "use", "pt": "usa" }
     },
     "edge-90079509e0d063a91925f88cc2f7769c6c760273e8170911fbe343592d2c4d4c": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "requires" }
+      "text": { "en": "requires", "pt": "requer" }
     },
     "edge-dac70098f16375cd349c8a75daa4e4d5f5eca72625421010cac7175a57f48e20": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "requires" }
+      "text": { "en": "requires", "pt": "requer" }
     },
     "edge-ee93f9b85105b777a915c7f2b9595ad23125d88918eea5d42bb62d97f60d6ee5": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
+      "text": { "en": "is part of", "pt": "é parte de" }
     },
     "edge-443dae876f2c404879c27dcf0bdab03f992e784b0e05295ec81ad97174eb62cd": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
+      "text": { "en": "is part of", "pt": "é parte de" }
     },
     "edge-5fca4c0541771435c484276991c637466bd1c72c202a49caf0ed49eacbc6f06a": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "use" }
+      "text": { "en": "use", "pt": "usa" }
     },
     "edge-dc552b6aafeba92c7d4151e8d53189c898f4dd0e1c478e2dd2c93d570d9eb378": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "for" }
+      "text": { "en": "for", "pt": "para" }
     },
     "edge-2f3febc0436539dc7c06d899af492df6e359b1a5221b5b077e2d1b38eda1a13e": {
       "type": "predicate",
@@ -1173,22 +849,22 @@
     "edge-6ed190784f00d1c3825fcb13fe3885bd4c56a9c12cbac584f8d2ffbaa64b57e1": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "use" }
+      "text": { "en": "use", "pt": "usa" }
     },
     "edge-6f941180114eeaecf63b96946077282dfa7a10fcfce8ccfdf499be2209211507": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "during" }
+      "text": { "en": "during", "pt": "durante" }
     },
     "edge-e218d9e091b379bdb5a7e2c65f3ee46c9b9bc50595a7cf6eb8d8d36a0882137a": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "in" }
+      "text": { "en": "in", "pt": "em" }
     },
     "edge-62d67ad0cd6076db77b5d9c349209bf311a3baaccd4e04a18029b3b0b5ecbc9a": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "use" }
+      "text": { "en": "use", "pt": "usa" }
     },
     "edge-69f99bd7d7697072df830fa00276c7de73b99673c459ae55c14d77623915d247": {
       "type": "predicate",
@@ -1198,103 +874,102 @@
     "edge-51503926cd6cb1582416f3a73c640ed9a97c14091b74527e3df6f7f11104783d": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "de": "sein", "en": "his" }
+      "text": { "de": "sein", "en": "his", "pt": "dele" }
     },
     "edge-061ef5a4909600078818bed4e879d1e7220f25ebfa09c75f317f0c2272c75b71": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "de": "gleich", "en": "equals" }
+      "text": { "de": "gleich", "en": "equals", "pt": "é igual a" }
     },
     "edge-e07f3b56a9c6bc680c28d753aa4874361453ff653c1e65057ad2cf94e40f2517": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "de": "gleich", "en": "equals" }
+      "text": { "de": "gleich", "en": "equals", "pt": "é igual a" }
     },
     "edge-ff1953b17fba0d73e6dc4dae2bb02c2c6866d64b8570bff2f4b51dda4bd33971": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "use" }
+      "text": { "en": "use", "pt": "usa" }
     },
     "edge-92323e26a74e56c350fd3a0f8bca920c9a75a4b3e23bca729da71977193993ef": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "de": "singen", "en": "sing" }
+      "text": { "de": "singen", "en": "sing", "pt": "cantar" }
     },
     "edge-3000a463a4c44dc498040c4f7304ee77f3e4d06180cfc05663c981a6ec19a134": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is part of" },
-      "description": { "en": "" }
+      "text": { "en": "is part of", "pt": "é parte de" }
     },
     "edge-fa282a854a3fd50a0ef56dd198c7165ca370cc2be3954f3bca41e264def89895": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "de": "singen", "en": "sing" }
+      "text": { "de": "singen", "en": "sing", "pt": "cantar" }
     },
     "edge-4603df58784072bd8761fc4f418f1ece200d7ed96ddf69a914e34db4f5fa2674": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "to set up" }
+      "text": { "en": "to set up", "pt": "armar" }
     },
     "edge-3d3ac67d510fe759015192d4db8bf99c5bea8764371e028e7d8bbf824a9fd5ec": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is" }
+      "text": { "en": "is", "pt": "é" }
     },
     "edge-82bcb56a03edb72661a3d5dc009e3203c084b6aa2aea0a2cacd783092dd3966f": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "gather in" }
+      "text": { "en": "gather in", "pt": "coleta em" }
     },
     "edge-a8af2e12fbb2337e6605fea566905b17ecd86f9e53eaa21cb542fa0d858f0477": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "gather in" }
+      "text": { "en": "gather in", "pt": "coleta em" }
     },
     "edge-e0ee37f375fa5226b8763e1f3a39ed4a3bed108bf28fc4c4f8b4a253542b058d": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "use" }
+      "text": { "en": "use", "pt": "usa" }
     },
     "edge-7aa20b09910a1f7b76fe15b514c2da8c1dd17aa83edd4c46251320947d68c413": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "for" }
+      "text": { "en": "for", "pt": "para" }
     },
     "edge-3712fd694f9acd83111202cb3ef1fc5770f80aef731e3b0296684170870a2d6f": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "in" }
+      "text": { "en": "in", "pt": "em" }
     },
     "edge-6be2c8e21a59ebd1390ccf191b585302b09f383e5af52722fd89300d7dfafe1e": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "use" }
+      "text": { "en": "use", "pt": "usa" }
     },
     "edge-94756ae4de7bc8cfe94ac7c969deeb2830d82604b695ee162570a1c70f2214ff": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "in" }
+      "text": { "en": "in", "pt": "em" }
     },
     "edge-fbe9d8e0df7a5330a3af908f7d05e7c861c8b26b20e5a9af557adfec57b8aca0": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-7161097fae9b894ddd82cbcbc705bdfa267525bae7b46bb109d65c766127bdba": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-8dd96f7860b0b4a7abc2e1a8bee8019dbc5b7707cf3c13fcd1fdb5f67127d023": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "during" }
+      "text": { "en": "during", "pt": "durante" }
     },
     "edge-9f97e5d4e5acb1622733e88f341ce4ffc90b57be84be90a69eb33fff72f638c9": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "during" }
+      "text": { "en": "during", "pt": "durante" }
     },
     "edge-be3b00772ebbb8bbc00789f1f1b566166de5bf2f8be51b4964ee2c8d3f67e1de": {
       "type": "predicate",
@@ -1309,57 +984,47 @@
     "edge-59f001edb0041e1f17bf02529f331e9be5c050f2ea1ef15a64147dfc1b5bfe59": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "live in" }
+      "text": { "en": "live in", "pt": "vive em" }
     },
     "edge-adc5cda611b6ff037d5703da1718a867e2c38fc82ee00d3d8baee9ca32e762ec": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "live in" }
+      "text": { "en": "live in", "pt": "vive em" }
     },
     "edge-5ac75d6fc4d2eb4d66ad30fc69e11b08aafd125a8400585ecae34ab29243c373": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "for" }
+      "text": { "en": "for", "pt": "para" }
     },
     "edge-e80bb48d95ee4802a31b2616e8f4c920c3ae5a2d19ab3d413b18d79534eae858": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "in" }
+      "text": { "en": "in", "pt": "em" }
     },
     "edge-80465c9b3b53ed0ced52bbecd6689830ed3b6957f1fa389680c63bcdb890a22b": {
       "type": "predicate",
       "inheritDisplay": true,
       "text": { "en": "from" }
     },
-    "edge-5bf3f1fd1544962faa8f8c44d1d7a0254c2dfe4d82496986a7314721ff0d9d4a": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "reaches" }
-    },
     "edge-e9455532a3ef612f6a5db6af15493c1fc343dbb86f09a54a281215e00f8fb864": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-7c54ce24459b5a483815de7827821f97276f6c0e1cce8fa9c93adcc96362b4ea": {
       "type": "predicate",
       "inheritDisplay": true,
       "text": { "en": "uses" }
     },
-    "edge-f30470e4f724adb9aec3352c5fd00dacc813e7fe744d702196b10f8ae9bdfaa1": {
-      "type": "predicate",
-      "inheritDisplay": true,
-      "text": { "en": "attacts" }
-    },
     "edge-2af109642e90caf048d609a3d86dd4f00bdd85377d198fdf845d47ec5b956ef6": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "de": "gleich", "en": "equals" }
+      "text": { "de": "gleich", "en": "equals", "pt": "é igual a" }
     },
     "edge-8932fd70a4a4bcc978f2716a344be2f4f5863b6af5ec152bcf4f7f94f14597e4": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "takes out" }
+      "text": { "en": "takes out", "pt": "retira" }
     },
     "edge-5c7fbf2fd3299a88bf3985eeb076e722bed9620b7cc4a5491218e8a4b4b859f3": {
       "type": "predicate",
@@ -1369,7 +1034,7 @@
     "edge-6236f5954498dec474e121d822c119d55749b2045d3cc565f4c3b33ae3d06ab4": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-bfae19749ad4100733c84a4765986ef9fde53cea502965492e90979cdc1fa0d7": {
       "type": "predicate",
@@ -1384,7 +1049,7 @@
     "edge-0fc65752e8537e84b3f4b2f6cfffa36f0c7969da024f3c6764d90df9e4799db2": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "is type of" }
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "predicate-ZvfSJ09WDeuke3Uk": { "type": "predicate", "text": { "en": "is" } },
     "predicate-091m1Fhezryh2eX4": { "type": "predicate", "text": { "en": "connected" } },
@@ -1394,27 +1059,39 @@
       "text": { "de": "ist Teil von ", "en": "is part of " }
     },
     "predicate-_5JFNJgnHXvQr5VV": { "type": "predicate", "text": { "en": "to fish" } },
-    "predicate--9byTCcVi5SyLpCI": { "type": "predicate", "text": { "en": "is type of" } },
-    "predicate-mI-ABJteeLQzoo9c": { "type": "predicate", "text": { "en": "gut" } },
-    "predicate-Q_7bboc56E3JEXG6": { "type": "predicate", "text": { "en": "wrap" } },
-    "predicate-rJ0SGId38ll-x3ZB": { "type": "predicate", "text": { "en": "bake" } },
+    "predicate--9byTCcVi5SyLpCI": {
+      "type": "predicate",
+      "text": { "en": "is type of", "pt": "é um tipo de" }
+    },
+    "predicate-mI-ABJteeLQzoo9c": {
+      "type": "predicate",
+      "text": { "en": "gut", "pt": "retirar as entranhas" }
+    },
+    "predicate-Q_7bboc56E3JEXG6": {
+      "type": "predicate",
+      "text": { "en": "wrap", "pt": "embrulhar" }
+    },
+    "predicate-rJ0SGId38ll-x3ZB": { "type": "predicate", "text": { "en": "bake", "pt": "assar" } },
     "predicate-gIgaCrvb-R7aYmRV": { "type": "predicate", "text": { "en": "fish" } },
     "predicate-nhAl_GSzxoF6dK8k": {
       "type": "predicate",
-      "text": { "de": "zeigte", "en": "taught" }
+      "text": { "de": "zeigte", "en": "taught", "pt": "ensinou" }
     },
-    "predicate-yAzSDZwWvXJx9s3B": { "type": "predicate", "text": { "de": "und", "en": "and" } },
+    "predicate-yAzSDZwWvXJx9s3B": {
+      "type": "predicate",
+      "text": { "de": "und", "en": "and", "pt": "e" }
+    },
     "predicate-QUZW5I8hISSKZF53": {
       "type": "predicate",
-      "text": { "de": "sammeln", "en": "pick" }
+      "text": { "de": "sammeln", "en": "pick", "pt": "colher" }
     },
     "predicate--zrIpGh33gxm_cJo": {
       "type": "predicate",
-      "text": { "de": "schneiden", "en": "cut " }
+      "text": { "de": "schneiden", "en": "cut ", "pt": "cortar" }
     },
     "predicate-40bkUCiKDYad3tL6": {
       "type": "predicate",
-      "text": { "de": "pflücken", "en": "pull" }
+      "text": { "de": "pflücken", "en": "pull", "pt": "puxar" }
     },
     "predicate-7y5K_bHpeFiyI-xh": {
       "type": "predicate",
@@ -1422,27 +1099,42 @@
     },
     "predicate-El8f7K13lJ9Tq_cC": {
       "type": "predicate",
-      "text": { "de": "sammeln", "en": "collect" }
+      "text": { "de": "sammeln", "en": "collect", "pt": "coletar" }
     },
     "predicate-jZQsr8wHDKbdq6nS": {
       "type": "predicate",
-      "text": { "de": "tragen", "en": "carry" }
+      "text": { "de": "tragen", "en": "carry", "pt": "carregar" }
     },
     "predicate-hcDFuSY2SCX6_vhd": {
       "type": "predicate",
-      "text": { "de": "transportieren", "en": "transport" }
+      "text": { "de": "transportieren", "en": "transport", "pt": "transportar" }
     },
-    "predicate-Q0a8RsJHuKQEbkd3": { "type": "predicate", "text": { "de": "zu", "en": "to " } },
+    "predicate-Q0a8RsJHuKQEbkd3": {
+      "type": "predicate",
+      "text": { "de": "zu", "en": "to ", "pt": "até" }
+    },
     "predicate-ObJ9MAMDnHkFFk4n": {
       "type": "predicate",
       "text": { "de": "geschieht in", "en": "occurs in" }
     },
-    "predicate-rghfJKMccV5zZf1b": { "type": "predicate", "text": { "de": "von", "en": "from" } },
-    "predicate-jls62x6hMPA8HJLJ": { "type": "predicate", "text": { "en": "tie" } },
+    "predicate-rghfJKMccV5zZf1b": {
+      "type": "predicate",
+      "text": { "de": "von", "en": "from", "pt": "de" }
+    },
+    "predicate-jls62x6hMPA8HJLJ": { "type": "predicate", "text": { "en": "tie", "pt": "amarrar" } },
     "predicate-Zw2FfFc3AhIATTJ-": { "type": "predicate", "text": { "en": "take out" } },
-    "predicate-yVLjBQqph3zmczYz": { "type": "predicate", "text": { "en": "take out" } },
-    "predicate-RO-T5CSmAjjkFumh": { "type": "predicate", "text": { "en": "peel" } },
-    "predicate-60P5KNhR8AH-NlFU": { "type": "predicate", "text": { "en": "to catch" } },
+    "predicate-yVLjBQqph3zmczYz": {
+      "type": "predicate",
+      "text": { "en": "take out", "pt": "retirar" }
+    },
+    "predicate-RO-T5CSmAjjkFumh": {
+      "type": "predicate",
+      "text": { "en": "peel", "pt": "descascar" }
+    },
+    "predicate-60P5KNhR8AH-NlFU": {
+      "type": "predicate",
+      "text": { "en": "to catch", "pt": "pegar" }
+    },
     "predicate-KZIhlYGTidBMM56j": {
       "type": "predicate",
       "text": { "de": "fischt", "en": "fishes" }
@@ -1464,11 +1156,8 @@
     "predicate-a-XwoI5BUDrSfWpR": { "type": "predicate", "text": { "en": "sing" } },
     "predicate-BA1bVNJRL5TT1vVu": { "type": "predicate", "text": { "en": "taking" } },
     "predicate-BBvVNbU_rqg_F3Zo": { "type": "predicate", "text": { "en": "towards" } },
-    "note-WaeKdf_95Q4o9BUE": {
-      "type": "note",
-      "text": { "en": "this is some additional information for you" }
-    },
-    "note-WjczVrPvKabOAx6o": { "type": "note", "text": { "en": "test note" } },
+    "predicate-Al7lWr-3HV1W_Us-": { "type": "predicate", "text": { "en": "attacts" } },
+    "predicate-Oxw9zQS8hgV_nbVZ": { "type": "predicate", "text": { "en": "reaches" } },
     "note-uys9pk6xjXBOXy8Z": { "type": "note", "text": { "en": "test note" } },
     "note-9Z_u2Of-0MSzjSkO": {
       "type": "note",
@@ -1480,7 +1169,6 @@
       "type": "note",
       "text": { "en": "another type of fish trap used by men is shown here" }
     },
-    "note-N_8pvA3uWbxvLHIK": { "type": "note", "text": { "en": "the myth of Uhi is told here" } },
     "note-aHk6lfL62xEIHkt6": {
       "type": "note",
       "text": { "en": "another type of fish trap used by Xingú women is shown here" }
@@ -1488,12 +1176,16 @@
     "note-phcALrFcLYF9D8OR": {
       "type": "note",
       "text": {
-        "en": "select an entity e.g. fish trap to explore its connections across all Graphs"
+        "en": "select an entity e.g. fish trap to explore other connections ",
+        "pt": "selecione uma entidade (ex.: armadilha de pesca) para explorar outras conexões"
       }
     },
     "note-RTMl-rS8wDRHticj": {
       "type": "note",
-      "text": { "en": "select a video to explore related story" }
+      "text": {
+        "en": "select a video to explore related story",
+        "pt": "Selecione um vídeo para explorar histórias relacionadas "
+      }
     },
     "media-NWvRMxzqTdCtfgHk": {
       "type": "image",
@@ -1588,20 +1280,10 @@
       "file": "storyOfUhi_punch.png",
       "text": { "en": "punch" }
     },
-    "media-2q-jblJTQzHIKkWd": {
-      "type": "image",
-      "file": "storyOfUhi_burriti.png",
-      "text": { "en": "burriti palm" }
-    },
     "media-O2fQaQR6xL3ihWKi": {
       "type": "image",
       "file": "storyOfUhi_hyperbicuda.png",
       "text": { "en": "hyper bicuda" }
-    },
-    "media-k-ZBIvyVKKprgKb2": {
-      "type": "image",
-      "file": "storyOfUhi_jump.png",
-      "text": { "en": "jump" }
     },
     "media-9kS19j1vIBU5xzXF": {
       "type": "image",
@@ -1613,15 +1295,29 @@
       "file": "storyOfUhi_lagoon.png",
       "text": { "en": "lagoon" }
     },
+    "media-BSrANk54tkEgj5Hc": {
+      "type": "image",
+      "file": "storyOfUhi_background.png",
+      "text": { "en": "background Uhi" }
+    },
+    "media-fpGk5eJlOslcYL6J": {
+      "type": "image",
+      "file": "storyOfUhi_burritipalm.png",
+      "text": { "en": "burriti" }
+    },
+    "media-_W999P_CNtACE5ut": {
+      "type": "image",
+      "file": "storyOfUhi_jumpgraphic.png",
+      "text": { "en": "jump graphic" }
+    },
     "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
       "type": "graph",
-      "text": { "de": "", "en": "Introduction", "pt": "" },
+      "text": { "en": "Introduction", "pt": "Introdução" },
       "color": "indigo",
       "image": "places.jpg",
-      "next": "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241",
       "media": {
         "type": "video",
-        "duration": 371.796,
+        "duration": 199.366,
         "file": ["places.mp4"],
         "text": { "en": "places" }
       },
@@ -1726,7 +1422,6 @@
           "x": 750,
           "y": 1218.75
         },
-        "graph-ZDXzvCPZvuegkJaB": { "x": 2046.875, "y": 656.25 },
         "entity-ESvaV0FzaCQiE1Nj": { "x": 1609.375, "y": 1218.75 },
         "entity-63da69c8729911afdc3332781241bfe86b46719d3591bf734b5380603877b502": {
           "x": 343.75,
@@ -1746,12 +1441,11 @@
           "x": 125,
           "y": 625
         },
-        "graph-XWHUR_K8ZWYsy87q": { "x": 2046.875, "y": 828.125 },
         "entity-83b12f0080509da038aa09f9d30d804b388373836024827b3246f44051cdf187": {
           "x": 218.75,
           "y": 828.125
         },
-        "graph-Ag2pJE4-Wtr2of8M": { "x": 1671.875, "y": 1031.25 },
+        "graph-Ag2pJE4-Wtr2of8M": { "x": 1687.5, "y": 1031.25 },
         "entity-lGbXZr2Ky2lL-YxM": { "x": 1203.125, "y": 625 },
         "entity-8vqw5f-kURJBoRiS": { "x": 921.875, "y": 1031.25 },
         "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": {
@@ -1768,7 +1462,8 @@
           "y": 906.25
         },
         "note-phcALrFcLYF9D8OR": { "x": 1296.875, "y": 859.375 },
-        "note-RTMl-rS8wDRHticj": { "x": 984.375, "y": 375 }
+        "note-RTMl-rS8wDRHticj": { "x": 984.375, "y": 375 },
+        "graph-REq5SXPre4MP2olX": { "x": 2046.875, "y": 656.25 }
       },
       "marker": [
         {
@@ -1787,7 +1482,6 @@
       "text": { "en": "Peeling Ambé", "pt": "Processando ambé" },
       "color": "yellow",
       "image": "peeling the vine.jpg",
-      "next": "graph-ZDXzvCPZvuegkJaB",
       "media": {
         "type": "video",
         "duration": 159.04,
@@ -1854,7 +1548,6 @@
         "entity-C2-iqFnQBONHBIPb": { "x": 1656.25, "y": 656.25 },
         "entity-KO9GLmcwWFAStgkk": { "x": 1421.875, "y": 203.125 },
         "entity-J1Psucsa0qzKOMyX": { "x": 1015.625, "y": 515.625 },
-        "graph-XWHUR_K8ZWYsy87q": { "x": 1859.375, "y": 765.625 },
         "entity-yM9dTvnq5L4tMyi3": { "x": 2046.875, "y": 359.375 },
         "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": {
           "x": 1640.625,
@@ -1884,7 +1577,8 @@
         "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
           "x": 1265.625,
           "y": 468.75
-        }
+        },
+        "graph-REq5SXPre4MP2olX": { "x": 1859.375, "y": 765.625 }
       },
       "marker": [
         {
@@ -1898,7 +1592,6 @@
           "states": {
             "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "default",
             "entity-c3MsLUyjCbi8983F": "default",
-            "graph-XWHUR_K8ZWYsy87q": "default",
             "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241": "default"
           }
         },
@@ -1927,7 +1620,6 @@
             "media-Y1M9jpD_jJ0GYhId": "hide",
             "predicate--9byTCcVi5SyLpCI": "hide",
             "media-hAzcnQCG9mNCB0p9": "hide",
-            "graph-XWHUR_K8ZWYsy87q": "hide",
             "entity-krH3BoegxTDlhwoZ": "hide",
             "predicate-60P5KNhR8AH-NlFU": "hide",
             "media-ZAw8dJmMQcqMxm7r": "hide",
@@ -1968,7 +1660,6 @@
           "states": {
             "entity-C2-iqFnQBONHBIPb": "highlight",
             "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "default",
-            "graph-XWHUR_K8ZWYsy87q": "default",
             "entity-1-gYMvPO06kOVXJh": "default",
             "entity-krH3BoegxTDlhwoZ": "default",
             "predicate-60P5KNhR8AH-NlFU": "default",
@@ -2016,7 +1707,6 @@
           "time": 84.265888,
           "states": {
             "entity-dqBjxyGL4eopaLS2": "default",
-            "graph-XWHUR_K8ZWYsy87q": "default",
             "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "highlight",
             "predicate-RO-T5CSmAjjkFumh": "default",
             "entity-6ruDXTVaBsaRkb9x": "default",
@@ -2075,10 +1765,9 @@
     },
     "graph-Ag2pJE4-Wtr2of8M": {
       "type": "graph",
-      "text": { "en": "Using Kusu" },
+      "text": { "en": "Using Kusu", "pt": "O uso da armadilha kusu" },
       "color": "cyan",
       "image": "using kusu.jpg",
-      "next": "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a",
       "media": {
         "type": "video",
         "duration": 216.192,
@@ -2470,940 +2159,14 @@
         }
       ]
     },
-    "graph-XWHUR_K8ZWYsy87q": {
-      "type": "graph",
-      "description": { "en": "told by Jamalui" },
-      "text": { "en": "The Story of Uhi" },
-      "color": "orange",
-      "image": "the story of the fish trap - jamalui.jpg",
-      "next": "graph-Ag2pJE4-Wtr2of8M",
-      "media": {
-        "type": "video",
-        "duration": 371.797,
-        "file": ["the story of the fish trap - jamalui.mp4"],
-        "text": { "en": "the story of the fish trap - jamalui" },
-        "subtitles": {
-          "en": "the story of the fish trap - jamalui - en.srt",
-          "pt": "the story of the fish trap - jamalui - pt.srt"
-        }
-      },
-      "allocations": {
-        "edge-1e46b2ceb40cd4a91ebfb78de3430ed384f0c595c4c1183c18e7f6c83bff3b5a": {
-          "x": 1765.625,
-          "y": 140.625
-        },
-        "edge-1f71ad9601718529a6087a308641497da0a9e66a3a8f3237412382bb865a3191": {
-          "x": 1945.3125,
-          "y": 515.625
-        },
-        "edge-1fa05c4292b4793c6a602990fa18967f63dd36175ce49252dd7b77ecc2a54e29": {
-          "x": 835.9375,
-          "y": 234.375
-        },
-        "edge-2cc5968b3d1d845f56ccb9465015c2f541b050c0e91df0f11e69d5730055af4e": {
-          "x": 835.9375,
-          "y": 421.875
-        },
-        "edge-4517933988d97de1c7750e62a62d64f0d1cb6987c374306e7413e8065534194c": {
-          "x": 1562.5,
-          "y": 234.375
-        },
-        "edge-49b1562e85a851b7a051a34e010c70b59f10b63a8a5efe1c7592f27942a7c9a0": {
-          "x": 1179.6875,
-          "y": -125
-        },
-        "edge-74211f23db81ef69a7e01ab982b012656f60603e8b5251f7720e2675adb5411d": {
-          "x": 1000,
-          "y": 507.8125
-        },
-        "edge-79f9485c416aa38693c415bf8fe3fdb9ac55d4b79f11a61ab5c3ad82070ebde5": {
-          "x": 1179.6875,
-          "y": 421.875
-        },
-        "edge-83581057aa3a7b627da60a5483d839e50d9a18c4568a5035a93c02044ece5070": {
-          "x": 1000,
-          "y": 54.6875
-        },
-        "edge-8d064c2bb1027dd6b5d56147a757b9b4fe66581d3b65d0d996fc99c37a8fb725": {
-          "x": 1765.625,
-          "y": 328.125
-        },
-        "edge-8d107959adc9f8f4f25d814c36e8fc012f8a6e5e0eaf3b0c046dcb80d5190184": {
-          "x": 1562.5,
-          "y": -125
-        },
-        "edge-96e026faf77d2b03db560e51de982b36eede915597198fa29879acc48ad0555a": {
-          "x": 2125,
-          "y": 328.125
-        },
-        "edge-d2ebb5f19b32e33e9fc5970340fd723f3c34757aa4db234455b63938a6ad8dc3": {
-          "x": 1000,
-          "y": 328.125
-        },
-        "edge-d59cfe1e53bb0446222f9f344928603ff134de33e573e4bf3229428402f16201": {
-          "x": 1945.3125,
-          "y": 234.375
-        },
-        "edge-db3bf38b27e29ee81e40d4662e651144d4f1c40d851d9dd554aec95d5eb01cb6": {
-          "x": 1601.5625,
-          "y": 507.8125
-        },
-        "edge-dd39abbdcfed8f2caef8818301e5ef9fef95e160624f3d10f3a770fb25b86962": {
-          "x": 1359.375,
-          "y": -210.9375
-        },
-        "edge-dedcda4b4f83d7a1c26076aad0daba5fba1cfc33c819577e10d9de25298c5ba1": {
-          "x": 1179.6875,
-          "y": 234.375
-        },
-        "edge-f5cb7b8971ec43383fc7ebd8028627917f03af1122aeff945af4467ccd990d46": {
-          "x": 1562.5,
-          "y": -296.875
-        },
-        "entity-L-30eMyDg1K1_8Pw": { "x": 1765.625, "y": 421.875 },
-        "entity-Q2jSY4-cgD9Czt08": { "x": 2125, "y": 609.375 },
-        "entity-t9wfEDwFDiOGPVT3": { "x": 1765.625, "y": 234.375 },
-        "entity-vW6pmqDJ_zBk3tW3": { "x": 671.875, "y": 234.375 },
-        "entity-bF5gZkSRorj4ruvB": { "x": 1359.375, "y": 234.375 },
-        "entity-cEjaqellkE5X9OCY": { "x": 1359.375, "y": -125 },
-        "entity-OfcVtBgw4_Vhy2Ap": { "x": 1765.625, "y": -125 },
-        "entity-ESvaV0FzaCQiE1Nj": { "x": 1765.625, "y": 46.875 },
-        "entity-c3MsLUyjCbi8983F": { "x": 1000, "y": 593.75 },
-        "entity-krH3BoegxTDlhwoZ": { "x": 1000, "y": 234.375 },
-        "entity-cYxGAvQBufNHWoNg": { "x": 1359.375, "y": -296.875 },
-        "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
-          "x": 2015.625,
-          "y": 78.125
-        },
-        "entity-oEQwWGKwv9d0342i": { "x": 2125, "y": 421.875 },
-        "graph-ZDXzvCPZvuegkJaB": { "x": 718.75, "y": 109.375 },
-        "entity-Q31pwH9xQ12GaPy-": { "x": 1000, "y": -125 },
-        "entity-hkPCMUWl74floN6s": { "x": 1765.625, "y": -296.875 },
-        "entity-ga6yfO3kiGKMCSkz": { "x": 2125, "y": 234.375 },
-        "entity--kNcOEKDjUxVbIdK": { "x": 1000, "y": 421.875 },
-        "entity-EILuxGPyNk8DqwRG": { "x": 1437.5, "y": 593.75 },
-        "entity-TMIO9NZHn9IvsAD9": { "x": 1359.375, "y": 421.875 },
-        "entity-ZgZWHecoAS4mh8pB": { "x": 671.875, "y": 421.875 }
-      },
-      "marker": [
-        {
-          "time": 0,
-          "states": {
-            "graph-ZDXzvCPZvuegkJaB": "hide",
-            "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": "hide"
-          }
-        },
-        { "time": 2.840665, "states": { "entity-vW6pmqDJ_zBk3tW3": "highlight" } },
-        {
-          "bounds": {
-            "x1": 429.24899980764565,
-            "x2": 1574.3041373089945,
-            "y1": -40.92133819724783,
-            "y2": 570.8092595121035
-          },
-          "time": 12.095703,
-          "states": {
-            "entity-TMIO9NZHn9IvsAD9": "hide",
-            "entity-c3MsLUyjCbi8983F": "hide",
-            "entity-bF5gZkSRorj4ruvB": "hide",
-            "entity-krH3BoegxTDlhwoZ": "highlight",
-            "entity-oEQwWGKwv9d0342i": "hide",
-            "entity-Q2jSY4-cgD9Czt08": "hide",
-            "entity-Q31pwH9xQ12GaPy-": "hide",
-            "entity-t9wfEDwFDiOGPVT3": "hide",
-            "graph-ZDXzvCPZvuegkJaB": "default",
-            "entity-ga6yfO3kiGKMCSkz": "hide",
-            "entity-cYxGAvQBufNHWoNg": "hide",
-            "entity-ESvaV0FzaCQiE1Nj": "hide",
-            "entity-OfcVtBgw4_Vhy2Ap": "hide",
-            "entity-L-30eMyDg1K1_8Pw": "hide",
-            "entity-vW6pmqDJ_zBk3tW3": "default",
-            "entity-cEjaqellkE5X9OCY": "hide",
-            "entity-EILuxGPyNk8DqwRG": "hide",
-            "entity-ZgZWHecoAS4mh8pB": "hide",
-            "entity-hkPCMUWl74floN6s": "hide",
-            "entity--kNcOEKDjUxVbIdK": "hide"
-          }
-        },
-        { "time": 17.777555, "states": { "entity--kNcOEKDjUxVbIdK": "highlight" } },
-        {
-          "bounds": {
-            "x1": 414.60435682665496,
-            "x2": 1685.12258123259,
-            "y1": 118.27037591237362,
-            "y2": 797.0279722604802
-          },
-          "time": 43.243021,
-          "states": {
-            "entity-krH3BoegxTDlhwoZ": "default",
-            "entity-ZgZWHecoAS4mh8pB": "default",
-            "entity-c3MsLUyjCbi8983F": "highlight"
-          }
-        },
-        { "time": 51.804612, "states": { "entity--kNcOEKDjUxVbIdK": "default" } },
-        {
-          "time": 73.818531,
-          "states": { "entity-EILuxGPyNk8DqwRG": "highlight", "entity-c3MsLUyjCbi8983F": "default" }
-        },
-        {
-          "time": 82.847314,
-          "states": {
-            "entity-EILuxGPyNk8DqwRG": "default",
-            "entity-ZgZWHecoAS4mh8pB": "default",
-            "entity-c3MsLUyjCbi8983F": "highlight"
-          }
-        },
-        { "time": 86.910333, "states": { "entity-ZgZWHecoAS4mh8pB": "highlight" } },
-        {
-          "bounds": {
-            "x1": 601.2128691323633,
-            "x2": 1910.2303334941776,
-            "y1": 77.62734367387284,
-            "y2": 776.9526509541859
-          },
-          "time": 93.8398,
-          "states": {
-            "entity-c3MsLUyjCbi8983F": "highlight",
-            "entity-ZgZWHecoAS4mh8pB": "default",
-            "entity-EILuxGPyNk8DqwRG": "default",
-            "entity-L-30eMyDg1K1_8Pw": "highlight"
-          }
-        },
-        {
-          "time": 104.187211,
-          "states": {
-            "entity-TMIO9NZHn9IvsAD9": "highlight",
-            "entity-c3MsLUyjCbi8983F": "default",
-            "entity-ZgZWHecoAS4mh8pB": "highlight"
-          }
-        },
-        {
-          "bounds": {
-            "x1": 611.971582073081,
-            "x2": 2287.3469239501865,
-            "y1": -24.970869953844016,
-            "y2": 870.0762991374198
-          },
-          "time": 118.17262,
-          "states": {
-            "entity-TMIO9NZHn9IvsAD9": "default",
-            "entity-Q2jSY4-cgD9Czt08": "highlight",
-            "entity-L-30eMyDg1K1_8Pw": "default"
-          }
-        },
-        {
-          "time": 134.91162,
-          "states": {
-            "entity-t9wfEDwFDiOGPVT3": "highlight",
-            "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": "default",
-            "entity-ESvaV0FzaCQiE1Nj": "highlight",
-            "entity-ZgZWHecoAS4mh8pB": "default",
-            "entity-Q2jSY4-cgD9Czt08": "default"
-          }
-        },
-        { "time": 146.445501, "states": { "entity-ESvaV0FzaCQiE1Nj": "default" } },
-        {
-          "bounds": {
-            "x1": 1479.144691301705,
-            "x2": 2548.309565013899,
-            "y1": -4.362241897782731,
-            "y2": 566.8249837872623
-          },
-          "time": 194.696895,
-          "states": { "entity-ga6yfO3kiGKMCSkz": "highlight" }
-        },
-        { "time": 207.447636, "states": { "entity-oEQwWGKwv9d0342i": "default" } },
-        {
-          "bounds": {
-            "x1": 590.238884410787,
-            "x2": 2351.3480563455487,
-            "y1": -127.37017045851475,
-            "y2": 813.4791660458623
-          },
-          "time": 248.529756,
-          "states": { "entity-ga6yfO3kiGKMCSkz": "default" }
-        },
-        {
-          "bounds": {
-            "x1": 825.7486654382038,
-            "x2": 2025.2912251117946,
-            "y1": 43.96608996856995,
-            "y2": 684.8058739881985
-          },
-          "time": 260.186174,
-          "states": { "entity-krH3BoegxTDlhwoZ": "highlight" }
-        },
-        {
-          "time": 277.030794,
-          "states": { "entity-TMIO9NZHn9IvsAD9": "highlight", "entity-t9wfEDwFDiOGPVT3": "default" }
-        },
-        {
-          "time": 289.54403,
-          "states": { "entity-TMIO9NZHn9IvsAD9": "default", "entity-c3MsLUyjCbi8983F": "highlight" }
-        },
-        { "time": 300.37511, "states": { "entity-bF5gZkSRorj4ruvB": "highlight" } },
-        {
-          "bounds": {
-            "x1": 754.7778185929255,
-            "x2": 2109.957684142475,
-            "y1": -379.8271696005951,
-            "y2": 344.15979138129705
-          },
-          "time": 314.183341,
-          "states": { "entity-bF5gZkSRorj4ruvB": "default" }
-        },
-        {
-          "time": 336.73044,
-          "states": {
-            "entity-cYxGAvQBufNHWoNg": "highlight",
-            "entity-hkPCMUWl74floN6s": "default",
-            "entity-t9wfEDwFDiOGPVT3": "default"
-          }
-        },
-        {
-          "time": 352.107807,
-          "states": { "entity-Q31pwH9xQ12GaPy-": "highlight", "entity-krH3BoegxTDlhwoZ": "default" }
-        },
-        {
-          "time": 361.25299,
-          "states": {
-            "entity-OfcVtBgw4_Vhy2Ap": "highlight",
-            "entity-cEjaqellkE5X9OCY": "highlight"
-          }
-        },
-        {
-          "bounds": {
-            "x1": 498.340781586431,
-            "x2": 2541.050701659901,
-            "y1": -352.95702175630095,
-            "y2": 738.3337985967867
-          },
-          "time": 366.227966,
-          "states": {
-            "entity-krH3BoegxTDlhwoZ": "hide",
-            "entity-iG6_wAKfpwiRxcWu": "highlight",
-            "entity-cEjaqellkE5X9OCY": "default",
-            "entity-Q31pwH9xQ12GaPy-": "default",
-            "entity-OfcVtBgw4_Vhy2Ap": "default"
-          }
-        }
-      ]
-    },
-    "graph-ZDXzvCPZvuegkJaB": {
-      "type": "graph",
-      "description": { "en": "told by Kanu" },
-      "text": { "en": "The Story of Uhi" },
-      "color": "gold",
-      "image": "the story of the fish trap - kanu.jpg",
-      "next": "graph-nOtEYEjHoQD1J0vU",
-      "media": {
-        "type": "video",
-        "duration": 699.925,
-        "file": ["the story of the fish trap - kanu.mp4"],
-        "text": { "en": "the story of the fish trap - kanu" },
-        "subtitles": {
-          "en": "the story of the fish trap - kanu - en.srt",
-          "pt": "the story of the fish trap - kanu - pt.srt"
-        }
-      },
-      "allocations": {
-        "edge-00a7c374b483210ba753029cb5abeb88a3271279ea78a461e8a32e80866eaded": {
-          "x": 320.3125,
-          "y": 820.3125
-        },
-        "edge-08aa1b2fe7eeadf60c921acc9f229019b55713212f225e36f8359ed1daff292d": {
-          "x": -437.5,
-          "y": 562.5
-        },
-        "edge-0909e07dbe00a24e15a12493942c3c15493a1eff259fcae93b7e72596970d141": {
-          "x": -226.5625,
-          "y": 1437.5
-        },
-        "edge-0972a4a0ed35d8e414948fda7f3687661e5512c3419d0ad4322c5b670dc51076": {
-          "x": 0,
-          "y": 562.5
-        },
-        "edge-0a5455630033f8f7cdf138ee7f1a61dd55000d7519113c24b0644b81a3cbb762": {
-          "x": 0,
-          "y": 429.6875
-        },
-        "edge-13f28f4d8d7b8846cf813838f50332f34657450f4b28c9b49ae2065e4bcb11c0": {
-          "x": -382.8125,
-          "y": 1148.4375
-        },
-        "edge-19cadfdf4ec8b9514d9dc40bed1c196a7564ae9e315876f85eb17c21f150ac1d": {
-          "x": -539.0625,
-          "y": 953.125
-        },
-        "edge-32d0081fc6211643938a2b65c91c6ff480339b82a7607dc154403573cac4ee5d": {
-          "x": -414.0625,
-          "y": 234.375
-        },
-        "edge-33720674aa7d74dff1fb87d1f61843fb87cb9f421fe4dd3eebf0db7cfdb69b17": {
-          "x": 453.125,
-          "y": 625
-        },
-        "edge-360633d01540e5ade9e015f6ced05699874dbd70b31804fb4ab58f92ddc72642": {
-          "x": 54.6875,
-          "y": 1117.1875
-        },
-        "edge-3975355a827629a01c10ae35b70f0d84f382a3c1d9910a2bef00d5c515ff274b": {
-          "x": 250,
-          "y": 507.8125
-        },
-        "edge-39883b53414b4a80939fb0dea38fb244c8ea957b806b4ce51125ad5cfc193ace": {
-          "x": 7.8125,
-          "y": 312.5
-        },
-        "edge-415601000bdf56ef236c07b159e2ebbbdbe0072e2b0485d38b0c01f25344a47c": {
-          "x": -781.25,
-          "y": -15.625
-        },
-        "edge-450e2208c76529b2b23706f5a6f38c22dbef82268c5fd3725ff02cdcbb45ab8b": {
-          "x": -781.25,
-          "y": 234.375
-        },
-        "edge-4e655da8a61b5df365988f06cc73cab825e535f99ee53dab41b302f6be68827c": {
-          "x": 421.875,
-          "y": 390.625
-        },
-        "edge-56aeac817511c4437868742dd519654c4e3d3330cf1905c83ce025e4f721658d": {
-          "x": -437.5,
-          "y": 695.3125
-        },
-        "edge-5dcd3a0c156b9873813b5bc4b136e81fd661b3c92c41297861db567db58f404b": {
-          "x": 70.3125,
-          "y": 742.1875
-        },
-        "edge-6b0adf8aeaeb77a2cb714a48af2e3c77324db312c6a994560aa16f2181adaf97": {
-          "x": 250,
-          "y": 296.875
-        },
-        "edge-74d45c4f61a1228a7dc02c9a9d7543055b95dec16e202d31d39a29a76954b32b": {
-          "x": 421.875,
-          "y": 203.125
-        },
-        "edge-778654f1eb52d9624ac0995591cdca8e4c26a5136abbc942d9891a2874762581": {
-          "x": 1000,
-          "y": 820.3125
-        },
-        "edge-7efc7c86e05bb4eef0d65443e2491db08476b82a9c30f8c95b6a651d619b006f": {
-          "x": -664.0625,
-          "y": 54.6875
-        },
-        "edge-869e4a4b3299a90f1c4fb14e33d631af84c1c2c4b47124a87c05e8bdcf5d1cee": {
-          "x": -851.5625,
-          "y": 179.6875
-        },
-        "edge-88dc42aa80b55c2500da963fdcfe62d2d2a2788520849c33735fafcec0960af5": {
-          "x": 828.125,
-          "y": 625
-        },
-        "edge-944547c07faa7fb625cac935cb6b08044274a3a4b86de68af7edfaeb359b5ebc": {
-          "x": -492.1875,
-          "y": 1078.125
-        },
-        "edge-9796a647b082864907fe0ebbd58e14f972b9b624fa4d21a26ce32b1ae98feb89": {
-          "x": -156.25,
-          "y": 875
-        },
-        "edge-99bedf2c56b26eeb7cf775fdc6eb252f5e81f3497bb514b282058a1ac92e3865": {
-          "x": -304.6875,
-          "y": 15.625
-        },
-        "edge-9d56e6d4d7d795fb38d9ca6ad5439e71a3f9e09c8bb1edfc2644afab898f6191": {
-          "x": -250,
-          "y": 601.5625
-        },
-        "edge-9fc717cf66cbbf331974cd3f0b66d712fe2d436935ae20e1d23157ea93c18061": {
-          "x": 828.125,
-          "y": 890.625
-        },
-        "edge-a0d9475c4ec2b42426166dfb60550a20db856e667a1c5bc4d3a3297faade4798": {
-          "x": 695.3125,
-          "y": 1015.625
-        },
-        "edge-aa122717709f542f56b2f771029fea5893fb93700555a3f6d33325a724446523": {
-          "x": 390.625,
-          "y": 1226.5625
-        },
-        "edge-ac97ca60b18d335466c664de99c3ab18278959143080c2aa08ba3ee2394bd200": {
-          "x": 117.1875,
-          "y": 218.75
-        },
-        "edge-b65f315b1553f5d9b1d8cead31d542efd3687551d905163e705b4789bf1eb85a": {
-          "x": -968.75,
-          "y": 109.375
-        },
-        "edge-bdfa601bd063b81c005d0cf59437097f3310dee85dcece4747cf9d40ba1539bc": {
-          "x": 656.25,
-          "y": 851.5625
-        },
-        "edge-c34e3c073a916c60e826ff106729037e35dd08b9f266130e6317573be7390600": {
-          "x": 523.4375,
-          "y": 976.5625
-        },
-        "edge-cfde8b6f6804f909a839e812a94555f765e7058162b3e83b242ed6810ded4b69": {
-          "x": -195.3125,
-          "y": 960.9375
-        },
-        "edge-d26bd173ce945124642dcd20532bb14137210cc0f352348f8acde18f945d89eb": {
-          "x": 93.75,
-          "y": 1015.625
-        },
-        "edge-d57e749a8a57fbcb7e92db3a84fda20161c4b6034d2f1356192435aaf0ef4eed": {
-          "x": 250,
-          "y": 820.3125
-        },
-        "edge-dbb610fc0dacd7649c5d38946f13bfad3edc15eaeb289bf3fd52630bd243590e": {
-          "x": 796.875,
-          "y": 507.8125
-        },
-        "edge-f48b449c5d6ced2e51330f7012cd94449df1a733202127c162da33377d5aa311": {
-          "x": 656.25,
-          "y": 695.3125
-        },
-        "edge-f708573c891032e7620b805bfe82a2430c21d7907383a73b8906e291f0060d1a": {
-          "x": -625,
-          "y": 867.1875
-        },
-        "edge-fb62d3740f2bd68cad46eb327a6f68615907b5a9cdd4bea6de3dff61d993e809": {
-          "x": 70.3125,
-          "y": 265.625
-        },
-        "edge-207cb99fd94eca611e2085efb0da85414aba1494f7ef42afc37fa0fe1fc376fe": {
-          "x": 70.3125,
-          "y": 875
-        },
-        "edge-5886dfb493418c8cfcdcdfcafe7702e3ca802918b5f1fd3ccb6e3c6bfde4f56d": {
-          "x": -734.375,
-          "y": 1257.8125
-        },
-        "entity-c3MsLUyjCbi8983F": { "x": 250, "y": 1015.625 },
-        "entity-VKPoxqPPSNPVRVnW": { "x": -250, "y": 734.375 },
-        "entity-t9wfEDwFDiOGPVT3": { "x": 1000, "y": 1015.625 },
-        "entity-vW6pmqDJ_zBk3tW3": { "x": 250, "y": 203.125 },
-        "graph-nOtEYEjHoQD1J0vU": { "x": -890.625, "y": 359.375 },
-        "entity-EILuxGPyNk8DqwRG": { "x": -250, "y": 468.75 },
-        "entity-pZr6nneF5w6LNJDd": { "x": 1000, "y": 625 },
-        "entity-kCbm3gSkjx_UBpCi": { "x": -593.75, "y": -15.625 },
-        "entity-krH3BoegxTDlhwoZ": { "x": 250, "y": 390.625 },
-        "entity-ukrhTbGtDKItSlnZ": { "x": -62.5, "y": 1015.625 },
-        "entity-dqBjxyGL4eopaLS2": { "x": -734.375, "y": 125 },
-        "entity-ga6yfO3kiGKMCSkz": { "x": 656.25, "y": 765.625 },
-        "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": {
-          "x": -593.75,
-          "y": 234.375
-        },
-        "entity-Q2jSY4-cgD9Czt08": { "x": 656.25, "y": 937.5 },
-        "entity-iG6_wAKfpwiRxcWu": { "x": -15.625, "y": 46.875 },
-        "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241": {
-          "x": -546.875,
-          "y": 359.375
-        },
-        "entity-joDjk6Zvc6I32Bdo": { "x": 593.75, "y": 203.125 },
-        "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": {
-          "x": -968.75,
-          "y": 234.375
-        },
-        "entity-oEQwWGKwv9d0342i": { "x": 656.25, "y": 625 },
-        "entity--kNcOEKDjUxVbIdK": { "x": 250, "y": 625 },
-        "entity-UTvmNNIEUYwqY_7X": { "x": -328.125, "y": 906.25 },
-        "entity-ESvaV0FzaCQiE1Nj": { "x": -140.625, "y": 1218.75 },
-        "entity-Mzh6yPBbZGcoBceu": { "x": -109.375, "y": 140.625 },
-        "entity-Q31pwH9xQ12GaPy-": { "x": -234.375, "y": 234.375 },
-        "entity-u-MsxGVZDx6iIN1c": { "x": -843.75, "y": 1437.5 },
-        "entity-mtGlXiAKUcxCAsFA": { "x": -843.75, "y": 1078.125 },
-        "entity-QhBvY4JdT_e4jvpx": { "x": 390.625, "y": 1015.625 },
-        "entity-qT5xzoPdH8jehATY": { "x": -625, "y": 656.25 },
-        "entity-bF5gZkSRorj4ruvB": { "x": 593.75, "y": 390.625 },
-        "entity-3a8n7Jrl7SA7Z8QL": { "x": -453.125, "y": 828.125 },
-        "entity-7FMS0AyWpqFDD1G-": { "x": -359.375, "y": 1078.125 },
-        "entity-tQ_VwWMLPlY8xl-j": { "x": -625, "y": 1078.125 },
-        "entity-HvHg6s-d5ji7unFl": { "x": -968.75, "y": -15.625 },
-        "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
-          "x": -140.625,
-          "y": 1328.125
-        },
-        "entity-L-30eMyDg1K1_8Pw": { "x": 390.625, "y": 1437.5 },
-        "graph-XWHUR_K8ZWYsy87q": { "x": 296.875, "y": 78.125 }
-      },
-      "marker": [
-        {
-          "time": 0,
-          "states": {
-            "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241": "hide",
-            "graph-XWHUR_K8ZWYsy87q": "hide",
-            "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": "hide",
-            "graph-nOtEYEjHoQD1J0vU": "hide"
-          }
-        },
-        { "time": 3.394945, "states": { "entity-vW6pmqDJ_zBk3tW3": "highlight" } },
-        {
-          "bounds": {
-            "x1": -5.859509804678697,
-            "x2": 1007.0133713897337,
-            "y1": -4.962158037973688,
-            "y2": 536.1518134417802
-          },
-          "time": 21.145363,
-          "states": {
-            "entity-pZr6nneF5w6LNJDd": "hide",
-            "entity-ESvaV0FzaCQiE1Nj": "hide",
-            "entity-7FMS0AyWpqFDD1G-": "hide",
-            "entity-dqBjxyGL4eopaLS2": "hide",
-            "entity-Q31pwH9xQ12GaPy-": "hide",
-            "entity-ukrhTbGtDKItSlnZ": "hide",
-            "entity-UTvmNNIEUYwqY_7X": "hide",
-            "entity--kNcOEKDjUxVbIdK": "hide",
-            "entity-qT5xzoPdH8jehATY": "hide",
-            "entity-ga6yfO3kiGKMCSkz": "hide",
-            "entity-HvHg6s-d5ji7unFl": "hide",
-            "entity-tQ_VwWMLPlY8xl-j": "hide",
-            "entity-oEQwWGKwv9d0342i": "hide",
-            "entity-QhBvY4JdT_e4jvpx": "hide",
-            "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "hide",
-            "entity-iG6_wAKfpwiRxcWu": "hide",
-            "entity-joDjk6Zvc6I32Bdo": "highlight",
-            "entity-Q2jSY4-cgD9Czt08": "hide",
-            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "hide",
-            "entity-VKPoxqPPSNPVRVnW": "hide",
-            "entity-mtGlXiAKUcxCAsFA": "hide",
-            "entity-EILuxGPyNk8DqwRG": "hide",
-            "entity-u-MsxGVZDx6iIN1c": "hide",
-            "entity-bF5gZkSRorj4ruvB": "hide",
-            "graph-XWHUR_K8ZWYsy87q": "default",
-            "entity-Mzh6yPBbZGcoBceu": "hide",
-            "entity-L-30eMyDg1K1_8Pw": "hide",
-            "entity-3a8n7Jrl7SA7Z8QL": "hide",
-            "entity-kCbm3gSkjx_UBpCi": "hide",
-            "entity-t9wfEDwFDiOGPVT3": "hide",
-            "entity-c3MsLUyjCbi8983F": "hide"
-          }
-        },
-        {
-          "bounds": {
-            "x1": -205.54559405766747,
-            "x2": 1269.1867354259925,
-            "y1": -18.81924041651625,
-            "y2": 769.0370468753964
-          },
-          "time": 26.074804,
-          "states": {
-            "entity-krH3BoegxTDlhwoZ": "highlight",
-            "entity--kNcOEKDjUxVbIdK": "highlight",
-            "entity-vW6pmqDJ_zBk3tW3": "default",
-            "entity-joDjk6Zvc6I32Bdo": "default"
-          }
-        },
-        {
-          "bounds": {
-            "x1": -980.4364517800499,
-            "x2": 1741.1599196297352,
-            "y1": 22.153364857409375,
-            "y2": 1476.1303136348195
-          },
-          "time": 31.785402,
-          "states": {
-            "entity-krH3BoegxTDlhwoZ": "highlight",
-            "entity-c3MsLUyjCbi8983F": "default",
-            "entity-ESvaV0FzaCQiE1Nj": "default",
-            "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": "default"
-          }
-        },
-        {
-          "bounds": {
-            "x1": -76.4088032565186,
-            "x2": 1346.115324510952,
-            "y1": 35.37677666647388,
-            "y2": 795.3415211014493
-          },
-          "time": 40.028057,
-          "states": { "entity-oEQwWGKwv9d0342i": "highlight" }
-        },
-        {
-          "bounds": {
-            "x1": -375.02329842352697,
-            "x2": 1670.476113749573,
-            "y1": 43.89477675095224,
-            "y2": 1136.6758464497052
-          },
-          "time": 50.398718,
-          "states": { "entity-c3MsLUyjCbi8983F": "highlight" }
-        },
-        {
-          "bounds": {
-            "x1": -657.2903910933186,
-            "x2": 1553.6883884840718,
-            "y1": 329.5681325042344,
-            "y2": 1510.754370666478
-          },
-          "time": 63.44365,
-          "states": {
-            "entity-QhBvY4JdT_e4jvpx": "highlight",
-            "entity-oEQwWGKwv9d0342i": "default",
-            "entity-c3MsLUyjCbi8983F": "default",
-            "entity-L-30eMyDg1K1_8Pw": "default"
-          }
-        },
-        {
-          "time": 68.061891,
-          "states": {
-            "entity-L-30eMyDg1K1_8Pw": "default",
-            "entity-EILuxGPyNk8DqwRG": "hide",
-            "entity-krH3BoegxTDlhwoZ": "default",
-            "entity--kNcOEKDjUxVbIdK": "default"
-          }
-        },
-        {
-          "time": 91.62189,
-          "states": { "entity-oEQwWGKwv9d0342i": "highlight", "entity-ga6yfO3kiGKMCSkz": "hide" }
-        },
-        {
-          "bounds": {
-            "x1": 11.046305636159182,
-            "x2": 1347.755075872719,
-            "y1": 495.3130011785415,
-            "y2": 1209.4320232236082
-          },
-          "time": 97.140216,
-          "states": {
-            "entity-Q2jSY4-cgD9Czt08": "highlight",
-            "entity-QhBvY4JdT_e4jvpx": "highlight",
-            "entity-oEQwWGKwv9d0342i": "default"
-          }
-        },
-        { "time": 103.616154, "states": { "entity-t9wfEDwFDiOGPVT3": "highlight" } },
-        {
-          "time": 109.590041,
-          "states": { "entity-QhBvY4JdT_e4jvpx": "default", "entity-ga6yfO3kiGKMCSkz": "highlight" }
-        },
-        { "time": 143.276741, "states": { "entity-t9wfEDwFDiOGPVT3": "default" } },
-        {
-          "time": 161.247882,
-          "states": { "entity-t9wfEDwFDiOGPVT3": "highlight", "entity-Q2jSY4-cgD9Czt08": "default" }
-        },
-        { "time": 184.597764, "states": { "entity-oEQwWGKwv9d0342i": "highlight" } },
-        {
-          "time": 199.075889,
-          "states": { "entity-ga6yfO3kiGKMCSkz": "default", "entity-oEQwWGKwv9d0342i": "default" }
-        },
-        {
-          "bounds": {
-            "x1": -175.28301192366968,
-            "x2": 1495.6862312840874,
-            "y1": 256.4044143386043,
-            "y2": 1149.0976833561579
-          },
-          "time": 208.786994,
-          "states": { "entity-t9wfEDwFDiOGPVT3": "default", "entity-krH3BoegxTDlhwoZ": "highlight" }
-        },
-        { "time": 210.848308, "states": { "entity--kNcOEKDjUxVbIdK": "highlight" } },
-        { "time": 227.171347, "states": { "entity-c3MsLUyjCbi8983F": "highlight" } },
-        { "time": 255.089895, "states": { "entity-oEQwWGKwv9d0342i": "highlight" } },
-        { "time": 262.229444, "states": { "entity-oEQwWGKwv9d0342i": "default" } },
-        {
-          "time": 275.388186,
-          "states": {
-            "entity--kNcOEKDjUxVbIdK": "default",
-            "entity-c3MsLUyjCbi8983F": "default",
-            "entity-t9wfEDwFDiOGPVT3": "highlight"
-          }
-        },
-        { "time": 288.203008, "states": { "entity-pZr6nneF5w6LNJDd": "highlight" } },
-        { "time": 292.651356, "states": { "entity-bF5gZkSRorj4ruvB": "highlight" } },
-        {
-          "time": 302.651356,
-          "states": {
-            "entity-bF5gZkSRorj4ruvB": "default",
-            "entity-pZr6nneF5w6LNJDd": "default",
-            "entity-t9wfEDwFDiOGPVT3": "default",
-            "entity-c3MsLUyjCbi8983F": "highlight"
-          }
-        },
-        {
-          "time": 313.6041,
-          "states": { "entity-c3MsLUyjCbi8983F": "default", "entity-QhBvY4JdT_e4jvpx": "highlight" }
-        },
-        {
-          "bounds": {
-            "x1": -883.0763773077078,
-            "x2": 739.9485734395196,
-            "y1": 265.0143834117381,
-            "y2": 1132.0940468280528
-          },
-          "time": 328.95182,
-          "states": {
-            "entity-qT5xzoPdH8jehATY": "highlight",
-            "entity-c3MsLUyjCbi8983F": "default",
-            "entity-VKPoxqPPSNPVRVnW": "highlight"
-          }
-        },
-        {
-          "time": 337.605345,
-          "states": { "entity-qT5xzoPdH8jehATY": "default", "entity-ukrhTbGtDKItSlnZ": "default" }
-        },
-        { "time": 339.672815, "states": { "entity-UTvmNNIEUYwqY_7X": "default" } },
-        {
-          "bounds": {
-            "x1": -1154.9945340243394,
-            "x2": 502.13362101389475,
-            "y1": 641.8595767292179,
-            "y2": 1527.1584270313842
-          },
-          "time": 394.807686,
-          "states": {
-            "entity-tQ_VwWMLPlY8xl-j": "highlight",
-            "entity-krH3BoegxTDlhwoZ": "default",
-            "entity-u-MsxGVZDx6iIN1c": "highlight"
-          }
-        },
-        {
-          "time": 398.316708,
-          "states": {
-            "entity-tQ_VwWMLPlY8xl-j": "highlight",
-            "entity-u-MsxGVZDx6iIN1c": "highlight"
-          }
-        },
-        {
-          "bounds": {
-            "x1": -1211.7293068073889,
-            "x2": 445.39884823084526,
-            "y1": 443.2878719885449,
-            "y2": 1328.5867222907114
-          },
-          "time": 407.127418,
-          "states": {
-            "entity-u-MsxGVZDx6iIN1c": "default",
-            "entity-mtGlXiAKUcxCAsFA": "highlight",
-            "entity-tQ_VwWMLPlY8xl-j": "default"
-          }
-        },
-        {
-          "time": 415.515488,
-          "states": { "entity-mtGlXiAKUcxCAsFA": "default", "entity-7FMS0AyWpqFDD1G-": "highlight" }
-        },
-        {
-          "time": 420.454056,
-          "states": { "entity-3a8n7Jrl7SA7Z8QL": "default", "entity-7FMS0AyWpqFDD1G-": "default" }
-        },
-        {
-          "bounds": {
-            "x1": -1139.583988976523,
-            "x2": 592.7116652270454,
-            "y1": 266.70565457628953,
-            "y2": 1192.1617494396794
-          },
-          "time": 425.551392,
-          "states": { "entity-krH3BoegxTDlhwoZ": "highlight", "entity-3a8n7Jrl7SA7Z8QL": "default" }
-        },
-        { "time": 491.000073, "states": { "entity-qT5xzoPdH8jehATY": "highlight" } },
-        {
-          "time": 505.889671,
-          "states": { "entity-VKPoxqPPSNPVRVnW": "default", "entity-EILuxGPyNk8DqwRG": "default" }
-        },
-        {
-          "time": 538.520137,
-          "states": { "entity-qT5xzoPdH8jehATY": "default", "entity-EILuxGPyNk8DqwRG": "highlight" }
-        },
-        {
-          "bounds": {
-            "x1": -1151.2974805905076,
-            "x2": 679.7702774887493,
-            "y1": -162.8051526072436,
-            "y2": 815.4186354108473
-          },
-          "time": 555.959403,
-          "states": { "entity-EILuxGPyNk8DqwRG": "default", "entity-Mzh6yPBbZGcoBceu": "highlight" }
-        },
-        {
-          "time": 573.280997,
-          "states": { "entity-HvHg6s-d5ji7unFl": "highlight", "entity-krH3BoegxTDlhwoZ": "default" }
-        },
-        {
-          "time": 579.560269,
-          "states": {
-            "entity-Q31pwH9xQ12GaPy-": "highlight",
-            "entity-Mzh6yPBbZGcoBceu": "default",
-            "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241": "default",
-            "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "highlight"
-          }
-        },
-        {
-          "time": 583.380421,
-          "states": {
-            "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "default",
-            "entity-iG6_wAKfpwiRxcWu": "highlight",
-            "entity-Q31pwH9xQ12GaPy-": "default"
-          }
-        },
-        { "time": 586.04181, "states": { "entity-kCbm3gSkjx_UBpCi": "highlight" } },
-        {
-          "time": 609.040631,
-          "states": { "entity-dqBjxyGL4eopaLS2": "default", "entity-iG6_wAKfpwiRxcWu": "default" }
-        },
-        {
-          "time": 614.042376,
-          "states": {
-            "graph-nOtEYEjHoQD1J0vU": "default",
-            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "highlight"
-          }
-        },
-        {
-          "time": 633.66085,
-          "states": {
-            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "default",
-            "entity-vW6pmqDJ_zBk3tW3": "highlight",
-            "entity-kCbm3gSkjx_UBpCi": "default",
-            "entity-HvHg6s-d5ji7unFl": "highlight"
-          }
-        },
-        {
-          "time": 638.805471,
-          "states": { "entity-HvHg6s-d5ji7unFl": "default", "entity-iG6_wAKfpwiRxcWu": "highlight" }
-        },
-        {
-          "time": 643.972394,
-          "states": {
-            "entity-kCbm3gSkjx_UBpCi": "highlight",
-            "entity-iG6_wAKfpwiRxcWu": "highlight"
-          }
-        },
-        {
-          "time": 649.202922,
-          "states": {
-            "entity-kCbm3gSkjx_UBpCi": "highlight",
-            "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "highlight",
-            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "highlight"
-          }
-        },
-        {
-          "bounds": {
-            "x1": -1551.7499476122255,
-            "x2": 1618.6946766144063,
-            "y1": -110.62725707351456,
-            "y2": 1583.1409480233094
-          },
-          "time": 668.651729,
-          "states": {
-            "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "default",
-            "entity-vW6pmqDJ_zBk3tW3": "default",
-            "entity-iG6_wAKfpwiRxcWu": "default",
-            "entity-kCbm3gSkjx_UBpCi": "default",
-            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "default"
-          }
-        }
-      ]
-    },
     "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241": {
       "type": "graph",
       "text": { "de": "Ambe Sammeln", "en": "Collecting Ambé", "pt": "Coletando ambé" },
       "color": "green",
       "image": "collecting ambé.jpg",
-      "next": "graph-78a456f667326b013eb847c7d804f144547454e8207ca7674a66960ef879344e",
       "media": {
         "type": "video",
-        "duration": 367.253,
+        "duration": 275.604,
         "file": ["collecting ambé.mp4"],
         "text": { "en": "collecting ambé" },
         "subtitles": { "en": "collecting ambé - en.srt", "pt": "collecting ambé - pt.srt" }
@@ -3772,10 +2535,9 @@
     },
     "graph-nOtEYEjHoQD1J0vU": {
       "type": "graph",
-      "text": { "en": "Using Utu" },
+      "text": { "en": "Using Utu", "pt": "O uso do utu" },
       "color": "lime",
       "image": "using utu.jpg",
-      "next": "graph-XWHUR_K8ZWYsy87q",
       "media": {
         "type": "video",
         "duration": 162,
@@ -3820,7 +2582,6 @@
           "x": 960.9375,
           "y": 960.9375
         },
-        "graph-XWHUR_K8ZWYsy87q": { "x": 312.5, "y": 406.25 },
         "entity-R4u7NnYuslxbEAkd": { "x": 562.5, "y": 1203.125 },
         "entity-dqBjxyGL4eopaLS2": { "x": 62.5, "y": 828.125 },
         "entity-QgKo_1be1ieCeUdg": { "x": 250, "y": 1234.375 },
@@ -3829,7 +2590,6 @@
           "x": 468.75,
           "y": 828.125
         },
-        "graph-ZDXzvCPZvuegkJaB": { "x": 593.75, "y": 406.25 },
         "entity-Ff4dwLJPkja34oRm": { "x": 78.125, "y": 1281.25 },
         "entity-ExIccARCXy2E74Y3": { "x": 390.625, "y": 1203.125 },
         "entity-JYFY_db7RT89biTN": { "x": 812.5, "y": 1296.875 },
@@ -3840,7 +2600,6 @@
         "entity-gau2LSEVmIwzQTK5": { "x": 812.5, "y": 687.5 },
         "graph-Ag2pJE4-Wtr2of8M": { "x": 78.125, "y": 953.125 },
         "predicate-tgiYSk5J1PMTl1Vj": { "x": 468.75, "y": 1015.625 },
-        "note-N_8pvA3uWbxvLHIK": { "x": 468.75, "y": 562.5 },
         "entity-lGbXZr2Ky2lL-YxM": { "x": 734.375, "y": 828.125 },
         "predicate-gIgaCrvb-R7aYmRV": { "x": 968.75, "y": 828.125 },
         "note-aHk6lfL62xEIHkt6": { "x": 78.125, "y": 1093.75 },
@@ -3849,7 +2608,8 @@
         "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
           "x": 78.125,
           "y": 703.125
-        }
+        },
+        "graph-REq5SXPre4MP2olX": { "x": 468.75, "y": 437.5 }
       },
       "marker": [
         {
@@ -3862,8 +2622,6 @@
           "time": 0.206235,
           "states": {
             "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "highlight",
-            "graph-ZDXzvCPZvuegkJaB": "hide",
-            "graph-XWHUR_K8ZWYsy87q": "hide",
             "entity-QgKo_1be1ieCeUdg": "default",
             "entity-R4u7NnYuslxbEAkd": "default",
             "entity-Ff4dwLJPkja34oRm": "default",
@@ -3877,8 +2635,7 @@
             "entity-qFBK7CACoQCbNL-d": "default",
             "graph-Ag2pJE4-Wtr2of8M": "hide",
             "entity-c3MsLUyjCbi8983F": "default",
-            "note-aHk6lfL62xEIHkt6": "hide",
-            "note-N_8pvA3uWbxvLHIK": "hide"
+            "note-aHk6lfL62xEIHkt6": "hide"
           }
         },
         {
@@ -3890,10 +2647,7 @@
           },
           "time": 13.850194,
           "states": {
-            "note-N_8pvA3uWbxvLHIK": "default",
-            "graph-ZDXzvCPZvuegkJaB": "default",
             "entity-Q31pwH9xQ12GaPy-": "highlight",
-            "graph-XWHUR_K8ZWYsy87q": "default",
             "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "default",
             "media-utWApC8tkCQwAFlf": "hide",
             "entity-qFBK7CACoQCbNL-d": "hide",
@@ -3926,15 +2680,12 @@
           },
           "time": 49.5037,
           "states": {
-            "graph-XWHUR_K8ZWYsy87q": "hide",
             "media-ZLe1PpUg4CHgfhOZ": "default",
-            "graph-ZDXzvCPZvuegkJaB": "hide",
             "predicate-tgiYSk5J1PMTl1Vj": "default",
             "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "default",
             "entity-Ff4dwLJPkja34oRm": "highlight",
             "entity-gau2LSEVmIwzQTK5": "hide",
-            "entity-X3sQDww1P0Y3tNmY": "hide",
-            "note-N_8pvA3uWbxvLHIK": "hide"
+            "entity-X3sQDww1P0Y3tNmY": "hide"
           }
         },
         {
@@ -4060,10 +2811,7 @@
             "graph-Ag2pJE4-Wtr2of8M": "default",
             "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "highlight",
             "entity-x3n2WrpEDfloQMKR": "default",
-            "graph-XWHUR_K8ZWYsy87q": "default",
-            "graph-ZDXzvCPZvuegkJaB": "default",
             "entity-c3MsLUyjCbi8983F": "default",
-            "note-N_8pvA3uWbxvLHIK": "default",
             "note-aHk6lfL62xEIHkt6": "default"
           }
         }
@@ -4071,12 +2819,12 @@
     },
     "graph-REq5SXPre4MP2olX": {
       "type": "graph",
-      "text": { "en": "The Story of Uhi" },
+      "text": { "en": "The Story of Uhi", "pt": "A história de Uhi" },
       "color": "magenta",
       "image": "the story of the fish trap - jamalui.jpg",
-      "next": "graph-nOtEYEjHoQD1J0vU",
       "media": {
         "type": "video",
+        "duration": 427.007,
         "file": ["the Story Of Uhi.mp4"],
         "text": { "en": "The Story Of Uhi" },
         "subtitles": { "en": "the Story Of Uhi_en.srt", "pt": "the Story Of Uhi_pt.srt" }
@@ -4090,10 +2838,6 @@
           "x": 546.875,
           "y": 554.6875
         },
-        "edge-5bf3f1fd1544962faa8f8c44d1d7a0254c2dfe4d82496986a7314721ff0d9d4a": {
-          "x": 843.75,
-          "y": 671.875
-        },
         "edge-e9455532a3ef612f6a5db6af15493c1fc343dbb86f09a54a281215e00f8fb864": {
           "x": 1140.625,
           "y": 476.5625
@@ -4101,10 +2845,6 @@
         "edge-7c54ce24459b5a483815de7827821f97276f6c0e1cce8fa9c93adcc96362b4ea": {
           "x": 593.75,
           "y": 265.625
-        },
-        "edge-f30470e4f724adb9aec3352c5fd00dacc813e7fe744d702196b10f8ae9bdfaa1": {
-          "x": 664.0625,
-          "y": 476.5625
         },
         "edge-2af109642e90caf048d609a3d86dd4f00bdd85377d198fdf845d47ec5b956ef6": {
           "x": 343.75,
@@ -4116,7 +2856,7 @@
         },
         "edge-5c7fbf2fd3299a88bf3985eeb076e722bed9620b7cc4a5491218e8a4b4b859f3": {
           "x": 609.375,
-          "y": 1421.875
+          "y": 1453.125
         },
         "edge-6236f5954498dec474e121d822c119d55749b2045d3cc565f4c3b33ae3d06ab4": {
           "x": 1570.3125,
@@ -4124,15 +2864,15 @@
         },
         "edge-bfae19749ad4100733c84a4765986ef9fde53cea502965492e90979cdc1fa0d7": {
           "x": 2507.8125,
-          "y": 937.5
+          "y": 1000
         },
         "edge-3177089f1d7e88cbc018db97972539460226ed26377683229089f79046cf921b": {
           "x": 2328.125,
-          "y": 828.125
+          "y": 875
         },
         "edge-0fc65752e8537e84b3f4b2f6cfffa36f0c7969da024f3c6764d90df9e4799db2": {
           "x": 2328.125,
-          "y": 539.0625
+          "y": 554.6875
         },
         "entity-krH3BoegxTDlhwoZ": { "x": 187.5, "y": 359.375 },
         "predicate-KZIhlYGTidBMM56j": { "x": 546.875, "y": 359.375 },
@@ -4154,34 +2894,34 @@
         "entity-Q31pwH9xQ12GaPy-": { "x": 781.25, "y": 1109.375 },
         "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": {
           "x": 1703.125,
-          "y": 1343.75
+          "y": 1359.375
         },
-        "entity-J1Psucsa0qzKOMyX": { "x": 1437.5, "y": 1343.75 },
+        "entity-J1Psucsa0qzKOMyX": { "x": 1437.5, "y": 1359.375 },
         "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": {
           "x": 1031.25,
-          "y": 1265.625
+          "y": 1296.875
         },
         "entity-OfcVtBgw4_Vhy2Ap": { "x": 1390.625, "y": 1109.375 },
-        "entity-vW6pmqDJ_zBk3tW3": { "x": -109.375, "y": 359.375 },
-        "entity-iG6_wAKfpwiRxcWu": { "x": 187.5, "y": 1421.875 },
-        "entity-hLeVNyp8UrhQZGII": { "x": 1031.25, "y": 1421.875 },
+        "entity-vW6pmqDJ_zBk3tW3": { "x": 15.625, "y": 359.375 },
+        "entity-iG6_wAKfpwiRxcWu": { "x": 187.5, "y": 1453.125 },
+        "entity-hLeVNyp8UrhQZGII": { "x": 1031.25, "y": 1453.125 },
         "predicate-4Nypar4nhMrliT33": { "x": 187.5, "y": 609.375 },
         "predicate-AzGYQypNWc1Ynt0D": { "x": 1031.25, "y": 1109.375 },
-        "entity-kCbm3gSkjx_UBpCi": { "x": 1703.125, "y": 1500 },
-        "predicate-NLib96LzEFco35B9": { "x": 1218.75, "y": 1343.75 },
+        "entity-kCbm3gSkjx_UBpCi": { "x": 1703.125, "y": 1531.25 },
+        "predicate-NLib96LzEFco35B9": { "x": 1218.75, "y": 1359.375 },
         "entity-yx1op9Z2gUuGw03T": { "x": 1750, "y": 1109.375 },
-        "entity-HvHg6s-d5ji7unFl": { "x": 2156.25, "y": 1203.125 },
-        "predicate-hP5Ispk8b5imRnKx": { "x": 1984.375, "y": 1265.625 },
+        "entity-HvHg6s-d5ji7unFl": { "x": 2187.5, "y": 1203.125 },
+        "predicate-hP5Ispk8b5imRnKx": { "x": 1984.375, "y": 1359.375 },
         "predicate-BiOtZFYmw8uAgFP5": { "x": 750, "y": 609.375 },
-        "entity-qT5xzoPdH8jehATY": { "x": 2687.5, "y": 937.5 },
-        "entity-M74ydW7dbPamOI0b": { "x": 2218.75, "y": 1359.375 },
+        "entity-qT5xzoPdH8jehATY": { "x": 2687.5, "y": 1000 },
+        "entity-M74ydW7dbPamOI0b": { "x": 2171.875, "y": 1359.375 },
         "predicate-FVoUPJS5icFQtyOW": { "x": 2484.375, "y": 625 },
-        "entity-B1qOLtj9paWdiukZ": { "x": 2328.125, "y": 937.5 },
-        "entity-35C284BpJRaSlnPQ": { "x": 2328.125, "y": 718.75 },
-        "predicate-p_nYR-hMjaDwkSmi": { "x": 2343.75, "y": 1203.125 },
+        "entity-B1qOLtj9paWdiukZ": { "x": 2328.125, "y": 1000 },
+        "entity-35C284BpJRaSlnPQ": { "x": 2328.125, "y": 750 },
+        "predicate-p_nYR-hMjaDwkSmi": { "x": 2343.75, "y": 1187.5 },
         "predicate-pNagZZ1LtMU-2o6P": { "x": 1640.625, "y": 359.375 },
         "predicate-a-XwoI5BUDrSfWpR": { "x": 2484.375, "y": 1359.375 },
-        "predicate-BA1bVNJRL5TT1vVu": { "x": 2468.75, "y": 1109.375 },
+        "predicate-BA1bVNJRL5TT1vVu": { "x": 2484.375, "y": 1187.5 },
         "predicate-BBvVNbU_rqg_F3Zo": { "x": 843.75, "y": 750 },
         "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
           "x": 1000,
@@ -4192,36 +2932,272 @@
           "y": 1000
         },
         "graph-nOtEYEjHoQD1J0vU": { "x": 1781.25, "y": 1234.375 },
-        "media-0XOv1K25gsEZLzup": { "x": 671.875, "y": 468.75 },
-        "media-2q-jblJTQzHIKkWd": { "x": 562.5, "y": 921.875 },
-        "media-O2fQaQR6xL3ihWKi": { "x": 1796.875, "y": 687.5 },
-        "media-9kS19j1vIBU5xzXF": { "x": 1125, "y": 687.5 },
-        "media-JikeLvpXaY6bCG7R": { "x": 2531.25, "y": 828.125 }
+        "media-O2fQaQR6xL3ihWKi": { "x": 1781.25, "y": 718.75 },
+        "media-BSrANk54tkEgj5Hc": { "x": 1546.875, "y": 890.625 },
+        "media-fpGk5eJlOslcYL6J": { "x": 546.875, "y": 921.875 },
+        "media-_W999P_CNtACE5ut": { "x": 1093.75, "y": 687.5 },
+        "predicate-Al7lWr-3HV1W_Us-": { "x": 625, "y": 468.75 },
+        "predicate-Oxw9zQS8hgV_nbVZ": { "x": 843.75, "y": 671.875 }
       },
       "marker": [
         {
+          "bounds": {
+            "x1": -243.4788081925338,
+            "x2": 3157.406376525928,
+            "y1": -35.84589713824259,
+            "y2": 1700.4494004815745
+          },
           "time": 0,
-          "states": { "media-O2fQaQR6xL3ihWKi": "default", "media-JikeLvpXaY6bCG7R": "default" }
+          "states": { "media-O2fQaQR6xL3ihWKi": "default" }
+        },
+        {
+          "time": 4.721242,
+          "states": {
+            "entity-iG6_wAKfpwiRxcWu": "hide",
+            "entity-hLeVNyp8UrhQZGII": "hide",
+            "graph-nOtEYEjHoQD1J0vU": "hide",
+            "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241": "hide"
+          }
+        },
+        {
+          "time": 7.197855,
+          "states": {
+            "media-O2fQaQR6xL3ihWKi": "hide",
+            "entity-ESvaV0FzaCQiE1Nj": "highlight",
+            "predicate-5ckP_MaUyX2HS4ar": "hide",
+            "entity-krH3BoegxTDlhwoZ": "default"
+          }
+        },
+        {
+          "bounds": {
+            "x1": -102.77239824652082,
+            "x2": 1233.756774565256,
+            "y1": 100.03321804363017,
+            "y2": 782.387720427956
+          },
+          "time": 15.561761,
+          "states": {
+            "entity-bF5gZkSRorj4ruvB": "hide",
+            "entity-ESvaV0FzaCQiE1Nj": "default",
+            "entity-oEQwWGKwv9d0342i": "highlight",
+            "predicate-5ckP_MaUyX2HS4ar": "hide"
+          }
+        },
+        {
+          "bounds": {
+            "x1": -55.840803907286755,
+            "x2": 1349.3711079225936,
+            "y1": 69.0525635802547,
+            "y2": 786.4725004934015
+          },
+          "time": 29.04839,
+          "states": {
+            "entity-ZgZWHecoAS4mh8pB": "default",
+            "entity-QhBvY4JdT_e4jvpx": "default",
+            "entity-oEQwWGKwv9d0342i": "default",
+            "entity-c3MsLUyjCbi8983F": "default",
+            "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": "default",
+            "predicate-I1InOUKSEzpwzdEL": "highlight"
+          }
+        },
+        {
+          "time": 49.563225,
+          "states": {
+            "entity-ZgZWHecoAS4mh8pB": "highlight",
+            "predicate-I1InOUKSEzpwzdEL": "default"
+          }
+        },
+        {
+          "time": 55.700977,
+          "states": {
+            "entity-ZgZWHecoAS4mh8pB": "default",
+            "entity-c3MsLUyjCbi8983F": "highlight",
+            "entity-QhBvY4JdT_e4jvpx": "highlight"
+          }
+        },
+        {
+          "bounds": {
+            "x1": 366.49080899769103,
+            "x2": 2405.592388023744,
+            "y1": 35.68287622755495,
+            "y2": 1076.7302185315189
+          },
+          "time": 64.688913,
+          "states": {
+            "entity-L-30eMyDg1K1_8Pw": "default",
+            "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": "hide",
+            "predicate-pNagZZ1LtMU-2o6P": "default",
+            "entity-QhBvY4JdT_e4jvpx": "highlight",
+            "media-fpGk5eJlOslcYL6J": "default"
+          }
+        },
+        {
+          "time": 88.266578,
+          "states": {
+            "entity-oEQwWGKwv9d0342i": "highlight",
+            "media-fpGk5eJlOslcYL6J": "highlight"
+          }
+        },
+        {
+          "time": 93.450239,
+          "states": {
+            "predicate-BBvVNbU_rqg_F3Zo": "highlight",
+            "entity-Q2jSY4-cgD9Czt08": "hide",
+            "predicate-rGwYAEhWpgiWSayo": "default",
+            "predicate-9q1mQ-EndrjTvgIJ": "default",
+            "predicate-Al7lWr-3HV1W_Us-": "hide"
+          }
+        },
+        {
+          "time": 102.110115,
+          "states": {
+            "entity-Q2jSY4-cgD9Czt08": "highlight",
+            "predicate-5ckP_MaUyX2HS4ar": "hide",
+            "media-_W999P_CNtACE5ut": "default",
+            "entity-c3MsLUyjCbi8983F": "default",
+            "entity-QhBvY4JdT_e4jvpx": "default",
+            "media-fpGk5eJlOslcYL6J": "hide"
+          }
+        },
+        {
+          "time": 116.83875,
+          "states": {
+            "entity-hxrJu41ra_e2dmMW": "highlight",
+            "entity-Q2jSY4-cgD9Czt08": "default",
+            "entity-c3MsLUyjCbi8983F": "default",
+            "entity-QhBvY4JdT_e4jvpx": "default",
+            "predicate-BBvVNbU_rqg_F3Zo": "default",
+            "entity-oEQwWGKwv9d0342i": "default",
+            "media-fpGk5eJlOslcYL6J": "default",
+            "media-O2fQaQR6xL3ihWKi": "default"
+          }
+        },
+        {
+          "time": 122.281368,
+          "states": {
+            "predicate-Oxw9zQS8hgV_nbVZ": "highlight",
+            "entity-hxrJu41ra_e2dmMW": "default"
+          }
+        },
+        {
+          "time": 130.230959,
+          "states": {
+            "entity-L-30eMyDg1K1_8Pw": "highlight",
+            "predicate-5ckP_MaUyX2HS4ar": "highlight"
+          }
+        },
+        {
+          "bounds": {
+            "x1": -187.90665638954445,
+            "x2": 1987.9632555567882,
+            "y1": 7.706063824662308,
+            "y2": 1118.579407423769
+          },
+          "time": 154.211428,
+          "states": {
+            "entity-krH3BoegxTDlhwoZ": "highlight",
+            "entity-L-30eMyDg1K1_8Pw": "default",
+            "predicate-Oxw9zQS8hgV_nbVZ": "default",
+            "predicate-5ckP_MaUyX2HS4ar": "default",
+            "predicate-KZIhlYGTidBMM56j": "highlight"
+          }
+        },
+        {
+          "time": 158.579143,
+          "states": {
+            "entity-hxrJu41ra_e2dmMW": "highlight",
+            "predicate-KZIhlYGTidBMM56j": "default",
+            "entity-krH3BoegxTDlhwoZ": "default",
+            "entity-bF5gZkSRorj4ruvB": "highlight",
+            "predicate-4Nypar4nhMrliT33": "default",
+            "predicate-BiOtZFYmw8uAgFP5": "highlight"
+          }
+        },
+        { "time": 162.837301, "states": { "predicate-BiOtZFYmw8uAgFP5": "default" } },
+        {
+          "bounds": {
+            "x1": -28.534009768595617,
+            "x2": 2431.7114305153673,
+            "y1": -60.94185821029918,
+            "y2": 1195.1171843443144
+          },
+          "time": 173.038884,
+          "states": {
+            "entity-L-30eMyDg1K1_8Pw": "highlight",
+            "entity-hxrJu41ra_e2dmMW": "default",
+            "predicate-Al7lWr-3HV1W_Us-": "default",
+            "predicate-5ckP_MaUyX2HS4ar": "hide",
+            "entity-krH3BoegxTDlhwoZ": "default"
+          }
+        },
+        {
+          "bounds": {
+            "x1": -246.57396635527545,
+            "x2": 2603.5178521123394,
+            "y1": 76.1864056268378,
+            "y2": 1531.2784635493097
+          },
+          "time": 202.035513,
+          "states": {
+            "entity-iG6_wAKfpwiRxcWu": "hide",
+            "entity-cYxGAvQBufNHWoNg": "highlight",
+            "entity-hkPCMUWl74floN6s": "default",
+            "predicate-5ckP_MaUyX2HS4ar": "default"
+          }
+        },
+        {
+          "bounds": {
+            "x1": 1.7587743314561621,
+            "x2": 2240.528214184029,
+            "y1": 221.89857657960314,
+            "y2": 1364.8847815645763
+          },
+          "time": 215.09616,
+          "states": {
+            "entity-Q31pwH9xQ12GaPy-": "highlight",
+            "media-_W999P_CNtACE5ut": "hide",
+            "entity-oEQwWGKwv9d0342i": "hide",
+            "entity-Q2jSY4-cgD9Czt08": "hide",
+            "predicate-rGwYAEhWpgiWSayo": "hide",
+            "predicate-5ckP_MaUyX2HS4ar": "hide",
+            "predicate-BBvVNbU_rqg_F3Zo": "hide",
+            "predicate-9q1mQ-EndrjTvgIJ": "hide",
+            "predicate-I1InOUKSEzpwzdEL": "hide",
+            "predicate-Oxw9zQS8hgV_nbVZ": "hide",
+            "predicate-Al7lWr-3HV1W_Us-": "hide",
+            "predicate-KZIhlYGTidBMM56j": "hide",
+            "entity-bF5gZkSRorj4ruvB": "hide",
+            "entity-hxrJu41ra_e2dmMW": "hide",
+            "predicate-BiOtZFYmw8uAgFP5": "hide",
+            "media-O2fQaQR6xL3ihWKi": "hide"
+          }
+        },
+        {
+          "time": 220.137437,
+          "states": {
+            "predicate-NLib96LzEFco35B9": "default",
+            "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "default",
+            "entity-J1Psucsa0qzKOMyX": "default",
+            "predicate-AzGYQypNWc1Ynt0D": "default",
+            "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241": "default",
+            "entity-OfcVtBgw4_Vhy2Ap": "hide"
+          }
+        },
+        {
+          "time": 226.219334,
+          "states": {
+            "entity-Q31pwH9xQ12GaPy-": "highlight",
+            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "default",
+            "entity-cYxGAvQBufNHWoNg": "default",
+            "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "highlight",
+            "predicate-AzGYQypNWc1Ynt0D": "highlight",
+            "entity-L-30eMyDg1K1_8Pw": "hide"
+          }
         }
       ]
     }
   },
   "edges": [
-    {
-      "nodes": [
-        "entity--kNcOEKDjUxVbIdK",
-        "edge-00a7c374b483210ba753029cb5abeb88a3271279ea78a461e8a32e80866eaded"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-00a7c374b483210ba753029cb5abeb88a3271279ea78a461e8a32e80866eaded",
-        "entity-QhBvY4JdT_e4jvpx"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
     {
       "nodes": [
         "entity-Gd-5uvi9PnWL724w",
@@ -4236,66 +3212,6 @@
       ],
       "arrow": "→",
       "graph": "graph/5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a"
-    },
-    {
-      "nodes": [
-        "entity-EILuxGPyNk8DqwRG",
-        "edge-08aa1b2fe7eeadf60c921acc9f229019b55713212f225e36f8359ed1daff292d"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-08aa1b2fe7eeadf60c921acc9f229019b55713212f225e36f8359ed1daff292d",
-        "entity-qT5xzoPdH8jehATY"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-u-MsxGVZDx6iIN1c",
-        "edge-0909e07dbe00a24e15a12493942c3c15493a1eff259fcae93b7e72596970d141"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-0909e07dbe00a24e15a12493942c3c15493a1eff259fcae93b7e72596970d141",
-        "entity-L-30eMyDg1K1_8Pw"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-VKPoxqPPSNPVRVnW",
-        "edge-0972a4a0ed35d8e414948fda7f3687661e5512c3419d0ad4322c5b670dc51076"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-0972a4a0ed35d8e414948fda7f3687661e5512c3419d0ad4322c5b670dc51076",
-        "entity-krH3BoegxTDlhwoZ"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-EILuxGPyNk8DqwRG",
-        "edge-0a5455630033f8f7cdf138ee7f1a61dd55000d7519113c24b0644b81a3cbb762"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-0a5455630033f8f7cdf138ee7f1a61dd55000d7519113c24b0644b81a3cbb762",
-        "entity-krH3BoegxTDlhwoZ"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
     },
     {
       "nodes": [
@@ -4314,21 +3230,6 @@
     },
     {
       "nodes": [
-        "entity-tQ_VwWMLPlY8xl-j",
-        "edge-13f28f4d8d7b8846cf813838f50332f34657450f4b28c9b49ae2065e4bcb11c0"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-13f28f4d8d7b8846cf813838f50332f34657450f4b28c9b49ae2065e4bcb11c0",
-        "entity-ESvaV0FzaCQiE1Nj"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
         "entity-83b12f0080509da038aa09f9d30d804b388373836024827b3246f44051cdf187",
         "edge-189df1d5019da9f406ca16dfafe1f5e3ff67f4642d0dc8833232a4cbcd36d3e2"
       ],
@@ -4341,21 +3242,6 @@
       ],
       "arrow": "→",
       "graph": "graph/5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a"
-    },
-    {
-      "nodes": [
-        "entity-tQ_VwWMLPlY8xl-j",
-        "edge-19cadfdf4ec8b9514d9dc40bed1c196a7564ae9e315876f85eb17c21f150ac1d"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-19cadfdf4ec8b9514d9dc40bed1c196a7564ae9e315876f85eb17c21f150ac1d",
-        "entity-3a8n7Jrl7SA7Z8QL"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
     },
     {
       "nodes": [
@@ -4389,51 +3275,6 @@
     },
     {
       "nodes": [
-        "entity-t9wfEDwFDiOGPVT3",
-        "edge-1e46b2ceb40cd4a91ebfb78de3430ed384f0c595c4c1183c18e7f6c83bff3b5a"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-1e46b2ceb40cd4a91ebfb78de3430ed384f0c595c4c1183c18e7f6c83bff3b5a",
-        "entity-ESvaV0FzaCQiE1Nj"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-Q2jSY4-cgD9Czt08",
-        "edge-1f71ad9601718529a6087a308641497da0a9e66a3a8f3237412382bb865a3191"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-1f71ad9601718529a6087a308641497da0a9e66a3a8f3237412382bb865a3191",
-        "entity-L-30eMyDg1K1_8Pw"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-vW6pmqDJ_zBk3tW3",
-        "edge-1fa05c4292b4793c6a602990fa18967f63dd36175ce49252dd7b77ecc2a54e29"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-1fa05c4292b4793c6a602990fa18967f63dd36175ce49252dd7b77ecc2a54e29",
-        "entity-krH3BoegxTDlhwoZ"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
         "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186",
         "edge-2addbf2c2e6d0d25ad30a42a9ad3f47f53852788cdf60e38ed7d04c524f8ad1f"
       ],
@@ -4446,21 +3287,6 @@
       ],
       "arrow": "→",
       "graph": "graph/nOtEYEjHoQD1J0vU"
-    },
-    {
-      "nodes": [
-        "entity--kNcOEKDjUxVbIdK",
-        "edge-2cc5968b3d1d845f56ccb9465015c2f541b050c0e91df0f11e69d5730055af4e"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-2cc5968b3d1d845f56ccb9465015c2f541b050c0e91df0f11e69d5730055af4e",
-        "entity-ZgZWHecoAS4mh8pB"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
     },
     {
       "nodes": [
@@ -4479,66 +3305,6 @@
     },
     {
       "nodes": [
-        "entity-Q31pwH9xQ12GaPy-",
-        "edge-32d0081fc6211643938a2b65c91c6ff480339b82a7607dc154403573cac4ee5d"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-32d0081fc6211643938a2b65c91c6ff480339b82a7607dc154403573cac4ee5d",
-        "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity--kNcOEKDjUxVbIdK",
-        "edge-33720674aa7d74dff1fb87d1f61843fb87cb9f421fe4dd3eebf0db7cfdb69b17"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-33720674aa7d74dff1fb87d1f61843fb87cb9f421fe4dd3eebf0db7cfdb69b17",
-        "entity-oEQwWGKwv9d0342i"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-c3MsLUyjCbi8983F",
-        "edge-360633d01540e5ade9e015f6ced05699874dbd70b31804fb4ab58f92ddc72642"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-360633d01540e5ade9e015f6ced05699874dbd70b31804fb4ab58f92ddc72642",
-        "entity-ESvaV0FzaCQiE1Nj"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-krH3BoegxTDlhwoZ",
-        "edge-3975355a827629a01c10ae35b70f0d84f382a3c1d9910a2bef00d5c515ff274b"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-3975355a827629a01c10ae35b70f0d84f382a3c1d9910a2bef00d5c515ff274b",
-        "entity--kNcOEKDjUxVbIdK"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
         "entity-OfcVtBgw4_Vhy2Ap",
         "edge-397da4756da7453af2e45a19b0b3350b59019a337660626b040d93dbb26e260f"
       ],
@@ -4551,21 +3317,6 @@
       ],
       "arrow": "→",
       "graph": "graph/Ag2pJE4-Wtr2of8M"
-    },
-    {
-      "nodes": [
-        "entity-Q31pwH9xQ12GaPy-",
-        "edge-39883b53414b4a80939fb0dea38fb244c8ea957b806b4ce51125ad5cfc193ace"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-39883b53414b4a80939fb0dea38fb244c8ea957b806b4ce51125ad5cfc193ace",
-        "entity-krH3BoegxTDlhwoZ"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
     },
     {
       "nodes": [
@@ -4599,96 +3350,6 @@
     },
     {
       "nodes": [
-        "entity-kCbm3gSkjx_UBpCi",
-        "edge-415601000bdf56ef236c07b159e2ebbbdbe0072e2b0485d38b0c01f25344a47c"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-415601000bdf56ef236c07b159e2ebbbdbe0072e2b0485d38b0c01f25344a47c",
-        "entity-HvHg6s-d5ji7unFl"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186",
-        "edge-450e2208c76529b2b23706f5a6f38c22dbef82268c5fd3725ff02cdcbb45ab8b"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-450e2208c76529b2b23706f5a6f38c22dbef82268c5fd3725ff02cdcbb45ab8b",
-        "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-t9wfEDwFDiOGPVT3",
-        "edge-4517933988d97de1c7750e62a62d64f0d1cb6987c374306e7413e8065534194c"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-4517933988d97de1c7750e62a62d64f0d1cb6987c374306e7413e8065534194c",
-        "entity-bF5gZkSRorj4ruvB"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-cEjaqellkE5X9OCY",
-        "edge-49b1562e85a851b7a051a34e010c70b59f10b63a8a5efe1c7592f27942a7c9a0"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-49b1562e85a851b7a051a34e010c70b59f10b63a8a5efe1c7592f27942a7c9a0",
-        "entity-Q31pwH9xQ12GaPy-"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-bF5gZkSRorj4ruvB",
-        "edge-4e655da8a61b5df365988f06cc73cab825e535f99ee53dab41b302f6be68827c"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-4e655da8a61b5df365988f06cc73cab825e535f99ee53dab41b302f6be68827c",
-        "entity-krH3BoegxTDlhwoZ"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-VKPoxqPPSNPVRVnW",
-        "edge-56aeac817511c4437868742dd519654c4e3d3330cf1905c83ce025e4f721658d"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-56aeac817511c4437868742dd519654c4e3d3330cf1905c83ce025e4f721658d",
-        "entity-qT5xzoPdH8jehATY"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
         "entity-QQmHLrWWr6eaDlc7",
         "edge-58b9a902a9412d665312d8bd240afc4a2dc5c07ac0a462550ea4c2c53391bf6d"
       ],
@@ -4701,21 +3362,6 @@
       ],
       "arrow": "→",
       "graph": "graph/e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241"
-    },
-    {
-      "nodes": [
-        "entity-EILuxGPyNk8DqwRG",
-        "edge-5dcd3a0c156b9873813b5bc4b136e81fd661b3c92c41297861db567db58f404b"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-5dcd3a0c156b9873813b5bc4b136e81fd661b3c92c41297861db567db58f404b",
-        "entity-QhBvY4JdT_e4jvpx"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
     },
     {
       "nodes": [
@@ -4734,21 +3380,6 @@
     },
     {
       "nodes": [
-        "entity-vW6pmqDJ_zBk3tW3",
-        "edge-6b0adf8aeaeb77a2cb714a48af2e3c77324db312c6a994560aa16f2181adaf97"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-6b0adf8aeaeb77a2cb714a48af2e3c77324db312c6a994560aa16f2181adaf97",
-        "entity-krH3BoegxTDlhwoZ"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
         "entity-kCbm3gSkjx_UBpCi",
         "edge-72654153ad5551ddf56a114bfd00f23effcca2c3595dc57374c25adf938e726c"
       ],
@@ -4764,156 +3395,6 @@
     },
     {
       "nodes": [
-        "entity--kNcOEKDjUxVbIdK",
-        "edge-74211f23db81ef69a7e01ab982b012656f60603e8b5251f7720e2675adb5411d"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-74211f23db81ef69a7e01ab982b012656f60603e8b5251f7720e2675adb5411d",
-        "entity-c3MsLUyjCbi8983F"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-vW6pmqDJ_zBk3tW3",
-        "edge-74d45c4f61a1228a7dc02c9a9d7543055b95dec16e202d31d39a29a76954b32b"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-74d45c4f61a1228a7dc02c9a9d7543055b95dec16e202d31d39a29a76954b32b",
-        "entity-joDjk6Zvc6I32Bdo"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-t9wfEDwFDiOGPVT3",
-        "edge-778654f1eb52d9624ac0995591cdca8e4c26a5136abbc942d9891a2874762581"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-778654f1eb52d9624ac0995591cdca8e4c26a5136abbc942d9891a2874762581",
-        "entity-pZr6nneF5w6LNJDd"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity--kNcOEKDjUxVbIdK",
-        "edge-79f9485c416aa38693c415bf8fe3fdb9ac55d4b79f11a61ab5c3ad82070ebde5"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-79f9485c416aa38693c415bf8fe3fdb9ac55d4b79f11a61ab5c3ad82070ebde5",
-        "entity-TMIO9NZHn9IvsAD9"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-kCbm3gSkjx_UBpCi",
-        "edge-7efc7c86e05bb4eef0d65443e2491db08476b82a9c30f8c95b6a651d619b006f"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-7efc7c86e05bb4eef0d65443e2491db08476b82a9c30f8c95b6a651d619b006f",
-        "entity-dqBjxyGL4eopaLS2"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-Q31pwH9xQ12GaPy-",
-        "edge-83581057aa3a7b627da60a5483d839e50d9a18c4568a5035a93c02044ece5070"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-83581057aa3a7b627da60a5483d839e50d9a18c4568a5035a93c02044ece5070",
-        "entity-krH3BoegxTDlhwoZ"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186",
-        "edge-869e4a4b3299a90f1c4fb14e33d631af84c1c2c4b47124a87c05e8bdcf5d1cee"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-869e4a4b3299a90f1c4fb14e33d631af84c1c2c4b47124a87c05e8bdcf5d1cee",
-        "entity-dqBjxyGL4eopaLS2"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-pZr6nneF5w6LNJDd",
-        "edge-88dc42aa80b55c2500da963fdcfe62d2d2a2788520849c33735fafcec0960af5"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-88dc42aa80b55c2500da963fdcfe62d2d2a2788520849c33735fafcec0960af5",
-        "entity-oEQwWGKwv9d0342i"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-t9wfEDwFDiOGPVT3",
-        "edge-8d064c2bb1027dd6b5d56147a757b9b4fe66581d3b65d0d996fc99c37a8fb725"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-8d064c2bb1027dd6b5d56147a757b9b4fe66581d3b65d0d996fc99c37a8fb725",
-        "entity-L-30eMyDg1K1_8Pw"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-cEjaqellkE5X9OCY",
-        "edge-8d107959adc9f8f4f25d814c36e8fc012f8a6e5e0eaf3b0c046dcb80d5190184"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-8d107959adc9f8f4f25d814c36e8fc012f8a6e5e0eaf3b0c046dcb80d5190184",
-        "entity-OfcVtBgw4_Vhy2Ap"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
         "entity-07c32388ceaffeaf81e4ff5ec5681a981824ac2a14edab6dd84dbb85fe5f2ef1",
         "edge-93610c928c9d2e17aac1f87e2cd02bf649fe5a457688442ad231a4f3df9c5706"
       ],
@@ -4926,126 +3407,6 @@
       ],
       "arrow": "→",
       "graph": "graph/5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a"
-    },
-    {
-      "nodes": [
-        "entity-tQ_VwWMLPlY8xl-j",
-        "edge-944547c07faa7fb625cac935cb6b08044274a3a4b86de68af7edfaeb359b5ebc"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-944547c07faa7fb625cac935cb6b08044274a3a4b86de68af7edfaeb359b5ebc",
-        "entity-7FMS0AyWpqFDD1G-"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-ga6yfO3kiGKMCSkz",
-        "edge-96e026faf77d2b03db560e51de982b36eede915597198fa29879acc48ad0555a"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-96e026faf77d2b03db560e51de982b36eede915597198fa29879acc48ad0555a",
-        "entity-oEQwWGKwv9d0342i"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-ukrhTbGtDKItSlnZ",
-        "edge-9796a647b082864907fe0ebbd58e14f972b9b624fa4d21a26ce32b1ae98feb89"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-9796a647b082864907fe0ebbd58e14f972b9b624fa4d21a26ce32b1ae98feb89",
-        "entity-VKPoxqPPSNPVRVnW"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-iG6_wAKfpwiRxcWu",
-        "edge-99bedf2c56b26eeb7cf775fdc6eb252f5e81f3497bb514b282058a1ac92e3865"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-99bedf2c56b26eeb7cf775fdc6eb252f5e81f3497bb514b282058a1ac92e3865",
-        "entity-kCbm3gSkjx_UBpCi"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-VKPoxqPPSNPVRVnW",
-        "edge-9d56e6d4d7d795fb38d9ca6ad5439e71a3f9e09c8bb1edfc2644afab898f6191"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-9d56e6d4d7d795fb38d9ca6ad5439e71a3f9e09c8bb1edfc2644afab898f6191",
-        "entity-EILuxGPyNk8DqwRG"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-t9wfEDwFDiOGPVT3",
-        "edge-9fc717cf66cbbf331974cd3f0b66d712fe2d436935ae20e1d23157ea93c18061"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-9fc717cf66cbbf331974cd3f0b66d712fe2d436935ae20e1d23157ea93c18061",
-        "entity-ga6yfO3kiGKMCSkz"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-t9wfEDwFDiOGPVT3",
-        "edge-a0d9475c4ec2b42426166dfb60550a20db856e667a1c5bc4d3a3297faade4798"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-a0d9475c4ec2b42426166dfb60550a20db856e667a1c5bc4d3a3297faade4798",
-        "entity-QhBvY4JdT_e4jvpx"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-QhBvY4JdT_e4jvpx",
-        "edge-aa122717709f542f56b2f771029fea5893fb93700555a3f6d33325a724446523"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-aa122717709f542f56b2f771029fea5893fb93700555a3f6d33325a724446523",
-        "entity-L-30eMyDg1K1_8Pw"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
     },
     {
       "nodes": [
@@ -5066,21 +3427,6 @@
       "nodes": ["entity-zfSB6bk1dk2ZO3ZQ", "entity-tW83QJ2DEs3NY0fV"],
       "arrow": "→",
       "graph": "graph/Ag2pJE4-Wtr2of8M"
-    },
-    {
-      "nodes": [
-        "entity-iG6_wAKfpwiRxcWu",
-        "edge-ac97ca60b18d335466c664de99c3ab18278959143080c2aa08ba3ee2394bd200"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-ac97ca60b18d335466c664de99c3ab18278959143080c2aa08ba3ee2394bd200",
-        "entity-krH3BoegxTDlhwoZ"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
     },
     {
       "nodes": [
@@ -5114,21 +3460,6 @@
     },
     {
       "nodes": [
-        "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186",
-        "edge-b65f315b1553f5d9b1d8cead31d542efd3687551d905163e705b4789bf1eb85a"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-b65f315b1553f5d9b1d8cead31d542efd3687551d905163e705b4789bf1eb85a",
-        "entity-HvHg6s-d5ji7unFl"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
         "entity-0408bdbe67fd42650e47e9334b7434f553bcd8941b0486f404f44ffa0b86f9fa",
         "edge-b7c32f488009d156a3f20df3842cba1a027747807a034a95f095ed3a694cb8d2"
       ],
@@ -5141,36 +3472,6 @@
       ],
       "arrow": "→",
       "graph": "graph/5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a"
-    },
-    {
-      "nodes": [
-        "entity-Q2jSY4-cgD9Czt08",
-        "edge-bdfa601bd063b81c005d0cf59437097f3310dee85dcece4747cf9d40ba1539bc"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-bdfa601bd063b81c005d0cf59437097f3310dee85dcece4747cf9d40ba1539bc",
-        "entity-ga6yfO3kiGKMCSkz"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-Q2jSY4-cgD9Czt08",
-        "edge-c34e3c073a916c60e826ff106729037e35dd08b9f266130e6317573be7390600"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-c34e3c073a916c60e826ff106729037e35dd08b9f266130e6317573be7390600",
-        "entity-QhBvY4JdT_e4jvpx"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
     },
     {
       "nodes": [
@@ -5189,186 +3490,6 @@
     },
     {
       "nodes": [
-        "entity-ukrhTbGtDKItSlnZ",
-        "edge-cfde8b6f6804f909a839e812a94555f765e7058162b3e83b242ed6810ded4b69"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-cfde8b6f6804f909a839e812a94555f765e7058162b3e83b242ed6810ded4b69",
-        "entity-UTvmNNIEUYwqY_7X"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-ukrhTbGtDKItSlnZ",
-        "edge-d26bd173ce945124642dcd20532bb14137210cc0f352348f8acde18f945d89eb"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-d26bd173ce945124642dcd20532bb14137210cc0f352348f8acde18f945d89eb",
-        "entity-c3MsLUyjCbi8983F"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-krH3BoegxTDlhwoZ",
-        "edge-d2ebb5f19b32e33e9fc5970340fd723f3c34757aa4db234455b63938a6ad8dc3"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-d2ebb5f19b32e33e9fc5970340fd723f3c34757aa4db234455b63938a6ad8dc3",
-        "entity--kNcOEKDjUxVbIdK"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity--kNcOEKDjUxVbIdK",
-        "edge-d57e749a8a57fbcb7e92db3a84fda20161c4b6034d2f1356192435aaf0ef4eed"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-d57e749a8a57fbcb7e92db3a84fda20161c4b6034d2f1356192435aaf0ef4eed",
-        "entity-c3MsLUyjCbi8983F"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-t9wfEDwFDiOGPVT3",
-        "edge-d59cfe1e53bb0446222f9f344928603ff134de33e573e4bf3229428402f16201"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-d59cfe1e53bb0446222f9f344928603ff134de33e573e4bf3229428402f16201",
-        "entity-ga6yfO3kiGKMCSkz"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-EILuxGPyNk8DqwRG",
-        "edge-db3bf38b27e29ee81e40d4662e651144d4f1c40d851d9dd554aec95d5eb01cb6"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-db3bf38b27e29ee81e40d4662e651144d4f1c40d851d9dd554aec95d5eb01cb6",
-        "entity-L-30eMyDg1K1_8Pw"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-pZr6nneF5w6LNJDd",
-        "edge-dbb610fc0dacd7649c5d38946f13bfad3edc15eaeb289bf3fd52630bd243590e"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-dbb610fc0dacd7649c5d38946f13bfad3edc15eaeb289bf3fd52630bd243590e",
-        "entity-bF5gZkSRorj4ruvB"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-cYxGAvQBufNHWoNg",
-        "edge-dd39abbdcfed8f2caef8818301e5ef9fef95e160624f3d10f3a770fb25b86962"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-dd39abbdcfed8f2caef8818301e5ef9fef95e160624f3d10f3a770fb25b86962",
-        "entity-cEjaqellkE5X9OCY"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-bF5gZkSRorj4ruvB",
-        "edge-dedcda4b4f83d7a1c26076aad0daba5fba1cfc33c819577e10d9de25298c5ba1"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-dedcda4b4f83d7a1c26076aad0daba5fba1cfc33c819577e10d9de25298c5ba1",
-        "entity-krH3BoegxTDlhwoZ"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-ga6yfO3kiGKMCSkz",
-        "edge-f48b449c5d6ced2e51330f7012cd94449df1a733202127c162da33377d5aa311"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-f48b449c5d6ced2e51330f7012cd94449df1a733202127c162da33377d5aa311",
-        "entity-oEQwWGKwv9d0342i"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-cYxGAvQBufNHWoNg",
-        "edge-f5cb7b8971ec43383fc7ebd8028627917f03af1122aeff945af4467ccd990d46"
-      ],
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "edge-f5cb7b8971ec43383fc7ebd8028627917f03af1122aeff945af4467ccd990d46",
-        "entity-hkPCMUWl74floN6s"
-      ],
-      "arrow": "→",
-      "graph": "graph/XWHUR_K8ZWYsy87q"
-    },
-    {
-      "nodes": [
-        "entity-tQ_VwWMLPlY8xl-j",
-        "edge-f708573c891032e7620b805bfe82a2430c21d7907383a73b8906e291f0060d1a"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-f708573c891032e7620b805bfe82a2430c21d7907383a73b8906e291f0060d1a",
-        "entity-qT5xzoPdH8jehATY"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
         "entity-16501e0580b1688b0e6d1c03366ce380170bad0dddac71d77001a68f8f9e0353",
         "edge-f9b5ae7f96801942f9a766506a6f19fc645d5c219fae1bc894e46e4272edf886"
       ],
@@ -5381,51 +3502,6 @@
       ],
       "arrow": "→",
       "graph": "graph/5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a"
-    },
-    {
-      "nodes": [
-        "entity-Mzh6yPBbZGcoBceu",
-        "edge-fb62d3740f2bd68cad46eb327a6f68615907b5a9cdd4bea6de3dff61d993e809"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-fb62d3740f2bd68cad46eb327a6f68615907b5a9cdd4bea6de3dff61d993e809",
-        "entity-krH3BoegxTDlhwoZ"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-QhBvY4JdT_e4jvpx",
-        "edge-207cb99fd94eca611e2085efb0da85414aba1494f7ef42afc37fa0fe1fc376fe"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-207cb99fd94eca611e2085efb0da85414aba1494f7ef42afc37fa0fe1fc376fe",
-        "entity-VKPoxqPPSNPVRVnW"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "entity-u-MsxGVZDx6iIN1c",
-        "edge-5886dfb493418c8cfcdcdfcafe7702e3ca802918b5f1fd3ccb6e3c6bfde4f56d"
-      ],
-      "graph": "graph/ZDXzvCPZvuegkJaB"
-    },
-    {
-      "nodes": [
-        "edge-5886dfb493418c8cfcdcdfcafe7702e3ca802918b5f1fd3ccb6e3c6bfde4f56d",
-        "entity-tQ_VwWMLPlY8xl-j"
-      ],
-      "arrow": "→",
-      "graph": "graph/ZDXzvCPZvuegkJaB"
     },
     {
       "nodes": [
@@ -6360,21 +4436,6 @@
     {
       "nodes": [
         "entity-hxrJu41ra_e2dmMW",
-        "edge-5bf3f1fd1544962faa8f8c44d1d7a0254c2dfe4d82496986a7314721ff0d9d4a"
-      ],
-      "graph": "graph/REq5SXPre4MP2olX"
-    },
-    {
-      "nodes": [
-        "edge-5bf3f1fd1544962faa8f8c44d1d7a0254c2dfe4d82496986a7314721ff0d9d4a",
-        "entity-oEQwWGKwv9d0342i"
-      ],
-      "arrow": "→",
-      "graph": "graph/REq5SXPre4MP2olX"
-    },
-    {
-      "nodes": [
-        "entity-hxrJu41ra_e2dmMW",
         "edge-e9455532a3ef612f6a5db6af15493c1fc343dbb86f09a54a281215e00f8fb864"
       ],
       "graph": "graph/REq5SXPre4MP2olX"
@@ -6398,21 +4459,6 @@
       "nodes": [
         "edge-7c54ce24459b5a483815de7827821f97276f6c0e1cce8fa9c93adcc96362b4ea",
         "entity-ZgZWHecoAS4mh8pB"
-      ],
-      "arrow": "→",
-      "graph": "graph/REq5SXPre4MP2olX"
-    },
-    {
-      "nodes": [
-        "entity-hxrJu41ra_e2dmMW",
-        "edge-f30470e4f724adb9aec3352c5fd00dacc813e7fe744d702196b10f8ae9bdfaa1"
-      ],
-      "graph": "graph/REq5SXPre4MP2olX"
-    },
-    {
-      "nodes": [
-        "edge-f30470e4f724adb9aec3352c5fd00dacc813e7fe744d702196b10f8ae9bdfaa1",
-        "entity-krH3BoegxTDlhwoZ"
       ],
       "arrow": "→",
       "graph": "graph/REq5SXPre4MP2olX"
@@ -6691,6 +4737,26 @@
     },
     {
       "nodes": ["predicate-BBvVNbU_rqg_F3Zo", "entity-oEQwWGKwv9d0342i"],
+      "arrow": "→",
+      "graph": "graph/REq5SXPre4MP2olX"
+    },
+    {
+      "nodes": ["predicate-Al7lWr-3HV1W_Us-", "entity-krH3BoegxTDlhwoZ"],
+      "arrow": "→",
+      "graph": "graph/REq5SXPre4MP2olX"
+    },
+    {
+      "nodes": ["entity-hxrJu41ra_e2dmMW", "predicate-Al7lWr-3HV1W_Us-"],
+      "arrow": "→",
+      "graph": "graph/REq5SXPre4MP2olX"
+    },
+    {
+      "nodes": ["entity-hxrJu41ra_e2dmMW", "predicate-Oxw9zQS8hgV_nbVZ"],
+      "arrow": "→",
+      "graph": "graph/REq5SXPre4MP2olX"
+    },
+    {
+      "nodes": ["predicate-Oxw9zQS8hgV_nbVZ", "entity-oEQwWGKwv9d0342i"],
       "arrow": "→",
       "graph": "graph/REq5SXPre4MP2olX"
     }
