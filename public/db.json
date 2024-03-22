@@ -339,7 +339,7 @@
     "entity-X3sQDww1P0Y3tNmY": {
       "type": "entity",
       "class": { "en": "place", "pt": "lugar" },
-      "text": { "de": "kleiner Bachlauf", "en": "small Watercourse", "pt": "riacho" }
+      "text": { "de": "kleiner Bachlauf", "en": "small watercourse", "pt": "riacho" }
     },
     "entity-XBW7P-3Tu4aLoX2A": {
       "type": "entity",
@@ -1176,14 +1176,14 @@
     "note-phcALrFcLYF9D8OR": {
       "type": "note",
       "text": {
-        "en": "select an entity e.g. fish trap to explore other connections ",
+        "en": "tap on entities like the fish trap to see all their connections",
         "pt": "selecione uma entidade (ex.: armadilha de pesca) para explorar outras conexões"
       }
     },
     "note-RTMl-rS8wDRHticj": {
       "type": "note",
       "text": {
-        "en": "select a video to explore related story",
+        "en": "tap on a video to jump to another story",
         "pt": "Selecione um vídeo para explorar histórias relacionadas "
       }
     },
@@ -1375,7 +1375,7 @@
           "y": 1031.25
         },
         "edge-94756ae4de7bc8cfe94ac7c969deeb2830d82604b695ee162570a1c70f2214ff": {
-          "x": 1546.875,
+          "x": 1484.375,
           "y": 1125
         },
         "edge-fbe9d8e0df7a5330a3af908f7d05e7c861c8b26b20e5a9af557adfec57b8aca0": {
@@ -1387,7 +1387,7 @@
           "y": 726.5625
         },
         "edge-8dd96f7860b0b4a7abc2e1a8bee8019dbc5b7707cf3c13fcd1fdb5f67127d023": {
-          "x": 1398.4375,
+          "x": 1390.625,
           "y": 1125
         },
         "edge-9f97e5d4e5acb1622733e88f341ce4ffc90b57be84be90a69eb33fff72f638c9": {
@@ -1396,11 +1396,11 @@
         },
         "edge-be3b00772ebbb8bbc00789f1f1b566166de5bf2f8be51b4964ee2c8d3f67e1de": {
           "x": 1117.1875,
-          "y": 765.625
+          "y": 789.0625
         },
         "edge-8eaed8fa133caa9c3f2ba879ea5553ef78f3a75f73d9a009bb5a6adbb2d3ef06": {
           "x": 750,
-          "y": 1062.5
+          "y": 1085.9375
         },
         "edge-5ac75d6fc4d2eb4d66ad30fc69e11b08aafd125a8400585ecae34ab29243c373": {
           "x": 1671.875,
@@ -1412,7 +1412,7 @@
         },
         "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241": {
           "x": 687.5,
-          "y": 781.25
+          "y": 812.5
         },
         "entity-16501e0580b1688b0e6d1c03366ce380170bad0dddac71d77001a68f8f9e0353": {
           "x": 500,
@@ -1422,13 +1422,13 @@
           "x": 750,
           "y": 1218.75
         },
-        "entity-ESvaV0FzaCQiE1Nj": { "x": 1609.375, "y": 1218.75 },
+        "entity-ESvaV0FzaCQiE1Nj": { "x": 1484.375, "y": 1218.75 },
         "entity-63da69c8729911afdc3332781241bfe86b46719d3591bf734b5380603877b502": {
           "x": 343.75,
           "y": 937.5
         },
         "entity-Gd-5uvi9PnWL724w": { "x": 1859.375, "y": 1359.375 },
-        "graph-nOtEYEjHoQD1J0vU": { "x": 1671.875, "y": 500 },
+        "graph-nOtEYEjHoQD1J0vU": { "x": 1671.875, "y": 515.625 },
         "entity-254ae07c15bcc5ccec4ae1072b20d6028718e2afe63eb90b89c9ac255cd63af3": {
           "x": 500,
           "y": 1359.375
@@ -1445,7 +1445,7 @@
           "x": 218.75,
           "y": 828.125
         },
-        "graph-Ag2pJE4-Wtr2of8M": { "x": 1687.5, "y": 1031.25 },
+        "graph-Ag2pJE4-Wtr2of8M": { "x": 1671.875, "y": 1062.5 },
         "entity-lGbXZr2Ky2lL-YxM": { "x": 1203.125, "y": 625 },
         "entity-8vqw5f-kURJBoRiS": { "x": 921.875, "y": 1031.25 },
         "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": {
@@ -1456,13 +1456,13 @@
         "entity-SDCTX18UIWinXcZS": { "x": 1484.375, "y": 1031.25 },
         "entity-dqBjxyGL4eopaLS2": { "x": 1484.375, "y": 828.125 },
         "entity-gau2LSEVmIwzQTK5": { "x": 1484.375, "y": 328.125 },
-        "entity-b_SX0cDPSfD-nQ1w": { "x": 1312.5, "y": 1218.75 },
+        "entity-b_SX0cDPSfD-nQ1w": { "x": 1296.875, "y": 1218.75 },
         "entity-9884e2b6da0f53955d94673b6445701e4f0e6703a005b15da4c52810034d1087": {
           "x": 750,
-          "y": 906.25
+          "y": 953.125
         },
-        "note-phcALrFcLYF9D8OR": { "x": 1296.875, "y": 859.375 },
-        "note-RTMl-rS8wDRHticj": { "x": 984.375, "y": 375 },
+        "note-phcALrFcLYF9D8OR": { "x": 1296.875, "y": 843.75 },
+        "note-RTMl-rS8wDRHticj": { "x": 1250, "y": 468.75 },
         "graph-REq5SXPre4MP2olX": { "x": 2046.875, "y": 656.25 }
       },
       "marker": [
@@ -1778,15 +1778,15 @@
       "allocations": {
         "edge-1d49763de71dffec12e4bbcbf49bd3f6d821cceb2adced26fb9179f21b3002c8": {
           "x": 1203.125,
-          "y": -1031.25
+          "y": -875
         },
         "edge-397da4756da7453af2e45a19b0b3350b59019a337660626b040d93dbb26e260f": {
           "x": 2007.8125,
           "y": -1367.1875
         },
         "edge-3db03ef46fc6b3ea39ecd13a7c7ac22699d736eddd5bd25038fd2c866ae1d325": {
-          "x": 1328.125,
-          "y": -953.125
+          "x": 1468.75,
+          "y": -968.75
         },
         "edge-90079509e0d063a91925f88cc2f7769c6c760273e8170911fbe343592d2c4d4c": {
           "x": 2195.3125,
@@ -1805,8 +1805,8 @@
           "y": -929.6875
         },
         "edge-5fca4c0541771435c484276991c637466bd1c72c202a49caf0ed49eacbc6f06a": {
-          "x": 1609.375,
-          "y": -1046.875
+          "x": 1750,
+          "y": -1140.625
         },
         "edge-dc552b6aafeba92c7d4151e8d53189c898f4dd0e1c478e2dd2c93d570d9eb378": {
           "x": 1890.625,
@@ -1823,7 +1823,7 @@
         "entity-gpWA05FPYjfitN1u": { "x": 3031.25, "y": -875 },
         "entity-OfcVtBgw4_Vhy2Ap": { "x": 1890.625, "y": -1218.75 },
         "entity-HZDwUFYsoSgPGG0Z": { "x": 1546.875, "y": -593.75 },
-        "graph-nOtEYEjHoQD1J0vU": { "x": 1046.875, "y": -859.375 },
+        "graph-nOtEYEjHoQD1J0vU": { "x": 1140.625, "y": -734.375 },
         "entity-tW83QJ2DEs3NY0fV": { "x": 1890.625, "y": -875 },
         "entity-araY8ubeDzYJlWxs": { "x": 1171.875, "y": -531.25 },
         "entity-mr5bj0ndOWfQr3PW": { "x": 2312.5, "y": -1218.75 },
@@ -1834,24 +1834,24 @@
           "x": 1187.5,
           "y": -265.625
         },
-        "entity-SDCTX18UIWinXcZS": { "x": 1328.125, "y": -1031.25 },
+        "entity-SDCTX18UIWinXcZS": { "x": 1328.125, "y": -875 },
         "entity-41rptBw5_k_NaE0A": { "x": 2500, "y": -984.375 },
         "entity-yx1op9Z2gUuGw03T": { "x": 2125, "y": -1515.625 },
         "entity-c3MsLUyjCbi8983F": { "x": 1890.625, "y": -390.625 },
         "entity-zm-wMGqjsesbrt-3": { "x": 1796.875, "y": -718.75 },
-        "entity-dqBjxyGL4eopaLS2": { "x": 1078.125, "y": -1031.25 },
+        "entity-dqBjxyGL4eopaLS2": { "x": 1078.125, "y": -875 },
         "entity-mAe15mUCDQOU-hY6": { "x": 2078.125, "y": -1000 },
         "predicate-_5JFNJgnHXvQr5VV": { "x": 1562.5, "y": -875 },
         "predicate--9byTCcVi5SyLpCI": { "x": 1890.625, "y": -531.25 },
-        "entity-8vqw5f-kURJBoRiS": { "x": 1328.125, "y": -875 },
+        "entity-8vqw5f-kURJBoRiS": { "x": 1609.375, "y": -1062.5 },
         "predicate-mI-ABJteeLQzoo9c": { "x": 2171.875, "y": -875 },
         "predicate-Q_7bboc56E3JEXG6": { "x": 2312.5, "y": -875 },
         "predicate-rJ0SGId38ll-x3ZB": { "x": 2703.125, "y": -875 },
-        "note-z29uSJuITDMNTaNJ": { "x": 1046.875, "y": -718.75 },
+        "note-z29uSJuITDMNTaNJ": { "x": 875, "y": -750 },
         "predicate-jls62x6hMPA8HJLJ": { "x": 2500, "y": -875 },
         "predicate-yVLjBQqph3zmczYz": { "x": 2828.125, "y": -875 },
         "media-NWvRMxzqTdCtfgHk": { "x": 1875, "y": -1390.625 },
-        "media-kIwxlG5yR0WUwTdH": { "x": 1406.25, "y": -1312.5 },
+        "media-kIwxlG5yR0WUwTdH": { "x": 1250, "y": -1171.875 },
         "entity-ESvaV0FzaCQiE1Nj": { "x": 1171.875, "y": -390.625 },
         "media-4IOhDgzbSwMabdkd": { "x": 2250, "y": -500 },
         "media-Cz7xvqnCp80lFyH1": { "x": 2843.75, "y": -796.875 },
@@ -1916,10 +1916,10 @@
         },
         {
           "bounds": {
-            "x1": 414.82399286378285,
-            "x2": 2308.3347885964713,
-            "y1": -1718.3390563935877,
-            "y2": -750.8934501337817
+            "x1": 541.2071842705753,
+            "x2": 2091.495652721038,
+            "y1": -1432.8370767303961,
+            "y2": -604.6159191915968
           },
           "time": 3.024391,
           "states": {
@@ -3597,11 +3597,6 @@
       "graph": "graph-Ag2pJE4-Wtr2of8M"
     },
     {
-      "nodes": ["entity-8vqw5f-kURJBoRiS", "predicate-_5JFNJgnHXvQr5VV"],
-      "arrow": "→",
-      "graph": "graph-Ag2pJE4-Wtr2of8M"
-    },
-    {
       "nodes": [
         "entity-8vqw5f-kURJBoRiS",
         "edge-3db03ef46fc6b3ea39ecd13a7c7ac22699d736eddd5bd25038fd2c866ae1d325"
@@ -4257,14 +4252,6 @@
     },
     {
       "nodes": [
-        "entity-07c32388ceaffeaf81e4ff5ec5681a981824ac2a14edab6dd84dbb85fe5f2ef1",
-        "entity-b_SX0cDPSfD-nQ1w"
-      ],
-      "arrow": "→",
-      "graph": "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a"
-    },
-    {
-      "nodes": [
         "entity-SDCTX18UIWinXcZS",
         "edge-8dd96f7860b0b4a7abc2e1a8bee8019dbc5b7707cf3c13fcd1fdb5f67127d023"
       ],
@@ -4759,6 +4746,11 @@
       "nodes": ["predicate-Oxw9zQS8hgV_nbVZ", "entity-oEQwWGKwv9d0342i"],
       "arrow": "→",
       "graph": "graph-REq5SXPre4MP2olX"
+    },
+    {
+      "nodes": ["entity-SDCTX18UIWinXcZS", "predicate-_5JFNJgnHXvQr5VV"],
+      "arrow": "→",
+      "graph": "graph-Ag2pJE4-Wtr2of8M"
     }
   ]
 }
