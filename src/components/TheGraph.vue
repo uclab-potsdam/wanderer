@@ -63,7 +63,10 @@ const bounds = computed(() => {
 const edges = computed(() => {
   const nodes = Object.keys(allocations.value)
   return dataStore.data.edges.filter(
-    (edge) => nodes.includes(edge.nodes[0]) && nodes.includes(edge.nodes[1])
+    (edge) =>
+      nodes.includes(edge.nodes[0]) &&
+      nodes.includes(edge.nodes[1]) &&
+      (edge.graph === id.value || node.value.type !== 'graph')
   )
 })
 
