@@ -25,27 +25,28 @@ const props = defineProps({
 const source = computed(() => layoutStore.nodes[props.edge.nodes[0]])
 const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
 
-const occurances = computed(() => {
-  const predicate =
-    dataStore.data.nodes[props.edge.nodes[0]].type === 'predicate'
-      ? props.edge.nodes[0]
-      : dataStore.data.nodes[props.edge.nodes[1]].type === 'predicate'
-        ? props.edge.nodes[1]
-        : null
-  if (predicate === null) return
-  return dataStore.graphs.filter((d) =>
-    Object.prototype.hasOwnProperty.call(d.allocations ?? {}, predicate)
-  )
-})
+// const occurances = computed(() => {
+//   const predicate =
+//     dataStore.data.nodes[props.edge.nodes[0]].type === 'predicate'
+//       ? props.edge.nodes[0]
+//       : dataStore.data.nodes[props.edge.nodes[1]].type === 'predicate'
+//         ? props.edge.nodes[1]
+//         : null
+//   if (predicate === null) return
+//   return dataStore.graphs.filter((d) =>
+//     Object.prototype.hasOwnProperty.call(d.allocations ?? {}, predicate)
+//   )
+// })
 
 const color = computed(() => {
-  if (
-    occurances.value == null ||
-    occurances.value.length === 0 ||
-    occurances.value[0].color == null
-  )
-    return
-  return { '--graph-accent': `var(--${occurances.value[0].color})` }
+  // if (
+  //   occurances.value == null ||
+  //   occurances.value.length === 0 ||
+  //   occurances.value[0].color == null
+  // )
+  //   return
+  // return { '--graph-accent': `var(--${occurances.value[0].color})` }
+  return { '--graph-accent': `var(--${dataStore.data.nodes[props.edge.graph].color})` }
 })
 
 const display = computed(() => displayStore.inheritStateFromNodes(props.edge.nodes))
