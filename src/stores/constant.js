@@ -12,6 +12,7 @@ export const useConstantStore = defineStore('constant', () => {
     .replace(/px$/, '')
 
   const mediaServerUrl = import.meta.env.VITE_MEDIA_SERVER.replace(/\/$/, '')
+  const databaseUrl = import.meta.env.VITE_DATABASE_URL.replace(/\/$/, '')
 
-  return { transition, spacing, mediaServerUrl }
+  return { transition, spacing, mediaServerUrl, databaseUrl }
 })

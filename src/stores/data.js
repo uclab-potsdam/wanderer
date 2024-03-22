@@ -1,12 +1,15 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
+import { useConstantStore } from './constant'
+
 export const useDataStore = defineStore('data', () => {
+  const constantStore = useConstantStore()
   const data = ref(null)
   const nodeId = ref(null)
 
   async function init() {
-    data.value = await fetch('/db.json').then((d) => d.json())
+    data.value = await fetch(constantStore.databaseUrl).then((d) => d.json())
   }
 
   const nodeOccurances = computed(() => {
