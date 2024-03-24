@@ -2543,7 +2543,7 @@
         "duration": 162,
         "file": ["using utu.mp4"],
         "text": { "en": "using utu" },
-        "subtitles": { "en": "using utu - en.srt" }
+        "subtitles": { "de": "using utu - pt.srt", "en": "using utu - en.srt" }
       },
       "allocations": {
         "edge-2addbf2c2e6d0d25ad30a42a9ad3f47f53852788cdf60e38ed7d04c524f8ad1f": {
@@ -2962,10 +2962,10 @@
         {
           "time": 7.197855,
           "states": {
+            "predicate-5ckP_MaUyX2HS4ar": "highlight",
             "media-O2fQaQR6xL3ihWKi": "hide",
             "entity-ESvaV0FzaCQiE1Nj": "highlight",
-            "predicate-5ckP_MaUyX2HS4ar": "hide",
-            "entity-krH3BoegxTDlhwoZ": "default"
+            "entity-krH3BoegxTDlhwoZ": "hide"
           }
         },
         {
