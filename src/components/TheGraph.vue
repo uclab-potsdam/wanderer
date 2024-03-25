@@ -33,6 +33,7 @@ const transform = ref({ x: 0, y: 0, k: 1 })
 
 const id = computed(() => route.params.id)
 const node = computed(() => dataStore.data.nodes[id.value])
+const view = computed(() => (route.params.type === 'graph' ? 'diagram' : 'network'))
 
 const transformString = computed(
   () => `translate(${transform.value.x}px, ${transform.value.y}px) scale(${transform.value.k})`
@@ -192,13 +193,14 @@ const resizeObserver = new ResizeObserver((entries) => {
           :id="id"
           :position="allocations[id]"
           :transform="transform"
+          :view="view"
         />
       </TransitionGroup>
     </div>
     <svg>
       <g :style="{ transform: transformString }">
         <TransitionGroup name="edges">
-          <GraphEdge v-for="edge in edges" :key="edge.nodes.join('/')" :edge="edge" />
+          <GraphEdge v-for="edge in edges" :key="edge.nodes.join('/')" :edge="edge" :view="view" />
         </TransitionGroup>
       </g>
     </svg>

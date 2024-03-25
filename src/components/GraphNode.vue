@@ -14,6 +14,7 @@ import { getComponentForType } from '@/assets/js/nodes'
 
 const props = defineProps({
   id: String,
+  view: String,
   position: Object,
   transform: Object
 })
@@ -99,7 +100,11 @@ onBeforeUnmount(() => {
     ref="componentRef"
     :id="id"
     class="node"
-    :class="[display, { 'user-active': !activityStore.inactivityShort || !videoStore.playing }]"
+    :class="[
+      display,
+      view,
+      { 'user-active': !activityStore.inactivityShort || !videoStore.playing }
+    ]"
     :style="positioning"
     :node="node"
     :occurances="occurances"

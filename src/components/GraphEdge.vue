@@ -19,7 +19,8 @@ const videoStore = useVideoStore()
 const dataStore = useDataStore()
 
 const props = defineProps({
-  edge: Object
+  edge: Object,
+  view: String
 })
 
 const source = computed(() => layoutStore.nodes[props.edge.nodes[0]])
@@ -105,7 +106,11 @@ const markerStart = computed(
 <template>
   <g
     class="edge"
-    :class="[display, { 'user-active': !activityStore.inactivityShort || !videoStore.playing }]"
+    :class="[
+      display,
+      view,
+      { 'user-active': !activityStore.inactivityShort || !videoStore.playing }
+    ]"
     :style="color"
   >
     <defs>
@@ -135,16 +140,18 @@ const markerStart = computed(
 
 <style scoped>
 .edge {
-  stroke: color-mix(in lab, var(--graph-accent), var(--color-text) 40%);
   transition: all var(--transition);
+  --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
+  stroke: color-mix(in lab, var(--tinted), var(--color-background) 10%);
 
   &.hide {
     opacity: 0.2;
     filter: blur(10px);
 
     &.user-active {
-      opacity: 0.6;
-      filter: blur(0px);
+      filter: none;
+      opacity: 1;
+      stroke: color-mix(in lab, var(--tinted), var(--color-background) 50%);
     }
   }
 
@@ -160,8 +167,9 @@ const markerStart = computed(
     /* transition: all var(--transition); */
   }
 
-  &.highlight {
-    stroke: var(--graph-accent);
+  &.highlight,
+  &.network {
+    stroke: color-mix(in lab, var(--graph-accent), var(--color-text) 10%);
   }
 }
 </style>

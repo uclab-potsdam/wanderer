@@ -21,7 +21,8 @@ defineExpose({
 <template>
   <div class="entity" ref="el">
     <span class="text measure-width">{{ text }}</span>
-    <span class="class measure-width" v-if="className != null"><br />{{ className }}</span>
+    <br v-if="className != null" />
+    <span class="class measure-width" v-if="className != null">{{ className }}</span>
   </div>
 </template>
 
@@ -29,13 +30,29 @@ defineExpose({
 .entity {
   max-width: 250px;
   padding: calc(var(--spacing) * 0.5);
-  color: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
+  --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
+  color: color-mix(in lab, var(--tinted), var(--color-background) 10%);
+
+  &.hide {
+    opacity: 0.2;
+    filter: blur(10px);
+
+    &.user-active {
+      filter: none;
+      opacity: 1;
+      color: color-mix(in lab, var(--tinted), var(--color-background) 50%);
+    }
+  }
 
   &.highlight {
-    color: color-mix(in lab, var(--graph-accent), var(--color-text) 10%);
+    color: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
 
-    /* span {
-      --highlight-color: var(--graph-accent);
+    span {
+      --highlight-color: color-mix(in lab, var(--graph-accent), transparent 60%);
+      padding: 0.1em 10px;
+      margin: -0.1em -10px;
+      border-radius: 10px 2.5px 7.5px 5.5px;
+      box-decoration-break: clone;
 
       background: linear-gradient(
           100deg,
@@ -52,8 +69,13 @@ defineExpose({
           color-mix(in lab, var(--highlight-color), transparent 70%) 7.9%,
           color-mix(in lab, var(--highlight-color), transparent 99%) 50%
         );
-    } */
+    }
   }
+
+  &.network {
+    color: var(--color-text);
+  }
+
   width: max-content;
   .text {
     font-weight: 900;
