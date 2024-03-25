@@ -27,7 +27,7 @@ defineExpose({ el })
 
 <style scoped>
 .entity {
-  color: color-mix(in lab, var(--graph-accent), var(--color-text) 40%);
+  color: color-mix(in lab, var(--graph-accent), var(--color-text) 20%);
   max-width: 250px;
   padding: calc(var(--spacing) * 0.5);
   width: max-content;
@@ -35,13 +35,15 @@ defineExpose({ el })
   hyphens: auto;
 
   font-size: 14px;
+  font-weight: 460;
+  letter-spacing: 0.05px;
   font-style: oblique 8deg;
 
   &.highlight {
     color: var(--graph-accent);
   }
   .wrap {
-    border: 1px dashed color-mix(in lab, var(--graph-accent), var(--color-background) 70%);
+    /* border: 1px dashed color-mix(in lab, var(--graph-accent), var(--color-background) 70%); */
     padding: calc(var(--spacing) * 0.5);
     border-radius: calc(var(--spacing) * 0.25);
   }
