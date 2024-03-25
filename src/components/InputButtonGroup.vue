@@ -16,8 +16,8 @@ defineEmits(['zoom-in', 'zoom-out'])
   right: 0px;
   --accent: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
   display: grid;
-  grid-auto-columns: 1fr;
-  grid-auto-flow: column;
+  grid-auto-rows: 1fr;
+  grid-auto-flow: row;
   text-align: center;
   align-self: center;
 
