@@ -1,6 +1,5 @@
 <script setup>
 import { useDataStore } from '@/stores/data'
-import { useRoute, useRouter } from 'vue-router'
 import { computed } from 'vue'
 import { useVideoStore } from '@/stores/video'
 import { useHelperStore } from '@/stores/helper'

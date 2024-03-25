@@ -1,30 +1,20 @@
 <script setup>
-defineProps({
-  modelValue: [String, Boolean, Number],
-  options: Array,
-  label: String,
-  name: String
-})
-defineEmits(['update:modelValue'])
+defineEmits(['zoom-in', 'zoom-out'])
 </script>
 <template>
   <div class="input-segment">
-    <label v-for="(option, i) in options" :key="i">
-      <template v-if="!option.slot">{{ option.label ?? option.value ?? option }}</template>
-      <template v-else><slot :name="option.slot"></slot></template>
-      <input
-        type="radio"
-        :name="name"
-        :checked="(option.value ?? option) === modelValue"
-        :value="option.value ?? option"
-        @change="$emit('update:modelValue', option.value ?? option)"
-      />
-    </label>
+    <div role="button" @click="$emit('zoom-in')" class="zoom-in">+</div>
+    <div role="button" @click="$emit('zoom-out')" class="zoom-out">–</div>
   </div>
 </template>
 
 <style scoped>
 .input-segment {
+  z-index: 100;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  --accent: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
@@ -34,7 +24,7 @@ defineEmits(['update:modelValue'])
   background: color-mix(in lab, var(--accent), transparent 90%);
   backdrop-filter: blur(7px);
   border-radius: 5px;
-  margin: 0 calc(var(--spacing) / 4);
+  margin: calc(var(--spacing) / 4);
   /* height: var(--spacing); */
   /* font-size: 14px; */
   text-transform: uppercase;
@@ -43,7 +33,7 @@ defineEmits(['update:modelValue'])
   color: color-mix(in lab, var(--accent), var(--color-text) 30%);
   font-weight: bold;
 
-  label {
+  > div {
     transition: all var(--ui-transition);
     padding: calc(var(--spacing) / 4) calc(var(--spacing) / 2);
     border-radius: 3px;

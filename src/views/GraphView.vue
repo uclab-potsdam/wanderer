@@ -34,7 +34,7 @@ const videoStore = useVideoStore()
 
   grid-template-rows:
     [graph-start-y video-start-y] 1fr
-    [controls-start-y] calc(var(--spacing) * 2)
+    [controls-start-y] calc(var(--spacing) * 2.5)
     [graph-end-y video-end-y controls-end-y];
 
   &.split-screen {

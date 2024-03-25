@@ -4,6 +4,8 @@ import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
 import { computeAllocations } from '@/assets/js/nodeAllocation'
 
+import InputButtonGroup from '@/components/InputButtonGroup.vue'
+
 import { useRoute, useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { useConstantStore } from '@/stores/constant'
@@ -104,7 +106,7 @@ watch(
 onMounted(() => {
   zoomElementSelection.value = select(zoomElement.value)
   zoomBehaviour.value = zoom()
-    .scaleExtent([0.1, 2])
+    .scaleExtent([0.2, 2])
     .on('zoom', (e) => {
       transform.value = e.transform
     })
@@ -169,6 +171,20 @@ function zoomToBounds(bounds, duration = 0) {
     )
 }
 
+function zoomIn() {
+  zoomElementSelection.value
+    .transition()
+    .duration(constantStore.transition)
+    .call(zoomBehaviour.value.scaleBy, 2)
+}
+
+function zoomOut() {
+  zoomElementSelection.value
+    .transition()
+    .duration(constantStore.transition)
+    .call(zoomBehaviour.value.scaleBy, 0.5)
+}
+
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.contentRect) {
@@ -205,7 +221,8 @@ const resizeObserver = new ResizeObserver((entries) => {
       </g>
     </svg>
   </main>
-  <div class="tint" />
+  <div class="tint" :style="cssProps" />
+  <InputButtonGroup :style="cssProps" @zoom-in="zoomIn" @zoom-out="zoomOut" />
 </template>
 
 <style scoped>
