@@ -212,7 +212,7 @@
     "entity-HvHg6s-d5ji7unFl": {
       "type": "entity",
       "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
-      "text": { "en": "Uhi's revenge" }
+      "text": { "en": "Uhi's revenge", "pt": "a vinganca de Uhi" }
     },
     "entity-IiczFDrzayC_TTle": {
       "type": "entity",
@@ -237,7 +237,7 @@
     "entity-L-30eMyDg1K1_8Pw": {
       "type": "entity",
       "class": { "en": "actor", "pt": "ator" },
-      "text": { "en": "spirit animal" }
+      "text": { "en": "spirit animal", "pt": "animal-espírito" }
     },
     "entity-L7vUYITsLNaS_Nrx": {
       "type": "entity",
@@ -263,12 +263,12 @@
     "entity-Q2jSY4-cgD9Czt08": {
       "type": "entity",
       "class": { "en": "actor", "pt": "ator" },
-      "text": { "en": "Hyper Bicuda" }
+      "text": { "en": "Hyper Bicuda", "pt": "bicuda espírito" }
     },
     "entity-Q31pwH9xQ12GaPy-": {
       "type": "entity",
       "class": { "en": "body part", "pt": "parte do corpo" },
-      "text": { "en": "Uhi's veins" }
+      "text": { "en": "Uhi's veins", "pt": "veias de Uhi" }
     },
     "entity-QQmHLrWWr6eaDlc7": {
       "type": "entity",
@@ -289,7 +289,7 @@
     "entity-QhBvY4JdT_e4jvpx": {
       "type": "entity",
       "class": { "en": "actor", "pt": "ator" },
-      "text": { "en": "hyper fish" }
+      "text": { "en": "hyper fish", "pt": "peixes-espírito" }
     },
     "entity-R4u7NnYuslxbEAkd": {
       "type": "entity",
@@ -360,7 +360,7 @@
     "entity-ZgZWHecoAS4mh8pB": {
       "type": "entity",
       "class": { "en": "object", "pt": "objeto" },
-      "text": { "en": "bow and arrow" }
+      "text": { "en": "bow and arrow", "pt": "arco e flecha" }
     },
     "entity-_MgBGt3w-eMJGUmN": {
       "type": "entity",
@@ -392,7 +392,7 @@
     "entity-bF5gZkSRorj4ruvB": {
       "type": "entity",
       "class": { "en": "body part", "pt": "parte do corpo" },
-      "text": { "en": "Uhi's back" }
+      "text": { "en": "Uhi's back", "pt": "as costas de Uhi" }
     },
     "entity-b_SX0cDPSfD-nQ1w": {
       "type": "entity",
@@ -469,12 +469,12 @@
     "entity-hkPCMUWl74floN6s": {
       "type": "entity",
       "class": { "en": "actor", "pt": "ator" },
-      "text": { "en": "Sun" }
+      "text": { "en": "Sun", "pt": "Sol" }
     },
     "entity-iG6_wAKfpwiRxcWu": {
       "type": "entity",
       "class": { "en": "body part", "pt": "parte do corpo" },
-      "text": { "en": "Uhi's shinbone" }
+      "text": { "en": "Uhi's shinbone", "pt": "osso da canela de Uhi" }
     },
     "entity-iaUryxgF2GTa2Sbp": {
       "type": "entity",
@@ -534,7 +534,7 @@
     "entity-oEQwWGKwv9d0342i": {
       "type": "entity",
       "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
-      "text": { "en": "Buriti  tree" }
+      "text": { "en": "buriti palm", "pt": "palmeira de buriti" }
     },
     "entity-pZr6nneF5w6LNJDd": {
       "type": "entity",
@@ -550,7 +550,7 @@
     "entity-qT5xzoPdH8jehATY": {
       "type": "entity",
       "class": { "en": "place", "pt": "lugar" },
-      "text": { "en": "Lagoon of Ihumba" }
+      "text": { "en": "Lagoon of Ihumba", "pt": "Lagoa de Ihumba" }
     },
     "entity-sLZPaUowFR7cmgKg": {
       "type": "entity",
@@ -597,7 +597,7 @@
     "entity-vW6pmqDJ_zBk3tW3": {
       "type": "entity",
       "class": { "en": "story", "pt": "história" },
-      "text": { "en": "Uhi's Death" }
+      "text": { "en": "Uhi's Death", "pt": "A morte de Uhi" }
     },
     "entity-wpbEsvHMiLBymLYP": {
       "type": "entity",
@@ -677,25 +677,23 @@
     "entity-hxrJu41ra_e2dmMW": {
       "type": "entity",
       "class": { "en": "actor", "pt": "ator" },
-      "text": { "en": "Hyper Bicudinha" }
+      "text": { "en": "bicudinha espírito" }
     },
     "entity-hLeVNyp8UrhQZGII": {
       "type": "entity",
       "class": { "en": "object part", "pt": "parte do objeto" },
-      "text": { "en": "Arrowhead" }
+      "text": { "en": "arrowhead", "pt": "ponta de flecha" }
     },
     "entity-M74ydW7dbPamOI0b": {
       "type": "entity",
       "class": { "en": "actor", "pt": "ator" },
-      "text": { "en": "spirit women" }
+      "text": { "en": "spirit women", "pt": "mulheres-espírito" }
     },
-    "entity-B1qOLtj9paWdiukZ": { "type": "entity", "text": { "en": "Uhi´s body" } },
-    "entity-35C284BpJRaSlnPQ": {
+    "entity-B1qOLtj9paWdiukZ": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
-      "text": { "en": "spirit piranha" }
+      "text": { "en": "Uhi´s body", "pt": "corpo de Uhi" }
     },
-    "entity-Cxz99bmQ--b-nNzM": {
+    "entity-35C284BpJRaSlnPQ": {
       "type": "entity",
       "class": { "en": "actor", "pt": "ator" },
       "text": { "en": "spirit piranha" }
@@ -705,7 +703,6 @@
       "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
       "text": { "de": "singen", "en": "singing", "pt": "canta" }
     },
-    "entity-nmAJXvBldgl-xLHP": { "type": "entity", "text": { "en": "and" } },
     "edge-13b79419bfce1c06da8a5745413233c311874b7711d1e3a7650c43365ab6114a": {
       "type": "predicate",
       "inheritDisplay": true,
@@ -994,7 +991,12 @@
     "edge-80465c9b3b53ed0ced52bbecd6689830ed3b6957f1fa389680c63bcdb890a22b": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "from" }
+      "text": { "en": "from", "pt": "em" }
+    },
+    "edge-ea26e7bd103f38fb71e67be6947d527b4453409d8d44c31c65f1c149e6a15084": {
+      "type": "predicate",
+      "inheritDisplay": true,
+      "text": { "en": "is type of", "pt": "é um tipo de" }
     },
     "edge-03323070d36805f6c3e525077ccbaf78e8b4411a8badcb893c1afd4d60539aa1": {
       "type": "predicate",
@@ -1009,7 +1011,7 @@
     "edge-7c54ce24459b5a483815de7827821f97276f6c0e1cce8fa9c93adcc96362b4ea": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "uses" }
+      "text": { "en": "using", "pt": "usando" }
     },
     "edge-2af109642e90caf048d609a3d86dd4f00bdd85377d198fdf845d47ec5b956ef6": {
       "type": "predicate",
@@ -1024,7 +1026,7 @@
     "edge-5c7fbf2fd3299a88bf3985eeb076e722bed9620b7cc4a5491218e8a4b4b859f3": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "transforms into" }
+      "text": { "en": "transforms into", "pt": "se transforma em" }
     },
     "edge-6236f5954498dec474e121d822c119d55749b2045d3cc565f4c3b33ae3d06ab4": {
       "type": "predicate",
@@ -1034,14 +1036,19 @@
     "edge-bfae19749ad4100733c84a4765986ef9fde53cea502965492e90979cdc1fa0d7": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "to" }
+      "text": { "en": "to", "pt": "para" }
     },
     "edge-3177089f1d7e88cbc018db97972539460226ed26377683229089f79046cf921b": {
       "type": "predicate",
       "inheritDisplay": true,
-      "text": { "en": "eat" }
+      "text": { "en": "eat", "pt": "come" }
     },
     "edge-0fc65752e8537e84b3f4b2f6cfffa36f0c7969da024f3c6764d90df9e4799db2": {
+      "type": "predicate",
+      "inheritDisplay": true,
+      "text": { "en": "is type of", "pt": "é um tipo de" }
+    },
+    "edge-650e0413757c96218f031073e0de8edad1421628303cc2aa7c7d65c34e0126ec": {
       "type": "predicate",
       "inheritDisplay": true,
       "text": { "en": "is type of", "pt": "é um tipo de" }
@@ -1137,41 +1144,93 @@
     },
     "predicate-KZIhlYGTidBMM56j": {
       "type": "predicate",
-      "text": { "de": "fischt", "en": "fishes" }
+      "text": { "de": "fischt", "en": "fishes", "pt": "pesca" }
     },
-    "predicate-I1InOUKSEzpwzdEL": { "type": "predicate", "text": { "en": "a lot of" } },
-    "predicate-9q1mQ-EndrjTvgIJ": { "type": "predicate", "text": { "en": "practices" } },
-    "predicate-rGwYAEhWpgiWSayo": { "type": "predicate", "text": { "en": "jumping" } },
-    "predicate-5ckP_MaUyX2HS4ar": { "type": "predicate", "text": { "en": "celebrate" } },
-    "predicate-4Nypar4nhMrliT33": { "type": "predicate", "text": { "en": "is part of" } },
-    "predicate-AzGYQypNWc1Ynt0D": { "type": "predicate", "text": { "en": "transforms into" } },
-    "predicate-NLib96LzEFco35B9": { "type": "predicate", "text": { "en": "used in" } },
+    "predicate-I1InOUKSEzpwzdEL": {
+      "type": "predicate",
+      "text": { "en": "a lot of", "pt": "muitos" }
+    },
+    "predicate-9q1mQ-EndrjTvgIJ": {
+      "type": "predicate",
+      "text": { "en": "practices", "pt": "praticar" }
+    },
+    "predicate-rGwYAEhWpgiWSayo": {
+      "type": "predicate",
+      "text": { "en": "jumping", "pt": "saltar" }
+    },
+    "predicate-5ckP_MaUyX2HS4ar": {
+      "type": "predicate",
+      "text": { "en": "celebrate", "pt": "celebrar" }
+    },
+    "predicate-4Nypar4nhMrliT33": {
+      "type": "predicate",
+      "text": { "en": "is part of", "pt": "é parte de" }
+    },
+    "predicate-AzGYQypNWc1Ynt0D": {
+      "type": "predicate",
+      "text": { "en": "transforms into", "pt": "se transforma em" }
+    },
+    "predicate-NLib96LzEFco35B9": {
+      "type": "predicate",
+      "text": { "en": "used in", "pt": "usado na" }
+    },
     "predicate-0H5vPOmJB-IAMGfs": { "type": "predicate", "text": { "en": "used in" } },
-    "predicate-hP5Ispk8b5imRnKx": { "type": "predicate", "text": { "en": "serve" } },
-    "predicate-BiOtZFYmw8uAgFP5": { "type": "predicate", "text": { "en": "jumps on" } },
-    "predicate-FVoUPJS5icFQtyOW": { "type": "predicate", "text": { "en": "inhabited by" } },
-    "predicate-p_nYR-hMjaDwkSmi": { "type": "predicate", "text": { "en": "while" } },
+    "predicate-hP5Ispk8b5imRnKx": {
+      "type": "predicate",
+      "text": { "en": "serve", "pt": "serve para" }
+    },
+    "predicate-BiOtZFYmw8uAgFP5": {
+      "type": "predicate",
+      "text": { "en": "jumps on", "pt": "pula sobre" }
+    },
+    "predicate-FVoUPJS5icFQtyOW": {
+      "type": "predicate",
+      "text": { "de": "vive", "en": "inhabits" }
+    },
+    "predicate-p_nYR-hMjaDwkSmi": {
+      "type": "predicate",
+      "text": { "en": "while", "pt": "enquanto" }
+    },
     "predicate-6KQmG8ZZR2CRP01I": { "type": "predicate", "text": { "en": "singing" } },
     "predicate-pNagZZ1LtMU-2o6P": { "type": "predicate", "text": { "en": "is type of" } },
-    "predicate-a-XwoI5BUDrSfWpR": { "type": "predicate", "text": { "en": "sing" } },
-    "predicate-BA1bVNJRL5TT1vVu": { "type": "predicate", "text": { "en": "taking" } },
-    "predicate-BBvVNbU_rqg_F3Zo": { "type": "predicate", "text": { "en": "towards" } },
-    "predicate-Al7lWr-3HV1W_Us-": { "type": "predicate", "text": { "en": "attacts" } },
-    "predicate-Oxw9zQS8hgV_nbVZ": { "type": "predicate", "text": { "en": "reaches" } },
+    "predicate-a-XwoI5BUDrSfWpR": { "type": "predicate", "text": { "en": "sing", "pt": "cantar" } },
+    "predicate-BA1bVNJRL5TT1vVu": {
+      "type": "predicate",
+      "text": { "en": "taking", "pt": "levar o" }
+    },
+    "predicate-BBvVNbU_rqg_F3Zo": {
+      "type": "predicate",
+      "text": { "en": "towards", "pt": "em direção" }
+    },
+    "predicate-Al7lWr-3HV1W_Us-": {
+      "type": "predicate",
+      "text": { "en": "attacts", "pt": "ataca" }
+    },
+    "predicate-Oxw9zQS8hgV_nbVZ": {
+      "type": "predicate",
+      "text": { "en": "reaches", "pt": "alcança" }
+    },
     "note-uys9pk6xjXBOXy8Z": { "type": "note", "text": { "en": "test note" } },
     "note-9Z_u2Of-0MSzjSkO": {
       "type": "note",
       "text": {
-        "en": "The mention of his source of learning gives him the authority to talk about the production process for the Xinguanos."
+        "en": "The mention of his source of learning gives him the authority to talk about the production process for the Xinguanos.",
+        "pt": "Para os Xinguanos, a referência à fonte de aprendizado confere autoridade para falar sobre um processo de produção."
       }
     },
     "note-z29uSJuITDMNTaNJ": {
       "type": "note",
-      "text": { "en": "another type of fish trap used by Xingú men is shown here" }
+      "text": {
+        "en": "another type of fish trap used by Xingú men is shown here",
+        "pt": "Outro tipo de armadilha para peixes usada pelos homens xinguanos é mostrado aqui."
+      }
     },
     "note-aHk6lfL62xEIHkt6": {
       "type": "note",
-      "text": { "en": "another type of fish trap used by Xingú women is shown here" }
+      "text": {
+        "en": "another type of fish trap used by Xingú women is shown here",
+        "pt": "Outro tipo de armadilha para peixes usada pelas mulheres xinguanas é mostrado aqui."
+      }
     },
     "note-phcALrFcLYF9D8OR": {
       "type": "note",
@@ -1508,8 +1567,8 @@
           "y": 429.6875
         },
         "edge-3000a463a4c44dc498040c4f7304ee77f3e4d06180cfc05663c981a6ec19a134": {
-          "x": 1000,
-          "y": 398.4375
+          "x": 1015.625,
+          "y": 437.5
         },
         "edge-fa282a854a3fd50a0ef56dd198c7165ca370cc2be3954f3bca41e264def89895": {
           "x": 1312.5,
@@ -1532,7 +1591,7 @@
         "entity-1-gYMvPO06kOVXJh": { "x": 1656.25, "y": 500 },
         "entity-C2-iqFnQBONHBIPb": { "x": 1656.25, "y": 671.875 },
         "entity-KO9GLmcwWFAStgkk": { "x": 1421.875, "y": 203.125 },
-        "entity-J1Psucsa0qzKOMyX": { "x": 984.375, "y": 437.5 },
+        "entity-J1Psucsa0qzKOMyX": { "x": 1015.625, "y": 515.625 },
         "entity-yM9dTvnq5L4tMyi3": { "x": 2046.875, "y": 359.375 },
         "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": {
           "x": 1640.625,
@@ -1553,7 +1612,7 @@
         "predicate-RO-T5CSmAjjkFumh": { "x": 1015.625, "y": 359.375 },
         "predicate-60P5KNhR8AH-NlFU": { "x": 1843.75, "y": 359.375 },
         "entity-krH3BoegxTDlhwoZ": { "x": 1656.25, "y": 828.125 },
-        "media-Y1M9jpD_jJ0GYhId": { "x": 1921.875, "y": 734.375 },
+        "media-Y1M9jpD_jJ0GYhId": { "x": 2078.125, "y": 875 },
         "media-CD2Dcj_OH1yPAtyw": { "x": 1015.625, "y": 625 },
         "media-af4z9b5L92RXmLVY": { "x": 718.75, "y": 78.125 },
         "media-hAzcnQCG9mNCB0p9": { "x": 1875, "y": 62.5 },
@@ -1832,7 +1891,7 @@
         "predicate-mI-ABJteeLQzoo9c": { "x": 2109.375, "y": -875 },
         "predicate-Q_7bboc56E3JEXG6": { "x": 2328.125, "y": -875 },
         "predicate-rJ0SGId38ll-x3ZB": { "x": 2703.125, "y": -875 },
-        "note-z29uSJuITDMNTaNJ": { "x": 1046.875, "y": -609.375 },
+        "note-z29uSJuITDMNTaNJ": { "x": 1046.875, "y": -625 },
         "predicate-jls62x6hMPA8HJLJ": { "x": 2500, "y": -875 },
         "predicate-yVLjBQqph3zmczYz": { "x": 2828.125, "y": -875 },
         "media-NWvRMxzqTdCtfgHk": { "x": 1875, "y": -1390.625 },
@@ -2587,7 +2646,7 @@
         "predicate-tgiYSk5J1PMTl1Vj": { "x": 468.75, "y": 1015.625 },
         "entity-lGbXZr2Ky2lL-YxM": { "x": 734.375, "y": 828.125 },
         "predicate-gIgaCrvb-R7aYmRV": { "x": 968.75, "y": 828.125 },
-        "note-aHk6lfL62xEIHkt6": { "x": 78.125, "y": 1093.75 },
+        "note-aHk6lfL62xEIHkt6": { "x": 78.125, "y": 1078.125 },
         "media-ZLe1PpUg4CHgfhOZ": { "x": 453.125, "y": 1375 },
         "media-utWApC8tkCQwAFlf": { "x": 1390.625, "y": 953.125 },
         "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
@@ -2823,6 +2882,10 @@
           "x": 546.875,
           "y": 554.6875
         },
+        "edge-ea26e7bd103f38fb71e67be6947d527b4453409d8d44c31c65f1c149e6a15084": {
+          "x": 1734.375,
+          "y": 359.375
+        },
         "edge-03323070d36805f6c3e525077ccbaf78e8b4411a8badcb893c1afd4d60539aa1": {
           "x": 1289.0625,
           "y": 476.5625
@@ -2861,6 +2924,10 @@
         },
         "edge-0fc65752e8537e84b3f4b2f6cfffa36f0c7969da024f3c6764d90df9e4799db2": {
           "x": 2328.125,
+          "y": 523.4375
+        },
+        "edge-650e0413757c96218f031073e0de8edad1421628303cc2aa7c7d65c34e0126ec": {
+          "x": 1734.375,
           "y": 523.4375
         },
         "entity-krH3BoegxTDlhwoZ": { "x": 187.5, "y": 359.375 },
@@ -2908,7 +2975,6 @@
         "entity-B1qOLtj9paWdiukZ": { "x": 2328.125, "y": 1000 },
         "entity-35C284BpJRaSlnPQ": { "x": 2328.125, "y": 687.5 },
         "predicate-p_nYR-hMjaDwkSmi": { "x": 2343.75, "y": 1187.5 },
-        "predicate-pNagZZ1LtMU-2o6P": { "x": 1640.625, "y": 359.375 },
         "predicate-a-XwoI5BUDrSfWpR": { "x": 2484.375, "y": 1359.375 },
         "predicate-BA1bVNJRL5TT1vVu": { "x": 2484.375, "y": 1187.5 },
         "predicate-BBvVNbU_rqg_F3Zo": { "x": 843.75, "y": 750 },
@@ -2922,7 +2988,7 @@
         },
         "graph-nOtEYEjHoQD1J0vU": { "x": 1781.25, "y": 1234.375 },
         "media-O2fQaQR6xL3ihWKi": { "x": 1781.25, "y": 703.125 },
-        "media-BSrANk54tkEgj5Hc": { "x": 1718.75, "y": 921.875 },
+        "media-BSrANk54tkEgj5Hc": { "x": 1671.875, "y": 937.5 },
         "media-fpGk5eJlOslcYL6J": { "x": 546.875, "y": 921.875 },
         "media-_W999P_CNtACE5ut": { "x": 1093.75, "y": 687.5 },
         "predicate-Al7lWr-3HV1W_Us-": { "x": 625, "y": 468.75 },
@@ -2937,7 +3003,7 @@
             "y2": 1700.4494004815745
           },
           "time": 0,
-          "states": { "media-O2fQaQR6xL3ihWKi": "default", "entity-Q2jSY4-cgD9Czt08": "hide" }
+          "states": { "media-O2fQaQR6xL3ihWKi": "default", "entity-Q2jSY4-cgD9Czt08": "default" }
         },
         {
           "bounds": {
@@ -2978,7 +3044,6 @@
             "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "hide",
             "entity-OfcVtBgw4_Vhy2Ap": "hide",
             "predicate-5ckP_MaUyX2HS4ar": "hide",
-            "predicate-pNagZZ1LtMU-2o6P": "hide",
             "predicate-FVoUPJS5icFQtyOW": "hide",
             "entity-HvHg6s-d5ji7unFl": "hide",
             "entity-qT5xzoPdH8jehATY": "hide",
@@ -3059,7 +3124,6 @@
           "states": {
             "entity-L-30eMyDg1K1_8Pw": "default",
             "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": "hide",
-            "predicate-pNagZZ1LtMU-2o6P": "default",
             "entity-QhBvY4JdT_e4jvpx": "highlight",
             "media-fpGk5eJlOslcYL6J": "default"
           }
@@ -4400,6 +4464,21 @@
     },
     {
       "nodes": [
+        "entity-QhBvY4JdT_e4jvpx",
+        "edge-ea26e7bd103f38fb71e67be6947d527b4453409d8d44c31c65f1c149e6a15084"
+      ],
+      "graph": "graph-REq5SXPre4MP2olX"
+    },
+    {
+      "nodes": [
+        "edge-ea26e7bd103f38fb71e67be6947d527b4453409d8d44c31c65f1c149e6a15084",
+        "entity-L-30eMyDg1K1_8Pw"
+      ],
+      "arrow": "→",
+      "graph": "graph-REq5SXPre4MP2olX"
+    },
+    {
+      "nodes": [
         "entity-Q2jSY4-cgD9Czt08",
         "edge-03323070d36805f6c3e525077ccbaf78e8b4411a8badcb893c1afd4d60539aa1"
       ],
@@ -4631,16 +4710,6 @@
       "graph": "graph-REq5SXPre4MP2olX"
     },
     {
-      "nodes": ["entity-qT5xzoPdH8jehATY", "predicate-FVoUPJS5icFQtyOW"],
-      "arrow": "→",
-      "graph": "graph-REq5SXPre4MP2olX"
-    },
-    {
-      "nodes": ["predicate-FVoUPJS5icFQtyOW", "entity-L-30eMyDg1K1_8Pw"],
-      "arrow": "→",
-      "graph": "graph-REq5SXPre4MP2olX"
-    },
-    {
       "nodes": [
         "entity-B1qOLtj9paWdiukZ",
         "edge-bfae19749ad4100733c84a4765986ef9fde53cea502965492e90979cdc1fa0d7"
@@ -4667,21 +4736,6 @@
         "edge-3177089f1d7e88cbc018db97972539460226ed26377683229089f79046cf921b",
         "entity-B1qOLtj9paWdiukZ"
       ],
-      "arrow": "→",
-      "graph": "graph-REq5SXPre4MP2olX"
-    },
-    {
-      "nodes": ["entity-QhBvY4JdT_e4jvpx", "predicate-pNagZZ1LtMU-2o6P"],
-      "arrow": "→",
-      "graph": "graph-REq5SXPre4MP2olX"
-    },
-    {
-      "nodes": ["predicate-pNagZZ1LtMU-2o6P", "entity-L-30eMyDg1K1_8Pw"],
-      "arrow": "→",
-      "graph": "graph-REq5SXPre4MP2olX"
-    },
-    {
-      "nodes": ["predicate-pNagZZ1LtMU-2o6P", "entity-QhBvY4JdT_e4jvpx"],
       "arrow": "→",
       "graph": "graph-REq5SXPre4MP2olX"
     },
@@ -4756,7 +4810,17 @@
       "graph": "graph-Ag2pJE4-Wtr2of8M"
     },
     {
-      "nodes": ["entity-35C284BpJRaSlnPQ", "entity-QhBvY4JdT_e4jvpx"],
+      "nodes": [
+        "entity-35C284BpJRaSlnPQ",
+        "edge-650e0413757c96218f031073e0de8edad1421628303cc2aa7c7d65c34e0126ec"
+      ],
+      "graph": "graph-REq5SXPre4MP2olX"
+    },
+    {
+      "nodes": [
+        "edge-650e0413757c96218f031073e0de8edad1421628303cc2aa7c7d65c34e0126ec",
+        "entity-QhBvY4JdT_e4jvpx"
+      ],
       "arrow": "→",
       "graph": "graph-REq5SXPre4MP2olX"
     },
@@ -4784,6 +4848,16 @@
       ],
       "arrow": "→",
       "graph": "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a"
+    },
+    {
+      "nodes": ["entity-L-30eMyDg1K1_8Pw", "predicate-FVoUPJS5icFQtyOW"],
+      "arrow": "→",
+      "graph": "graph-REq5SXPre4MP2olX"
+    },
+    {
+      "nodes": ["predicate-FVoUPJS5icFQtyOW", "entity-qT5xzoPdH8jehATY"],
+      "arrow": "→",
+      "graph": "graph-REq5SXPre4MP2olX"
     }
   ]
 }
