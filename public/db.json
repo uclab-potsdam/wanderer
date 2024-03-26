@@ -263,7 +263,7 @@
     "entity-Q2jSY4-cgD9Czt08": {
       "type": "entity",
       "class": { "en": "actor", "pt": "ator" },
-      "text": { "en": "Hyper Bicuda", "pt": "bicuda espírito" }
+      "text": { "en": "spirit Bicuda", "pt": "bicuda espírito" }
     },
     "entity-Q31pwH9xQ12GaPy-": {
       "type": "entity",
@@ -289,7 +289,7 @@
     "entity-QhBvY4JdT_e4jvpx": {
       "type": "entity",
       "class": { "en": "actor", "pt": "ator" },
-      "text": { "en": "hyper fish", "pt": "peixes-espírito" }
+      "text": { "en": "spirit fish", "pt": "peixes-espírito" }
     },
     "entity-R4u7NnYuslxbEAkd": {
       "type": "entity",
@@ -677,7 +677,7 @@
     "entity-hxrJu41ra_e2dmMW": {
       "type": "entity",
       "class": { "en": "actor", "pt": "ator" },
-      "text": { "en": "bicudinha espírito" }
+      "text": { "en": "bicudinha espírito", "pt": "bicudinha espírito" }
     },
     "entity-hLeVNyp8UrhQZGII": {
       "type": "entity",
@@ -2988,7 +2988,7 @@
         },
         "graph-nOtEYEjHoQD1J0vU": { "x": 1781.25, "y": 1234.375 },
         "media-O2fQaQR6xL3ihWKi": { "x": 1781.25, "y": 703.125 },
-        "media-BSrANk54tkEgj5Hc": { "x": 1671.875, "y": 937.5 },
+        "media-BSrANk54tkEgj5Hc": { "x": 1703.125, "y": 921.875 },
         "media-fpGk5eJlOslcYL6J": { "x": 546.875, "y": 921.875 },
         "media-_W999P_CNtACE5ut": { "x": 1093.75, "y": 687.5 },
         "predicate-Al7lWr-3HV1W_Us-": { "x": 625, "y": 468.75 },
@@ -3040,18 +3040,26 @@
             "predicate-AzGYQypNWc1Ynt0D": "hide",
             "entity-hkPCMUWl74floN6s": "hide",
             "entity-Q31pwH9xQ12GaPy-": "hide",
-            "predicate-NLib96LzEFco35B9": "hide",
-            "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "hide",
             "entity-OfcVtBgw4_Vhy2Ap": "hide",
+            "predicate-NLib96LzEFco35B9": "hide",
+            "entity-J1Psucsa0qzKOMyX": "hide",
+            "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "hide",
+            "entity-L-30eMyDg1K1_8Pw": "hide",
+            "entity-kCbm3gSkjx_UBpCi": "hide",
             "predicate-5ckP_MaUyX2HS4ar": "hide",
-            "predicate-FVoUPJS5icFQtyOW": "hide",
-            "entity-HvHg6s-d5ji7unFl": "hide",
-            "entity-qT5xzoPdH8jehATY": "hide",
-            "entity-B1qOLtj9paWdiukZ": "hide",
+            "predicate-p_nYR-hMjaDwkSmi": "hide",
+            "predicate-hP5Ispk8b5imRnKx": "hide",
             "entity-yx1op9Z2gUuGw03T": "hide",
             "entity-35C284BpJRaSlnPQ": "hide",
+            "entity-HvHg6s-d5ji7unFl": "hide",
+            "media-O2fQaQR6xL3ihWKi": "hide",
+            "entity-qT5xzoPdH8jehATY": "hide",
+            "predicate-FVoUPJS5icFQtyOW": "hide",
             "entity-M74ydW7dbPamOI0b": "hide",
-            "entity-L-30eMyDg1K1_8Pw": "hide"
+            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "hide",
+            "entity-B1qOLtj9paWdiukZ": "hide",
+            "predicate-BA1bVNJRL5TT1vVu": "hide",
+            "predicate-a-XwoI5BUDrSfWpR": "hide"
           }
         },
         {
@@ -3060,9 +3068,9 @@
             "media-O2fQaQR6xL3ihWKi": "hide",
             "entity-ESvaV0FzaCQiE1Nj": "highlight",
             "predicate-5ckP_MaUyX2HS4ar": "hide",
-            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "highlight",
             "entity-yx1op9Z2gUuGw03T": "hide",
-            "entity-krH3BoegxTDlhwoZ": "default"
+            "entity-krH3BoegxTDlhwoZ": "default",
+            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "hide"
           }
         },
         {
@@ -3110,7 +3118,7 @@
             "entity-ZgZWHecoAS4mh8pB": "default",
             "entity-c3MsLUyjCbi8983F": "highlight",
             "entity-QhBvY4JdT_e4jvpx": "highlight",
-            "media-fpGk5eJlOslcYL6J": "highlight"
+            "media-fpGk5eJlOslcYL6J": "hide"
           }
         },
         {
@@ -3139,10 +3147,11 @@
           "time": 93.450239,
           "states": {
             "predicate-BBvVNbU_rqg_F3Zo": "highlight",
-            "entity-Q2jSY4-cgD9Czt08": "hide",
             "predicate-rGwYAEhWpgiWSayo": "default",
             "predicate-9q1mQ-EndrjTvgIJ": "default",
-            "predicate-Al7lWr-3HV1W_Us-": "hide"
+            "predicate-Al7lWr-3HV1W_Us-": "hide",
+            "entity-Q2jSY4-cgD9Czt08": "highlight",
+            "media-O2fQaQR6xL3ihWKi": "highlight"
           }
         },
         {
@@ -3153,7 +3162,7 @@
             "media-_W999P_CNtACE5ut": "default",
             "entity-c3MsLUyjCbi8983F": "default",
             "entity-QhBvY4JdT_e4jvpx": "default",
-            "media-fpGk5eJlOslcYL6J": "hide"
+            "media-fpGk5eJlOslcYL6J": "highlight"
           }
         },
         {
@@ -3180,7 +3189,8 @@
           "time": 130.230959,
           "states": {
             "entity-L-30eMyDg1K1_8Pw": "highlight",
-            "predicate-5ckP_MaUyX2HS4ar": "highlight"
+            "predicate-5ckP_MaUyX2HS4ar": "highlight",
+            "predicate-Oxw9zQS8hgV_nbVZ": "default"
           }
         },
         {
@@ -3210,7 +3220,15 @@
             "predicate-BiOtZFYmw8uAgFP5": "highlight"
           }
         },
-        { "time": 162.837301, "states": { "predicate-BiOtZFYmw8uAgFP5": "default" } },
+        {
+          "time": 162.837301,
+          "states": {
+            "predicate-BiOtZFYmw8uAgFP5": "default",
+            "entity-bF5gZkSRorj4ruvB": "default",
+            "predicate-Al7lWr-3HV1W_Us-": "highlight",
+            "entity-krH3BoegxTDlhwoZ": "hide"
+          }
+        },
         {
           "bounds": {
             "x1": -28.534009768595617,
@@ -3223,8 +3241,8 @@
             "entity-L-30eMyDg1K1_8Pw": "highlight",
             "entity-hxrJu41ra_e2dmMW": "default",
             "predicate-Al7lWr-3HV1W_Us-": "default",
-            "predicate-5ckP_MaUyX2HS4ar": "hide",
-            "entity-krH3BoegxTDlhwoZ": "default"
+            "entity-krH3BoegxTDlhwoZ": "default",
+            "predicate-5ckP_MaUyX2HS4ar": "highlight"
           }
         },
         {
@@ -3239,15 +3257,16 @@
             "entity-iG6_wAKfpwiRxcWu": "hide",
             "entity-cYxGAvQBufNHWoNg": "highlight",
             "entity-hkPCMUWl74floN6s": "default",
-            "predicate-5ckP_MaUyX2HS4ar": "default"
+            "predicate-5ckP_MaUyX2HS4ar": "default",
+            "entity-L-30eMyDg1K1_8Pw": "default"
           }
         },
         {
           "bounds": {
-            "x1": 1.7587743314561621,
-            "x2": 2240.528214184029,
-            "y1": 221.89857657960314,
-            "y2": 1364.8847815645763
+            "x1": -97.00115214570658,
+            "x2": 1787.7978925512878,
+            "y1": 212.01648806102932,
+            "y2": 1396.3480471940804
           },
           "time": 215.09616,
           "states": {
@@ -3266,7 +3285,12 @@
             "entity-bF5gZkSRorj4ruvB": "hide",
             "entity-hxrJu41ra_e2dmMW": "hide",
             "predicate-BiOtZFYmw8uAgFP5": "hide",
-            "media-O2fQaQR6xL3ihWKi": "hide"
+            "media-O2fQaQR6xL3ihWKi": "hide",
+            "entity-c3MsLUyjCbi8983F": "hide",
+            "entity-L-30eMyDg1K1_8Pw": "hide",
+            "entity-QhBvY4JdT_e4jvpx": "hide",
+            "entity-ESvaV0FzaCQiE1Nj": "hide",
+            "entity-ZgZWHecoAS4mh8pB": "hide"
           }
         },
         {
@@ -3277,7 +3301,9 @@
             "entity-J1Psucsa0qzKOMyX": "default",
             "predicate-AzGYQypNWc1Ynt0D": "default",
             "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241": "default",
-            "entity-OfcVtBgw4_Vhy2Ap": "hide"
+            "entity-OfcVtBgw4_Vhy2Ap": "hide",
+            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "highlight",
+            "entity-cYxGAvQBufNHWoNg": "highlight"
           }
         },
         {
@@ -3289,6 +3315,181 @@
             "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "highlight",
             "predicate-AzGYQypNWc1Ynt0D": "highlight",
             "entity-L-30eMyDg1K1_8Pw": "hide"
+          }
+        },
+        {
+          "bounds": {
+            "x1": -68.9214024482162,
+            "x2": 2417.380203363595,
+            "y1": 276.1158305737849,
+            "y2": 1543.5688296267233
+          },
+          "time": 230.31054,
+          "states": { "entity-iG6_wAKfpwiRxcWu": "highlight" }
+        },
+        {
+          "time": 232.594016,
+          "states": {
+            "predicate-AzGYQypNWc1Ynt0D": "default",
+            "entity-Q31pwH9xQ12GaPy-": "default",
+            "entity-kCbm3gSkjx_UBpCi": "highlight",
+            "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": "default",
+            "entity-hLeVNyp8UrhQZGII": "default"
+          }
+        },
+        {
+          "bounds": {
+            "x1": 68.09813941232967,
+            "x2": 2260.088363326095,
+            "y1": 659.0927083582034,
+            "y2": 1776.5132886691304
+          },
+          "time": 241.776308,
+          "states": {
+            "predicate-AzGYQypNWc1Ynt0D": "highlight",
+            "entity-OfcVtBgw4_Vhy2Ap": "highlight",
+            "entity-iG6_wAKfpwiRxcWu": "default",
+            "entity-Q31pwH9xQ12GaPy-": "highlight",
+            "entity-kCbm3gSkjx_UBpCi": "default",
+            "entity-yx1op9Z2gUuGw03T": "default"
+          }
+        },
+        {
+          "time": 247.831443,
+          "states": {
+            "entity-OfcVtBgw4_Vhy2Ap": "default",
+            "entity-hLeVNyp8UrhQZGII": "highlight",
+            "entity-Q31pwH9xQ12GaPy-": "default",
+            "predicate-AzGYQypNWc1Ynt0D": "default"
+          }
+        },
+        { "time": 253.466427, "states": { "entity-kCbm3gSkjx_UBpCi": "highlight" } },
+        {
+          "time": 258.442879,
+          "states": {
+            "entity-kCbm3gSkjx_UBpCi": "default",
+            "entity-hLeVNyp8UrhQZGII": "default",
+            "graph-nOtEYEjHoQD1J0vU": "default",
+            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "highlight"
+          }
+        },
+        {
+          "time": 265.854414,
+          "states": {
+            "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": "default",
+            "entity-yx1op9Z2gUuGw03T": "highlight"
+          }
+        },
+        {
+          "time": 272.466795,
+          "states": {
+            "entity-HvHg6s-d5ji7unFl": "highlight",
+            "predicate-hP5Ispk8b5imRnKx": "default"
+          }
+        },
+        {
+          "time": 281.263585,
+          "states": {
+            "entity-M74ydW7dbPamOI0b": "highlight",
+            "entity-HvHg6s-d5ji7unFl": "default",
+            "entity-yx1op9Z2gUuGw03T": "default"
+          }
+        },
+        {
+          "bounds": {
+            "x1": 1844.3256604930077,
+            "x2": 3329.0185108641417,
+            "y1": 918.6235775546917,
+            "y2": 1675.482038119826
+          },
+          "time": 292.528467,
+          "states": {
+            "entity-B1qOLtj9paWdiukZ": "highlight",
+            "predicate-p_nYR-hMjaDwkSmi": "default",
+            "entity-qT5xzoPdH8jehATY": "highlight",
+            "predicate-BA1bVNJRL5TT1vVu": "default",
+            "predicate-a-XwoI5BUDrSfWpR": "default"
+          }
+        },
+        {
+          "bounds": {
+            "x1": 1275.8415742062064,
+            "x2": 3610.926477943711,
+            "y1": 288.49785652699364,
+            "y2": 1478.8644465525783
+          },
+          "time": 297.485186,
+          "states": {
+            "entity-B1qOLtj9paWdiukZ": "default",
+            "entity-35C284BpJRaSlnPQ": "hide",
+            "entity-L-30eMyDg1K1_8Pw": "highlight",
+            "entity-M74ydW7dbPamOI0b": "default",
+            "predicate-FVoUPJS5icFQtyOW": "highlight"
+          }
+        },
+        {
+          "time": 304.519031,
+          "states": {
+            "predicate-a-XwoI5BUDrSfWpR": "highlight",
+            "predicate-FVoUPJS5icFQtyOW": "default",
+            "entity-M74ydW7dbPamOI0b": "highlight",
+            "entity-qT5xzoPdH8jehATY": "default"
+          }
+        },
+        {
+          "time": 312.840356,
+          "states": {
+            "entity-M74ydW7dbPamOI0b": "default",
+            "predicate-a-XwoI5BUDrSfWpR": "default",
+            "entity-B1qOLtj9paWdiukZ": "highlight"
+          }
+        },
+        {
+          "time": 326.032921,
+          "states": {
+            "predicate-a-XwoI5BUDrSfWpR": "highlight",
+            "entity-L-30eMyDg1K1_8Pw": "default"
+          }
+        },
+        {
+          "time": 337.368523,
+          "states": {
+            "predicate-a-XwoI5BUDrSfWpR": "default",
+            "entity-35C284BpJRaSlnPQ": "highlight"
+          }
+        },
+        {
+          "bounds": {
+            "x1": -197.70916905206883,
+            "x2": 3032.0937410148363,
+            "y1": 21.533396436369088,
+            "y2": 1668.0043535982952
+          },
+          "time": 398.947524,
+          "states": {
+            "entity-bF5gZkSRorj4ruvB": "default",
+            "predicate-5ckP_MaUyX2HS4ar": "default",
+            "predicate-rGwYAEhWpgiWSayo": "default",
+            "entity-Q2jSY4-cgD9Czt08": "default",
+            "predicate-I1InOUKSEzpwzdEL": "default",
+            "predicate-KZIhlYGTidBMM56j": "default",
+            "predicate-Oxw9zQS8hgV_nbVZ": "default",
+            "predicate-BBvVNbU_rqg_F3Zo": "default",
+            "entity-ZgZWHecoAS4mh8pB": "default",
+            "entity-35C284BpJRaSlnPQ": "default",
+            "entity-ESvaV0FzaCQiE1Nj": "default",
+            "entity-B1qOLtj9paWdiukZ": "default",
+            "media-O2fQaQR6xL3ihWKi": "default",
+            "entity-c3MsLUyjCbi8983F": "default",
+            "predicate-Al7lWr-3HV1W_Us-": "default",
+            "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": "default",
+            "entity-QhBvY4JdT_e4jvpx": "default",
+            "entity-vW6pmqDJ_zBk3tW3": "highlight",
+            "predicate-9q1mQ-EndrjTvgIJ": "default",
+            "entity-hxrJu41ra_e2dmMW": "default",
+            "predicate-BiOtZFYmw8uAgFP5": "default",
+            "entity-oEQwWGKwv9d0342i": "default",
+            "media-_W999P_CNtACE5ut": "default"
           }
         }
       ]
