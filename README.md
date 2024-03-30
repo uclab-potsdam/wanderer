@@ -2,7 +2,8 @@
 
 Wanderer is an interface for (1) entangled knowledge production, (2) video and visualisation coupling, and (3) knowledge presentation. It is part of the [Amzonia Future Lab Project]([url](https://amazoniafuturelab.fh-potsdam.de))
 
-![setup](https://github.com/uclab-potsdam/wanderer/assets/1699985/ec03da20-2e6a-448e-9845-4e6e12ae99b3)
+![Xingú Entangled, interactive two-channel installation, exhibition view](https://github.com/uclab-potsdam/wanderer/assets/1699985/78546e54-d111-4602-9f76-a2bdaae7c1ac)
+
 
 
 ## Demo
