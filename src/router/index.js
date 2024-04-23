@@ -20,7 +20,7 @@ const router = createRouter({
       name: 'graph',
       component: () => import('@/views/GraphView.vue'),
       meta: {
-        hideMenuBar: true
+        hideMenuBar: import.meta.env.VITE_EXHIBITION_MODE === 'true'
       }
     },
     {
