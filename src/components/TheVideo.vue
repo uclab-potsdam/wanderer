@@ -15,6 +15,8 @@ const router = useRouter()
 
 const video = ref(null)
 
+const exhibitionMode = ref(import.meta.env.VITE_EXHIBITION_MODE === 'true')
+
 const source = computed(() => helperStore.getMediaUrl(videoStore.video.file[0]))
 
 function onTimeUpdate() {
@@ -57,9 +59,8 @@ watch(
     <video
       ref="video"
       crossorigin="anonymous"
-      autoplay
-      x-controls
-      x-muted
+      :autoplay="exhibitionMode"
+      :controls="!exhibitionMode"
       :src="source"
       @loadstart="onLoadStart"
       @ended="requestNext"
