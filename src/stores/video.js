@@ -28,7 +28,7 @@ export const useVideoStore = defineStore('video', () => {
   const duration = ref(1)
 
   const video = computed(() => dataStore.data?.nodes[graphId.value]?.media)
-  const playSplitScreen = computed(() => video.value != null && !hasExternalPlayer.value)
+  const showVideo = computed(() => video.value != null && !hasExternalPlayer.value)
   const subtitle = computed(
     () => subtitles.value?.find((st) => st.start <= time.value && st.end > time.value)?.text
   )
@@ -163,7 +163,7 @@ export const useVideoStore = defineStore('video', () => {
     history,
     graphId,
     video,
-    playSplitScreen,
+    showVideo,
     time,
     playFrom,
     subtitles,

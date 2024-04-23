@@ -1,17 +1,26 @@
 <script setup>
+import { useRoute } from 'vue-router'
 import { useVideoStore } from '@/stores/video'
+import { useSettingsStore } from '@/stores/settings'
 
 import TheGraph from '@/components/TheGraph.vue'
 import TheVideo from '@/components/TheVideo.vue'
 import TheControls from '@/components/TheControls.vue'
+import TheHeader from '@/components/TheHeader.vue'
 
 const videoStore = useVideoStore()
+const settingsStore = useSettingsStore()
+const route = useRoute()
 </script>
 
 <template>
-  <div class="graph-view" :class="{ 'split-screen': videoStore.playSplitScreen }">
+  <div
+    class="graph-view"
+    :class="{ 'split-screen': videoStore.showVideo && !settingsStore.pictureInPicture }"
+  >
+    <TheHeader v-if="!route.meta.hideMenuBar" />
     <TheGraph />
-    <TheVideo v-if="videoStore.playSplitScreen" />
+    <TheVideo v-if="videoStore.showVideo" />
     <TheControls />
   </div>
   <!-- <ThePlayer width="450" v-if="!syncStore.hasPlayer" /> -->
@@ -29,19 +38,42 @@ const videoStore = useVideoStore()
   display: grid;
 
   grid-template-columns:
-    [graph-start-x video-start-x controls-start-x] 1fr
-    [graph-end-x video-end-x controls-end-x];
+    [graph-start controls-start header-start] 1fr
+    [video-start] 320px
+    [video-end] calc(var(--spacing) / 2)
+    [graph-end controls-end header-end];
 
   grid-template-rows:
-    [graph-start-y video-start-y] 1fr
-    [controls-start-y] calc(var(--spacing) * 2)
-    [graph-end-y video-end-y controls-end-y];
+    [graph-start header-start] calc(var(--spacing) * 2)
+    [header-end]
+    1fr
+    [video-start]
+    180px
+    [video-end] calc(var(--spacing) / 2)
+    [controls-start] calc(var(--spacing) * 2)
+    [graph-end controls-end];
 
   &.split-screen {
     grid-template-columns:
-      [graph-start-x controls-start-x] 1fr
-      [graph-end-x controls-end-x video-start-x] 1fr
-      [video-end-x];
+      [graph-start controls-start header-start] 1fr
+      [graph-end controls-end video-start header-end] 1fr
+      [video-end];
+
+    grid-template-rows:
+      [graph-start video-start header-start] calc(var(--spacing) * 2)
+      [header-end]
+      1fr
+      [controls-start] calc(var(--spacing) * 2)
+      [graph-end video-end controls-end];
+
+    /* grid-template-rows:
+      [graph-start header-start] calc(var(--spacing) * 2)
+      [header-end]
+      1fr
+      [controls-start] calc(var(--spacing) * 2)
+      [graph-end controls-end video-start]
+      1fr
+      [video-end]; */
   }
 }
 </style>

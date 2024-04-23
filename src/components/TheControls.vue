@@ -1,6 +1,5 @@
 <script setup>
 import { useDataStore } from '@/stores/data'
-import { useRoute, useRouter } from 'vue-router'
 import { computed } from 'vue'
 import { useVideoStore } from '@/stores/video'
 import { useHelperStore } from '@/stores/helper'
@@ -56,8 +55,8 @@ const progress = computed(() => `${(videoStore.time / videoStore.duration) * 100
 
 <style scoped>
 .controls {
-  grid-column: controls-start-x / controls-end-x;
-  grid-row: controls-start-y / controls-end-y;
+  grid-column: controls-start / controls-end;
+  grid-row: controls-start / controls-end;
 
   position: relative;
 
