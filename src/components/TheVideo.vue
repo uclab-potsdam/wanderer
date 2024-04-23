@@ -77,8 +77,9 @@ watch(
 
 <style scoped>
 .video {
-  grid-column: video-start-x / video-end-x;
-  grid-row: video-start-y / video-end-y;
+  z-index: 1;
+  grid-column: video-start / video-end;
+  grid-row: video-start / video-end;
 
   display: grid;
   grid-template-columns:

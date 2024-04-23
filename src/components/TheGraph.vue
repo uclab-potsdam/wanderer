@@ -210,8 +210,8 @@ const resizeObserver = new ResizeObserver((entries) => {
 
 <style scoped>
 .graph {
-  grid-column: graph-start-x / graph-end-x;
-  grid-row: graph-start-y / graph-end-y;
+  grid-column: graph-start / graph-end;
+  grid-row: graph-start / graph-end;
   position: relative;
   overflow: hidden;
 

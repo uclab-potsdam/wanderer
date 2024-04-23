@@ -4,20 +4,13 @@
 @import url(./variables.css);
 
 html {
-  font: var(--regular) var(--font-size)/1.25 "Inter", sans-serif;
+  font:
+    var(--regular) var(--font-size) / 1.25 'Inter',
+    sans-serif;
   text-rendering: geometricPrecision;
 
   #app {
     display: grid;
-    grid-template-columns:
-      1fr
-      [center-start] min(100vw - var(--spacing) * 2, 800px)
-      [center-end] 1fr;
-    grid-template-rows:
-      calc(var(--spacing) * 2)
-      [center-start] 1fr
-      [center-end] var(--spacing);
-  
     min-height: 100vh;
   }
 

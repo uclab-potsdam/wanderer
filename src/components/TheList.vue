@@ -26,7 +26,7 @@ const route = useRoute()
 
 <style scoped>
 .list {
-  grid-column: center-start / center-end;
-  grid-row: center-start / center-end;
+  grid-column: main-start / main-end;
+  grid-row: main-start / main-end;
 }
 </style>

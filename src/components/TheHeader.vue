@@ -20,12 +20,14 @@ const router = useRouter()
 
 <style scoped>
 header {
-  grid-column: center-start / center-end;
-  grid-row: 1 / center-start;
+  grid-column: header-start / header-end;
+  grid-row: header-start / header-end;
 
   z-index: 1;
   display: flex;
   align-items: center;
+
+  padding: calc(var(--spacing) / 2);
 
   a {
     text-decoration: none;
