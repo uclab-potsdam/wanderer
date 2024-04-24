@@ -11,6 +11,11 @@ const router = createRouter({
       redirect: { name: 'list', params: { type: 'graph' } }
     },
     {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('@/views/SettingsView.vue')
+    },
+    {
       path: '/:type',
       name: 'list',
       component: () => import('@/views/ListView.vue')
