@@ -10,10 +10,10 @@ import { useConstantStore } from '@/stores/constant'
 import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
 import { useVideoStore } from '@/stores/video'
+import { useLayoutStore } from '@/stores/layout'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
-import { useLayoutStore } from '@/stores/layout'
 
 const route = useRoute()
 const router = useRouter()
@@ -29,14 +29,15 @@ const allocations = ref([])
 const zoomElement = ref(null)
 const zoomElementSelection = ref(null)
 const zoomBehaviour = ref(null)
-const transform = ref({ x: 0, y: 0, k: 1 })
+// const transform = ref({ x: 0, y: 0, k: 1 })
 
 const id = computed(() => route.params.id)
 const node = computed(() => dataStore.data.nodes[id.value])
 const view = computed(() => (route.params.type === 'graph' ? 'diagram' : 'network'))
 
 const transformString = computed(
-  () => `translate(${transform.value.x}px, ${transform.value.y}px) scale(${transform.value.k})`
+  () =>
+    `translate(${layoutStore.transform.x}px, ${layoutStore.transform.y}px) scale(${layoutStore.transform.k})`
 )
 const bounds = computed(() => {
   if (displayStore.bounds != null)
@@ -106,7 +107,7 @@ onMounted(() => {
   zoomBehaviour.value = zoom()
     .scaleExtent([0.1, 2])
     .on('zoom', (e) => {
-      transform.value = e.transform
+      layoutStore.transform = e.transform
     })
     .filter((e) => {
       console.log(e.type)
@@ -192,7 +193,6 @@ const resizeObserver = new ResizeObserver((entries) => {
           :key="id"
           :id="id"
           :position="allocations[id]"
-          :transform="transform"
           :view="view"
         />
       </TransitionGroup>
