@@ -1,6 +1,7 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { useHelperStore } from '@/stores/helper'
+import { getContentWidth } from '@/assets/js/utils'
 
 const props = defineProps({
   node: Object
@@ -10,8 +11,14 @@ const helperStore = useHelperStore()
 
 const el = ref(null)
 
+const width = ref(null)
+
 const text = computed(() => helperStore.localize(props.node.text))
 const className = computed(() => helperStore.localize(props.node.class))
+
+onMounted(() => {
+  width.value = getContentWidth(el)
+})
 
 defineExpose({
   el
@@ -19,16 +26,18 @@ defineExpose({
 </script>
 
 <template>
-  <div class="entity" ref="el">
-    <span class="text measure-width">{{ text }}</span>
+  <div class="entity" ref="el" :style="{ width }">
+    <span class="text">{{ text }}</span>
     <br v-if="className != null" />
-    <span class="class measure-width" v-if="className != null">{{ className }}</span>
+    <span class="class" v-if="className != null">{{ className }}</span>
   </div>
 </template>
 
 <style scoped>
 .entity {
-  max-width: 250px;
+  box-sizing: content-box;
+  max-width: 200px;
+  width: max-content;
   padding: calc(var(--spacing) * 0.5);
   --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
   color: color-mix(in lab, var(--tinted), var(--color-background) 10%);
@@ -76,9 +85,12 @@ defineExpose({
     color: var(--color-text);
   }
 
-  width: max-content;
   .text {
     font-weight: 900;
+  }
+
+  .inner {
+    display: inline;
   }
 }
 </style>

@@ -15,8 +15,7 @@ import { getComponentForType } from '@/assets/js/nodes'
 const props = defineProps({
   id: String,
   view: String,
-  position: Object,
-  transform: Object
+  position: Object
 })
 
 const router = useRouter()
@@ -54,20 +53,11 @@ const display = computed(() => {
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.contentRect) {
-      const measuredWidth = Math.max(
-        ...[...entry.target.querySelectorAll('.measure-width')].map(
-          (d) => d.getBoundingClientRect().width / props.transform.k
-        )
-      )
       layoutStore.nodes[props.id] = {
-        width: measuredWidth > 0 ? measuredWidth : entry.contentRect.width,
+        width: entry.contentRect.width,
         height: entry.contentRect.height,
         x: props.position.x,
-        // measuredWidth > 0
-        //   ? props.position.x - entry.contentRect.width / 2 + measuredWidth / 2
-        //   : props.position.x,
-        y: props.position.y,
-        xOffset: -entry.contentRect.width / 2 + measuredWidth / 2
+        y: props.position.y
       }
     }
   }
