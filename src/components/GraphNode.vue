@@ -10,8 +10,6 @@ import { useVideoStore } from '@/stores/video'
 
 import { getComponentForType } from '@/assets/js/nodes'
 
-// import {GraphNodeEntity} from '@/components/GraphNodeEntity.vue'
-
 const props = defineProps({
   id: String,
   view: String,
