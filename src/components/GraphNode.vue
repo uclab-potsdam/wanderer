@@ -29,9 +29,7 @@ const componentRef = ref(null)
 
 const node = computed(() => dataStore.data.nodes[props.id])
 const positioning = computed(() => ({
-  left: `${props.position.x}px`,
-  top: `${props.position.y}px`
-  // transform: `translate(${props.position.x}px, ${props.position.y}px)`
+  transform: `translate(${props.position.x}px, ${props.position.y}px) translate(-50%, -50%)`
 }))
 
 const component = computed(() => getComponentForType(node.value.type))
@@ -111,6 +109,12 @@ onBeforeUnmount(() => {
     left var(--transition),
     opacity var(--transition),
     filter var(--transition);
+
+  &:hover {
+    outline: black dashed 1px;
+    outline-offset: 2px;
+    border-radius: 5px;
+  }
 
   &.hide {
     opacity: 0.2;
