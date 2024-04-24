@@ -110,7 +110,6 @@ onMounted(() => {
       layoutStore.transform = e.transform
     })
     .filter((e) => {
-      console.log(e.type)
       nextTick(() => activityStore.registerActivity())
       return true
     })
