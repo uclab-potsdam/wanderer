@@ -86,7 +86,7 @@ watch(
     1fr
     [st-start] min(100% - 100px, 800px)
     [st-end] 1fr;
-  grid-template-rows: 1fr 50px;
+  grid-template-rows: 1fr 7.5%;
 
   background: black;
 

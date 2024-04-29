@@ -23,6 +23,10 @@ const constantStore = useConstantStore()
           <label for="edit-mode">edit mode</label
           ><input id="edit-mode" type="checkbox" v-model="settingsStore.edit" />
         </li>
+        <li>
+          <label for="edit-mode">picture in picture</label
+          ><input id="edit-mode" type="checkbox" v-model="settingsStore.pictureInPicture" />
+        </li>
       </ul>
     </main>
   </div>

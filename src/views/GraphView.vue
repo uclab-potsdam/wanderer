@@ -29,7 +29,7 @@ const route = useRoute()
 
 <style scoped>
 .graph-view {
-  --font-size-subtitle: max(2vw, 40px);
+  --font-size-subtitle: 16px;
 
   grid-column: 1 / -1;
   grid-row: 1 / -1;
@@ -54,6 +54,7 @@ const route = useRoute()
     [graph-end controls-end];
 
   &.split-screen {
+    --font-size-subtitle: max(2vw, 40px);
     grid-template-columns:
       [graph-start controls-start header-start] 1fr
       [graph-end controls-end video-start header-end] 1fr
