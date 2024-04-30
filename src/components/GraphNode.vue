@@ -9,6 +9,7 @@ import { useActivityStore } from '@/stores/activity'
 import { useVideoStore } from '@/stores/video'
 
 import { getComponentForType } from '@/assets/js/nodes'
+import { useSettingsStore } from '@/stores/settings'
 
 const props = defineProps({
   id: String,
@@ -22,6 +23,7 @@ const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
 const videoStore = useVideoStore()
+const settingsStore = useSettingsStore()
 
 const componentRef = ref(null)
 
@@ -59,6 +61,11 @@ const resizeObserver = new ResizeObserver((entries) => {
   }
 })
 
+function onClick(e) {
+  if (!settingsStore.edit || e.metaKey)
+    router.push({ name: 'graph', params: { type: node.value.type, id: props.id } })
+}
+
 watch(
   () => [props.position.y, props.position.x],
   () => {
@@ -89,12 +96,15 @@ onBeforeUnmount(() => {
     :class="[
       display,
       view,
-      { 'user-active': !activityStore.inactivityShort || !videoStore.playing }
+      {
+        'user-active': !activityStore.inactivityShort || !videoStore.playing,
+        edit: settingsStore.edit
+      }
     ]"
     :style="positioning"
     :node="node"
     :occurances="occurances"
-    @click="router.push({ name: 'graph', params: { type: node.type, id } })"
+    @click="onClick"
   />
 </template>
 
@@ -107,10 +117,12 @@ onBeforeUnmount(() => {
     opacity var(--transition),
     filter var(--transition);
 
-  &:hover {
-    outline: black dashed 1px;
-    outline-offset: 2px;
-    border-radius: 5px;
+  &.edit {
+    &:hover {
+      outline: black dashed 1px;
+      outline-offset: 2px;
+      border-radius: 5px;
+    }
   }
 
   &.hide {
