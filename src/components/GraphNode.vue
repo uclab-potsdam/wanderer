@@ -103,8 +103,7 @@ onBeforeUnmount(() => {
   position: absolute;
   transform: translate(-50%, -50%);
   transition:
-    top var(--transition),
-    left var(--transition),
+    transform var(--transition),
     opacity var(--transition),
     filter var(--transition);
 
