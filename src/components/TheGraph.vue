@@ -56,10 +56,10 @@ const bounds = computed(() => {
   const yOffset = 100
 
   return {
-    x1: Math.min(...valuesX) - xOffset,
-    y1: Math.min(...valuesY) - yOffset,
-    x2: Math.max(...valuesX) + xOffset,
-    y2: Math.max(...valuesY) + yOffset
+    x1: Math.min(...valuesX) - xOffset + layoutStore.offset.x,
+    y1: Math.min(...valuesY) - yOffset + layoutStore.offset.y,
+    x2: Math.max(...valuesX) + xOffset + layoutStore.offset.x,
+    y2: Math.max(...valuesY) + yOffset + layoutStore.offset.y
   }
 })
 const edges = computed(() => {
@@ -124,23 +124,23 @@ onBeforeUnmount(() => {
 
 function initGraph(duration) {
   allocations.value =
-    route.params.type === 'graph' ? translate(node.value.allocations) : computeAllocations(id.value)
+    route.params.type === 'graph' ? node.value.allocations : computeAllocations(id.value)
 
   zoomToBounds(bounds.value, duration)
 }
 
-function translate(allocations) {
-  return Object.fromEntries(
-    Object.entries(allocations ?? {}).map((allocation) => [
-      allocation[0],
-      {
-        ...allocation[1],
-        x: allocation[1].x + layoutStore.offset.x,
-        y: allocation[1].y + layoutStore.offset.y
-      }
-    ])
-  )
-}
+// function translate(allocations) {
+//   return Object.fromEntries(
+//     Object.entries(allocations ?? {}).map((allocation) => [
+//       allocation[0],
+//       {
+//         ...allocation[1]
+//         // x: allocation[1].x + layoutStore.offset.x,
+//         // y: allocation[1].y + layoutStore.offset.y
+//       }
+//     ])
+//   )
+// }
 
 function zoomToBounds(bounds, duration = 0) {
   const diff = {
@@ -188,11 +188,12 @@ const resizeObserver = new ResizeObserver((entries) => {
     <div class="nodes" :style="{ transform: transformString }">
       <TransitionGroup name="nodes">
         <GraphNode
-          v-for="id in allocationOrder"
-          :key="id"
-          :id="id"
-          :position="allocations[id]"
+          v-for="nodeId in allocationOrder"
+          :key="nodeId"
+          :id="nodeId"
+          :position="route.params.type === 'graph' ? null : allocations[nodeId]"
           :view="view"
+          :graph="view === 'diagram' && id"
         />
       </TransitionGroup>
     </div>

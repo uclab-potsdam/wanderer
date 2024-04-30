@@ -14,7 +14,8 @@ import { useSettingsStore } from '@/stores/settings'
 const props = defineProps({
   id: String,
   view: String,
-  position: Object
+  position: Object,
+  graph: String
 })
 
 const router = useRouter()
@@ -29,8 +30,12 @@ const componentRef = ref(null)
 
 const node = computed(() => dataStore.data.nodes[props.id])
 const positioning = computed(() => ({
-  transform: `translate(${props.position.x}px, ${props.position.y}px) translate(-50%, -50%)`
+  transform: `translate(${position.value.x + layoutStore.offset.x}px, ${position.value.y + layoutStore.offset.y}px) translate(-50%, -50%)`
 }))
+
+const position = computed(
+  () => props.position ?? dataStore.data.nodes[props.graph].allocations[props.id]
+)
 
 const component = computed(() => getComponentForType(node.value.type))
 
@@ -54,8 +59,8 @@ const resizeObserver = new ResizeObserver((entries) => {
       layoutStore.nodes[props.id] = {
         width: entry.contentRect.width,
         height: entry.contentRect.height,
-        x: props.position.x,
-        y: props.position.y
+        x: position.value.x,
+        y: position.value.y
       }
     }
   }
@@ -66,13 +71,57 @@ function onClick(e) {
     router.push({ name: 'graph', params: { type: node.value.type, id: props.id } })
 }
 
+function onMouseDown(e) {
+  if (!settingsStore.edit || props.view !== 'diagram') return
+  e.stopPropagation()
+
+  const offset = { x: e.x, y: e.y }
+  const controller = new AbortController()
+
+  window.addEventListener(
+    'mousemove',
+    (e) => {
+      const delta = {
+        x: (e.x - offset.x) / layoutStore.transform.k,
+        y: (e.y - offset.y) / layoutStore.transform.k
+      }
+      dataStore.data.nodes[props.graph].allocations[props.id].x += delta.x
+      dataStore.data.nodes[props.graph].allocations[props.id].y += delta.y
+      offset.x = e.x
+      offset.y = e.y
+    },
+    { signal: controller.signal }
+  )
+
+  window.addEventListener(
+    'mouseup',
+    (e) => {
+      reset()
+    },
+    { once: true, signal: controller.signal }
+  )
+
+  window.addEventListener(
+    'keydown',
+    (e) => {
+      if (e.key !== 'Escape') return
+      reset()
+    },
+    { once: true, signal: controller.signal }
+  )
+
+  function reset() {
+    controller.abort()
+  }
+}
+
 watch(
-  () => [props.position.y, props.position.x],
+  () => [position.value.y, position.value.x],
   () => {
     layoutStore.nodes[props.id] = {
       ...layoutStore.nodes[props.id],
-      x: props.position.x,
-      y: props.position.y
+      x: position.value.x,
+      y: position.value.y
     }
   }
 )
@@ -105,6 +154,7 @@ onBeforeUnmount(() => {
     :node="node"
     :occurances="occurances"
     @click="onClick"
+    @mousedown="onMouseDown"
   />
 </template>
 
@@ -113,7 +163,7 @@ onBeforeUnmount(() => {
   position: absolute;
   transform: translate(-50%, -50%);
   transition:
-    transform var(--transition),
+    /* transform var(--transition), */
     opacity var(--transition),
     filter var(--transition);
 

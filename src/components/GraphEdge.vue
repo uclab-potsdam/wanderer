@@ -90,7 +90,7 @@ const d = computed(() => {
   if (start == null || end == null) {
     return
   }
-  return `M${start[0]},${start[1]} L${end[0]},${end[1]}`
+  return `M${start[0] + layoutStore.offset.x},${start[1] + layoutStore.offset.y} L${end[0] + layoutStore.offset.x},${end[1] + layoutStore.offset.y}`
 })
 
 const id = computed(() => props.edge.nodes.join('-'))
@@ -125,7 +125,7 @@ const markerStart = computed(
         <path d="M0,0 L10,10 L0,20" />
       </marker>
     </defs>
-    <BaseInterpolate
+    <!-- <BaseInterpolate
       :props="{
         d
       }"
@@ -134,7 +134,8 @@ const markerStart = computed(
       v-slot="value"
     >
       <path class="test" :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
-    </BaseInterpolate>
+    </BaseInterpolate> -->
+    <path class="test" :d="d" :marker-end="markerEnd" :marker-start="markerStart" />
   </g>
 </template>
 
