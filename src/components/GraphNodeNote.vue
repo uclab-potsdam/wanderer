@@ -32,6 +32,9 @@ defineExpose({ el })
 <style scoped>
 .note {
   pointer-events: none;
+  &.edit {
+    pointer-events: initial;
+  }
   box-sizing: content-box;
   color: color-mix(in lab, var(--graph-accent), var(--color-text) 40%);
   max-width: 250px;

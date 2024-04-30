@@ -40,7 +40,7 @@ defineExpose({
 
 <template>
   <div class="entity" ref="el" :style="{ ...color, ...autoplay }">
-    <img :src="image" />
+    <img :src="image" draggable="false" />
     <div class="text" ref="textElement">
       {{ text }}
       <IconPlay v-if="!playing" />
