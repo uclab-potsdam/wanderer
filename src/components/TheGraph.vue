@@ -111,7 +111,7 @@ onMounted(() => {
     })
     .filter((e) => {
       nextTick(() => activityStore.registerActivity())
-      return true
+      return e.button === 0
     })
   zoomElementSelection.value.call(zoomBehaviour.value)
   initGraph(0)

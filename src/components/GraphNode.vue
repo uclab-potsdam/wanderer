@@ -72,7 +72,7 @@ function onClick(e) {
 }
 
 function onMouseDown(e) {
-  if (!settingsStore.edit || props.view !== 'diagram') return
+  if (!settingsStore.edit || props.view !== 'diagram' || e.button !== 0) return
   e.stopPropagation()
 
   const offset = { x: e.x, y: e.y }
@@ -95,7 +95,7 @@ function onMouseDown(e) {
 
   window.addEventListener(
     'mouseup',
-    (e) => {
+    () => {
       reset()
     },
     { once: true, signal: controller.signal }
@@ -160,6 +160,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .node {
+  user-select: none;
   position: absolute;
   transform: translate(-50%, -50%);
   transition:
