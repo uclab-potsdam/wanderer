@@ -82,7 +82,7 @@ watch(
   display: grid;
   grid-template-columns:
     1fr
-    [st-start] min(100% - 100px, 800px)
+    [st-start] min(100% - 100px, 1400px)
     [st-end] 1fr;
   grid-template-rows: 1fr 50px;
 
