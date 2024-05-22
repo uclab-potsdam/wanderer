@@ -4,12 +4,18 @@ import { useVideoStore } from '@/stores/video'
 import TheGraph from '@/components/TheGraph.vue'
 import TheVideo from '@/components/TheVideo.vue'
 import TheControls from '@/components/TheControls.vue'
+import { ref } from 'vue';
 
 const videoStore = useVideoStore()
+
+const shift = ref(false)
+
+window.addEventListener('keydown', ({key}) => {if(key === 'Shift') shift.value = true})
+window.addEventListener('keyup', ({key}) => {if(key === 'Shift') shift.value = false})
 </script>
 
 <template>
-  <div class="graph-view" :class="{ 'split-screen': videoStore.playSplitScreen }">
+  <div class="graph-view" :class="{ 'split-screen': videoStore.playSplitScreen, 'hide-cursor': !shift }">
     <TheGraph />
     <TheVideo v-if="videoStore.playSplitScreen" />
     <TheControls />
@@ -42,6 +48,13 @@ const videoStore = useVideoStore()
       [graph-start-x controls-start-x] 1fr
       [graph-end-x controls-end-x video-start-x] 1fr
       [video-end-x];
+  }
+
+  &.hide-cursor {
+    cursor: none !important;
+    * {
+      cursor: none !important;
+    }
   }
 }
 </style>
