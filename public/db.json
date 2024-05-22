@@ -2207,13 +2207,13 @@
       "type": "graph",
       "text": { "de": "Ambe Sammeln", "en": "Collecting Ambé", "pt": "Coletando ambé" },
       "color": "green",
-      "image": "collecting ambé.jpg",
+      "image": "collecting ambe.jpg",
       "media": {
         "type": "video",
         "duration": 275.604,
-        "file": ["collecting ambé.mp4"],
-        "text": { "en": "collecting ambé" },
-        "subtitles": { "en": "collecting ambé - en.srt", "pt": "collecting ambé - pt.srt" }
+        "file": ["collecting ambe.mp4"],
+        "text": { "en": "collecting ambe" },
+        "subtitles": { "en": "collecting ambe - en.srt", "pt": "collecting ambe - pt.srt" }
       },
       "allocations": {
         "edge-3f291ce471f5f1e4c5a64fa932ef13e3d08c91f0506d44cf4ed03b6f5b7a133f": {
