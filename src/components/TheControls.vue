@@ -7,7 +7,7 @@ import { useHelperStore } from '@/stores/helper'
 import IconPlay from '~icons/base/IconPlay'
 import IconPlaying from '@/components/IconPlaying.vue'
 import { RouterLink } from 'vue-router'
-import InputSegment from '@/components/InputSegment.vue'
+// import InputSegment from '@/components/InputSegment.vue'
 import { useSettingsStore } from '@/stores/settings'
 
 const dataStore = useDataStore()
@@ -45,7 +45,7 @@ const progress = computed(() => `${(videoStore.time / videoStore.duration) * 100
           ><IconPlay v-if="!playing" /> <IconPlaying v-else /> {{ graphTitle }}</template
         >
       </RouterLink>
-      <InputSegment v-model="settingsStore.lang" :options="['pt', 'en']" />
+      <!-- <InputSegment v-model="settingsStore.lang" :options="['pt', 'en']" /> -->
     </div>
     <div class="progress">
       <div :style="{ width: progress }"></div>

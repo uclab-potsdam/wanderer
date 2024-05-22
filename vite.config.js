@@ -15,9 +15,7 @@ export default defineConfig({
       customCollections: {
         // key as the collection name
         base: FileSystemIconLoader('./src/assets/icons', (svg) =>
-          svg
-            .replace(/fill="#000000"/gi, 'fill="currentColor"')
-            .replace(/<svg/, '<svg class="icon"')
+          svg.replace(/fill="#000000"/gi, 'fill="currentColor"').replace(/<svg/, '<svg class="icon"')
         )
       }
     })
@@ -26,5 +24,8 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    port: 5500
   }
 })

@@ -4,7 +4,7 @@ import { zoom, zoomIdentity } from 'd3-zoom'
 import { select } from 'd3-selection'
 import { computeAllocations } from '@/assets/js/nodeAllocation'
 
-import InputButtonGroup from '@/components/InputButtonGroup.vue'
+// import InputButtonGroup from '@/components/InputButtonGroup.vue'
 
 import { useRoute, useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/data'
@@ -222,7 +222,7 @@ const resizeObserver = new ResizeObserver((entries) => {
     </svg>
   </main>
   <div class="tint" :style="cssProps" />
-  <InputButtonGroup :style="cssProps" @zoom-in="zoomIn" @zoom-out="zoomOut" />
+  <!-- <InputButtonGroup :style="cssProps" @zoom-in="zoomIn" @zoom-out="zoomOut" /> -->
 </template>
 
 <style scoped>
