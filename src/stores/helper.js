@@ -7,7 +7,7 @@ export const useHelperStore = defineStore('helper', () => {
   const settingsStore = useSettingsStore()
 
   function getMediaUrl(path) {
-    return `${constantStore.mediaServerUrl}/${path.replace(/^\//, '')}`
+    return encodeURI(`${constantStore.mediaServerUrl}/${path.replace(/^\//, '')}`)
   }
 
   function localize(text) {
