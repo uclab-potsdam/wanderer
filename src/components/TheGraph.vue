@@ -11,6 +11,8 @@ import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
 import { useVideoStore } from '@/stores/video'
 import { useLayoutStore } from '@/stores/layout'
+import { useSettingsStore } from '@/stores/settings'
+import { useContextMenuStore } from '@/stores/contextMenu'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
@@ -23,6 +25,8 @@ const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
 const videoStore = useVideoStore()
 const layoutStore = useLayoutStore()
+const settingsStore = useSettingsStore()
+const contextMenuStore = useContextMenuStore()
 
 const allocations = ref([])
 
@@ -105,13 +109,14 @@ watch(
 onMounted(() => {
   zoomElementSelection.value = select(zoomElement.value)
   zoomBehaviour.value = zoom()
-    .scaleExtent([0.1, 2])
+    // .scaleExtent([0.1, 2])
+    .scaleExtent([0.1, 1])
     .on('zoom', (e) => {
       layoutStore.transform = e.transform
     })
     .filter((e) => {
       nextTick(() => activityStore.registerActivity())
-      return e.button === 0
+      return e.button === 0 && !contextMenuStore.show
     })
   zoomElementSelection.value.call(zoomBehaviour.value)
   initGraph(0)
@@ -176,6 +181,38 @@ const resizeObserver = new ResizeObserver((entries) => {
     }
   }
 })
+
+function onContextMenu(e) {
+  if (!settingsStore.edit || view.value !== 'diagram') return
+  e.preventDefault()
+  contextMenuStore.open(
+    [
+      {
+        label: 'add',
+        action: () => {
+          const uuid = crypto.randomUUID()
+          const node = {
+            type: 'entity',
+            class: { en: 'none', pt: 'none' },
+            text: { de: 'Platzhalter', en: 'Placeholder' }
+          }
+          dataStore.data.nodes[uuid] = node
+          dataStore.data.nodes[id.value].allocations[uuid] = {
+            x: (contextMenuStore.offset.x - layoutStore.transform.x) / layoutStore.transform.k,
+            y: (contextMenuStore.offset.y - layoutStore.transform.y) / layoutStore.transform.k
+          }
+        }
+      },
+      {
+        label: 'log',
+        action: () => {
+          console.log(layoutStore.transform, contextMenuStore.offset)
+        }
+      }
+    ],
+    { x: e.x, y: e.y }
+  )
+}
 </script>
 
 <template>
@@ -184,6 +221,7 @@ const resizeObserver = new ResizeObserver((entries) => {
     ref="zoomElement"
     :class="{ initializing: route.meta.initializeView }"
     :style="cssProps"
+    @contextmenu="onContextMenu"
   >
     <div class="nodes" :style="{ transform: transformString }">
       <TransitionGroup name="nodes">

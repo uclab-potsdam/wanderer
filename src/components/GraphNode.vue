@@ -7,6 +7,7 @@ import { useLayoutStore } from '@/stores/layout'
 import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
 import { useVideoStore } from '@/stores/video'
+import { useContextMenuStore } from '@/stores/contextMenu'
 
 import { getComponentForType } from '@/assets/js/nodes'
 import { useSettingsStore } from '@/stores/settings'
@@ -25,6 +26,7 @@ const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
 const videoStore = useVideoStore()
 const settingsStore = useSettingsStore()
+const contextMenuStore = useContextMenuStore()
 
 const componentRef = ref(null)
 
@@ -76,6 +78,10 @@ function onMouseDown(e) {
   e.stopPropagation()
 
   const offset = { x: e.x, y: e.y }
+  const start = {
+    x: dataStore.data.nodes[props.graph].allocations[props.id].x,
+    y: dataStore.data.nodes[props.graph].allocations[props.id].y
+  }
   const controller = new AbortController()
 
   window.addEventListener(
@@ -85,10 +91,12 @@ function onMouseDown(e) {
         x: (e.x - offset.x) / layoutStore.transform.k,
         y: (e.y - offset.y) / layoutStore.transform.k
       }
-      dataStore.data.nodes[props.graph].allocations[props.id].x += delta.x
-      dataStore.data.nodes[props.graph].allocations[props.id].y += delta.y
-      offset.x = e.x
-      offset.y = e.y
+      const gridSize = e.shiftKey ? 0.5 : 20
+      const x = Math.round((start.x + delta.x) / gridSize) * gridSize
+      const y = Math.round((start.y + delta.y) / gridSize) * gridSize
+
+      dataStore.data.nodes[props.graph].allocations[props.id].x = x
+      dataStore.data.nodes[props.graph].allocations[props.id].y = y
     },
     { signal: controller.signal }
   )
@@ -107,12 +115,35 @@ function onMouseDown(e) {
       if (e.key !== 'Escape') return
       reset()
     },
-    { once: true, signal: controller.signal }
+    { signal: controller.signal }
   )
 
   function reset() {
     controller.abort()
   }
+}
+
+function onContextMenu(e) {
+  if (!settingsStore.edit) return
+  e.preventDefault()
+  e.stopPropagation()
+  contextMenuStore.open(
+    [
+      {
+        label: 'delete',
+        action: () => {
+          delete dataStore.data.nodes[props.graph].allocations[props.id]
+        }
+      },
+      {
+        label: 'log',
+        action: () => {
+          console.log(dataStore.data.nodes[props.graph].allocations[props.id])
+        }
+      }
+    ],
+    { x: e.x, y: e.y }
+  )
 }
 
 watch(
@@ -155,6 +186,7 @@ onBeforeUnmount(() => {
     :occurances="occurances"
     @click="onClick"
     @mousedown="onMouseDown"
+    @contextmenu="onContextMenu"
   />
 </template>
 
