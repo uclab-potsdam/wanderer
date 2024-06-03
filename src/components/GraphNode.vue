@@ -8,6 +8,7 @@ import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
 import { useVideoStore } from '@/stores/video'
 import { useContextMenuStore } from '@/stores/contextMenu'
+import { useModalStore } from '@/stores/modal'
 
 import { getComponentForType } from '@/assets/js/nodes'
 import { useSettingsStore } from '@/stores/settings'
@@ -27,6 +28,7 @@ const activityStore = useActivityStore()
 const videoStore = useVideoStore()
 const settingsStore = useSettingsStore()
 const contextMenuStore = useContextMenuStore()
+const modalStore = useModalStore()
 
 const componentRef = ref(null)
 
@@ -71,6 +73,11 @@ const resizeObserver = new ResizeObserver((entries) => {
 function onClick(e) {
   if (!settingsStore.edit || e.metaKey)
     router.push({ name: 'graph', params: { type: node.value.type, id: props.id } })
+}
+
+function onDoubleClick() {
+  if (!settingsStore.edit) return
+  modalStore.show = props.id
 }
 
 function onMouseDown(e) {
@@ -185,6 +192,7 @@ onBeforeUnmount(() => {
     :node="node"
     :occurances="occurances"
     @click="onClick"
+    @dblclick.stop="onDoubleClick"
     @mousedown="onMouseDown"
     @contextmenu="onContextMenu"
   />

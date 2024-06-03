@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router'
 import { useActivityStore } from './stores/activity'
 import { onMounted, onUnmounted } from 'vue'
 import TheContextMenu from '@/components/TheContextMenu.vue'
+import TheModal from '@/components/TheModal.vue'
 
 const activityStore = useActivityStore()
 
@@ -13,4 +14,5 @@ onUnmounted(() => activityStore.stopActivityTracking())
 <template>
   <RouterView />
   <TheContextMenu />
+  <TheModal />
 </template>
