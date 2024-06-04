@@ -77,7 +77,8 @@ function onClick(e) {
 
 function onDoubleClick() {
   if (!settingsStore.edit) return
-  modalStore.show = props.id
+  modalStore.node = node.value
+  modalStore.show = true
 }
 
 function onMouseDown(e) {
@@ -140,6 +141,13 @@ function onContextMenu(e) {
         label: 'delete',
         action: () => {
           delete dataStore.data.nodes[props.graph].allocations[props.id]
+        }
+      },
+      {
+        label: 'edit',
+        action: () => {
+          modalStore.node = node.value
+          modalStore.show = true
         }
       },
       {

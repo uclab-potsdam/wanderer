@@ -6,14 +6,15 @@ export const useModalStore = defineStore('modal', () => {
   const show = ref(false)
   const dataStore = useDataStore()
 
-  const entity = computed(() => {
-    if (!show.value) return null
-    return dataStore.data.nodes[show.value]
-  })
+  const node = ref(null)
+
+  // function open(i, t) {
+  //   show.value = false
+  // }
 
   function close() {
     show.value = false
   }
 
-  return { show, entity, close }
+  return { show, node, close }
 })

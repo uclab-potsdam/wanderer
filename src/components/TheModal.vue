@@ -1,16 +1,15 @@
 <script setup>
 import { useModalStore } from '@/stores/modal'
-import { useSettingsStore } from '@/stores/settings'
+import ModalNode from '@/components/ModalNode.vue'
+// import { useSettingsStore } from '@/stores/settings'
 
 const modalStore = useModalStore()
-const settingsStore = useSettingsStore()
+// const settingsStore = useSettingsStore()
 </script>
 
 <template>
   <div class="modal" v-if="modalStore.show" @click="modalStore.close()">
-    <div class="inner" @click.stop>
-      <input v-model="modalStore.entity.text[settingsStore.lang]" />
-    </div>
+    <ModalNode @click.stop />
   </div>
 </template>
 
@@ -31,13 +30,14 @@ const settingsStore = useSettingsStore()
     [modal-end] 1fr;
   grid-template-rows: 1fr [modal-start] auto [modal-end] 1fr;
 
-  .inner {
+  > * {
+    padding: var(--spacing);
     grid-column: modal-start / modal-end;
     grid-row: modal-start / modal-end;
 
     border-radius: calc(var(--spacing) * 0.25);
 
-    height: 400px;
+    /* height: 400px; */
     background: var(--color-background);
     box-shadow: color-mix(in lab, var(--color-text), transparent 50%) 0px 0px
       calc(var(--spacing) * 0.25);
