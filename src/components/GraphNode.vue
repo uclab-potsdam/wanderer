@@ -77,8 +77,7 @@ function onClick(e) {
 
 function onDoubleClick() {
   if (!settingsStore.edit) return
-  modalStore.node = node.value
-  modalStore.show = true
+  modalStore.open(props.id, 'node')
 }
 
 function onMouseDown(e) {
@@ -146,8 +145,7 @@ function onContextMenu(e) {
       {
         label: 'edit',
         action: () => {
-          modalStore.node = node.value
-          modalStore.show = true
+          modalStore.open(props.id, 'node')
         }
       },
       {

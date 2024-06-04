@@ -10,6 +10,9 @@ import { useVideoStore } from '@/stores/video'
 import { useDataStore } from '@/stores/data'
 
 import BaseInterpolate from '@/components/BaseInterpolate.vue'
+import { useSettingsStore } from '@/stores/settings'
+import { useModalStore } from '@/stores/modal'
+import { useContextMenuStore } from '@/stores/contextMenu'
 
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
@@ -17,6 +20,9 @@ const activityStore = useActivityStore()
 const constantStore = useConstantStore()
 const videoStore = useVideoStore()
 const dataStore = useDataStore()
+const settingsStore = useSettingsStore()
+const modalStore = useModalStore()
+const contextMenuStore = useContextMenuStore()
 
 const props = defineProps({
   edge: Object,
@@ -95,12 +101,41 @@ const d = computed(() => {
 
 const id = computed(() => props.edge.nodes.join('-'))
 const markerId = computed(() => `url('#marker-${id.value}')`)
+const markerAltId = computed(() => `url('#marker-${id.value}-alt')`)
 const markerEnd = computed(
   () => (props.edge.arrow === '→' || props.edge.arrow === '↔') && markerId.value
 )
 const markerStart = computed(
-  () => (props.edge.arrow === '←' || props.edge.arrow === '↔') && markerId.value
+  () => (props.edge.arrow === '←' || props.edge.arrow === '↔') && markerAltId.value
 )
+
+function onDoubleClick() {
+  if (!settingsStore.edit) return
+  modalStore.open(props.edge.id, 'edge')
+}
+
+function onContextMenu(e) {
+  if (!settingsStore.edit) return
+  e.preventDefault()
+  e.stopPropagation()
+  contextMenuStore.open(
+    [
+      {
+        label: 'delete',
+        action: () => {
+          dataStore.data.edges = dataStore.data.edges.filter((e) => e.id !== props.edge.id)
+        }
+      },
+      {
+        label: 'edit',
+        action: () => {
+          modalStore.open(props.edge.id, 'edge')
+        }
+      }
+    ],
+    { x: e.x, y: e.y }
+  )
+}
 </script>
 
 <template>
@@ -124,6 +159,16 @@ const markerStart = computed(
       >
         <path d="M0,0 L10,10 L0,20" />
       </marker>
+      <marker
+        :id="`marker-${id}-alt`"
+        markerWidth="10"
+        markerHeight="20"
+        refX="00"
+        refY="10"
+        orient="auto"
+      >
+        <path d="M10,0 L0,10 L10,20" />
+      </marker>
     </defs>
     <!-- <BaseInterpolate
       :props="{
@@ -133,9 +178,16 @@ const markerStart = computed(
       :duration="constantStore.transition"
       v-slot="value"
     >
-      <path class="test" :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
+      <path :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
     </BaseInterpolate> -->
-    <path class="test" :d="d" :marker-end="markerEnd" :marker-start="markerStart" />
+    <path
+      v-if="settingsStore.edit"
+      class="edit"
+      :d="d"
+      @dblclick.stop="onDoubleClick"
+      @contextmenu="onContextMenu"
+    />
+    <path :d="d" :marker-end="markerEnd" :marker-start="markerStart" />
   </g>
 </template>
 
@@ -166,6 +218,17 @@ const markerStart = computed(
 
   path {
     /* transition: all var(--transition); */
+
+    &.edit {
+      opacity: 0;
+      stroke-width: 20;
+      pointer-events: all;
+
+      &:hover {
+        opacity: 0.1;
+        stroke-linecap: round;
+      }
+    }
   }
 
   &.highlight,

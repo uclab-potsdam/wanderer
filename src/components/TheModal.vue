@@ -1,6 +1,7 @@
 <script setup>
 import { useModalStore } from '@/stores/modal'
 import ModalNode from '@/components/ModalNode.vue'
+import ModalEdge from '@/components/ModalEdge.vue'
 // import { useSettingsStore } from '@/stores/settings'
 
 const modalStore = useModalStore()
@@ -9,7 +10,8 @@ const modalStore = useModalStore()
 
 <template>
   <div class="modal" v-if="modalStore.show" @click="modalStore.close()">
-    <ModalNode @click.stop />
+    <ModalNode v-if="modalStore.type === 'node'" @click.stop />
+    <ModalEdge v-if="modalStore.type === 'edge'" @click.stop />
   </div>
 </template>
 

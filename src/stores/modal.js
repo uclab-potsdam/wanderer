@@ -6,15 +6,28 @@ export const useModalStore = defineStore('modal', () => {
   const show = ref(false)
   const dataStore = useDataStore()
 
-  const node = ref(null)
+  const id = ref(null)
+  const type = ref(null)
+  const item = computed(() => {
+    switch (type.value) {
+      case 'node':
+        return dataStore.data.nodes[id.value]
+      case 'edge':
+        return dataStore.data.edges.find((e) => e.id === id.value)
+      default:
+        return null
+    }
+  })
 
-  // function open(i, t) {
-  //   show.value = false
-  // }
+  function open(i, t) {
+    id.value = i
+    type.value = t
+    show.value = true
+  }
 
   function close() {
     show.value = false
   }
 
-  return { show, node, close }
+  return { show, item, close, open, type, id }
 })

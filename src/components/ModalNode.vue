@@ -25,26 +25,25 @@ const colors = [
 
 const modalStore = useModalStore()
 
-const fields = computed(() => schema[modalStore.node.type])
+const fields = computed(() => schema[modalStore.item.type])
 </script>
 
 <template>
   <div class="modal-node">
     <template v-for="(value, key) in fields" :key="key">
-      <InputText v-if="value === 'string'" :label="key" v-model="modalStore.node[key]" />
+      <InputText v-if="value === 'string'" :label="key" v-model="modalStore.item[key]" />
       <InputDictionary
         v-else-if="value === 'dictionary'"
         :label="key"
-        v-model="modalStore.node[key]"
+        v-model="modalStore.item[key]"
       />
       <InputSelect
         v-else-if="value === 'color'"
         :label="key"
-        v-model="modalStore.node[key]"
+        v-model="modalStore.item[key]"
         :options="colors"
       />
     </template>
-    <!-- <input v-model="modalStore.node.text[settingsStore.lang]" /> -->
   </div>
 </template>
 
