@@ -238,7 +238,7 @@ function onContextMenu(e) {
     <svg>
       <g :style="{ transform: transformString }">
         <TransitionGroup name="edges">
-          <GraphEdge v-for="edge in edges" :key="edge.nodes.join('/')" :edge="edge" :view="view" />
+          <GraphEdge v-for="edge in edges" :key="edge.id" :edge="edge" :view="view" />
         </TransitionGroup>
       </g>
     </svg>
