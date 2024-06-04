@@ -109,8 +109,19 @@ const markerStart = computed(
   () => (props.edge.arrow === '←' || props.edge.arrow === '↔') && markerAltId.value
 )
 
-function onDoubleClick() {
-  if (!settingsStore.edit) return
+function onClick(e) {
+  if (!e.metaKey) return
+
+  e.stopPropagation()
+  e.preventDefault()
+  const arrows = [null, '→', '←', '↔']
+  const current = Math.max(arrows.indexOf(props.edge.arrow), 0)
+  dataStore.data.edges.find((edge) => edge.id === props.edge.id).arrow =
+    arrows[(current + 1) % arrows.length]
+}
+
+function onDoubleClick(e) {
+  if (!settingsStore.edit || e.metaKey) return
   modalStore.open(props.edge.id, 'edge')
 }
 
@@ -186,6 +197,7 @@ function onContextMenu(e) {
       :d="d"
       @dblclick.stop="onDoubleClick"
       @contextmenu="onContextMenu"
+      @click="onClick"
     />
     <path :d="d" :marker-end="markerEnd" :marker-start="markerStart" />
   </g>

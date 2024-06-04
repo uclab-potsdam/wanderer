@@ -8,6 +8,7 @@ import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
 import { useVideoStore } from '@/stores/video'
 import { useContextMenuStore } from '@/stores/contextMenu'
+import { useConnectStore } from '@/stores/connect'
 import { useModalStore } from '@/stores/modal'
 
 import { getComponentForType } from '@/assets/js/nodes'
@@ -29,6 +30,7 @@ const videoStore = useVideoStore()
 const settingsStore = useSettingsStore()
 const contextMenuStore = useContextMenuStore()
 const modalStore = useModalStore()
+const connectStore = useConnectStore()
 
 const componentRef = ref(null)
 
@@ -71,8 +73,11 @@ const resizeObserver = new ResizeObserver((entries) => {
 })
 
 function onClick(e) {
-  if (!settingsStore.edit || e.metaKey)
+  if (!settingsStore.edit || e.metaKey) {
     router.push({ name: 'graph', params: { type: node.value.type, id: props.id } })
+  } else if (connectStore.connecting) {
+    connectStore.close(props.id)
+  }
 }
 
 function onDoubleClick() {
@@ -148,6 +153,25 @@ function onContextMenu(e) {
           modalStore.open(props.id, 'node')
         }
       },
+      {
+        label: '→',
+        action: () => {
+          if (props.view !== 'diagram') return
+          connectStore.open(props.id, '→', props.graph)
+        }
+      },
+      // {
+      //   label: '↔',
+      //   action: () => {
+      //     modalStore.open(props.id, 'node')
+      //   }
+      // },
+      // {
+      //   label: '-',
+      //   action: () => {
+      //     modalStore.open(props.id, 'node')
+      //   }
+      // },
       {
         label: 'log',
         action: () => {
