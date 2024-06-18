@@ -15,6 +15,9 @@ const router = useRouter()
     <RouterLink to="/">
       <h1>{{ projectTitle }}</h1>
     </RouterLink>
+
+    <RouterLink v-if="route.name !== 'settings'" to="/settings"> settings </RouterLink>
+    <a v-else @click="router.go(-1)">back</a>
   </header>
 </template>
 
@@ -26,12 +29,14 @@ header {
   z-index: 1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   padding: calc(var(--spacing) / 2);
 
   a {
     text-decoration: none;
     color: currentColor;
+    cursor: pointer;
   }
 }
 </style>
