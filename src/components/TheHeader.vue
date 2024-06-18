@@ -16,8 +16,11 @@ const router = useRouter()
       <h1>{{ projectTitle }}</h1>
     </RouterLink>
 
-    <RouterLink v-if="route.name !== 'settings'" to="/settings"> settings </RouterLink>
-    <a v-else @click="router.go(-1)">back</a>
+    <span class="right">
+      <RouterLink v-if="route.name !== 'settings'" to="/settings"> settings </RouterLink>
+      <RouterLink v-if="route.name !== 'projects'" to="/projects"> projects </RouterLink>
+    </span>
+    <!-- <a v-else @click="router.go(-1)">back</a> -->
   </header>
 </template>
 
@@ -30,6 +33,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--spacing);
 
   padding: calc(var(--spacing) / 2);
 
@@ -37,6 +41,11 @@ header {
     text-decoration: none;
     color: currentColor;
     cursor: pointer;
+  }
+
+  .right {
+    display: inherit;
+    gap: inherit;
   }
 }
 </style>

@@ -29,6 +29,16 @@ const router = createRouter({
       }
     },
     {
+      path: '/share/:id',
+      name: 'open'
+      // redirect: { name: 'list', params: { type: 'graph' } }
+    },
+    {
+      path: '/projects',
+      name: 'projects',
+      component: () => import('@/views/ProjectView.vue')
+    },
+    {
       path: '/video',
       name: 'video',
       component: () => import('@/views/VideoView.vue'),
@@ -39,8 +49,13 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to, from, next) => {
   const dataStore = useDataStore()
+  if (to.name === 'open') {
+    dataStore.open(to.params.id)
+    // dataStore.data = null
+    return next({ name: 'list', params: { type: 'graph' } })
+  }
   const videoStore = useVideoStore()
   if (dataStore.data === null && ['list', 'graph', 'video'].includes(to.name)) {
     await dataStore.init()
@@ -52,6 +67,7 @@ router.beforeEach(async (to, from) => {
     videoStore.graphId = to.params.id
   }
   to.meta.initializeView = to.name !== from.name
+  next()
 })
 
 export default router

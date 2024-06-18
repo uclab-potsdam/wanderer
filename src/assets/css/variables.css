@@ -12,5 +12,6 @@
   /* Colors */
   --color-background: white;
   --color-text: black;
-  --graph-accent: var(--gray)
+  --graph-accent: var(--gray);
+  --ui-accent: var(--teal);
 }

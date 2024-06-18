@@ -12,8 +12,9 @@ export const useConstantStore = defineStore('constant', () => {
     .replace(/px$/, '')
 
   const mediaServerUrl = import.meta.env.VITE_MEDIA_SERVER.replace(/\/$/, '')
-  const databaseUrl = import.meta.env.VITE_DATABASE_URL.replace(/\/$/, '')
+  const wandererStatic = import.meta.env.VITE_WANDERER_STATIC.replace(/\/$/, '')
+  const wandererServer = import.meta.env.VITE_WANDERER_SERVER.replace(/\/$/, '')
   const languages = import.meta.env.VITE_LANGUAGES.split(',')
 
-  return { transition, spacing, mediaServerUrl, databaseUrl, languages }
+  return { transition, spacing, mediaServerUrl, wandererStatic, wandererServer, languages }
 })
