@@ -80,7 +80,7 @@ export const useVideoStore = defineStore('video', () => {
   })
 
   function getNextGraph() {
-    let relatedGraphs = Object.keys(dataStore.data?.nodes[graphId.value].allocations ?? {}).filter(
+    let relatedGraphs = Object.keys(dataStore.data?.nodes[graphId.value]?.allocations ?? {}).filter(
       (id) => dataStore.data.nodes[id].type === 'graph'
     )
 

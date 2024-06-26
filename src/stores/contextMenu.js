@@ -1,20 +1,24 @@
-import { ref } from 'vue'
+import { ref, shallowRef } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useContextMenuStore = defineStore('context-menu', () => {
   const show = ref(false)
   const offset = ref({ x: 100, y: 100 })
-  const options = ref([
+  const component = shallowRef(null)
+  const context = ref([
     { label: 'A', action: () => console.log('AAAA') },
     { label: 'B', action: () => console.log('BBBB') }
   ])
 
-  function open(o, position) {
+  function open(t, c, position) {
+    component.value = t
+    context.value = c
+    if (position != null) offset.value = position
     show.value = true
-    offset.value = position
-    options.value = o
 
     const controller = new AbortController()
+
+    console.log('open')
 
     window.addEventListener(
       'keydown',
@@ -31,6 +35,7 @@ export const useContextMenuStore = defineStore('context-menu', () => {
       () => {
         controller.abort()
         show.value = false
+        console.log('close')
       },
       { once: true, signal: controller.signal }
     )
@@ -45,5 +50,5 @@ export const useContextMenuStore = defineStore('context-menu', () => {
     // )
   }
 
-  return { show, offset, options, open }
+  return { show, offset, component, context, open }
 })

@@ -16,6 +16,8 @@ import { useContextMenuStore } from '@/stores/contextMenu'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
+import ContextMenuList from './ContextMenuList.vue'
+import ContextMenuSearch from './ContextMenuSearch.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -186,21 +188,13 @@ function onContextMenu(e) {
   if (!settingsStore.edit || view.value !== 'diagram') return
   e.preventDefault()
   contextMenuStore.open(
+    ContextMenuList,
     [
       {
         label: 'add',
-        action: () => {
-          const uuid = crypto.randomUUID()
-          const node = {
-            type: 'entity',
-            class: { en: 'none', pt: 'none' },
-            text: { de: 'Platzhalter', en: 'Placeholder' }
-          }
-          dataStore.data.nodes[uuid] = node
-          dataStore.data.nodes[id.value].allocations[uuid] = {
-            x: (contextMenuStore.offset.x - layoutStore.transform.x) / layoutStore.transform.k,
-            y: (contextMenuStore.offset.y - layoutStore.transform.y) / layoutStore.transform.k
-          }
+        action: (e) => {
+          e.stopPropagation()
+          contextMenuStore.open(ContextMenuSearch)
         }
       },
       {

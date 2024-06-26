@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 
+import ContextMenuList from './ContextMenuList.vue'
+
 import { useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { useLayoutStore } from '@/stores/layout'
@@ -140,6 +142,7 @@ function onContextMenu(e) {
   e.preventDefault()
   e.stopPropagation()
   contextMenuStore.open(
+    ContextMenuList,
     [
       {
         label: 'delete',

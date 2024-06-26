@@ -35,6 +35,7 @@ defineExpose({
 
 <style scoped>
 .entity {
+  font-size: var(--font-size-small);
   box-sizing: content-box;
   max-width: 200px;
   width: max-content;
@@ -86,7 +87,13 @@ defineExpose({
   }
 
   .text {
-    font-weight: 900;
+    /* font-weight: 900; */
+    font: var(--serif);
+    font-weight: bold;
+  }
+
+  .class {
+    font-size: var(--font-size-small);
   }
 
   .inner {

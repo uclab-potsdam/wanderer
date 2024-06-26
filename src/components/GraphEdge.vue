@@ -10,6 +10,7 @@ import { useVideoStore } from '@/stores/video'
 import { useDataStore } from '@/stores/data'
 
 import BaseInterpolate from '@/components/BaseInterpolate.vue'
+import ContextMenuList from './ContextMenuList.vue'
 import { useSettingsStore } from '@/stores/settings'
 import { useModalStore } from '@/stores/modal'
 import { useContextMenuStore } from '@/stores/contextMenu'
@@ -130,6 +131,7 @@ function onContextMenu(e) {
   e.preventDefault()
   e.stopPropagation()
   contextMenuStore.open(
+    ContextMenuList,
     [
       {
         label: 'delete',
@@ -168,7 +170,7 @@ function onContextMenu(e) {
         refY="10"
         orient="auto"
       >
-        <path d="M0,0 L10,10 L0,20" />
+        <path d="M2,6.5 L10,10 L2,13.5" />
       </marker>
       <marker
         :id="`marker-${id}-alt`"
@@ -178,7 +180,7 @@ function onContextMenu(e) {
         refY="10"
         orient="auto"
       >
-        <path d="M10,0 L0,10 L10,20" />
+        <path d="M8,6.5 L0,10 L8,13.5" />
       </marker>
     </defs>
     <!-- <BaseInterpolate
@@ -207,6 +209,7 @@ function onContextMenu(e) {
 .edge {
   transition: all var(--transition);
   --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
+  color: color-mix(in lab, var(--tinted), var(--color-background) 10%);
   stroke: color-mix(in lab, var(--tinted), var(--color-background) 10%);
 
   &.hide {
@@ -216,6 +219,7 @@ function onContextMenu(e) {
     &.user-active {
       filter: none;
       opacity: 1;
+      color: color-mix(in lab, var(--tinted), var(--color-background) 50%);
       stroke: color-mix(in lab, var(--tinted), var(--color-background) 50%);
     }
   }
@@ -223,8 +227,8 @@ function onContextMenu(e) {
   marker {
     overflow: visible;
     path {
-      stroke: var(--marker);
-      fill: none;
+      stroke: currentColor;
+      fill: currentColor;
     }
   }
 
@@ -245,6 +249,7 @@ function onContextMenu(e) {
 
   &.highlight,
   &.network {
+    color: color-mix(in lab, var(--graph-accent), var(--color-text) 10%);
     stroke: color-mix(in lab, var(--graph-accent), var(--color-text) 10%);
   }
 }

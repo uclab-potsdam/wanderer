@@ -1,10 +1,16 @@
 :root {
   /* Dimensions */
   --spacing: 25px;
+  --border-radius: calc(var(--spacing) / 5);
 
   /* Typography */
   --regular: 400;
   --font-size: 20px;
+  --font-size-small: 16px;
+  --sans: var(--regular) var(--font-size) / 1.25 'Inter',
+  sans-serif;
+  --serif: var(--regular) var(--font-size) / 1.25 'Redaction',
+  sans-serif;
 
   /* Transitions */
   --transition: 1000ms;

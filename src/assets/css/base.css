@@ -4,3 +4,27 @@
   box-sizing: border-box;
   margin: 0;
 }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2.5px 10px;
+  border-radius: 5px;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+
+
+  &:not(:disabled):hover {
+    color: var(--ui-accent);
+    background-color: color-mix(in lab, currentColor, transparent 90%);
+  }
+
+  &:disabled {
+    color: color-mix(in lab, currentColor, transparent 70%);
+  }
+}

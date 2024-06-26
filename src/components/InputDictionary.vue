@@ -3,7 +3,10 @@ import { useHelperStore } from '@/stores/helper'
 import { useSettingsStore } from '@/stores/settings'
 
 defineProps({
-  modelValue: Object,
+  modelValue: {
+    type: Object,
+    default: () => ({})
+  },
   label: String,
   name: String
 })
@@ -17,7 +20,7 @@ const helperStore = useHelperStore()
       {{ label }}
       <input
         type="text"
-        :value="modelValue[settingsStore.lang]"
+        :value="modelValue?.[settingsStore.lang]"
         :placeholder="helperStore.localize(modelValue)"
         @change="
           $emit('update:modelValue', { ...modelValue, [settingsStore.lang]: $event.target.value })

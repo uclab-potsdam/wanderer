@@ -28,13 +28,11 @@ export const useDataStore = defineStore('data', () => {
   // })
 
   async function init() {
-    console.log(project.value)
+    // console.log(project.value)
     if (project.value == null) {
       data.value = await fetch(constantStore.wandererStatic).then((d) => d.json())
     } else if (!project.value.remote) {
-      console.log('here')
       data.value = JSON.parse(localStorage.getItem(`wanderer-${project.value.id}`))
-      console.log(data.value)
     } else {
       socket = io(constantStore.wandererServer)
       socket.on('data', (d) => {
@@ -65,6 +63,10 @@ export const useDataStore = defineStore('data', () => {
   })
 
   const node = computed(() => data.value?.nodes[nodeId.value])
+
+  const nodes = computed(() => {
+    return Object.entries(data.value.nodes).map((d) => ({ id: d[0], ...d[1] }))
+  })
 
   const graphs = computed(() => {
     if (data.value == null) return
@@ -167,6 +169,7 @@ export const useDataStore = defineStore('data', () => {
     data,
     dataCopy,
     node,
+    nodes,
     graphs,
     nodeId,
     nodeOccurances,

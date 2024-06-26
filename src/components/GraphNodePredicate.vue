@@ -31,6 +31,7 @@ defineExpose({ el })
   max-width: 250px;
   padding: calc(var(--spacing) * 0.5);
   width: max-content;
+  font-size: var(--font-size-small);
 
   &.hide {
     opacity: 0.2;

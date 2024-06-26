@@ -1,21 +1,18 @@
 <script setup>
 import { useContextMenuStore } from '@/stores/contextMenu'
-
 const contextMenuStore = useContextMenuStore()
 </script>
 
 <template>
-  <div
+  <component
+    :is="contextMenuStore.component"
     class="context-menu"
     v-if="contextMenuStore.show"
     :style="{
-      transform: `translate(${contextMenuStore.offset.x}px, ${contextMenuStore.offset.y}px)`
+      transform: `translate(${contextMenuStore.offset.x}px, ${contextMenuStore.offset.y - 5}px)`
     }"
-  >
-    <button v-for="(option, i) in contextMenuStore.options" :key="i" @click="option.action">
-      {{ option.label }}
-    </button>
-  </div>
+    :context="contextMenuStore.context"
+  />
 </template>
 
 <style scoped>
