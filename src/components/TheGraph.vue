@@ -19,6 +19,8 @@ import GraphEdge from '@/components/GraphEdge.vue'
 import ContextMenuList from './ContextMenuList.vue'
 import ContextMenuSearch from './ContextMenuSearch.vue'
 
+import { shorten } from '@/assets/js/resolveUrl'
+
 const route = useRoute()
 const router = useRouter()
 const dataStore = useDataStore()
@@ -207,6 +209,49 @@ function onContextMenu(e) {
     { x: e.x, y: e.y }
   )
 }
+
+function onDrop(e) {
+  e.preventDefault()
+  if (!settingsStore.edit || view.value !== 'diagram') return
+
+  // handling files
+  // console.log(e.dataTransfer.files)
+
+  const uri = shorten(e.dataTransfer.getData('text/uri-list'))
+
+  // fetch mime types from urls (only works if cors is enabled)
+  // const controller = new AbortController();
+  // const signal = controller.signal;
+  // const mime = await fetch(uri, {signal}).then(d => {controller.abort(); return d.headers.get('Content-Type')})
+
+  const existingNode = dataStore.nodes.find((n) => n.file === shorten(uri))
+  if (existingNode != null) return insertNode(existingNode.id, e.x, e.y)
+
+  // console.log(shorten(uri))
+  // .replace(location.origin, "workbench:/");
+
+  const isImage = /(.png|.jpe?g|.gif|.webp)$/i.test(uri)
+  console.log(uri, isImage)
+  if (isImage) {
+    const uuid = crypto.randomUUID()
+
+    const node = {
+      type: 'image',
+      file: uri,
+      text: { universal: uri.replace(/[^:]*:\/?\/?/, '').replace(/\.[^.]+$/, '') }
+    }
+
+    dataStore.data.nodes[uuid] = node
+    insertNode(uuid, e.x, e.y)
+  }
+}
+
+function insertNode(id, x, y) {
+  dataStore.data.nodes[dataStore.nodeId].allocations[id] = {
+    x: (x - layoutStore.transform.x) / layoutStore.transform.k,
+    y: (y - layoutStore.transform.y) / layoutStore.transform.k
+  }
+}
 </script>
 
 <template>
@@ -216,6 +261,9 @@ function onContextMenu(e) {
     :class="{ initializing: route.meta.initializeView }"
     :style="cssProps"
     @contextmenu="onContextMenu"
+    @drop="onDrop"
+    @dragover.prevent
+    @dragenter.prevent
   >
     <div class="nodes" :style="{ transform: transformString }">
       <TransitionGroup name="nodes">
