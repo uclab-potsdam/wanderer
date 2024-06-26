@@ -88,7 +88,13 @@ function onDoubleClick() {
 }
 
 function onMouseDown(e) {
-  if (!settingsStore.edit || props.view !== 'diagram' || e.button !== 0) return
+  if (
+    !settingsStore.edit ||
+    props.view !== 'diagram' ||
+    e.button !== 0 ||
+    dataStore.data.nodes[props.graph].allocations[props.id].locked
+  )
+    return
   e.stopPropagation()
 
   const offset = { x: e.x, y: e.y }
@@ -176,9 +182,16 @@ function onContextMenu(e) {
       //   }
       // },
       {
+        label: dataStore.data.nodes[props.graph].allocations[props.id].locked ? 'unlock' : 'lock',
+        action: () => {
+          dataStore.data.nodes[props.graph].allocations[props.id].locked =
+            !dataStore.data.nodes[props.graph].allocations[props.id].locked
+        }
+      },
+      {
         label: 'log',
         action: () => {
-          console.log(dataStore.data.nodes[props.graph].allocations[props.id])
+          console.log(props.id, dataStore.data.nodes[props.graph].allocations[props.id])
         }
       }
     ],

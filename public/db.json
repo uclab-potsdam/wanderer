@@ -2982,7 +2982,7 @@
         },
         "graph-nOtEYEjHoQD1J0vU": { "x": 1781.25, "y": 1234.375 },
         "media-O2fQaQR6xL3ihWKi": { "x": 1781.25, "y": 703.125 },
-        "media-BSrANk54tkEgj5Hc": { "x": 1703.125, "y": 921.875 },
+        "media-BSrANk54tkEgj5Hc": { "x": 1703.125, "y": 921.875, "locked": true },
         "media-fpGk5eJlOslcYL6J": { "x": 546.875, "y": 921.875 },
         "media-_W999P_CNtACE5ut": { "x": 1093.75, "y": 687.5 },
         "predicate-Al7lWr-3HV1W_Us-": { "x": 625, "y": 468.75 },
