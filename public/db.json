@@ -1246,136 +1246,136 @@
     },
     "media-NWvRMxzqTdCtfgHk": {
       "type": "image",
-      "file": "timbo_plant.png",
+      "file": "xe:timbo_plant.png",
       "text": { "universal": "timbo" }
     },
     "media-kIwxlG5yR0WUwTdH": {
       "type": "image",
-      "file": "kusu.png",
+      "file": "xe:kusu.png",
       "text": { "en": "kusu", "universal": "kusu" }
     },
     "media-4IOhDgzbSwMabdkd": {
       "type": "image",
-      "file": "Glass_tetra_fish.png",
+      "file": "xe:Glass_tetra_fish.png",
       "text": { "en": "Glass tetra fish" }
     },
     "media-Cz7xvqnCp80lFyH1": {
       "type": "image",
-      "file": "takeout.png",
+      "file": "xe:takeout.png",
       "text": { "en": "takeout" }
     },
-    "media-_8m-ctyu7OHynUdY": { "type": "image", "file": "wrap.png", "text": { "en": "wrap" } },
-    "media-pmT_HP2tW1cBTRTQ": { "type": "image", "file": "tie.png", "text": { "en": "tie" } },
-    "media-w7u40g-krDvSEFRZ": { "type": "image", "file": "bake.png", "text": { "en": "bake" } },
+    "media-_8m-ctyu7OHynUdY": { "type": "image", "file": "xe:wrap.png", "text": { "en": "wrap" } },
+    "media-pmT_HP2tW1cBTRTQ": { "type": "image", "file": "xe:tie.png", "text": { "en": "tie" } },
+    "media-w7u40g-krDvSEFRZ": { "type": "image", "file": "xe:bake.png", "text": { "en": "bake" } },
     "media-6cGP9rn7bdYJ08us": {
       "type": "image",
-      "file": "usingKusu_banana.png",
+      "file": "xe:usingKusu_banana.png",
       "text": { "en": "", "universal": "musa paradisiaca" }
     },
     "media-Y1M9jpD_jJ0GYhId": {
       "type": "image",
-      "file": "peelingAmbe_Kuamutsini.png",
+      "file": "xe:peelingAmbe_Kuamutsini.png",
       "text": { "en": "Kuamutsini" }
     },
     "media-CD2Dcj_OH1yPAtyw": {
       "type": "image",
-      "file": "peelingAmbe_makingTheFishTrap.png",
+      "file": "xe:peelingAmbe_makingTheFishTrap.png",
       "text": { "en": "making fish trap" }
     },
     "media-af4z9b5L92RXmLVY": {
       "type": "image",
-      "file": "peelingAmbe_tihigo.png",
+      "file": "xe:peelingAmbe_tihigo.png",
       "text": { "en": "tihigo" }
     },
     "media-hAzcnQCG9mNCB0p9": {
       "type": "image",
-      "file": "peelingAmbe_mouth.png",
+      "file": "xe:peelingAmbe_mouth.png",
       "text": { "en": "mouth Utu" }
     },
     "media-ZAw8dJmMQcqMxm7r": {
       "type": "image",
-      "file": "peelingAmbe_utu.png",
+      "file": "xe:peelingAmbe_utu.png",
       "text": { "en": "utu and village" }
     },
     "media-EamG2IJHK7l-Zblk": {
       "type": "image",
-      "file": "peelingAmbe_Kuamutsini2.png",
+      "file": "xe:peelingAmbe_Kuamutsini2.png",
       "text": { "en": "Kuamutsini 2" }
     },
     "media-dol8glmEzxypJxfz": {
       "type": "image",
-      "file": "usingUtu_waves.png",
+      "file": "xe:usingUtu_waves.png",
       "text": { "en": "waves graphic" }
     },
     "media-ZLe1PpUg4CHgfhOZ": {
       "type": "image",
-      "file": "usingUtu_Utu.png",
+      "file": "xe:usingUtu_Utu.png",
       "text": { "en": "Utu" }
     },
     "media-utWApC8tkCQwAFlf": {
       "type": "image",
-      "file": "usingUtu_pacu2.png",
+      "file": "xe:usingUtu_pacu2.png",
       "text": { "en": "Pacu" }
     },
     "media-asj2nJXInoRNOrj8": {
       "type": "image",
-      "file": "collectingAmbe_root.png",
+      "file": "xe:collectingAmbe_root.png",
       "text": { "en": "collectingAmbe_root" }
     },
     "media-o4ddGPp0jjhHYUKV": {
       "type": "image",
-      "file": "collectingAmbe_philodendronS2.png",
+      "file": "xe:collectingAmbe_philodendronS2.png",
       "text": { "en": "Ambe" }
     },
     "media-yFpRNg1FQPdxcvoz": {
       "type": "image",
-      "file": "collectingAmbe_Kamasinua.png",
+      "file": "xe:collectingAmbe_Kamasinua.png",
       "text": { "en": "Kamasinua", "universal": "Kamasinua" }
     },
     "media-0XOv1K25gsEZLzup": {
       "type": "image",
-      "file": "storyOfUhi_punch.png",
+      "file": "xe:storyOfUhi_punch.png",
       "text": { "en": "punch" }
     },
     "media-O2fQaQR6xL3ihWKi": {
       "type": "image",
-      "file": "storyOfUhi_hyperbicuda.png",
+      "file": "xe:storyOfUhi_hyperbicuda.png",
       "text": { "en": "hyper bicuda" }
     },
     "media-9kS19j1vIBU5xzXF": {
       "type": "image",
-      "file": "storyOfUhi_jump.png",
+      "file": "xe:storyOfUhi_jump.png",
       "text": { "en": "jump" }
     },
     "media-JikeLvpXaY6bCG7R": {
       "type": "image",
-      "file": "storyOfUhi_lagoon.png",
+      "file": "xe:storyOfUhi_lagoon.png",
       "text": { "en": "lagoon" }
     },
     "media-BSrANk54tkEgj5Hc": {
       "type": "image",
-      "file": "storyOfUhi_background.png",
+      "file": "xe:storyOfUhi_background.png",
       "text": { "en": "background Uhi" }
     },
     "media-fpGk5eJlOslcYL6J": {
       "type": "image",
-      "file": "storyOfUhi_burritipalm.png",
+      "file": "xe:storyOfUhi_burritipalm.png",
       "text": { "en": "burriti" }
     },
     "media-_W999P_CNtACE5ut": {
       "type": "image",
-      "file": "storyOfUhi_jumpgraphic.png",
+      "file": "xe:storyOfUhi_jumpgraphic.png",
       "text": { "en": "jump graphic" }
     },
     "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
       "type": "graph",
       "text": { "en": "Introduction", "pt": "Introdução" },
       "color": "indigo",
-      "image": "places.jpg",
+      "image": "xe:places.jpg",
       "media": {
         "type": "video",
         "duration": 199.366,
-        "file": ["places.mp4"],
+        "file": "xe:places.mp4",
         "text": { "en": "places" }
       },
       "allocations": {
@@ -1523,13 +1523,13 @@
       "type": "graph",
       "text": { "en": "Peeling Ambé", "pt": "Processando ambé" },
       "color": "yellow",
-      "image": "peeling the vine.jpg",
+      "image": "xe:peeling the vine.jpg",
       "media": {
         "type": "video",
         "duration": 159.04,
-        "file": ["peeling the vine.mp4"],
+        "file": "xe:peeling the vine.mp4",
         "text": { "en": "peeling the vine" },
-        "subtitles": { "en": "peeling the vine - en.srt", "pt": "peeling the vine - pt.srt" }
+        "subtitles": { "en": "xe:peeling the vine - en.srt", "pt": "xe:peeling the vine - pt.srt" }
       },
       "allocations": {
         "edge-13b79419bfce1c06da8a5745413233c311874b7711d1e3a7650c43365ab6114a": {
@@ -1615,7 +1615,7 @@
         "media-af4z9b5L92RXmLVY": { "x": 718.75, "y": 78.125 },
         "media-hAzcnQCG9mNCB0p9": { "x": 1875, "y": 62.5 },
         "media-ZAw8dJmMQcqMxm7r": { "x": 2421.875, "y": 562.5 },
-        "media-EamG2IJHK7l-Zblk": { "x": 1312.5, "y": 15.625 },
+        "media-EamG2IJHK7l-Zblk": { "x": 1328.125, "y": 0 },
         "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
           "x": 1140.625,
           "y": 171.875
@@ -1809,13 +1809,13 @@
       "type": "graph",
       "text": { "en": "Using Kusu", "pt": "O uso da armadilha kusu" },
       "color": "cyan",
-      "image": "using kusu.jpg",
+      "image": "xe:using kusu.jpg",
       "media": {
         "type": "video",
         "duration": 216.192,
-        "file": ["using kusu.mp4"],
+        "file": "xe:using kusu.mp4",
         "text": { "en": "using kusu" },
-        "subtitles": { "en": "using kusu - en.srt", "pt": "using kusu - pt.srt" }
+        "subtitles": { "en": "xe:using kusu - en.srt", "pt": "xe:using kusu - pt.srt" }
       },
       "allocations": {
         "edge-1d49763de71dffec12e4bbcbf49bd3f6d821cceb2adced26fb9179f21b3002c8": {
@@ -2205,13 +2205,13 @@
       "type": "graph",
       "text": { "de": "Ambe Sammeln", "en": "Collecting Ambé", "pt": "Coletando ambé" },
       "color": "green",
-      "image": "collecting ambé.jpg",
+      "image": "xe:collecting ambé.jpg",
       "media": {
         "type": "video",
         "duration": 275.604,
-        "file": ["collecting ambé.mp4"],
+        "file": "xe:collecting ambé.mp4",
         "text": { "en": "collecting ambé" },
-        "subtitles": { "en": "collecting ambé - en.srt", "pt": "collecting ambé - pt.srt" }
+        "subtitles": { "en": "xe:collecting ambé - en.srt", "pt": "xe:collecting ambé - pt.srt" }
       },
       "allocations": {
         "edge-3f291ce471f5f1e4c5a64fa932ef13e3d08c91f0506d44cf4ed03b6f5b7a133f": {
@@ -2579,13 +2579,13 @@
       "type": "graph",
       "text": { "en": "Using Utu", "pt": "O uso do utu" },
       "color": "lime",
-      "image": "using utu.jpg",
+      "image": "xe:using utu.jpg",
       "media": {
         "type": "video",
         "duration": 162,
-        "file": ["using utu.mp4"],
+        "file": "xe:using utu.mp4",
         "text": { "en": "using utu" },
-        "subtitles": { "de": "", "en": "using utu - en.srt", "pt": "using utu - pt.srt" }
+        "subtitles": { "de": "xe:", "en": "xe:using utu - en.srt", "pt": "xe:using utu - pt.srt" }
       },
       "allocations": {
         "edge-2addbf2c2e6d0d25ad30a42a9ad3f47f53852788cdf60e38ed7d04c524f8ad1f": {
@@ -2863,13 +2863,13 @@
       "type": "graph",
       "text": { "en": "The Story of Uhi", "pt": "A história de Uhi" },
       "color": "magenta",
-      "image": "the story of the fish trap - jamalui.jpg",
+      "image": "xe:the story of the fish trap - jamalui.jpg",
       "media": {
         "type": "video",
         "duration": 427.007,
-        "file": ["the Story Of Uhi.mp4"],
+        "file": "xe:the Story Of Uhi.mp4",
         "text": { "en": "The Story Of Uhi" },
-        "subtitles": { "en": "the Story Of Uhi_en.srt", "pt": "the Story Of Uhi_pt.srt" }
+        "subtitles": { "en": "xe:the Story Of Uhi_en.srt", "pt": "xe:the Story Of Uhi_pt.srt" }
       },
       "allocations": {
         "edge-e80bb48d95ee4802a31b2616e8f4c920c3ae5a2d19ab3d413b18d79534eae858": {
