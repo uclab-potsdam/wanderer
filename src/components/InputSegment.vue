@@ -40,7 +40,7 @@ defineEmits(['update:modelValue'])
 
   &:has(input:checked),
   &:hover:not(:has(input:disabled)) {
-    background: color-mix(in lab, var(--accent), transparent 70%);
+    background: color-mix(in lab, var(--ui-accent), transparent 70%);
     color: var(--ui-accent-deep);
     font-weight: var(--bold);
   }

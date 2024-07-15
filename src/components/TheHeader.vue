@@ -1,13 +1,14 @@
 <script setup>
-import { useDataStore } from '@/stores/data'
+import { useSettingsStore } from '@/stores/settings'
 import { useRoute, useRouter } from 'vue-router'
 import { ref } from 'vue'
+import InputSegment from '@/components/InputSegment.vue'
 
 const projectTitle = ref(import.meta.env.VITE_PROJECT_TITLE)
 
-const dataStore = useDataStore()
 const route = useRoute()
 const router = useRouter()
+const settingsStore = useSettingsStore()
 </script>
 
 <template>
@@ -19,6 +20,7 @@ const router = useRouter()
     <span class="right">
       <RouterLink v-if="route.name !== 'settings'" to="/settings"> settings </RouterLink>
       <RouterLink v-if="route.name !== 'projects'" to="/projects"> projects </RouterLink>
+      <InputSegment horizontal equal-size v-model="settingsStore.lang" :options="['pt', 'en']" />
     </span>
     <!-- <a v-else @click="router.go(-1)">back</a> -->
   </header>
@@ -46,6 +48,7 @@ header {
   .right {
     display: inherit;
     gap: inherit;
+    align-items: center;
   }
 }
 </style>
