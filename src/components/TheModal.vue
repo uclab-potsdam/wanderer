@@ -22,7 +22,7 @@ const modalStore = useModalStore()
   height: 100vh;
   z-index: 1;
 
-  backdrop-filter: blur(5px);
+  backdrop-filter: var(--blur);
   background: color-mix(in lab, var(--color-background), transparent 50%);
 
   display: grid;
@@ -37,12 +37,12 @@ const modalStore = useModalStore()
     grid-column: modal-start / modal-end;
     grid-row: modal-start / modal-end;
 
-    border-radius: calc(var(--spacing) * 0.25);
+    border-radius: var(--spacing-quart);
 
     /* height: 400px; */
     background: var(--color-background);
     box-shadow: color-mix(in lab, var(--color-text), transparent 50%) 0px 0px
-      calc(var(--spacing) * 0.25);
+      var(--spacing-quart);
     /* border: 1px solid var(--color-text); */
   }
 }

@@ -55,7 +55,7 @@ const constantStore = useConstantStore()
 
   .toolbar {
     display: flex;
-    gap: calc(var(--spacing) / 2);
+    gap: var(--spacing-half);
   }
 
   .project-list {
@@ -70,7 +70,7 @@ const constantStore = useConstantStore()
       li {
         code {
           background-color: color-mix(in lab, currentColor, transparent 90%);
-          padding: 0 calc(var(--spacing) / 4);
+          padding: 0 var(--spacing-quart);
           border-radius: 5px;
         }
       }

@@ -60,7 +60,7 @@ const constantStore = useConstantStore()
     [header-end];
 
   grid-template-rows:
-    [header-start] calc(var(--spacing) * 2)
+    [header-start] var(--spacing-double)
     [header-end main-start]
     1fr
     [main-end];
@@ -73,13 +73,13 @@ const constantStore = useConstantStore()
       list-style: none;
       padding: 0;
       border: 1px solid var(--color-text);
-      border-radius: calc(var(--spacing) / 2);
+      border-radius: var(--spacing-half);
       li {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: calc(var(--spacing) / 2);
+        gap: var(--spacing-half);
         justify-content: space-between;
-        padding: calc(var(--spacing) / 2);
+        padding: var(--spacing-half);
 
         &:not(:last-child) {
           border-bottom: 1px solid color-mix(in lab, var(--color-text), transparent 75%);

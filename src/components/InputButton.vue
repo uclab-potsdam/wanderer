@@ -25,13 +25,15 @@ defineProps({
 </template>
 <style scoped>
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font: inherit;
   font-size: 0.8em;
   color: inherit;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 2.5px 10px;
   border-radius: 5px;
   transition:
     background-color 0.2s,

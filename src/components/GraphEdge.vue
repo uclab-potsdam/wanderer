@@ -214,7 +214,7 @@ function onContextMenu(e) {
 
   &.hide {
     opacity: 0.2;
-    filter: blur(10px);
+    filter: var(--blur);
 
     &.user-active {
       filter: none;

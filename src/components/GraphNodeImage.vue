@@ -30,7 +30,7 @@ defineExpose({
   &.edit {
     pointer-events: initial;
     &:hover {
-      border-radius: calc(var(--spacing) * 0.25);
+      border-radius: var(--spacing-quart);
       overflow: hidden;
     }
   }

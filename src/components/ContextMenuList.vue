@@ -1,30 +1,34 @@
 <script setup>
+import ListWrapper from './ListWrapper.vue'
+
 defineProps(['context'])
 </script>
 
 <template>
-  <div class="context-menu-list">
+  <!-- <div class="context-menu-list"> -->
+  <ListWrapper class="context-menu-list">
     <button v-for="(option, i) in context" :key="i" @click="option.action">
       {{ option.label }}
     </button>
-  </div>
+  </ListWrapper>
+  <!-- </div> -->
 </template>
 
 <style scoped>
 .context-menu-list {
-  display: flex;
-  flex-direction: column;
-  background: var(--color-background);
-  box-shadow: 0px 0px 5px color-mix(in lab, var(--color-text), transparent 80%);
-  border-radius: var(--border-radius);
-  padding: calc(var(--spacing) / 8);
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* background: var(--color-background); */
+  /* box-shadow: var(--ui-shadow); */
+  /* border-radius: var(--border-radius); */
+  /* padding: var(--border-radius-half); */
 
   font-size: var(--font-size-small);
   min-width: 150px;
 
   button {
     text-align: left;
-    padding: calc(var(--spacing) / 2);
+    padding: var(--spacing-half);
   }
 }
 </style>

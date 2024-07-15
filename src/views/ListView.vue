@@ -20,7 +20,7 @@ import TheHeader from '@/components/TheHeader.vue'
     [header-end];
 
   grid-template-rows:
-    [header-start] calc(var(--spacing) * 2)
+    [header-start] var(--spacing-double)
     [header-end main-start]
     1fr
     [main-end];

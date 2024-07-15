@@ -29,13 +29,13 @@ defineExpose({ el })
   color: color-mix(in lab, var(--tinted), var(--color-background) 10%);
   /* color: color-mix(in lab, var(--graph-accent), var(--color-text) 40%); */
   max-width: 250px;
-  padding: calc(var(--spacing) * 0.5);
+  padding: var(--spacing-half);
   width: max-content;
   font-size: var(--font-size-small);
 
   &.hide {
     opacity: 0.2;
-    filter: blur(10px);
+    filter: var(--blur);
 
     &.user-active {
       filter: none;

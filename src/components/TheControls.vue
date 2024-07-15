@@ -45,7 +45,7 @@ const progress = computed(() => `${(videoStore.time / videoStore.duration) * 100
           ><IconPlay v-if="!playing" /> <IconPlaying v-else /> {{ graphTitle }}</template
         >
       </RouterLink>
-      <InputSegment v-model="settingsStore.lang" :options="['pt', 'en']" />
+      <InputSegment horizontal equal-size v-model="settingsStore.lang" :options="['pt', 'en']" />
     </div>
     <div class="progress">
       <div :style="{ width: progress }"></div>
@@ -65,7 +65,7 @@ const progress = computed(() => `${(videoStore.time / videoStore.duration) * 100
   align-items: center;
 
   background: color-mix(in lab, var(--color-background), transparent 50%);
-  backdrop-filter: blur(20px);
+  backdrop-filter: var(--blur);
 
   --accent: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
 
@@ -76,11 +76,11 @@ const progress = computed(() => `${(videoStore.time / videoStore.duration) * 100
     justify-content: space-between;
     gap: calc(var(--spacing));
     .graph-title {
-      padding: calc(var(--spacing) / 2);
+      padding: var(--spacing-half);
       color: var(--accent);
       display: flex;
       align-items: center;
-      gap: calc(var(--spacing) / 4);
+      gap: var(--spacing-quart);
       font-weight: 900;
       text-decoration: none;
     }

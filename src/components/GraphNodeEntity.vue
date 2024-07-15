@@ -39,13 +39,15 @@ defineExpose({
   box-sizing: content-box;
   max-width: 200px;
   width: max-content;
-  padding: calc(var(--spacing) * 0.5);
+  padding: var(--spacing-half);
   --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
   color: color-mix(in lab, var(--tinted), var(--color-background) 10%);
 
+  text-align: center;
+
   &.hide {
     opacity: 0.2;
-    filter: blur(10px);
+    filter: var(--blur);
 
     &.user-active {
       filter: none;

@@ -13,6 +13,7 @@ import { useVideoStore } from '@/stores/video'
 import { useLayoutStore } from '@/stores/layout'
 import { useSettingsStore } from '@/stores/settings'
 import { useContextMenuStore } from '@/stores/contextMenu'
+import { useEditStore } from '@/stores/edit'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
@@ -20,6 +21,8 @@ import ContextMenuList from './ContextMenuList.vue'
 import ContextMenuSearch from './ContextMenuSearch.vue'
 
 import { shorten } from '@/assets/js/resolveUrl'
+
+// import CursorAddEntity from '@/assets/icons/AddEntity.svg'
 
 const route = useRoute()
 const router = useRouter()
@@ -31,6 +34,7 @@ const videoStore = useVideoStore()
 const layoutStore = useLayoutStore()
 const settingsStore = useSettingsStore()
 const contextMenuStore = useContextMenuStore()
+const editStore = useEditStore()
 
 const allocations = ref([])
 
@@ -83,7 +87,10 @@ const edges = computed(() => {
 const allocationOrder = computed(() => Object.keys(allocations.value).sort())
 const cssProps = computed(() => {
   if (node.value.color == null) return
-  return { '--graph-accent': `var(--${node.value.color})` }
+  return {
+    '--graph-accent': `var(--${node.value.color})`
+    // cursor: `url("${CursorAddEntity}"), auto`
+  }
 })
 watch(node, () => initGraph(constantStore.transition))
 
@@ -210,6 +217,47 @@ function onContextMenu(e) {
   )
 }
 
+function onClick(e) {
+  if (!settingsStore.edit || view.value !== 'diagram') return
+
+  if (['add-entity', 'add-story', 'add-image'].includes(editStore.mode)) e.stopPropagation()
+  switch (editStore.mode) {
+    case 'add-entity':
+      contextMenuStore.open(
+        ContextMenuSearch,
+        {
+          nodeType: 'entity'
+        },
+        { x: e.x, y: e.y }
+      )
+      editStore.resetMode()
+      break
+    case 'add-story':
+      contextMenuStore.open(
+        ContextMenuSearch,
+        {
+          nodeType: 'graph'
+        },
+        { x: e.x, y: e.y }
+      )
+      editStore.resetMode()
+      break
+    case 'add-image':
+      contextMenuStore.open(
+        ContextMenuSearch,
+        {
+          nodeType: 'image'
+        },
+        { x: e.x, y: e.y }
+      )
+      editStore.resetMode()
+      break
+
+    default:
+      break
+  }
+}
+
 function onDrop(e) {
   e.preventDefault()
   if (!settingsStore.edit || view.value !== 'diagram') return
@@ -258,9 +306,10 @@ function insertNode(id, x, y) {
   <main
     class="graph"
     ref="zoomElement"
-    :class="{ initializing: route.meta.initializeView }"
+    :class="[`mode-${editStore.mode}`, { initializing: route.meta.initializeView }]"
     :style="cssProps"
     @contextmenu="onContextMenu"
+    @click="onClick"
     @drop="onDrop"
     @dragover.prevent
     @dragenter.prevent
@@ -294,6 +343,24 @@ function insertNode(id, x, y) {
   grid-row: graph-start / graph-end;
   position: relative;
   overflow: hidden;
+
+  /* cursor: pointer; */
+
+  &.mode-add-entity {
+    cursor:
+      url('@/assets/icons/AddEntity.svg') 11 15,
+      auto;
+  }
+  &.mode-add-story {
+    cursor:
+      url('@/assets/icons/AddStory.svg') 11 15,
+      auto;
+  }
+  &.mode-add-image {
+    cursor:
+      url('@/assets/icons/AddImage.svg') 11 15,
+      auto;
+  }
 
   /* position: absolute;
   top: 0;

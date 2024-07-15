@@ -30,20 +30,20 @@ defineEmits(['update:modelValue'])
   align-self: center;
 
   background: color-mix(in lab, var(--accent), transparent 90%);
-  backdrop-filter: blur(7px);
+  backdrop-filter: var(--blur);
   border-radius: 5px;
-  margin: 0 calc(var(--spacing) / 4);
+  margin: 0 var(--spacing-quart);
   /* height: var(--spacing); */
   font-size: 14px;
   text-transform: uppercase;
-  padding: calc(var(--spacing) / 8);
-  gap: calc(var(--spacing) / 8);
+  padding: var(--border-radius-half);
+  gap: var(--border-radius-half);
   color: color-mix(in lab, var(--accent), var(--color-text) 30%);
   font-weight: bold;
 
   label {
     transition: all var(--ui-transition);
-    padding: calc(var(--spacing) / 4);
+    padding: var(--spacing-quart);
     border-radius: 3px;
     outline: 1px solid transparent;
     outline-offset: -1px;

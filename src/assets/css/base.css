@@ -11,8 +11,8 @@ button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 2.5px 10px;
-  border-radius: 5px;
+  padding: 0;
+  border-radius: var(--border-radius);
   transition:
     background-color 0.2s,
     border-color 0.2s,

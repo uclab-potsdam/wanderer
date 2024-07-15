@@ -7,6 +7,7 @@ import { useLayoutStore } from '@/stores/layout'
 import { useSettingsStore } from '@/stores/settings'
 import { distance } from 'fastest-levenshtein'
 import { useHelperStore } from '@/stores/helper'
+import ListWrapper from './ListWrapper.vue'
 
 const props = defineProps({
   context: {
@@ -73,24 +74,24 @@ function addNode(id) {
 </script>
 
 <template>
-  <div class="context-menu-search">
+  <ListWrapper class="context-menu-search">
     <input placeholder="search" @click.stop v-model="label" />
     <button :disabled="label === ''" @click="createNode">add {{ label }}</button>
     <button v-for="(node, i) in nodes" :key="i" @click="addNode(node.id)">
       <LocalizeText :text="node.text" />
       – {{ node.distance }}
     </button>
-  </div>
+  </ListWrapper>
 </template>
 
 <style scoped>
 .context-menu-search {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   background: var(--color-background);
-  box-shadow: 0px 0px 5px color-mix(in lab, var(--color-text), transparent 80%);
+  box-shadow: var(--ui-shadow);
   border-radius: var(--border-radius);
-  padding: calc(var(--spacing) / 8);
+  padding: var(--border-radius-half); */
 
   font-size: var(--font-size-small);
   min-width: 150px;
@@ -100,7 +101,7 @@ function addNode(id) {
 
   button {
     text-align: left;
-    padding: calc(var(--spacing) / 2);
+    padding: var(--spacing-half);
     max-width: 250px;
   }
 }

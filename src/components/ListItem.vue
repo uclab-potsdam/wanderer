@@ -36,7 +36,7 @@ defineProps({
   text-decoration: none;
   color: inherit;
 
-  padding: calc(var(--spacing) / 2);
+  padding: var(--spacing-half);
   border-radius: var(--border-radius);
 
   .left {

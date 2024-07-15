@@ -12,6 +12,7 @@ import { useVideoStore } from '@/stores/video'
 import { useContextMenuStore } from '@/stores/contextMenu'
 import { useConnectStore } from '@/stores/connect'
 import { useModalStore } from '@/stores/modal'
+import { useEditStore } from '@/stores/edit'
 
 import { getComponentForType } from '@/assets/js/nodes'
 import { useSettingsStore } from '@/stores/settings'
@@ -20,7 +21,7 @@ const props = defineProps({
   id: String,
   view: String,
   position: Object,
-  graph: String
+  graph: [String, Boolean]
 })
 
 const router = useRouter()
@@ -33,6 +34,7 @@ const settingsStore = useSettingsStore()
 const contextMenuStore = useContextMenuStore()
 const modalStore = useModalStore()
 const connectStore = useConnectStore()
+const editStore = useEditStore()
 
 const componentRef = ref(null)
 
@@ -61,6 +63,8 @@ const display = computed(() => {
   return displayStore.inheritStateFromNeighbor(props.id)
 })
 
+const locked = computed(() => dataStore.data.nodes?.[props.graph]?.allocations?.[props.id]?.locked)
+
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.contentRect) {
@@ -79,6 +83,8 @@ function onClick(e) {
     router.push({ name: 'graph', params: { type: node.value.type, id: props.id } })
   } else if (connectStore.connecting) {
     connectStore.close(props.id)
+  } else if (editStore.mode === 'add-edge') {
+    connectStore.open(props.id, '→', props.graph)
   }
 }
 
@@ -88,13 +94,7 @@ function onDoubleClick() {
 }
 
 function onMouseDown(e) {
-  if (
-    !settingsStore.edit ||
-    props.view !== 'diagram' ||
-    e.button !== 0 ||
-    dataStore.data.nodes[props.graph].allocations[props.id].locked
-  )
-    return
+  if (!settingsStore.edit || props.view !== 'diagram' || e.button !== 0 || locked.value) return
   e.stopPropagation()
 
   const offset = { x: e.x, y: e.y }
@@ -182,10 +182,9 @@ function onContextMenu(e) {
       //   }
       // },
       {
-        label: dataStore.data.nodes[props.graph].allocations[props.id].locked ? 'unlock' : 'lock',
+        label: locked.value ? 'unlock' : 'lock',
         action: () => {
-          dataStore.data.nodes[props.graph].allocations[props.id].locked =
-            !dataStore.data.nodes[props.graph].allocations[props.id].locked
+          dataStore.data.nodes[props.graph].allocations[props.id].locked = !locked.value
         }
       },
       {
@@ -229,9 +228,11 @@ onBeforeUnmount(() => {
     :class="[
       display,
       view,
+      `mode-${editStore.mode}`,
       {
         'user-active': !activityStore.inactivityShort || !videoStore.playing,
-        edit: settingsStore.edit
+        edit: settingsStore.edit,
+        locked
       }
     ]"
     :style="positioning"
@@ -256,20 +257,39 @@ onBeforeUnmount(() => {
 
   &.edit {
     &:hover {
-      outline: black dashed 1px;
-      outline-offset: 2px;
-      border-radius: 5px;
+      &:not(.locked) {
+        --light: color-mix(in lab, var(--ui-accent), transparent 70%);
+        outline: var(--light) solid 2px;
+        background: var(--light);
+        /* outline-offset: 2px; */
+        border-radius: 5px;
+      }
     }
   }
 
   &.hide {
     opacity: 0.2;
-    filter: blur(10px);
+    filter: var(--blur);
 
     &.user-active {
       opacity: 1;
       filter: none;
     }
   }
+
+  &.mode-add-entity,
+  &.mode-add-story,
+  &.mode-add-image {
+    pointer-events: none;
+  }
+
+  &.mode-add-edge {
+    cursor: crosshair;
+  }
+  /* &.mode-display-blur {
+    cursor:
+      url('@/assets/icons/DisplayBlur.svg') 22 22,
+      auto;
+  } */
 }
 </style>

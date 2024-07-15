@@ -54,7 +54,7 @@ defineExpose({
   width: 250px;
   height: 150px;
   /* border: 1px solid var(--graph-accent); */
-  border-radius: calc(var(--spacing) * 0.25);
+  border-radius: var(--spacing-quart);
   overflow: hidden;
   z-index: -1;
 
@@ -69,6 +69,8 @@ defineExpose({
   flex-direction: column;
   justify-content: flex-end;
 
+  outline-offset: 2px;
+
   img {
     width: 100%;
     height: 100%;
@@ -82,7 +84,7 @@ defineExpose({
 
   .text {
     font-weight: 900;
-    padding: calc(var(--spacing) * 0.5);
+    padding: var(--spacing-half);
 
     display: flex;
     justify-content: space-between;
@@ -103,7 +105,7 @@ defineExpose({
       var(--background) var(--autoplay),
       var(--background) 100%
     );
-    backdrop-filter: blur(7px);
+    backdrop-filter: var(--blur);
   }
 }
 </style>

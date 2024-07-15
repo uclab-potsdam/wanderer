@@ -35,7 +35,7 @@ header {
   justify-content: space-between;
   gap: var(--spacing);
 
-  padding: calc(var(--spacing) / 2);
+  padding: var(--spacing-half);
 
   a {
     text-decoration: none;

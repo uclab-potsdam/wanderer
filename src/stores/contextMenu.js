@@ -18,7 +18,7 @@ export const useContextMenuStore = defineStore('context-menu', () => {
 
     const controller = new AbortController()
 
-    console.log('open')
+    console.log('open', t, c, position)
 
     window.addEventListener(
       'keydown',
