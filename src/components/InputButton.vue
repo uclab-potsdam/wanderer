@@ -15,11 +15,20 @@ defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  disablePadding: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
 <template>
-  <component :is="tag" class="button" :class="{ active, primary }" :disabled="disabled">
+  <component
+    :is="tag"
+    class="button"
+    :class="{ active, primary, 'disable-padding': disablePadding }"
+    :disabled="disabled"
+  >
     <slot />
   </component>
 </template>
@@ -35,10 +44,10 @@ defineProps({
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s,
-    color 0.2s;
+
+  &:not(.disable-padding) {
+    padding: var(--spacing-quart) var(--spacing-half);
+  }
 
   &.active {
     color: var(--ui-accent);
@@ -50,8 +59,8 @@ defineProps({
   }
 
   &:not(:disabled):hover {
-    color: var(--ui-accent);
-    background-color: color-mix(in lab, currentColor, transparent 90%);
+    background: color-mix(in lab, var(--ui-accent), transparent 70%);
+    color: var(--ui-accent-deep);
   }
 
   &:disabled {

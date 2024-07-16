@@ -232,7 +232,8 @@ onBeforeUnmount(() => {
       {
         'user-active': !activityStore.inactivityShort || !videoStore.playing,
         edit: settingsStore.edit,
-        locked
+        locked,
+        exact: displayStore.exactMarker?.states.hasOwnProperty(id)
       }
     ]"
     :style="positioning"
@@ -264,6 +265,14 @@ onBeforeUnmount(() => {
         /* outline-offset: 2px; */
         border-radius: 5px;
       }
+    }
+
+    &.exact {
+      --light: color-mix(in lab, var(--ui-accent), transparent 70%);
+      outline: var(--ui-accent) solid 2px;
+      /* background: var(--light); */
+      /* outline-offset: 2px; */
+      border-radius: 5px;
     }
   }
 

@@ -42,6 +42,7 @@ defineEmits(['update:modelValue'])
   &:hover:not(:has(input:disabled)) {
     background: color-mix(in lab, var(--ui-accent), transparent 70%);
     color: var(--ui-accent-deep);
+    font-weight: var(--bold);
   }
   &:has(input:focus-visible) {
     outline: 1px solid var(--ui-accent-dark);

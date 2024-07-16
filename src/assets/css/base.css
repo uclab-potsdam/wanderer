@@ -13,10 +13,7 @@ button {
   cursor: pointer;
   padding: 0;
   border-radius: var(--border-radius);
-  transition:
-    background-color 0.2s,
-    border-color 0.2s,
-    color 0.2s;
+
 
 
   &:not(:disabled):hover {

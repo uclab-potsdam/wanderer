@@ -52,7 +52,7 @@ const route = useRoute()
     [video-start]
     180px
     [video-end] var(--spacing-half)
-    [controls-start] var(--spacing-double)
+    [controls-start] var(--spacing-quad)
     [graph-end controls-end];
 
   &.split-screen {

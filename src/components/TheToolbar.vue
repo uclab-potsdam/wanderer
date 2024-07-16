@@ -4,11 +4,12 @@ import AddEntity from '~icons/base/AddEntity'
 import AddStory from '~icons/base/AddStory'
 import AddImage from '~icons/base/AddImage'
 import AddEdge from '~icons/base/AddLink'
-import Seperator from '~icons/base/Seperator'
+import SeperatorHorizontal from '~icons/base/SeperatorHorizontal'
 import DisplayBlur from '~icons/base/DisplayBlur'
 import DisplayDefault from '~icons/base/DisplayDefault'
 import DisplayHighlight from '~icons/base/DisplayHighlight'
 import DisplayUnset from '~icons/base/DisplayUnset'
+import DisplayFrame from '~icons/base/DisplayFrame'
 import InputSegment from './InputSegment.vue'
 import { useEditStore } from '@/stores/edit'
 
@@ -29,7 +30,8 @@ const editStore = useEditStore()
         { value: 'display-blur', slot: 'display-blur' },
         { value: 'display-default', slot: 'display-default' },
         { value: 'display-highlight', slot: 'display-highlight' },
-        { value: 'display-unset', slot: 'display-unset' }
+        { value: 'display-unset', slot: 'display-unset' },
+        { value: 'display-frame', slot: 'display-frame' }
       ]"
     >
       <template #default><CursorDefault /></template>
@@ -37,11 +39,12 @@ const editStore = useEditStore()
       <template #add-story><AddStory /></template>
       <template #add-image><AddImage /></template>
       <template #add-edge><AddEdge /></template>
-      <template #seperator><Seperator /></template>
+      <template #seperator><SeperatorHorizontal /></template>
       <template #display-blur><DisplayBlur /></template>
       <template #display-default><DisplayDefault /></template>
       <template #display-highlight><DisplayHighlight /></template>
       <template #display-unset><DisplayUnset /></template>
+      <template #display-frame><DisplayFrame /></template>
     </InputSegment>
   </section>
 </template>

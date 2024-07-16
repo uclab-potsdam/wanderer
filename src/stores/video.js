@@ -27,6 +27,8 @@ export const useVideoStore = defineStore('video', () => {
   const playing = ref(false)
   const duration = ref(1)
 
+  const setPlaying = ref(null)
+
   const video = computed(() => dataStore.data?.nodes[graphId.value]?.media)
   const showVideo = computed(() => video.value != null && !hasExternalPlayer.value)
   const subtitle = computed(

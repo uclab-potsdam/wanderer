@@ -4,21 +4,25 @@ import { computed } from 'vue'
 import { useVideoStore } from '@/stores/video'
 import { useHelperStore } from '@/stores/helper'
 
-import IconPlay from '~icons/base/IconPlay'
-import IconPlaying from '@/components/IconPlaying.vue'
-import { RouterLink } from 'vue-router'
+import { useSettingsStore } from '@/stores/settings'
+import ListWrapper from './ListWrapper.vue'
+import InputButton from './InputButton.vue'
+
+import ControlsPlay from '~icons/base/ControlsPlay'
+import ControlsPause from '~icons/base/ControlsPause'
+import ControlsMarkerPrevious from '~icons/base/ControlsMarkerPrevious'
+import ControlsMarkerNext from '~icons/base/ControlsMarkerNext'
+import SeperatorVerical from '~icons/base/SeperatorVertical'
+// import IconPlay from '~icons/base/IconPlay'
+
+import ControlsProgress from './ControlsProgress.vue'
 
 const dataStore = useDataStore()
 const videoStore = useVideoStore()
-const helperStore = useHelperStore()
+const settingsStore = useSettingsStore()
 
 const graph = computed(() => {
   return dataStore.data.nodes[videoStore.graphId]
-})
-
-const graphTitle = computed(() => {
-  if (graph.value == null) return
-  return helperStore.localize(graph.value.text)
 })
 
 const color = computed(() => {
@@ -28,70 +32,59 @@ const color = computed(() => {
 
 const playing = computed(() => videoStore.playing)
 
-const progress = computed(() => `${(videoStore.time / videoStore.duration) * 100}%`)
+const markers = computed(() => graph.value.marker.toSorted((a, b) => a.time - b.time))
+
+function previous() {
+  videoStore.playFrom = videoStore.time =
+    markers.value.findLast((m) => m.time < videoStore.time)?.time ?? 0
+}
+function next() {
+  videoStore.playFrom = videoStore.time =
+    markers.value.find((m) => m.time > videoStore.time)?.time ?? videoStore.duration
+}
 </script>
 
 <template>
-  <section class="controls" :style="color">
-    <div class="wrapper">
-      <RouterLink
-        class="graph-title"
-        :to="{ name: 'graph', params: { type: 'graph', id: videoStore.graphId } }"
-      >
-        <template v-if="graphTitle"
-          ><IconPlay v-if="!playing" /> <IconPlaying v-else /> {{ graphTitle }}</template
-        >
-      </RouterLink>
-    </div>
-    <div class="progress">
-      <div :style="{ width: progress }"></div>
-    </div>
+  <section class="timeline" :class="{ edit: settingsStore.edit }" :style="color">
+    <template v-if="settingsStore.edit">
+      <ListWrapper class="button-group" horizontal>
+        <InputButton disable-padding>
+          <ControlsPlay v-if="!playing" @click="videoStore.setPlaying = true" />
+          <ControlsPause v-else @click="videoStore.setPlaying = false" />
+        </InputButton>
+        <InputButton disable-padding><ControlsMarkerPrevious @click="previous" /></InputButton>
+        <InputButton disable-padding><ControlsMarkerNext @click="next" /></InputButton>
+        <SeperatorVerical />
+        <ControlsProgress show-markers />
+      </ListWrapper>
+    </template>
+    <ControlsProgress v-else />
   </section>
 </template>
 
 <style scoped>
-.controls {
-  grid-column: controls-start / controls-end;
-  grid-row: controls-start / controls-end;
+.timeline {
+  --tint: var(--accent, var(--ui-accent));
 
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  min-height: var(--spacing);
 
   z-index: 1;
   display: flex;
-  align-items: center;
-
-  background: color-mix(in lab, var(--color-background), transparent 50%);
-  backdrop-filter: var(--blur);
+  align-items: flex-start;
+  align-items: flex-end;
+  gap: var(--spacing-half);
 
   --accent: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
 
-  .wrapper {
+  .button-group {
+    margin: var(--spacing-half);
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: calc(var(--spacing));
-    .graph-title {
-      padding: var(--spacing-half);
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-quart);
-      font-weight: 900;
-      text-decoration: none;
-    }
-  }
 
-  .progress {
-    position: absolute;
-    height: 5px;
-    bottom: 0;
-    width: 100%;
-    background: color-mix(in lab, var(--accent), transparent 70%);
-
-    > div {
-      height: 100%;
-      background: var(--accent);
+    .progress {
+      margin: var(--spacing-half);
     }
   }
 }

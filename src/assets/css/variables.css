@@ -1,6 +1,7 @@
 :root {
   /* Dimensions */
   --spacing: 20px;
+  --spacing-quad: calc(var(--spacing) * 4);
   --spacing-double: calc(var(--spacing) * 2);
   --spacing-half: calc(var(--spacing) * 0.5);
   --spacing-quart: calc(var(--spacing) * 0.25);
@@ -19,6 +20,7 @@
 
   /* Transitions */
   --transition: 1000ms;
+  --ui-transition: 200ms;
 
   /* Colors */
   --color-background: white;

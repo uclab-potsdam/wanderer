@@ -52,6 +52,19 @@ watch(
     videoStore.playFrom = null
   }
 )
+
+watch(
+  () => videoStore.setPlaying,
+  (playing) => {
+    if (playing == null) return
+    if (playing) {
+      video.value.play()
+    } else {
+      video.value.pause()
+    }
+    videoStore.setPlaying = null
+  }
+)
 </script>
 
 <template>

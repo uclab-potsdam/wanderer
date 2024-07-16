@@ -14,6 +14,8 @@ defineProps({
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   &.horizontal {
     flex-direction: row;
   }
