@@ -66,6 +66,22 @@ function onContextMenu(e, marker, index) {
             videoStore.graphId
           ].marker.filter((m, i) => i !== index)
         }
+      },
+      {
+        label: '+',
+        remainOpen: true,
+        action: (e) => {
+          e.stopPropagation()
+          dataStore.data.nodes[videoStore.graphId].marker[index].time += 1
+        }
+      },
+      {
+        label: '-',
+        remainOpen: true,
+        action: (e) => {
+          e.stopPropagation()
+          dataStore.data.nodes[videoStore.graphId].marker[index].time -= 1
+        }
       }
       // {
       //   label: 'edit',
