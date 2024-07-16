@@ -54,12 +54,9 @@ const editStore = useEditStore()
   --accent: var(--ui-accent);
   position: absolute;
   left: var(--spacing-half);
-  align-self: center;
-
-  padding: calc(var(--border-radius) / 2);
-
-  /* height: 400px; */
-  /* width: 50px; */
+  /* align-self: center; */
+  top: 50%;
+  transform: translateY(-50%);
 
   display: flex;
   flex-direction: column;
