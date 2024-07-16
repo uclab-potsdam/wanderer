@@ -79,6 +79,7 @@ function resetTime() {
 <style scoped>
 .progress {
   color: var(--accent, var(--ui-accent));
+  align-self: center;
 
   --left: color-mix(in lab, currentColor, transparent 20%);
   --right: color-mix(in lab, currentColor, rgba(255, 255, 255, 0.5) 90%);
