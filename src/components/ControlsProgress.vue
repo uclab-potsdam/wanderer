@@ -82,7 +82,7 @@ function resetTime() {
 
   --left: color-mix(in lab, currentColor, transparent 20%);
   --right: color-mix(in lab, currentColor, rgba(255, 255, 255, 0.5) 90%);
-  height: 1px;
+  height: 5px;
   bottom: 0;
   width: 100%;
 

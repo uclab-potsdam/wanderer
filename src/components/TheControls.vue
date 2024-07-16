@@ -84,6 +84,7 @@ function next() {
     width: 100%;
 
     .progress {
+      height: 1px;
       margin: var(--spacing-half);
     }
   }
