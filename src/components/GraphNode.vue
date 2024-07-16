@@ -233,7 +233,7 @@ onBeforeUnmount(() => {
         'user-active': !activityStore.inactivityShort || !videoStore.playing,
         edit: settingsStore.edit,
         locked,
-        exact: displayStore.exactMarker?.states.hasOwnProperty(id)
+        exact: displayStore.exactMarker?.states?.hasOwnProperty(id)
       }
     ]"
     :style="positioning"
