@@ -18,8 +18,6 @@ export const useContextMenuStore = defineStore('context-menu', () => {
 
     const controller = new AbortController()
 
-    console.log('open', t, c, position)
-
     window.addEventListener(
       'keydown',
       (e) => {
@@ -35,7 +33,6 @@ export const useContextMenuStore = defineStore('context-menu', () => {
       () => {
         controller.abort()
         show.value = false
-        console.log('close')
       },
       { once: true, signal: controller.signal }
     )

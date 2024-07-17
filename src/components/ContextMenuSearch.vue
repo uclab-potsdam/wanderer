@@ -49,8 +49,6 @@ const nodes = computed(() => {
 })
 
 function createNode() {
-  console.log('create', label.value)
-
   const uuid = crypto.randomUUID()
   const node = {
     type: props.context.nodeType,
@@ -65,7 +63,6 @@ function createNode() {
 }
 
 function addNode(id) {
-  console.log('add', id)
   dataStore.data.nodes[dataStore.nodeId].allocations[id] = {
     x: (contextMenuStore.offset.x - layoutStore.transform.x) / layoutStore.transform.k,
     y: (contextMenuStore.offset.y - layoutStore.transform.y) / layoutStore.transform.k

@@ -279,7 +279,6 @@ function onDrop(e) {
   // .replace(location.origin, "workbench:/");
 
   const isImage = /(.png|.jpe?g|.gif|.webp)$/i.test(uri)
-  console.log(uri, isImage)
   if (isImage) {
     const uuid = crypto.randomUUID()
 
