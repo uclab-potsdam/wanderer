@@ -109,7 +109,7 @@ function onContextMenu(e, marker, index) {
         v-for="(m, i) in graph.marker"
         :key="i"
         class="marker"
-        :class="{ active: m.time === videoStore.time }"
+        :class="{ active: m.time === videoStore.time || m.time === time }"
         :style="{ left: timeToPerc(m.time) }"
         @click="selectMarker($event, m, true)"
         @mousemove="selectMarker($event, m)"

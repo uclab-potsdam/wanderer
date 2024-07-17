@@ -85,6 +85,14 @@ function onClick(e) {
     connectStore.close(props.id)
   } else if (editStore.mode === 'add-edge') {
     connectStore.open(props.id, '→', props.graph)
+  } else if (editStore.mode === 'display-blur') {
+    editStore.setDisplay(props.id, 'hide', props.graph)
+  } else if (editStore.mode === 'display-default') {
+    editStore.setDisplay(props.id, 'default', props.graph)
+  } else if (editStore.mode === 'display-highlight') {
+    editStore.setDisplay(props.id, 'highlight', props.graph)
+  } else if (editStore.mode === 'display-unset') {
+    editStore.setDisplay(props.id, null, props.graph)
   }
 }
 
