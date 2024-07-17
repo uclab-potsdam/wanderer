@@ -43,6 +43,8 @@ const zoomElementSelection = ref(null)
 const zoomBehaviour = ref(null)
 // const transform = ref({ x: 0, y: 0, k: 1 })
 
+const displayBoundsTemp = ref(null)
+
 const id = computed(() => route.params.id)
 const node = computed(() => dataStore.data.nodes[id.value])
 const view = computed(() => (route.params.type === 'graph' ? 'diagram' : 'network'))
@@ -92,6 +94,13 @@ const cssProps = computed(() => {
     // cursor: `url("${CursorAddEntity}"), auto`
   }
 })
+
+const displayBounds = computed(() => {
+  if ((displayStore.exactMarker?.bounds == null && displayBoundsTemp.value) == null) return
+  const { x1, y1, x2, y2 } = displayBoundsTemp.value || displayStore.exactMarker.bounds
+  return `M${x1},${y1} L${x2},${y1} L${x2},${y2} L${x1},${y2} Z`
+})
+
 watch(node, () => initGraph(constantStore.transition))
 
 watch(bounds, () => {
@@ -126,6 +135,7 @@ onMounted(() => {
       layoutStore.transform = e.transform
     })
     .filter((e) => {
+      if (editStore.mode === 'display-frame') return
       nextTick(() => activityStore.registerActivity())
       return e.button === 0 && !contextMenuStore.show
     })
@@ -252,9 +262,59 @@ function onClick(e) {
       )
       editStore.resetMode()
       break
-
     default:
       break
+  }
+}
+
+function onMouseDown(e) {
+  if (editStore.mode === 'display-frame') {
+    e.preventDefault()
+    e.stopPropagation()
+    const coords = screenToCoordinates(e)
+    displayBoundsTemp.value = {
+      x1: coords.x,
+      y1: coords.y,
+      x2: coords.x,
+      y2: coords.y
+    }
+
+    const controller = new AbortController()
+
+    const reset = function () {
+      console.log('reset')
+      controller.abort()
+      displayBoundsTemp.value = null
+    }
+
+    window.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key !== 'Escape') return
+        reset()
+      },
+      { signal: controller.signal }
+    )
+
+    window.addEventListener(
+      'mousemove',
+      (e) => {
+        const { x, y } = screenToCoordinates(e)
+        displayBoundsTemp.value.x2 = x
+        displayBoundsTemp.value.y2 = y
+      },
+      { signal: controller.signal }
+    )
+
+    window.addEventListener(
+      'mouseup',
+      () => {
+        editStore.setBounds(displayBoundsTemp.value, id.value)
+        reset()
+        editStore.resetMode()
+      },
+      { signal: controller.signal }
+    )
   }
 }
 
@@ -294,9 +354,13 @@ function onDrop(e) {
 }
 
 function insertNode(id, x, y) {
-  dataStore.data.nodes[dataStore.nodeId].allocations[id] = {
-    x: (x - layoutStore.transform.x) / layoutStore.transform.k,
-    y: (y - layoutStore.transform.y) / layoutStore.transform.k
+  dataStore.data.nodes[dataStore.nodeId].allocations[id] = screenToCoordinates({ x, y })
+}
+
+function screenToCoordinates(screen) {
+  return {
+    x: (screen.x - layoutStore.transform.x) / layoutStore.transform.k,
+    y: (screen.y - layoutStore.transform.y) / layoutStore.transform.k
   }
 }
 </script>
@@ -309,6 +373,7 @@ function insertNode(id, x, y) {
     :style="cssProps"
     @contextmenu="onContextMenu"
     @click="onClick"
+    @mousedown="onMouseDown"
     @drop="onDrop"
     @dragover.prevent
     @dragenter.prevent
@@ -330,6 +395,11 @@ function insertNode(id, x, y) {
         <TransitionGroup name="edges">
           <GraphEdge v-for="edge in edges" :key="edge.id" :edge="edge" :view="view" />
         </TransitionGroup>
+        <path
+          v-if="settingsStore.edit && displayBounds"
+          :d="displayBounds"
+          class="display-bounds"
+        />
       </g>
     </svg>
   </main>
@@ -361,6 +431,10 @@ function insertNode(id, x, y) {
       auto;
   }
 
+  &.mode-display-frame {
+    cursor: crosshair;
+  }
+
   /* position: absolute;
   top: 0;
   left: 0;
@@ -375,6 +449,14 @@ function insertNode(id, x, y) {
     width: 100%;
     height: 100%;
     pointer-events: none;
+
+    .display-bounds {
+      fill: none;
+      stroke: var(--ui-accent);
+      stroke-width: 2;
+      stroke-dasharray: 10px 10px;
+      vector-effect: non-scaling-stroke;
+    }
   }
 
   /* transitions */

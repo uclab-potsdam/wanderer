@@ -4,8 +4,12 @@ import { computed, ref } from 'vue'
 import { useVideoStore } from '@/stores/video'
 import { useContextMenuStore } from '@/stores/contextMenu'
 
-import DisplayDefault from '~icons/base/DisplayDefault'
 import ContextMenuList from './ContextMenuList.vue'
+
+import DisplayDefaultFrame from '~icons/base/DisplayDefaultFrame'
+import DisplayDefault from '~icons/base/DisplayDefault'
+import DisplayFrame from '~icons/base/DisplayFrame'
+import { useEditStore } from '@/stores/edit'
 
 defineProps({
   showMarkers: Boolean
@@ -16,6 +20,7 @@ const time = ref(0)
 const dataStore = useDataStore()
 const videoStore = useVideoStore()
 const contextMenuStore = useContextMenuStore()
+const editStore = useEditStore()
 
 const graph = computed(() => {
   return dataStore.data.nodes[videoStore.graphId]
@@ -82,13 +87,17 @@ function onContextMenu(e, marker, index) {
           e.stopPropagation()
           dataStore.data.nodes[videoStore.graphId].marker[index].time -= 1
         }
-      }
-      // {
-      //   label: 'edit',
-      //   action: () => {
-      //     // modalStore.open(props.edge.id, 'edge')
-      //   }
-      // }
+      },
+      ...(marker.bounds != null
+        ? [
+            {
+              label: 'clear bounds',
+              action: () => {
+                editStore.setBounds(null, videoStore.graphId, marker.time)
+              }
+            }
+          ]
+        : [])
     ],
     { x: e.x, y: e.y }
   )
@@ -115,7 +124,9 @@ function onContextMenu(e, marker, index) {
         @mousemove="selectMarker($event, m)"
         @contextmenu="onContextMenu($event, m, i)"
       >
-        <DisplayDefault />
+        <DisplayDefaultFrame v-if="m.bounds && m.states" />
+        <DisplayDefault v-else-if="m.states" />
+        <DisplayFrame v-else />
       </div>
     </div>
   </div>
