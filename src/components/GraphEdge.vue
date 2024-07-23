@@ -14,6 +14,7 @@ import ContextMenuList from './ContextMenuList.vue'
 import { useSettingsStore } from '@/stores/settings'
 import { useModalStore } from '@/stores/modal'
 import { useContextMenuStore } from '@/stores/contextMenu'
+import LocalizeText from './LocalizeText.vue'
 
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
@@ -59,7 +60,7 @@ const color = computed(() => {
 
 const display = computed(() => displayStore.inheritStateFromNodes(props.edge.nodes))
 
-const d = computed(() => {
+const points = computed(() => {
   if (source.value == null || target.value == null) return
 
   const margin = constantStore.spacing
@@ -97,7 +98,23 @@ const d = computed(() => {
   if (start == null || end == null) {
     return
   }
-  return `M${start[0] + layoutStore.offset.x},${start[1] + layoutStore.offset.y} L${end[0] + layoutStore.offset.x},${end[1] + layoutStore.offset.y}`
+  return [
+    [start[0] + layoutStore.offset.x, start[1] + layoutStore.offset.y],
+    [end[0] + layoutStore.offset.x, end[1] + layoutStore.offset.y]
+  ]
+})
+
+const d = computed(() => {
+  if (points.value == null) return
+
+  return `M${points.value[0][0]},${points.value[0][1]} L${points.value[1][0]},${points.value[1][1]}`
+})
+const center = computed(() => {
+  if (points.value == null) return []
+  return [
+    (points.value[0][0] + points.value[1][0]) / 2,
+    (points.value[0][1] + points.value[1][1]) / 2
+  ]
 })
 
 const id = computed(() => props.edge.nodes.join('-'))
@@ -202,6 +219,17 @@ function onContextMenu(e) {
       @click="onClick"
     />
     <path :d="d" :marker-end="markerEnd" :marker-start="markerStart" />
+    <text
+      class="shadow"
+      :class="{ edit: settingsStore.edit }"
+      :x="center[0]"
+      :y="center[1]"
+      @dblclick.stop="onDoubleClick"
+      @contextmenu="onContextMenu"
+      @click="onClick"
+      ><LocalizeText :text="edge.text" />
+    </text>
+    <text :x="center[0]" :y="center[1]"><LocalizeText :text="edge.text" /> </text>
   </g>
 </template>
 
@@ -244,6 +272,44 @@ function onContextMenu(e) {
         opacity: 0.1;
         stroke-linecap: round;
       }
+    }
+  }
+
+  text {
+    stroke: none;
+    fill: currentColor;
+    font-size: var(--font-size-small);
+    text-anchor: middle;
+    dominant-baseline: middle;
+
+    &.shadow {
+      /* stroke: currentColor; */
+      /* opacity: 0.1; */
+      stroke-linejoin: round;
+      stroke: var(--color-background);
+      stroke-width: 20px;
+      fill: var(--color-background);
+      cursor: default;
+
+      &:hover {
+        stroke: color-mix(in lab, currentColor, var(--color-background) 90%);
+      }
+    }
+
+    &.edit {
+      pointer-events: all;
+    }
+  }
+
+  &:has(path.edit:hover) {
+    text.shadow {
+      stroke: color-mix(in lab, currentColor, var(--color-background) 90%);
+    }
+  }
+  &:has(text.shadow:hover) {
+    path.edit {
+      opacity: 0.1;
+      stroke-linecap: round;
     }
   }
 
