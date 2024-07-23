@@ -40,10 +40,6 @@ export const useEditStore = defineStore('edit', () => {
       if (marker == null) return
       delete marker.bounds
       cleanUpMarker(marker, graph)
-      console.log(
-        marker,
-        graph.marker?.find((m) => m.time === time)
-      )
       return
     }
 
