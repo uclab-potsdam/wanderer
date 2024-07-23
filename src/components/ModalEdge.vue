@@ -10,7 +10,7 @@ const modalStore = useModalStore()
 
 <template>
   <div class="modal-node">
-    <InputDictionary label="label" v-model="modalStore.item.text" />
+    <InputDictionary label="label" v-model="modalStore.item.label" />
     <InputSelect label="arrow" v-model="modalStore.item.arrow" :options="arrows" />
   </div>
 </template>

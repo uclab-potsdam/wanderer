@@ -18,7 +18,7 @@ const textElement = ref(null)
 
 const el = ref(null)
 
-const text = computed(() => helperStore.localize(props.node.text))
+const label = computed(() => helperStore.localize(props.node.label))
 const image = computed(() => helperStore.getMediaUrl(props.node.image))
 const color = computed(() => {
   return { '--graph-accent': `var(--${props.node.color})` }
@@ -42,7 +42,7 @@ defineExpose({
   <div class="entity" ref="el" :style="{ ...color, ...autoplay }">
     <img :src="image" draggable="false" />
     <div class="text" ref="textElement">
-      {{ text }}
+      {{ label }}
       <IconPlay v-if="!playing" />
       <IconPlaying v-else />
     </div>

@@ -227,9 +227,9 @@ function onContextMenu(e) {
       @dblclick.stop="onDoubleClick"
       @contextmenu="onContextMenu"
       @click="onClick"
-      ><LocalizeText :text="edge.text" />
+      ><LocalizeText :text="edge.label" />
     </text>
-    <text :x="center[0]" :y="center[1]"><LocalizeText :text="edge.text" /> </text>
+    <text :x="center[0]" :y="center[1]"><LocalizeText :text="edge.label" /> </text>
   </g>
 </template>
 

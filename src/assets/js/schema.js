@@ -1,18 +1,18 @@
 export default {
   entity: {
-    text: 'dictionary',
+    label: 'dictionary',
     class: 'dictionary'
   },
-  predicate: {
+  note: {
     text: 'dictionary'
   },
   graph: {
-    text: 'dictionary',
+    label: 'dictionary',
     color: 'color',
     image: 'string'
   },
   image: {
-    text: 'dictionary',
+    label: 'dictionary',
     file: 'string'
   }
 }

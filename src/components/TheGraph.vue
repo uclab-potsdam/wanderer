@@ -347,7 +347,7 @@ function onDrop(e) {
     const node = {
       type: 'image',
       file: uri,
-      text: { universal: uri.replace(/[^:]*:\/?\/?/, '').replace(/\.[^.]+$/, '') }
+      label: { universal: uri.replace(/[^:]*:\/?\/?/, '').replace(/\.[^.]+$/, '') }
     }
 
     dataStore.data.nodes[uuid] = node

@@ -1,7 +1,8 @@
 <script setup>
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useHelperStore } from '@/stores/helper'
 import { getContentWidth } from '@/assets/js/utils'
+import LocalizeText from './LocalizeText.vue'
 
 const props = defineProps({
   node: Object
@@ -13,7 +14,6 @@ const el = ref(null)
 
 const width = ref(null)
 
-const text = computed(() => helperStore.localize(props.node.text))
 const className = computed(() => helperStore.localize(props.node.class))
 
 onMounted(() => {
@@ -27,9 +27,9 @@ defineExpose({
 
 <template>
   <div class="entity" ref="el" :style="{ width }">
-    <span class="text">{{ text }}</span>
+    <span class="text"><LocalizeText :text="node.label" /></span>
     <br v-if="className != null" />
-    <span class="class" v-if="className != null">{{ className }}</span>
+    <span class="class" v-if="className != null"><LocalizeText :text="node.class" /></span>
   </div>
 </template>
 

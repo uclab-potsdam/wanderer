@@ -30,14 +30,14 @@ const nodes = computed(() => {
   if (label.value.length < 3)
     return nodes
       .filter((node) => {
-        return new RegExp(`^${label.value}`).test(helperStore.localize(node.text))
+        return new RegExp(`^${label.value}`).test(helperStore.localize(node.label))
       })
-      .sort((a, b) => (helperStore.localize(a.text) < helperStore.localize(b.text) ? -1 : 1))
+      .sort((a, b) => (helperStore.localize(a.label) < helperStore.localize(b.label) ? -1 : 1))
   // .map(({ node, distance }) => ({ ...node, distance }))
   return nodes
     .map((node) => {
       const s1 = label.value
-      const s2 = helperStore.localize(node.text)
+      const s2 = helperStore.localize(node.label)
       return {
         distance: distance(s1, s2) / Math.max(s1.length, s2.length),
         node
@@ -53,7 +53,7 @@ function createNode() {
   const node = {
     type: props.context.nodeType,
     // class: { en: 'none' },
-    text: { [settingsStore.lang]: label.value }
+    label: { [settingsStore.lang]: label.value }
   }
   dataStore.data.nodes[uuid] = node
   dataStore.data.nodes[dataStore.nodeId].allocations[uuid] = {
@@ -78,7 +78,7 @@ function addNode(id) {
     <input placeholder="search" @click.stop v-model="label" />
     <button :disabled="label === ''" @click="createNode">add {{ label }}</button>
     <button v-for="(node, i) in nodes" :key="i" @click="addNode(node.id)">
-      <LocalizeText :text="node.text" />
+      <LocalizeText :text="node.label" />
       – {{ node.distance }}
     </button>
   </ListWrapper>
