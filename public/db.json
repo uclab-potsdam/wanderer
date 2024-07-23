@@ -2,22 +2,22 @@
   "nodes": {
     "entity--1qZGrCAjYjCbxXp": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Sagakagagü" }
     },
     "entity--kNcOEKDjUxVbIdK": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "fishing", "pt": "pescar" }
     },
     "entity-0408bdbe67fd42650e47e9334b7434f553bcd8941b0486f404f44ffa0b86f9fa": {
       "type": "entity",
-      "class": { "en": "village", "pt": "aldeia" },
+      "class": "class-e2e4f0022ab9244c922ad1bfba3f2642e6b00583a8ecd8925cb30e0fe55c5247",
       "label": { "en": "", "universal": "Ipatse" }
     },
     "entity-07c32388ceaffeaf81e4ff5ec5681a981824ac2a14edab6dd84dbb85fe5f2ef1": {
       "type": "entity",
-      "class": { "en": "biome", "pt": "bioma" },
+      "class": "class-b6192650b89c57cb356c873f6c04630b24b078c8488c9816e0c9fea0d3763b54",
       "description": {
         "en": "forest formed as a corridor along rivers or wetlands",
         "pt": "Floresta formada como corredor ao longo de rios ou áreas alagadas"
@@ -26,47 +26,47 @@
     },
     "entity-1-gYMvPO06kOVXJh": {
       "type": "entity",
-      "class": { "en": "prayer", "pt": "reza" },
+      "class": "class-rVD-4y9COSHkPsYO",
       "label": { "en": "catching fish", "pt": "pegar peixe" }
     },
     "entity-16501e0580b1688b0e6d1c03366ce380170bad0dddac71d77001a68f8f9e0353": {
       "type": "entity",
-      "class": { "en": "territory", "pt": "território" },
+      "class": "class-0f816197a6bf15c2c6bcb46e315c68bfd31093fb005a6dc930c8fc8d11da570d",
       "label": { "en": "Xingu Indigenous Park", "pt": "Parque indígena do Xingu" }
     },
     "entity-1931681ce3e7277111a00891deeb03bffdbb96409bfbcf722245cb78a4661f3f": {
       "type": "entity",
-      "class": { "en": "state", "pt": "estado" },
+      "class": "class-ee77e9e535dcd59f6c640aa4e1643ba88c56c02b04ec08d919e1261c2749f679",
       "label": { "en": "Pará" }
     },
     "entity-254ae07c15bcc5ccec4ae1072b20d6028718e2afe63eb90b89c9ac255cd63af3": {
       "type": "entity",
-      "class": { "en": "biome", "pt": "bioma" },
+      "class": "class-b6192650b89c57cb356c873f6c04630b24b078c8488c9816e0c9fea0d3763b54",
       "label": { "en": "Amazon rainforest", "pt": "Floresta amazônica" }
     },
     "entity-27f30ed31761f5349c624af2e410479bf203895ea5d32f76a5283617ee10870f": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "peeling", "pt": "Descascar" }
     },
     "entity-2e58e22d8b94ba45c7a88178cd7a253c4e81bd2035e854f0f33e86d9581fb789": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "de": "Wurzeln schneiden", "en": "cutting roots", "pt": "cortar raizes" }
     },
     "entity-372ec2f8db5f75729d2af0130c9347b336f275266c12347c30dc71632f494fae": {
       "type": "entity",
-      "class": { "en": "state", "pt": "estado" },
+      "class": "class-ee77e9e535dcd59f6c640aa4e1643ba88c56c02b04ec08d919e1261c2749f679",
       "label": { "en": "Mato Grosso" }
     },
     "entity-3a8n7Jrl7SA7Z8QL": {
       "type": "entity",
-      "class": { "en": "place", "pt": "lugar" },
+      "class": "class-TmZxzHkzodwnAil0",
       "label": { "en": "Igifunu" }
     },
     "entity-41rptBw5_k_NaE0A": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "description": {
         "de": "das Einwickeln und Braten von kleinen Fischen",
         "en": "to pack and bake the small fishs",
@@ -76,22 +76,22 @@
     },
     "entity-4fb61c69f33779ff2bb58bb79c741656774fa851f2d057f8fcd4c43e14c5cf5a": {
       "type": "entity",
-      "class": { "de": "Material", "en": "material", "pt": "material" },
+      "class": "class-f6e861cb77d1c7e0a484832821b599bdc9a3a8cd219961e9e6ae31687f38bf01",
       "label": { "en": "peeled vine", "pt": "Ambé preparado" }
     },
     "entity-5072ecff677d8366c70aa08d4c22cff0898b64fcafc332e675c880d4b87de4ed": {
       "type": "entity",
-      "class": { "en": "river", "pt": "rio" },
+      "class": "class-26ae56c7aa73b2d396166485a0e759276a8e8d6aaf32a8f570c65cb08896a5e6",
       "label": { "en": "Rio Curisevo" }
     },
     "entity-50d0942ab18069365bb1bcddb8848e086889f2f7fea742bf8d87bf3258076390": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "de": "transportiert nach", "en": "transporting to", "pt": "transportar" }
     },
     "entity-569b20ad1b337efaa17512db38974ef76533997b7e4c4cd4f1119a92897858ce": {
       "type": "entity",
-      "class": { "de": "person", "en": "person", "pt": "pessoa" },
+      "class": "class-055486422929ca599ed73b428f9fd3112b63af79a8ee0fc7ac53d9d56cfa5e28",
       "label": {
         "de": "Heinrich Wilhelm Schott",
         "en": "Heinrich Wilhelm Schott",
@@ -101,12 +101,12 @@
     },
     "entity-5dtwYB0kGzHJeL2B": {
       "type": "entity",
-      "class": { "en": "object part", "pt": "parte do objeto" },
+      "class": "class-I3pZAOeM7uTcFvQb",
       "label": { "en": "body" }
     },
     "entity-63da69c8729911afdc3332781241bfe86b46719d3591bf734b5380603877b502": {
       "type": "entity",
-      "class": { "en": "biome", "pt": "bioma" },
+      "class": "class-b6192650b89c57cb356c873f6c04630b24b078c8488c9816e0c9fea0d3763b54",
       "description": {
         "en": "tropical savanna in eastern Brazil",
         "pt": "Savana tropical no leste brasileiro"
@@ -115,190 +115,190 @@
     },
     "entity-6ruDXTVaBsaRkb9x": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "label": { "en": "Small Peacock Bass", "pt": "tucunaré pequeno" }
     },
     "entity-7FMS0AyWpqFDD1G-": {
       "type": "entity",
-      "class": { "en": "place", "pt": "lugar" },
+      "class": "class-TmZxzHkzodwnAil0",
       "label": { "en": "Iga nutua corner" }
     },
     "entity-7Tie59UhyB20elfN": {
       "type": "entity",
-      "class": { "de": "Material", "en": "material", "pt": "material" },
+      "class": "class-f6e861cb77d1c7e0a484832821b599bdc9a3a8cd219961e9e6ae31687f38bf01",
       "description": { "en": "test" },
       "label": { "en": "test" }
     },
     "entity-83b12f0080509da038aa09f9d30d804b388373836024827b3246f44051cdf187": {
       "type": "entity",
-      "class": { "en": "territory", "pt": "território" },
+      "class": "class-0f816197a6bf15c2c6bcb46e315c68bfd31093fb005a6dc930c8fc8d11da570d",
       "label": { "en": "agribusiness farmland", "pt": "Fazendas do agro" }
     },
     "entity-91589b5173b5b05dba3dd742201a8e215369d30390908556446c75f7e552a4f9": {
       "type": "entity",
-      "class": { "de": "person", "en": "person", "pt": "pessoa" },
+      "class": "class-055486422929ca599ed73b428f9fd3112b63af79a8ee0fc7ac53d9d56cfa5e28",
       "label": { "de": "", "en": "", "pt": "", "universal": "Kamasinua" }
     },
     "entity-95348a16de58ceb5d453ad9075632481f148a174e0dea77172262db32e2b8ca7": {
       "type": "entity",
-      "class": { "en": "country", "pt": "país" },
+      "class": "class-691256c3d113d8ca8e85292d6d842507efb7cb21fa58c90ab032993b970475e3",
       "label": { "en": "Brazil", "pt": "Brasil" }
     },
     "entity-9884e2b6da0f53955d94673b6445701e4f0e6703a005b15da4c52810034d1087": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
+      "class": "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7",
       "label": { "universal": "Ambé" }
     },
     "entity-99fd5c25f6f292cf6e1451e00a381d9103f3dc53b4663c4965595fdb96203ce9": {
       "type": "entity",
-      "class": { "en": "river", "pt": "rio" },
+      "class": "class-26ae56c7aa73b2d396166485a0e759276a8e8d6aaf32a8f570c65cb08896a5e6",
       "label": { "en": "Amazon", "pt": "Amazonas" }
     },
     "entity-ADCn2FkoxadYiYF0": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "de": "ausnehmen", "en": "gutting", "pt": "evisceração" }
     },
     "entity-C2-iqFnQBONHBIPb": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "fish killer", "pt": "matador de peixe" }
     },
     "entity-CP43OM6fnR-MveQr": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
+      "class": "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7",
       "label": { "en": "vine" }
     },
     "entity-CTmBEgPDvGbRcN1J": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "de": "befestigen", "en": "attaching", "pt": "" }
     },
     "entity-CbqVCcXySiFEtX0g": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "attempting to kill" }
     },
     "entity-EILuxGPyNk8DqwRG": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Hyper Piranha" }
     },
     "entity-ESvaV0FzaCQiE1Nj": {
       "type": "entity",
-      "class": { "en": "place", "pt": "lugar" },
+      "class": "class-TmZxzHkzodwnAil0",
       "label": { "en": "Lagoon of Ipatse", "pt": "lagoa de Ipatse" }
     },
     "entity-ExIccARCXy2E74Y3": {
       "type": "entity",
-      "class": { "en": "object part", "pt": "parte do objeto" },
+      "class": "class-I3pZAOeM7uTcFvQb",
       "label": { "en": "tongue", "pt": "língua" }
     },
     "entity-Ff4dwLJPkja34oRm": {
       "type": "entity",
-      "class": { "en": "object part", "pt": "parte do objeto" },
+      "class": "class-I3pZAOeM7uTcFvQb",
       "label": { "en": "mouth", "pt": "boca" }
     },
     "entity-Gd-5uvi9PnWL724w": {
       "type": "entity",
-      "class": { "en": "body of water", "pt": "águas" },
+      "class": "class-ht7NoySk4RoVhnF8",
       "label": { "en": "Arara-Azul Lagoon", "pt": "Lagoa Arara-azul" }
     },
     "entity-HZDwUFYsoSgPGG0Z": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "label": { "de": "Rotflossen-Glassalmler", "en": "Glass Bloodfin", "pt": "piabinha" }
     },
     "entity-HvHg6s-d5ji7unFl": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "Uhi's revenge", "pt": "a vinganca de Uhi" }
     },
     "entity-IiczFDrzayC_TTle": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
+      "class": "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7",
       "label": { "en": "Entity 4" }
     },
     "entity-J1Psucsa0qzKOMyX": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "making the fish trap", "pt": "fazendo armadilha de pesca" }
     },
     "entity-JYFY_db7RT89biTN": {
       "type": "entity",
-      "class": { "en": "object part", "pt": "parte do objeto" },
+      "class": "class-I3pZAOeM7uTcFvQb",
       "label": { "de": "Gesäß", "en": "buttocks", "pt": "nádegas" }
     },
     "entity-KO9GLmcwWFAStgkk": {
       "type": "entity",
-      "class": { "en": "prayer", "pt": "reza" },
+      "class": "class-rVD-4y9COSHkPsYO",
       "label": { "en": "setting up Utu" }
     },
     "entity-L-30eMyDg1K1_8Pw": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "spirit animal", "pt": "animal-espírito" }
     },
     "entity-L7vUYITsLNaS_Nrx": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "de": "versperren", "en": "blocking", "pt": "bloquear" }
     },
     "entity-Mzh6yPBbZGcoBceu": {
       "type": "entity",
-      "class": { "en": "body part", "pt": "parte do corpo" },
+      "class": "class-magsKeSn_l_msKPs",
       "label": { "en": "Uhi's hair" }
     },
     "entity-OfcVtBgw4_Vhy2Ap": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
+      "class": "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7",
       "description": { "de": "", "en": "", "pt": "" },
       "label": { "universal": "Timbó" }
     },
     "entity-OsjoGY-bEljPPvM1": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Entity 2" }
     },
     "entity-Q2jSY4-cgD9Czt08": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "spirit Bicuda", "pt": "bicuda espírito" }
     },
     "entity-Q31pwH9xQ12GaPy-": {
       "type": "entity",
-      "class": { "en": "body part", "pt": "parte do corpo" },
+      "class": "class-magsKeSn_l_msKPs",
       "label": { "en": "Uhi's veins", "pt": "veias de Uhi" }
     },
     "entity-QQmHLrWWr6eaDlc7": {
       "type": "entity",
-      "class": { "en": "plant structure", "pt": "estrutura vegetal" },
+      "class": "class-sAEmqHir0YIin7Y6",
       "label": { "en": "aerial root", "pt": "raiz aérea" }
     },
     "entity-QfX_k5a66klp9dOO": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
+      "class": "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7",
       "description": { "en": "test" },
       "label": { "en": "test2" }
     },
     "entity-QgKo_1be1ieCeUdg": {
       "type": "entity",
-      "class": { "en": "object part", "pt": "parte do objeto" },
+      "class": "class-I3pZAOeM7uTcFvQb",
       "label": { "de": "Auge", "en": "eye", "pt": "olho" }
     },
     "entity-QhBvY4JdT_e4jvpx": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "spirit fish", "pt": "peixes-espírito" }
     },
     "entity-R4u7NnYuslxbEAkd": {
       "type": "entity",
-      "class": { "en": "object part", "pt": "parte do objeto" },
+      "class": "class-I3pZAOeM7uTcFvQb",
       "label": { "de": "Rippen", "en": "ribs", "pt": "costelas" }
     },
     "entity-SDCTX18UIWinXcZS": {
       "type": "entity",
-      "class": { "en": "object", "pt": "objeto" },
+      "class": "class-tR0NtJisdWUNPPoP",
       "description": {
         "de": "weibliche Fischreuse",
         "en": "female fish trap",
@@ -308,218 +308,218 @@
     },
     "entity-TMIO9NZHn9IvsAD9": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
+      "class": "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7",
       "label": { "de": "Baum", "en": "tree", "pt": "árvore" }
     },
     "entity-UTvmNNIEUYwqY_7X": {
       "type": "entity",
-      "class": { "en": "role", "pt": "função" },
+      "class": "class--Ru6z8AHK908RVj6",
       "label": { "en": "singer" }
     },
     "entity-UoRdVQNak6yb29pp": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "de": "befestigen", "en": "attaching", "pt": "" }
     },
     "entity-VKPoxqPPSNPVRVnW": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "taking" }
     },
     "entity-Va_sG_Rf7HZp5d9e": {
       "type": "entity",
-      "class": { "de": "Material", "en": "material", "pt": "material" },
+      "class": "class-f6e861cb77d1c7e0a484832821b599bdc9a3a8cd219961e9e6ae31687f38bf01",
       "label": { "en": "Entity 1" }
     },
     "entity-WXohiggjXizofBRx": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "label": { "de": "", "en": "baked wrapped fish", "pt": "" }
     },
     "entity-X3sQDww1P0Y3tNmY": {
       "type": "entity",
-      "class": { "en": "place", "pt": "lugar" },
+      "class": "class-TmZxzHkzodwnAil0",
       "label": { "de": "kleiner Bachlauf", "en": "small watercourse", "pt": "riacho" }
     },
     "entity-XBW7P-3Tu4aLoX2A": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "label": { "en": "Pacu" }
     },
     "entity-Y-kpHyGZJTpoaGRE": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "description": { "en": "", "pt": "" },
       "label": { "de": "Ölfisch", "en": "Oil fish", "pt": "Peixe sabão", "universal": "" }
     },
     "entity-Z2KQX9iU7eVgTDMV": {
       "type": "entity",
-      "class": { "en": "biome", "pt": "bioma" },
+      "class": "class-b6192650b89c57cb356c873f6c04630b24b078c8488c9816e0c9fea0d3763b54",
       "label": { "en": "riparian forest" }
     },
     "entity-ZgZWHecoAS4mh8pB": {
       "type": "entity",
-      "class": { "en": "object", "pt": "objeto" },
+      "class": "class-tR0NtJisdWUNPPoP",
       "label": { "en": "bow and arrow", "pt": "arco e flecha" }
     },
     "entity-_MgBGt3w-eMJGUmN": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "climbing" }
     },
     "entity-a8f2f012f225feec47bf22e74ce1ef77ddb945e065bdf159cd33381fe0b9a8cd": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
+      "class": "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7",
       "label": { "de": "Wirtsbaum", "en": "hosting tree", "pt": "árvore hospedeira" }
     },
     "entity-aea6abf302d291c277d41a6c9bdbb3214867ae168a25894b5ddf613b46e24186": {
       "type": "entity",
-      "class": { "en": "object", "pt": "objeto" },
+      "class": "class-tR0NtJisdWUNPPoP",
       "description": { "de": "Fischreuse", "en": "fish trap", "pt": "armadilha de pesca" },
       "label": { "universal": "Utu" }
     },
     "entity-araY8ubeDzYJlWxs": {
       "type": "entity",
-      "class": { "de": "Wirbellose", "en": "invertebrate", "pt": "invertebrado" },
+      "class": "class-AlMOGQrvvrh-Ohmy",
       "description": { "en": "water centipede", "pt": "centopeia d’água" },
       "label": { "universal": "Tunsu" }
     },
     "entity-b036ec19485bb595518cf54fbd9368b22f7145099b3dc17604091e0a05f9cf22": {
       "type": "entity",
-      "class": { "en": "river", "pt": "rio" },
+      "class": "class-26ae56c7aa73b2d396166485a0e759276a8e8d6aaf32a8f570c65cb08896a5e6",
       "label": { "en": "Rio Buriti" }
     },
     "entity-bF5gZkSRorj4ruvB": {
       "type": "entity",
-      "class": { "en": "body part", "pt": "parte do corpo" },
+      "class": "class-magsKeSn_l_msKPs",
       "label": { "en": "Uhi's back", "pt": "as costas de Uhi" }
     },
     "entity-b_SX0cDPSfD-nQ1w": {
       "type": "entity",
-      "class": { "de": "Saison", "en": "season", "pt": "temporada" },
+      "class": "class-t93IGTaYQmi3HQ94",
       "description": { "universal": "" },
       "label": { "de": "Trockenzeit", "en": "dry season", "pt": "estação seca", "universal": "" }
     },
     "entity-c3289b0164025a9b98b1c23a3aa8258f169570be790bddf2aaaa2fc4cba02f45": {
       "type": "entity",
-      "class": { "en": "river", "pt": "rio" },
+      "class": "class-26ae56c7aa73b2d396166485a0e759276a8e8d6aaf32a8f570c65cb08896a5e6",
       "label": { "en": "Rio Xingu" },
       "match": ["https://d-nb.info/gnd/4104100-8", "wd:Q49544"]
     },
     "entity-c3MsLUyjCbi8983F": {
       "type": "entity",
-      "class": { "en": "animal", "pt": "animal" },
+      "class": "class-mNu5xpBSuCDhzUW2",
       "label": { "en": "fish", "pt": "peixe" }
     },
     "entity-cEjaqellkE5X9OCY": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "transformation" }
     },
     "entity-cYxGAvQBufNHWoNg": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Tãugi" }
     },
     "entity-dgXQzVNqanTV6nnf": {
       "type": "entity",
-      "class": { "en": "place", "pt": "lugar" },
+      "class": "class-TmZxzHkzodwnAil0",
       "label": { "en": "Entity 5" }
     },
     "entity-diwYUWjQxQ3FPnJy": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "label": { "de": "ausgenommener Fisch", "en": "gutted fish", "pt": "peixe eviscerado" }
     },
     "entity-dqBjxyGL4eopaLS2": {
       "type": "entity",
-      "class": { "en": "object", "pt": "objeto" },
+      "class": "class-tR0NtJisdWUNPPoP",
       "label": { "en": "fish trap", "pt": "armadilha de pesca" }
     },
     "entity-e0379c2c40f2f281a45dfa50d88a9b523e8a611f5d65a760197d7207dd82e040": {
       "type": "entity",
-      "class": { "en": "river", "pt": "rio" },
+      "class": "class-26ae56c7aa73b2d396166485a0e759276a8e8d6aaf32a8f570c65cb08896a5e6",
       "label": { "en": "Rio Ronuro" }
     },
     "entity-ef8d19f18f97c75f5cdac2a6890d8b9f2a15033c73c18943a34e085ac83ee276": {
       "type": "entity",
-      "class": { "en": "river", "pt": "rio" },
+      "class": "class-26ae56c7aa73b2d396166485a0e759276a8e8d6aaf32a8f570c65cb08896a5e6",
       "label": { "en": "Rio Negro" }
     },
     "entity-fd2026698df8607728767392819f9ef4f565eab520be484e4c871f33ccd57b51": {
       "type": "entity",
-      "class": { "de": "Material", "en": "material", "pt": "material" },
+      "class": "class-f6e861cb77d1c7e0a484832821b599bdc9a3a8cd219961e9e6ae31687f38bf01",
       "label": { "en": "Ambé vine", "pt": "Ambé", "universal": "" }
     },
     "entity-ga6yfO3kiGKMCSkz": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "practising jumping" }
     },
     "entity-gau2LSEVmIwzQTK5": {
       "type": "entity",
-      "class": { "de": "Saison", "en": "season", "pt": "temporada" },
+      "class": "class-t93IGTaYQmi3HQ94",
       "label": { "de": "Regenzeit", "en": "rain season", "pt": "regeneração" }
     },
     "entity-gpWA05FPYjfitN1u": {
       "type": "entity",
-      "class": { "de": "Essen", "en": "food", "pt": "alimento" },
+      "class": "class-8_mOKrJg78Tiek6T",
       "label": { "en": "baked wrapped fish", "pt": "peixe assado embrulhado" }
     },
     "entity-hkPCMUWl74floN6s": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Sun", "pt": "Sol" }
     },
     "entity-iG6_wAKfpwiRxcWu": {
       "type": "entity",
-      "class": { "en": "body part", "pt": "parte do corpo" },
+      "class": "class-magsKeSn_l_msKPs",
       "label": { "en": "Uhi's shinbone", "pt": "osso da canela de Uhi" }
     },
     "entity-iaUryxgF2GTa2Sbp": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Oho aliju nikalamá" }
     },
     "entity-j7GLoiSSuLjM6C96": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Auajulu nuigituani" }
     },
     "entity-j7Zz6fyMiG2zn0y9": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "killing" }
     },
     "entity-joDjk6Zvc6I32Bdo": {
       "type": "entity",
-      "class": { "en": "collection", "pt": "coleção" },
+      "class": "class-VJEu13ynI9Gc-qEV",
       "label": { "en": "Chants of Jamagikumalu" }
     },
     "entity-kCbm3gSkjx_UBpCi": {
       "type": "entity",
-      "class": { "en": "object", "pt": "objeto" },
+      "class": "class-tR0NtJisdWUNPPoP",
       "label": { "en": "Ataka" }
     },
     "entity-krH3BoegxTDlhwoZ": {
       "type": "entity",
-      "class": { "de": "person", "en": "person", "pt": "pessoa" },
+      "class": "class-055486422929ca599ed73b428f9fd3112b63af79a8ee0fc7ac53d9d56cfa5e28",
       "label": { "en": "Uhi" }
     },
     "entity-mAe15mUCDQOU-hY6": {
       "type": "entity",
-      "class": { "de": "Material", "en": "material", "pt": "material" },
+      "class": "class-f6e861cb77d1c7e0a484832821b599bdc9a3a8cd219961e9e6ae31687f38bf01",
       "label": { "de": "Bananenblatt", "en": "banana leaf", "pt": "folha de banana" }
     },
     "entity-meV5lA0hwlaxyIC7": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "description": { "de": "", "en": "", "pt": "" },
       "label": { "de": "einwickeln", "en": "wrapping", "pt": "embrulhar", "universal": "" }
     },
     "entity-mr5bj0ndOWfQr3PW": {
       "type": "entity",
-      "class": { "de": "Material", "en": "material", "pt": "material" },
+      "class": "class-f6e861cb77d1c7e0a484832821b599bdc9a3a8cd219961e9e6ae31687f38bf01",
       "label": {
         "de": "agatü igokogu Baum Blätter",
         "en": "agatü igokogu tree leaf",
@@ -528,95 +528,95 @@
     },
     "entity-mtGlXiAKUcxCAsFA": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Hyper Star" }
     },
     "entity-oEQwWGKwv9d0342i": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
+      "class": "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7",
       "label": { "en": "buriti palm", "pt": "palmeira de buriti" }
     },
     "entity-pZr6nneF5w6LNJDd": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "en": "jumping" }
     },
     "entity-qFBK7CACoQCbNL-d": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "description": { "en": "", "universal": "Piaractus brachypomus" },
       "label": { "de": "", "en": "", "pt": "pacu", "universal": "Agaga" }
     },
     "entity-qT5xzoPdH8jehATY": {
       "type": "entity",
-      "class": { "en": "place", "pt": "lugar" },
+      "class": "class-TmZxzHkzodwnAil0",
       "label": { "en": "Lagoon of Ihumba", "pt": "Lagoa de Ihumba" }
     },
     "entity-sLZPaUowFR7cmgKg": {
       "type": "entity",
-      "class": { "en": "country", "pt": "país" },
+      "class": "class-691256c3d113d8ca8e85292d6d842507efb7cb21fa58c90ab032993b970475e3",
       "description": { "en": "test" },
       "label": { "en": "test with jnjw long name and ic canfbiw" }
     },
     "entity-sPCgpePyWCdgnpem": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "de": "backen", "en": "baking", "pt": "assar" }
     },
     "entity-t1CyxUkiuY-xgrDv": {
       "type": "entity",
-      "class": { "de": "Essen", "en": "food", "pt": "alimento" },
+      "class": "class-8_mOKrJg78Tiek6T",
       "label": { "de": "Tapioka Crepes", "en": "Tapioca Flour Crepes", "pt": "Beiju de tapioca" }
     },
     "entity-t9wfEDwFDiOGPVT3": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Hyper Agafa" }
     },
     "entity-tQ_VwWMLPlY8xl-j": {
       "type": "entity",
-      "class": { "en": "river", "pt": "rio" },
+      "class": "class-26ae56c7aa73b2d396166485a0e759276a8e8d6aaf32a8f570c65cb08896a5e6",
       "label": { "en": "stream" }
     },
     "entity-tW83QJ2DEs3NY0fV": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "description": { "universal": "Moenkhausia oligolepis" },
       "label": { "en": "Glass Tetra Fish", "pt": "peixe tetra" }
     },
     "entity-u-MsxGVZDx6iIN1c": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Hyper Fox" }
     },
     "entity-ukrhTbGtDKItSlnZ": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "label": { "en": "Jopó" }
     },
     "entity-vW6pmqDJ_zBk3tW3": {
       "type": "entity",
-      "class": { "en": "story", "pt": "história" },
+      "class": "class-C3R6px3rs_TMps78",
       "label": { "en": "Uhi's Death", "pt": "A morte de Uhi" }
     },
     "entity-wpbEsvHMiLBymLYP": {
       "type": "entity",
-      "class": { "en": "object", "pt": "objeto" },
+      "class": "class-tR0NtJisdWUNPPoP",
       "label": { "en": "Entity 3" }
     },
     "entity-x3n2WrpEDfloQMKR": {
       "type": "entity",
-      "class": { "en": "object", "pt": "objeto" },
+      "class": "class-tR0NtJisdWUNPPoP",
       "label": { "de": "Holzstab", "en": "wooden stick", "pt": "varetas" }
     },
     "entity-yM9dTvnq5L4tMyi3": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "label": { "en": "Kuigitse" }
     },
     "entity-yx1op9Z2gUuGw03T": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
+      "class": "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7",
       "label": {
         "de": "fischbetäubende Pflanze",
         "en": "Fish-Poison Plant",
@@ -625,68 +625,68 @@
     },
     "entity-z_kiHAWuwpRs_XxU": {
       "type": "entity",
-      "class": { "en": "place", "pt": "lugar" },
+      "class": "class-TmZxzHkzodwnAil0",
       "label": { "de": "Lagune", "en": "lagoon", "pt": "laguna" }
     },
     "entity-zfSB6bk1dk2ZO3ZQ": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "de": "vergiften", "en": "poisoning", "pt": "intoxicação" }
     },
     "entity-zm-wMGqjsesbrt-3": {
       "type": "entity",
-      "class": { "en": "fish", "pt": "peixe" },
+      "class": "class-0bV_gXgCJy1C8bfU",
       "label": { "de": "Crenicichla", "en": "Pike cichlids", "pt": "jacundá" }
     },
     "entity-8vqw5f-kURJBoRiS": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Xingú women", "pt": "mulher xinguana" }
     },
     "entity-lGbXZr2Ky2lL-YxM": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Xingú men", "pt": "homem xinguano" }
     },
     "entity-uLAe3wIq-DDTPYX9": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "Kamasinua" }
     },
     "entity-TNofCIE5fa-UHj5T": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "father-in-law", "pt": "sogro" }
     },
     "entity-R8lDJmp6eDkGwyqr": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "de": "weitere", "en": "others", "pt": "outros" }
     },
     "entity-Hw3F98ZFdOAKXMTf": {
       "type": "entity",
-      "class": { "de": "Pflanze", "en": "plant", "pt": "planta" },
+      "class": "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7",
       "label": { "universal": "Philodendron solimoesense" }
     },
     "entity-WTyDvDUakrIZEPEK": {
       "type": "entity",
-      "class": { "de": "Material", "en": "material", "pt": "material" },
+      "class": "class-f6e861cb77d1c7e0a484832821b599bdc9a3a8cd219961e9e6ae31687f38bf01",
       "description": { "en": "cut ambé vine " },
       "label": { "universal": "tihigo" }
     },
     "entity-hxrJu41ra_e2dmMW": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-u2yXjPECy_op-iHz",
       "label": { "en": "spirit Bicudinha", "pt": "bicudinha espírito" }
     },
     "entity-hLeVNyp8UrhQZGII": {
       "type": "entity",
-      "class": { "en": "object part", "pt": "parte do objeto" },
+      "class": "class-I3pZAOeM7uTcFvQb",
       "label": { "en": "arrowhead", "pt": "ponta de flecha" }
     },
     "entity-M74ydW7dbPamOI0b": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-XCMY0rvdnJsNQ1a1",
       "label": { "en": "spirit women", "pt": "mulheres-espírito" }
     },
     "entity-B1qOLtj9paWdiukZ": {
@@ -695,12 +695,12 @@
     },
     "entity-35C284BpJRaSlnPQ": {
       "type": "entity",
-      "class": { "en": "actor", "pt": "ator" },
+      "class": "class-XCMY0rvdnJsNQ1a1",
       "label": { "en": "spirit piranha", "pt": "piranha-espírito" }
     },
     "entity-_bFQTPSiF7EL2lDz": {
       "type": "entity",
-      "class": { "de": "Handlung", "en": "activity", "pt": "atividade" },
+      "class": "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944",
       "label": { "de": "singen", "en": "singing", "pt": "canta" }
     },
     "predicate-ZvfSJ09WDeuke3Uk": { "type": "entity", "label": { "en": "is" } },
@@ -855,6 +855,91 @@
       "type": "entity",
       "label": { "en": "reaches", "pt": "alcança" }
     },
+    "class--Ru6z8AHK908RVj6": { "type": "entity", "label": { "en": "role", "pt": "função" } },
+    "class-055486422929ca599ed73b428f9fd3112b63af79a8ee0fc7ac53d9d56cfa5e28": {
+      "type": "entity",
+      "label": { "de": "person", "en": "person", "pt": "pessoa" }
+    },
+    "class-05d20a3b021dfa250d4bcb7a634f5054d37360b972da634d0bc8fccfc8a90944": {
+      "type": "entity",
+      "label": { "de": "Handlung", "en": "activity", "pt": "atividade" }
+    },
+    "class-0bV_gXgCJy1C8bfU": { "type": "entity", "label": { "en": "fish", "pt": "peixe" } },
+    "class-0f816197a6bf15c2c6bcb46e315c68bfd31093fb005a6dc930c8fc8d11da570d": {
+      "type": "entity",
+      "label": { "en": "territory", "pt": "território" }
+    },
+    "class-26ae56c7aa73b2d396166485a0e759276a8e8d6aaf32a8f570c65cb08896a5e6": {
+      "type": "entity",
+      "label": { "en": "river", "pt": "rio" }
+    },
+    "class-5466f511eb4704b6b3cd4a155696e8c2bba9e054865602d8829dffac8bd3aed7": {
+      "type": "entity",
+      "label": { "de": "Pflanze", "en": "plant", "pt": "planta" }
+    },
+    "class-691256c3d113d8ca8e85292d6d842507efb7cb21fa58c90ab032993b970475e3": {
+      "type": "entity",
+      "label": { "en": "country", "pt": "país" }
+    },
+    "class-84d3acf4ff87e92e146baaa92b4fc340df36cb2ec280f765eee5e9abc8f4ccf1": {
+      "type": "entity",
+      "label": { "de": "Artefakt", "en": "artifact", "pt": "artefato" }
+    },
+    "class-8_mOKrJg78Tiek6T": {
+      "type": "entity",
+      "label": { "de": "Essen", "en": "food", "pt": "alimento" }
+    },
+    "class-AlMOGQrvvrh-Ohmy": {
+      "type": "entity",
+      "label": { "de": "Wirbellose", "en": "invertebrate", "pt": "invertebrado" }
+    },
+    "class-C3R6px3rs_TMps78": { "type": "entity", "label": { "en": "story", "pt": "história" } },
+    "class-I3pZAOeM7uTcFvQb": {
+      "type": "entity",
+      "label": { "en": "object part", "pt": "parte do objeto" }
+    },
+    "class-TmZxzHkzodwnAil0": { "type": "entity", "label": { "en": "place", "pt": "lugar" } },
+    "class-VJEu13ynI9Gc-qEV": {
+      "type": "entity",
+      "label": { "en": "collection", "pt": "coleção" }
+    },
+    "class-b6192650b89c57cb356c873f6c04630b24b078c8488c9816e0c9fea0d3763b54": {
+      "type": "entity",
+      "label": { "en": "biome", "pt": "bioma" }
+    },
+    "class-e2e4f0022ab9244c922ad1bfba3f2642e6b00583a8ecd8925cb30e0fe55c5247": {
+      "type": "entity",
+      "label": { "en": "village", "pt": "aldeia" }
+    },
+    "class-ee77e9e535dcd59f6c640aa4e1643ba88c56c02b04ec08d919e1261c2749f679": {
+      "type": "entity",
+      "label": { "en": "state", "pt": "estado" }
+    },
+    "class-f6e861cb77d1c7e0a484832821b599bdc9a3a8cd219961e9e6ae31687f38bf01": {
+      "type": "entity",
+      "label": { "de": "Material", "en": "material", "pt": "material" }
+    },
+    "class-ht7NoySk4RoVhnF8": {
+      "type": "entity",
+      "label": { "en": "body of water", "pt": "águas" }
+    },
+    "class-mNu5xpBSuCDhzUW2": { "type": "entity", "label": { "en": "animal", "pt": "animal" } },
+    "class-magsKeSn_l_msKPs": {
+      "type": "entity",
+      "label": { "en": "body part", "pt": "parte do corpo" }
+    },
+    "class-rVD-4y9COSHkPsYO": { "type": "entity", "label": { "en": "prayer", "pt": "reza" } },
+    "class-sAEmqHir0YIin7Y6": {
+      "type": "entity",
+      "label": { "en": "plant structure", "pt": "estrutura vegetal" }
+    },
+    "class-t93IGTaYQmi3HQ94": {
+      "type": "entity",
+      "label": { "de": "Saison", "en": "season", "pt": "temporada" }
+    },
+    "class-tR0NtJisdWUNPPoP": { "type": "entity", "label": { "en": "object", "pt": "objeto" } },
+    "class-u2yXjPECy_op-iHz": { "type": "entity", "label": { "en": "actor", "pt": "ator" } },
+    "class-XCMY0rvdnJsNQ1a1": { "type": "entity", "label": { "en": "actor", "pt": "ator" } },
     "note-uys9pk6xjXBOXy8Z": { "type": "note", "text": { "en": "test note" } },
     "note-9Z_u2Of-0MSzjSkO": {
       "type": "note",

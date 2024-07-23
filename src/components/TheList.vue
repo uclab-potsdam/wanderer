@@ -16,7 +16,7 @@ const route = useRoute()
         :to="{ name: 'graph', params: { type: node.type, id } }"
         v-if="node.type === route.params.type"
         :label="node.label"
-        :meta="node.class"
+        :meta="dataStore.data.nodes[node.class]?.label"
       >
         edit
       </ListItem>

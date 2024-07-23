@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { useHelperStore } from '@/stores/helper'
+import { useDataStore } from '@/stores/data'
 import { getContentWidth } from '@/assets/js/utils'
 import LocalizeText from './LocalizeText.vue'
 
@@ -8,13 +8,13 @@ const props = defineProps({
   node: Object
 })
 
-const helperStore = useHelperStore()
+const dataStore = useDataStore()
 
 const el = ref(null)
 
 const width = ref(null)
 
-const className = computed(() => helperStore.localize(props.node.class))
+const nodeClass = computed(() => dataStore.data.nodes[props.node.class]?.label)
 
 onMounted(() => {
   width.value = getContentWidth(el)
@@ -28,8 +28,8 @@ defineExpose({
 <template>
   <div class="entity" ref="el" :style="{ width }">
     <span class="text"><LocalizeText :text="node.label" /></span>
-    <br v-if="className != null" />
-    <span class="class" v-if="className != null"><LocalizeText :text="node.class" /></span>
+    <br v-if="nodeClass" />
+    <span class="class" v-if="nodeClass"><LocalizeText :text="nodeClass" /></span>
   </div>
 </template>
 

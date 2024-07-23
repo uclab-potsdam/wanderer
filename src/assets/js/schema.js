@@ -1,7 +1,7 @@
 export default {
   entity: {
     label: 'dictionary',
-    class: 'dictionary'
+    class: 'entity'
   },
   note: {
     text: 'dictionary'
