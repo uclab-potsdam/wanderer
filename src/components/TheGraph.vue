@@ -54,6 +54,7 @@ const transformString = computed(
     `translate(${layoutStore.transform.x}px, ${layoutStore.transform.y}px) scale(${layoutStore.transform.k})`
 )
 const bounds = computed(() => {
+  if (allocations.value == null) return
   if (displayStore.bounds != null)
     // return displayStore.bounds
     return {
@@ -77,7 +78,7 @@ const bounds = computed(() => {
   }
 })
 const edges = computed(() => {
-  const nodes = Object.keys(allocations.value)
+  const nodes = Object.keys(allocations.value ?? {})
   return dataStore.data.edges.filter(
     (edge) =>
       nodes.includes(edge.nodes[0]) &&
@@ -86,7 +87,7 @@ const edges = computed(() => {
   )
 })
 
-const allocationOrder = computed(() => Object.keys(allocations.value).sort())
+const allocationOrder = computed(() => Object.keys(allocations.value ?? {}).sort())
 const cssProps = computed(() => {
   if (node.value.color == null) return
   return {
@@ -169,6 +170,7 @@ function initGraph(duration) {
 // }
 
 function zoomToBounds(bounds, duration = 0) {
+  if (bounds == null) return
   const diff = {
     x: bounds.x2 - bounds.x1,
     y: bounds.y2 - bounds.y1

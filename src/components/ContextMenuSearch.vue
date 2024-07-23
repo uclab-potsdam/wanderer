@@ -63,6 +63,9 @@ function createNode() {
 }
 
 function addNode(id) {
+  if (dataStore.data.nodes[dataStore.nodeId].allocations == null) {
+    dataStore.data.nodes[dataStore.nodeId].allocations = {}
+  }
   dataStore.data.nodes[dataStore.nodeId].allocations[id] = {
     x: (contextMenuStore.offset.x - layoutStore.transform.x) / layoutStore.transform.k,
     y: (contextMenuStore.offset.y - layoutStore.transform.y) / layoutStore.transform.k
