@@ -10,6 +10,11 @@ import { useVideoStore } from '@/stores/video'
 import { useDataStore } from '@/stores/data'
 
 import BaseInterpolate from '@/components/BaseInterpolate.vue'
+import ContextMenuList from './ContextMenuList.vue'
+import { useSettingsStore } from '@/stores/settings'
+import { useModalStore } from '@/stores/modal'
+import { useContextMenuStore } from '@/stores/contextMenu'
+import LocalizeText from './LocalizeText.vue'
 
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
@@ -17,6 +22,9 @@ const activityStore = useActivityStore()
 const constantStore = useConstantStore()
 const videoStore = useVideoStore()
 const dataStore = useDataStore()
+const settingsStore = useSettingsStore()
+const modalStore = useModalStore()
+const contextMenuStore = useContextMenuStore()
 
 const props = defineProps({
   edge: Object,
@@ -52,7 +60,7 @@ const color = computed(() => {
 
 const display = computed(() => displayStore.inheritStateFromNodes(props.edge.nodes))
 
-const d = computed(() => {
+const points = computed(() => {
   if (source.value == null || target.value == null) return
 
   const margin = constantStore.spacing
@@ -90,17 +98,74 @@ const d = computed(() => {
   if (start == null || end == null) {
     return
   }
-  return `M${start[0]},${start[1]} L${end[0]},${end[1]}`
+  return [
+    [start[0] + layoutStore.offset.x, start[1] + layoutStore.offset.y],
+    [end[0] + layoutStore.offset.x, end[1] + layoutStore.offset.y]
+  ]
+})
+
+const d = computed(() => {
+  if (points.value == null) return
+
+  return `M${points.value[0][0]},${points.value[0][1]} L${points.value[1][0]},${points.value[1][1]}`
+})
+const center = computed(() => {
+  if (points.value == null) return []
+  return [
+    (points.value[0][0] + points.value[1][0]) / 2,
+    (points.value[0][1] + points.value[1][1]) / 2
+  ]
 })
 
 const id = computed(() => props.edge.nodes.join('-'))
 const markerId = computed(() => `url('#marker-${id.value}')`)
+const markerAltId = computed(() => `url('#marker-${id.value}-alt')`)
 const markerEnd = computed(
   () => (props.edge.arrow === '→' || props.edge.arrow === '↔') && markerId.value
 )
 const markerStart = computed(
-  () => (props.edge.arrow === '←' || props.edge.arrow === '↔') && markerId.value
+  () => (props.edge.arrow === '←' || props.edge.arrow === '↔') && markerAltId.value
 )
+
+function onClick(e) {
+  if (!e.metaKey) return
+
+  e.stopPropagation()
+  e.preventDefault()
+  const arrows = [null, '→', '←', '↔']
+  const current = Math.max(arrows.indexOf(props.edge.arrow), 0)
+  dataStore.data.edges.find((edge) => edge.id === props.edge.id).arrow =
+    arrows[(current + 1) % arrows.length]
+}
+
+function onDoubleClick(e) {
+  if (!settingsStore.edit || e.metaKey) return
+  modalStore.open(props.edge.id, 'edge')
+}
+
+function onContextMenu(e) {
+  if (!settingsStore.edit) return
+  e.preventDefault()
+  e.stopPropagation()
+  contextMenuStore.open(
+    ContextMenuList,
+    [
+      {
+        label: 'delete',
+        action: () => {
+          dataStore.data.edges = dataStore.data.edges.filter((e) => e.id !== props.edge.id)
+        }
+      },
+      {
+        label: 'edit',
+        action: () => {
+          modalStore.open(props.edge.id, 'edge')
+        }
+      }
+    ],
+    { x: e.x, y: e.y }
+  )
+}
 </script>
 
 <template>
@@ -122,10 +187,20 @@ const markerStart = computed(
         refY="10"
         orient="auto"
       >
-        <path d="M0,0 L10,10 L0,20" />
+        <path d="M2,6.5 L10,10 L2,13.5" />
+      </marker>
+      <marker
+        :id="`marker-${id}-alt`"
+        markerWidth="10"
+        markerHeight="20"
+        refX="00"
+        refY="10"
+        orient="auto"
+      >
+        <path d="M8,6.5 L0,10 L8,13.5" />
       </marker>
     </defs>
-    <BaseInterpolate
+    <!-- <BaseInterpolate
       :props="{
         d
       }"
@@ -133,8 +208,28 @@ const markerStart = computed(
       :duration="constantStore.transition"
       v-slot="value"
     >
-      <path class="test" :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
-    </BaseInterpolate>
+      <path :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
+    </BaseInterpolate> -->
+    <path
+      v-if="settingsStore.edit"
+      class="edit"
+      :d="d"
+      @dblclick.stop="onDoubleClick"
+      @contextmenu="onContextMenu"
+      @click="onClick"
+    />
+    <path :d="d" :marker-end="markerEnd" :marker-start="markerStart" />
+    <text
+      class="shadow"
+      :class="{ edit: settingsStore.edit }"
+      :x="center[0]"
+      :y="center[1]"
+      @dblclick.stop="onDoubleClick"
+      @contextmenu="onContextMenu"
+      @click="onClick"
+      ><LocalizeText :text="edge.label" />
+    </text>
+    <text :x="center[0]" :y="center[1]"><LocalizeText :text="edge.label" /> </text>
   </g>
 </template>
 
@@ -142,15 +237,17 @@ const markerStart = computed(
 .edge {
   transition: all var(--transition);
   --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
+  color: color-mix(in lab, var(--tinted), var(--color-background) 10%);
   stroke: color-mix(in lab, var(--tinted), var(--color-background) 10%);
 
   &.hide {
     opacity: 0.2;
-    filter: blur(10px);
+    filter: var(--blur);
 
     &.user-active {
       filter: none;
       opacity: 1;
+      color: color-mix(in lab, var(--tinted), var(--color-background) 50%);
       stroke: color-mix(in lab, var(--tinted), var(--color-background) 50%);
     }
   }
@@ -158,17 +255,67 @@ const markerStart = computed(
   marker {
     overflow: visible;
     path {
-      stroke: var(--marker);
-      fill: none;
+      stroke: currentColor;
+      fill: currentColor;
     }
   }
 
   path {
     /* transition: all var(--transition); */
+
+    &.edit {
+      opacity: 0;
+      stroke-width: 20;
+      pointer-events: all;
+
+      &:hover {
+        opacity: 0.1;
+        stroke-linecap: round;
+      }
+    }
+  }
+
+  text {
+    stroke: none;
+    fill: currentColor;
+    font-size: var(--font-size-small);
+    text-anchor: middle;
+    dominant-baseline: middle;
+
+    &.shadow {
+      /* stroke: currentColor; */
+      /* opacity: 0.1; */
+      stroke-linejoin: round;
+      stroke: var(--color-background);
+      stroke-width: 20px;
+      fill: var(--color-background);
+      cursor: default;
+
+      &:hover {
+        stroke: color-mix(in lab, currentColor, var(--color-background) 90%);
+      }
+    }
+
+    &.edit {
+      pointer-events: all;
+    }
+  }
+
+  &:has(path.edit:hover) {
+    text.shadow {
+      stroke: color-mix(in lab, currentColor, var(--color-background) 90%);
+    }
+  }
+  &:has(text.shadow:hover) {
+    path.edit {
+      opacity: 0.1;
+      stroke-linecap: round;
+    }
   }
 
   &.highlight,
   &.network {
+    color: color-mix(in lab, var(--graph-accent), var(--color-text) 10%);
     stroke: color-mix(in lab, var(--graph-accent), var(--color-text) 10%);
   }
 }

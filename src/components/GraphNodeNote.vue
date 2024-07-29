@@ -32,17 +32,20 @@ defineExpose({ el })
 <style scoped>
 .note {
   pointer-events: none;
+  &.edit {
+    pointer-events: initial;
+  }
   box-sizing: content-box;
   color: color-mix(in lab, var(--graph-accent), var(--color-text) 40%);
   max-width: 250px;
-  padding: calc(var(--spacing) * 0.5);
+  padding: var(--spacing-half);
   width: max-content;
   text-wrap: balance;
   hyphens: auto;
 
   border: 1px dashed color-mix(in lab, var(--graph-accent), var(--color-background) 70%);
-  /* padding: calc(var(--spacing) * 0.5); */
-  border-radius: calc(var(--spacing) * 0.25);
+  /* padding: var(--spacing-half); */
+  border-radius: var(--spacing-quart);
 
   font-size: 14px;
   font-style: oblique 8deg;
@@ -52,8 +55,8 @@ defineExpose({ el })
   }
   .wrap {
     border: 1px dashed color-mix(in lab, var(--graph-accent), var(--color-background) 70%);
-    padding: calc(var(--spacing) * 0.5);
-    border-radius: calc(var(--spacing) * 0.25);
+    padding: var(--spacing-half);
+    border-radius: var(--spacing-quart);
   }
 }
 </style>

@@ -14,6 +14,10 @@ export const useDisplayStore = defineStore('display', () => {
       .sort((a, b) => a.time - b.time)
   })
 
+  const exactMarker = computed(() => {
+    return dataStore.node?.marker?.find((marker) => marker.time === videoStore.time)
+  })
+
   const states = computed(() => {
     return markers.value.reduce((a, b) => ({ ...a, ...b.states }), { states: {} })
   })
@@ -44,5 +48,5 @@ export const useDisplayStore = defineStore('display', () => {
     return getLowestState(neighborStates)
   }
 
-  return { markers, states, bounds, inheritStateFromNodes, inheritStateFromNeighbor }
+  return { markers, exactMarker, states, bounds, inheritStateFromNodes, inheritStateFromNeighbor }
 })

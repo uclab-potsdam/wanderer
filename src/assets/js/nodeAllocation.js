@@ -88,11 +88,11 @@ function computeAllocations(id) {
       forceCollide().radius((d) => (dataStore.data.nodes[d.id]?.type === 'graph' ? 160 : 50))
     )
     .force('charge', forceManyBody().strength(-5000))
-    .force('center', forceCenter(layoutStore.offset.x, layoutStore.offset.y))
+    .force('center', forceCenter(0, 0))
     .force(
       'radial',
       // forceRadial(200)
-      forceRadial((d) => d.depth * 200, layoutStore.offset.x, layoutStore.offset.y).strength(2)
+      forceRadial((d) => d.depth * 200, 0, 0).strength(2)
     )
     .stop()
 
@@ -107,12 +107,12 @@ function computeAllocations(id) {
   )
 
   function getCoordinates(node) {
-    if (node === id) return layoutStore.offset
+    if (node === id) return { x: 0, y: 0 }
     if (layoutStore.nodes[node] != null) return layoutStore.nodes[node]
     const rad = Math.random() * Math.PI * 2
     return {
-      x: layoutStore.offset.x + Math.cos(rad) * 250,
-      y: layoutStore.offset.y + Math.sin(rad) * 250
+      x: Math.cos(rad) * 250,
+      y: Math.sin(rad) * 250
     }
   }
 }

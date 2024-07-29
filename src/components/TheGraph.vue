@@ -11,9 +11,18 @@ import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
 import { useVideoStore } from '@/stores/video'
 import { useLayoutStore } from '@/stores/layout'
+import { useSettingsStore } from '@/stores/settings'
+import { useContextMenuStore } from '@/stores/contextMenu'
+import { useEditStore } from '@/stores/edit'
 
 import GraphNode from '@/components/GraphNode.vue'
 import GraphEdge from '@/components/GraphEdge.vue'
+import ContextMenuList from './ContextMenuList.vue'
+import ContextMenuSearch from './ContextMenuSearch.vue'
+
+import { shorten } from '@/assets/js/resolveUrl'
+
+// import CursorAddEntity from '@/assets/icons/AddEntity.svg'
 
 const route = useRoute()
 const router = useRouter()
@@ -23,6 +32,9 @@ const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
 const videoStore = useVideoStore()
 const layoutStore = useLayoutStore()
+const settingsStore = useSettingsStore()
+const contextMenuStore = useContextMenuStore()
+const editStore = useEditStore()
 
 const allocations = ref([])
 
@@ -30,6 +42,8 @@ const zoomElement = ref(null)
 const zoomElementSelection = ref(null)
 const zoomBehaviour = ref(null)
 // const transform = ref({ x: 0, y: 0, k: 1 })
+
+const displayBoundsTemp = ref(null)
 
 const id = computed(() => route.params.id)
 const node = computed(() => dataStore.data.nodes[id.value])
@@ -40,6 +54,7 @@ const transformString = computed(
     `translate(${layoutStore.transform.x}px, ${layoutStore.transform.y}px) scale(${layoutStore.transform.k})`
 )
 const bounds = computed(() => {
+  if (allocations.value == null) return
   if (displayStore.bounds != null)
     // return displayStore.bounds
     return {
@@ -56,14 +71,14 @@ const bounds = computed(() => {
   const yOffset = 100
 
   return {
-    x1: Math.min(...valuesX) - xOffset,
-    y1: Math.min(...valuesY) - yOffset,
-    x2: Math.max(...valuesX) + xOffset,
-    y2: Math.max(...valuesY) + yOffset
+    x1: Math.min(...valuesX) - xOffset + layoutStore.offset.x,
+    y1: Math.min(...valuesY) - yOffset + layoutStore.offset.y,
+    x2: Math.max(...valuesX) + xOffset + layoutStore.offset.x,
+    y2: Math.max(...valuesY) + yOffset + layoutStore.offset.y
   }
 })
 const edges = computed(() => {
-  const nodes = Object.keys(allocations.value)
+  const nodes = Object.keys(allocations.value ?? {})
   return dataStore.data.edges.filter(
     (edge) =>
       nodes.includes(edge.nodes[0]) &&
@@ -72,11 +87,21 @@ const edges = computed(() => {
   )
 })
 
-const allocationOrder = computed(() => Object.keys(allocations.value).sort())
+const allocationOrder = computed(() => Object.keys(allocations.value ?? {}).sort())
 const cssProps = computed(() => {
   if (node.value.color == null) return
-  return { '--graph-accent': `var(--${node.value.color})` }
+  return {
+    '--graph-accent': `var(--${node.value.color})`
+    // cursor: `url("${CursorAddEntity}"), auto`
+  }
 })
+
+const displayBounds = computed(() => {
+  if ((displayStore.exactMarker?.bounds == null && displayBoundsTemp.value) == null) return
+  const { x1, y1, x2, y2 } = displayBoundsTemp.value || displayStore.exactMarker.bounds
+  return `M${x1},${y1} L${x2},${y1} L${x2},${y2} L${x1},${y2} Z`
+})
+
 watch(node, () => initGraph(constantStore.transition))
 
 watch(bounds, () => {
@@ -105,13 +130,15 @@ watch(
 onMounted(() => {
   zoomElementSelection.value = select(zoomElement.value)
   zoomBehaviour.value = zoom()
-    .scaleExtent([0.1, 2])
+    // .scaleExtent([0.1, 2])
+    .scaleExtent([0.1, 1])
     .on('zoom', (e) => {
       layoutStore.transform = e.transform
     })
     .filter((e) => {
+      if (editStore.mode === 'display-frame') return
       nextTick(() => activityStore.registerActivity())
-      return true
+      return e.button === 0 && !contextMenuStore.show
     })
   zoomElementSelection.value.call(zoomBehaviour.value)
   initGraph(0)
@@ -124,25 +151,26 @@ onBeforeUnmount(() => {
 
 function initGraph(duration) {
   allocations.value =
-    route.params.type === 'graph' ? translate(node.value.allocations) : computeAllocations(id.value)
+    route.params.type === 'graph' ? node.value.allocations : computeAllocations(id.value)
 
   zoomToBounds(bounds.value, duration)
 }
 
-function translate(allocations) {
-  return Object.fromEntries(
-    Object.entries(allocations ?? {}).map((allocation) => [
-      allocation[0],
-      {
-        ...allocation[1],
-        x: allocation[1].x + layoutStore.offset.x,
-        y: allocation[1].y + layoutStore.offset.y
-      }
-    ])
-  )
-}
+// function translate(allocations) {
+//   return Object.fromEntries(
+//     Object.entries(allocations ?? {}).map((allocation) => [
+//       allocation[0],
+//       {
+//         ...allocation[1]
+//         // x: allocation[1].x + layoutStore.offset.x,
+//         // y: allocation[1].y + layoutStore.offset.y
+//       }
+//     ])
+//   )
+// }
 
 function zoomToBounds(bounds, duration = 0) {
+  if (bounds == null) return
   const diff = {
     x: bounds.x2 - bounds.x1,
     y: bounds.y2 - bounds.y1
@@ -176,31 +204,204 @@ const resizeObserver = new ResizeObserver((entries) => {
     }
   }
 })
+
+function onContextMenu(e) {
+  if (!settingsStore.edit || view.value !== 'diagram') return
+  e.preventDefault()
+  contextMenuStore.open(
+    ContextMenuList,
+    [
+      {
+        label: 'add',
+        action: (e) => {
+          e.stopPropagation()
+          contextMenuStore.open(ContextMenuSearch)
+        }
+      },
+      {
+        label: 'log',
+        action: () => {
+          console.log(layoutStore.transform, contextMenuStore.offset)
+        }
+      }
+    ],
+    { x: e.x, y: e.y }
+  )
+}
+
+function onClick(e) {
+  if (!settingsStore.edit || view.value !== 'diagram') return
+
+  if (['add-entity', 'add-story', 'add-image'].includes(editStore.mode)) e.stopPropagation()
+  switch (editStore.mode) {
+    case 'add-entity':
+      contextMenuStore.open(
+        ContextMenuSearch,
+        {
+          nodeType: 'entity'
+        },
+        { x: e.x, y: e.y }
+      )
+      editStore.resetMode()
+      break
+    case 'add-story':
+      contextMenuStore.open(
+        ContextMenuSearch,
+        {
+          nodeType: 'graph'
+        },
+        { x: e.x, y: e.y }
+      )
+      editStore.resetMode()
+      break
+    case 'add-image':
+      contextMenuStore.open(
+        ContextMenuSearch,
+        {
+          nodeType: 'image'
+        },
+        { x: e.x, y: e.y }
+      )
+      editStore.resetMode()
+      break
+    default:
+      break
+  }
+}
+
+function onMouseDown(e) {
+  if (editStore.mode === 'display-frame') {
+    e.preventDefault()
+    e.stopPropagation()
+    const coords = screenToCoordinates(e)
+    displayBoundsTemp.value = {
+      x1: coords.x,
+      y1: coords.y,
+      x2: coords.x,
+      y2: coords.y
+    }
+
+    const controller = new AbortController()
+
+    const reset = function () {
+      console.log('reset')
+      controller.abort()
+      displayBoundsTemp.value = null
+    }
+
+    window.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key !== 'Escape') return
+        reset()
+      },
+      { signal: controller.signal }
+    )
+
+    window.addEventListener(
+      'mousemove',
+      (e) => {
+        const { x, y } = screenToCoordinates(e)
+        displayBoundsTemp.value.x2 = x
+        displayBoundsTemp.value.y2 = y
+      },
+      { signal: controller.signal }
+    )
+
+    window.addEventListener(
+      'mouseup',
+      () => {
+        editStore.setBounds(displayBoundsTemp.value, id.value)
+        reset()
+        editStore.resetMode()
+      },
+      { signal: controller.signal }
+    )
+  }
+}
+
+function onDrop(e) {
+  e.preventDefault()
+  if (!settingsStore.edit || view.value !== 'diagram') return
+
+  // handling files
+  // console.log(e.dataTransfer.files)
+
+  const uri = shorten(e.dataTransfer.getData('text/uri-list'))
+
+  // fetch mime types from urls (only works if cors is enabled)
+  // const controller = new AbortController();
+  // const signal = controller.signal;
+  // const mime = await fetch(uri, {signal}).then(d => {controller.abort(); return d.headers.get('Content-Type')})
+
+  const existingNode = dataStore.nodes.find((n) => n.file === shorten(uri))
+  if (existingNode != null) return insertNode(existingNode.id, e.x, e.y)
+
+  // console.log(shorten(uri))
+  // .replace(location.origin, "workbench:/");
+
+  const isImage = /(.png|.jpe?g|.gif|.webp)$/i.test(uri)
+  if (isImage) {
+    const uuid = crypto.randomUUID()
+
+    const node = {
+      type: 'image',
+      file: uri,
+      label: { universal: uri.replace(/[^:]*:\/?\/?/, '').replace(/\.[^.]+$/, '') }
+    }
+
+    dataStore.data.nodes[uuid] = node
+    insertNode(uuid, e.x, e.y)
+  }
+}
+
+function insertNode(id, x, y) {
+  dataStore.data.nodes[dataStore.nodeId].allocations[id] = screenToCoordinates({ x, y })
+}
+
+function screenToCoordinates(screen) {
+  return {
+    x: (screen.x - layoutStore.transform.x) / layoutStore.transform.k,
+    y: (screen.y - layoutStore.transform.y) / layoutStore.transform.k
+  }
+}
 </script>
 
 <template>
   <main
     class="graph"
     ref="zoomElement"
-    :class="{ initializing: route.meta.initializeView }"
+    :class="[`mode-${editStore.mode}`, { initializing: route.meta.initializeView }]"
     :style="cssProps"
+    @contextmenu="onContextMenu"
+    @click="onClick"
+    @mousedown="onMouseDown"
+    @drop="onDrop"
+    @dragover.prevent
+    @dragenter.prevent
   >
     <div class="nodes" :style="{ transform: transformString }">
       <TransitionGroup name="nodes">
         <GraphNode
-          v-for="id in allocationOrder"
-          :key="id"
-          :id="id"
-          :position="allocations[id]"
+          v-for="nodeId in allocationOrder"
+          :key="nodeId"
+          :id="nodeId"
+          :position="route.params.type === 'graph' ? null : allocations[nodeId]"
           :view="view"
+          :graph="view === 'diagram' && id"
         />
       </TransitionGroup>
     </div>
     <svg>
       <g :style="{ transform: transformString }">
         <TransitionGroup name="edges">
-          <GraphEdge v-for="edge in edges" :key="edge.nodes.join('/')" :edge="edge" :view="view" />
+          <GraphEdge v-for="edge in edges" :key="edge.id" :edge="edge" :view="view" />
         </TransitionGroup>
+        <path
+          v-if="settingsStore.edit && displayBounds"
+          :d="displayBounds"
+          class="display-bounds"
+        />
       </g>
     </svg>
   </main>
@@ -213,6 +414,28 @@ const resizeObserver = new ResizeObserver((entries) => {
   grid-row: graph-start / graph-end;
   position: relative;
   overflow: hidden;
+
+  /* cursor: pointer; */
+
+  &.mode-add-entity {
+    cursor:
+      url('@/assets/icons/AddEntity.svg') 11 15,
+      auto;
+  }
+  &.mode-add-story {
+    cursor:
+      url('@/assets/icons/AddStory.svg') 11 15,
+      auto;
+  }
+  &.mode-add-image {
+    cursor:
+      url('@/assets/icons/AddImage.svg') 11 15,
+      auto;
+  }
+
+  &.mode-display-frame {
+    cursor: crosshair;
+  }
 
   /* position: absolute;
   top: 0;
@@ -228,6 +451,14 @@ const resizeObserver = new ResizeObserver((entries) => {
     width: 100%;
     height: 100%;
     pointer-events: none;
+
+    .display-bounds {
+      fill: none;
+      stroke: var(--ui-accent);
+      stroke-width: 2;
+      stroke-dasharray: 10px 10px;
+      vector-effect: non-scaling-stroke;
+    }
   }
 
   /* transitions */

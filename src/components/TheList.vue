@@ -1,10 +1,9 @@
 <script setup>
 import { useDataStore } from '@/stores/data'
-import { useHelperStore } from '@/stores/helper'
 import { useRoute } from 'vue-router'
+import ListItem from './ListItem.vue'
 
 const dataStore = useDataStore()
-const helperStore = useHelperStore()
 
 const route = useRoute()
 </script>
@@ -12,14 +11,15 @@ const route = useRoute()
 <template>
   <main class="list">
     <template v-for="(node, id) in dataStore.data.nodes" :key="id">
-      <RouterLink
+      <ListItem
+        tag="RouterLink"
         :to="{ name: 'graph', params: { type: node.type, id } }"
         v-if="node.type === route.params.type"
+        :label="node.label"
+        :meta="dataStore.data.nodes[node.class]?.label"
       >
-        <div>
-          {{ helperStore.localize(node.text) }}
-        </div>
-      </RouterLink>
+        edit
+      </ListItem>
     </template>
   </main>
 </template>

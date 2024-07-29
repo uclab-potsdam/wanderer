@@ -1,16 +1,39 @@
 :root {
   /* Dimensions */
-  --spacing: 25px;
+  --spacing: 20px;
+  --spacing-quad: calc(var(--spacing) * 4);
+  --spacing-double: calc(var(--spacing) * 2);
+  --spacing-half: calc(var(--spacing) * 0.5);
+  --spacing-quart: calc(var(--spacing) * 0.25);
+
+  
+  --border-radius: var(--spacing-quart);
+  --border-radius-large: calc(var(--border-radius) * 1.5);
+  --border-radius-small: calc(var(--border-radius) * 0.5);
 
   /* Typography */
   --regular: 400;
   --font-size: 20px;
+  --font-size-small: 16px;
+  --font-size-tiny: 12px;
+  --sans: var(--regular) var(--font-size) / 1.25 'Inter',
+  sans-serif;
+  --serif: var(--regular) var(--font-size) / 1.25 'Redaction',
+  sans-serif;
 
   /* Transitions */
   --transition: 1000ms;
+  --ui-transition: 200ms;
 
   /* Colors */
   --color-background: white;
   --color-text: black;
-  --graph-accent: var(--gray)
+  --graph-accent: var(--gray);
+  --ui-accent: var(--teal);
+
+  /* Shadows */
+  --ui-shadow: 0px 0px 5px color-mix(in lab, var(--color-text), transparent 80%);
+
+  /* Filter */
+  --blur: blur(7px);
 }

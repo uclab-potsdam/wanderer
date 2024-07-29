@@ -20,12 +20,30 @@ const constantStore = useConstantStore()
           </select>
         </li>
         <li>
-          <label for="edit-mode">edit mode</label
-          ><input id="edit-mode" type="checkbox" v-model="settingsStore.edit" />
+          <label for="edit-mode">edit mode</label>
+          <input id="edit-mode" type="checkbox" v-model="settingsStore.edit" />
         </li>
         <li>
-          <label for="edit-mode">picture in picture</label
-          ><input id="edit-mode" type="checkbox" v-model="settingsStore.pictureInPicture" />
+          <label for="pip">picture in picture</label>
+          <input id="pip" type="checkbox" v-model="settingsStore.pictureInPicture" />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <label for="remote">remote</label>
+          <input id="remote" type="checkbox" v-model="settingsStore.remote" />
+        </li>
+        <li>
+          <label for="server">server</label>
+          <input id="server" :disabled="!settingsStore.remote" v-model="settingsStore.server" />
+        </li>
+        <li>
+          <label for="server">database id</label>
+          <input id="server" :disabled="!settingsStore.remote" v-model="settingsStore.db" />
+        </li>
+        <li>
+          <button :disabled="!settingsStore.remote">new</button>
+          <button :disabled="!settingsStore.remote">duplicate</button>
         </li>
       </ul>
     </main>
@@ -42,7 +60,7 @@ const constantStore = useConstantStore()
     [header-end];
 
   grid-template-rows:
-    [header-start] calc(var(--spacing) * 2)
+    [header-start] var(--spacing-double)
     [header-end main-start]
     1fr
     [main-end];
@@ -55,15 +73,21 @@ const constantStore = useConstantStore()
       list-style: none;
       padding: 0;
       border: 1px solid var(--color-text);
-      border-radius: calc(var(--spacing) / 2);
+      border-radius: var(--spacing-half);
       li {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-half);
         justify-content: space-between;
-        padding: calc(var(--spacing) / 2);
+        padding: var(--spacing-half);
 
         &:not(:last-child) {
           border-bottom: 1px solid color-mix(in lab, var(--color-text), transparent 75%);
         }
+      }
+
+      + ul {
+        margin-top: var(--spacing);
       }
     }
   }

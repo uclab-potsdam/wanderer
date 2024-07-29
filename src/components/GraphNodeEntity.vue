@@ -1,20 +1,20 @@
 <script setup>
-import { computed, nextTick, onMounted, ref } from 'vue'
-import { useHelperStore } from '@/stores/helper'
+import { computed, onMounted, ref } from 'vue'
+import { useDataStore } from '@/stores/data'
 import { getContentWidth } from '@/assets/js/utils'
+import LocalizeText from './LocalizeText.vue'
 
 const props = defineProps({
   node: Object
 })
 
-const helperStore = useHelperStore()
+const dataStore = useDataStore()
 
 const el = ref(null)
 
 const width = ref(null)
 
-const text = computed(() => helperStore.localize(props.node.text))
-const className = computed(() => helperStore.localize(props.node.class))
+const nodeClass = computed(() => dataStore.data.nodes[props.node.class]?.label)
 
 onMounted(() => {
   width.value = getContentWidth(el)
@@ -27,24 +27,27 @@ defineExpose({
 
 <template>
   <div class="entity" ref="el" :style="{ width }">
-    <span class="text">{{ text }}</span>
-    <br v-if="className != null" />
-    <span class="class" v-if="className != null">{{ className }}</span>
+    <span class="text"><LocalizeText :text="node.label" /></span>
+    <br v-if="nodeClass" />
+    <span class="class" v-if="nodeClass"><LocalizeText :text="nodeClass" /></span>
   </div>
 </template>
 
 <style scoped>
 .entity {
+  font-size: var(--font-size-small);
   box-sizing: content-box;
   max-width: 200px;
   width: max-content;
-  padding: calc(var(--spacing) * 0.5);
+  padding: var(--spacing-half);
   --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
   color: color-mix(in lab, var(--tinted), var(--color-background) 10%);
 
+  text-align: center;
+
   &.hide {
     opacity: 0.2;
-    filter: blur(10px);
+    filter: var(--blur);
 
     &.user-active {
       filter: none;
@@ -86,7 +89,13 @@ defineExpose({
   }
 
   .text {
-    font-weight: 900;
+    /* font-weight: 900; */
+    font: var(--serif);
+    font-weight: bold;
+  }
+
+  .class {
+    font-size: var(--font-size-small);
   }
 
   .inner {

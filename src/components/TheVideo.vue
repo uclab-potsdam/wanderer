@@ -17,7 +17,7 @@ const video = ref(null)
 
 const exhibitionMode = ref(import.meta.env.VITE_EXHIBITION_MODE === 'true')
 
-const source = computed(() => helperStore.getMediaUrl(videoStore.video.file[0]))
+const source = computed(() => helperStore.getMediaUrl(videoStore.video.file))
 
 function onTimeUpdate() {
   if (video.value == null) return
@@ -50,6 +50,19 @@ watch(
     if (time == null) return
     video.value.currentTime = time
     videoStore.playFrom = null
+  }
+)
+
+watch(
+  () => videoStore.setPlaying,
+  (playing) => {
+    if (playing == null) return
+    if (playing) {
+      video.value.play()
+    } else {
+      video.value.pause()
+    }
+    videoStore.setPlaying = null
   }
 )
 </script>

@@ -5,3 +5,18 @@
   font-style: oblique 0deg 10deg;
   src: url("@/assets/fonts/Inter.var.woff2") format("woff2");
 }
+
+@font-face {
+  font-family: 'Redaction';
+  src: url('@/assets/fonts/Redaction-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Redaction';
+  src: url('@/assets/fonts/Redaction-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}

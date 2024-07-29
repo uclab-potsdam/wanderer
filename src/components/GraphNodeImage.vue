@@ -19,13 +19,21 @@ defineExpose({
 
 <template>
   <div class="image">
-    <img ref="el" :srcset="`${url} 2x`" />
+    <img ref="el" :srcset="`${url} 2x`" draggable="false" />
   </div>
 </template>
 
 <style scoped>
 .image {
   pointer-events: none;
+
+  &.edit {
+    pointer-events: initial;
+    &:hover {
+      border-radius: var(--spacing-quart);
+      overflow: hidden;
+    }
+  }
   z-index: -2;
 
   background: var(--graph-accent);
