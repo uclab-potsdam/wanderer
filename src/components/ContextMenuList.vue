@@ -21,7 +21,7 @@ defineProps(['context'])
   /* background: var(--color-background); */
   /* box-shadow: var(--ui-shadow); */
   /* border-radius: var(--border-radius); */
-  /* padding: var(--border-radius-half); */
+  /* padding: var(--border-radius-small); */
 
   font-size: var(--font-size-small);
   min-width: 150px;
@@ -29,6 +29,11 @@ defineProps(['context'])
   button {
     text-align: left;
     padding: var(--spacing-half);
+
+    &:not(:disabled):hover {
+      color: var(--ui-accent);
+      background-color: color-mix(in lab, currentColor, transparent 90%);
+    }
   }
 }
 </style>

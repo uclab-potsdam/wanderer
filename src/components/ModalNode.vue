@@ -3,8 +3,9 @@ import { useModalStore } from '@/stores/modal'
 import schema from '@/assets/js/schema'
 import { computed } from 'vue'
 import InputText from './InputText.vue'
-import InputSelect from './InputSelect.vue'
+import InputSelectNode from './InputSelectNode.vue'
 import InputDictionary from './InputDictionary.vue'
+import ListWrapper from './ListWrapper.vue'
 
 const colors = [
   'gray',
@@ -29,25 +30,21 @@ const fields = computed(() => schema[modalStore.item.type])
 </script>
 
 <template>
-  <div class="modal-node">
-    <template v-for="(value, key) in fields" :key="key">
-      <InputText v-if="value === 'string'" :label="key" v-model="modalStore.item[key]" />
-      <InputDictionary
-        v-else-if="value === 'dictionary'"
-        :label="key"
-        v-model="modalStore.item[key]"
-      />
-      <InputSelect
-        v-else-if="value === 'color'"
-        :label="key"
-        v-model="modalStore.item[key]"
-        :options="colors"
-      />
-    </template>
-  </div>
+  <template v-for="(type, key) in fields" :key="key">
+    <InputText v-if="type === 'string'" :label="key" v-model="modalStore.item[key]" />
+    <InputDictionary
+      v-else-if="type === 'dictionary'"
+      :label="key"
+      v-model="modalStore.item[key]"
+    />
+    <InputSelectNode
+      v-else-if="type === 'color'"
+      :label="key"
+      v-model="modalStore.item[key]"
+      :options="colors"
+    />
+    <InputSelectNode v-else :type="type" :label="key" v-model="modalStore.item[key]" />
+  </template>
 </template>
 
-<style scoped>
-.modal-node {
-}
-</style>
+<style scoped></style>

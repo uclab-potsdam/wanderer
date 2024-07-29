@@ -60,7 +60,7 @@ const editStore = useEditStore()
 
   display: flex;
   flex-direction: column;
-  gap: var(--border-radius-half);
+  gap: var(--border-radius-small);
   align-items: center;
   justify-content: center;
 
@@ -69,7 +69,7 @@ const editStore = useEditStore()
   border-radius: var(--border-radius); */
 
   .button {
-    border-radius: var(--border-radius-half);
+    border-radius: var(--border-radius-small);
   }
 }
 </style>

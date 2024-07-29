@@ -6,12 +6,13 @@ defineProps({
   options: Array,
   label: String,
   name: String,
-  horizontal: Boolean
+  horizontal: Boolean,
+  equalSize: Boolean
 })
 defineEmits(['update:modelValue'])
 </script>
 <template>
-  <ListWrapper :horizontal="horizontal">
+  <ListWrapper :horizontal="horizontal" :equal-size="equalSize">
     <label class="label" v-for="(option, i) in options" :key="i">
       <InputSegmentItem v-if="!option.slot">
         {{ option.label ?? option.value ?? option }}
@@ -20,10 +21,10 @@ defineEmits(['update:modelValue'])
       <input
         type="radio"
         :name="name"
-        :checked="(option.value ?? option) === modelValue"
+        :checked="(option.value === undefined ? option : option.value) === modelValue"
         :disabled="option.disabled"
         :value="option.value ?? option"
-        @change="$emit('update:modelValue', option.value ?? option)"
+        @change="$emit('update:modelValue', option.value === undefined ? option : option.value)"
       />
     </label>
   </ListWrapper>
@@ -31,7 +32,7 @@ defineEmits(['update:modelValue'])
 
 <style scoped>
 .label {
-  border-radius: var(--border-radius-half);
+  border-radius: var(--border-radius-small);
 
   display: flex;
   justify-content: center;

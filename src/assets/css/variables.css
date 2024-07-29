@@ -6,13 +6,16 @@
   --spacing-half: calc(var(--spacing) * 0.5);
   --spacing-quart: calc(var(--spacing) * 0.25);
 
+  
   --border-radius: var(--spacing-quart);
-  --border-radius-half: calc(var(--border-radius) * 0.5);
+  --border-radius-large: calc(var(--border-radius) * 1.5);
+  --border-radius-small: calc(var(--border-radius) * 0.5);
 
   /* Typography */
   --regular: 400;
   --font-size: 20px;
   --font-size-small: 16px;
+  --font-size-tiny: 12px;
   --sans: var(--regular) var(--font-size) / 1.25 'Inter',
   sans-serif;
   --serif: var(--regular) var(--font-size) / 1.25 'Redaction',

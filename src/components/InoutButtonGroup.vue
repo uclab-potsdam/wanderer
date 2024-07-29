@@ -31,7 +31,7 @@ defineEmits(['update:modelValue'])
 
 <style scoped>
 .label {
-  border-radius: var(--border-radius-half);
+  border-radius: var(--border-radius-small);
 
   display: flex;
   justify-content: center;

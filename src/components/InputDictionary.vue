@@ -7,8 +7,7 @@ defineProps({
     type: Object,
     default: () => ({})
   },
-  label: String,
-  name: String
+  label: String
 })
 defineEmits(['update:modelValue'])
 const settingsStore = useSettingsStore()
@@ -18,6 +17,7 @@ const helperStore = useHelperStore()
   <div class="input-text">
     <label>
       {{ label }}
+
       <input
         type="text"
         :value="modelValue?.[settingsStore.lang]"
@@ -32,10 +32,29 @@ const helperStore = useHelperStore()
 
 <style scoped>
 .input-text {
-  display: grid;
-  grid-auto-columns: 1fr;
-  grid-auto-flow: column;
-  text-align: center;
-  align-self: center;
+  padding: var(--spacing-quart);
+  backdrop-filter: brightness(106%) saturate(10%);
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-quart);
+    font-size: var(--font-size-tiny);
+    text-transform: uppercase;
+    color: inherit;
+  }
+
+  input {
+    color: inherit;
+    border: none;
+    font: var(--serif);
+    background: transparent;
+    padding: 0;
+    outline: none;
+  }
+
+  &:has(input:focus-visible) {
+    outline: 1px solid var(--ui-accent);
+  }
 }
 </style>

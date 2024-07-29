@@ -1,21 +1,26 @@
 <script setup>
 import { useModalStore } from '@/stores/modal'
-import InputSelect from './InputSelect.vue'
 import InputDictionary from './InputDictionary.vue'
+import InputSegment from './InputSegment.vue'
+import ListWrapper from './ListWrapper.vue'
 
-const arrows = [{ label: 'none', value: null }, '→', '←', '↔']
+const arrows = [{ label: '–', value: null }, '→', '←', '↔']
 
 const modalStore = useModalStore()
 </script>
 
 <template>
-  <div class="modal-node">
-    <InputDictionary label="label" v-model="modalStore.item.label" />
-    <InputSelect label="arrow" v-model="modalStore.item.arrow" :options="arrows" />
-  </div>
+  <InputDictionary label="label" v-model="modalStore.item.label" />
+  <InputSegment
+    label="arrow"
+    horizontal
+    v-model="modalStore.item.arrow"
+    :options="arrows"
+    equal-size
+  />
 </template>
 
 <style scoped>
-.modal-node {
+.modal-edge {
 }
 </style>

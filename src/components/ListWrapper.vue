@@ -12,6 +12,7 @@ defineProps({
 .list-wrapper {
   --tint: var(--accent, var(--ui-accent));
 
+  position: relative;
   display: flex;
   flex-direction: column;
   &.horizontal {
@@ -32,14 +33,26 @@ defineProps({
   text-align: center;
 
   background: color-mix(in lab, var(--tint), rgba(255, 255, 255, 0.5) 90%);
-  backdrop-filter: var(--blur);
+  /* backdrop-filter: var(--blur); */
   border-radius: var(--border-radius);
-  padding: var(--border-radius-half);
-  gap: var(--border-radius-half);
+  padding: var(--border-radius-small);
+  gap: var(--border-radius-small);
   color: color-mix(in lab, var(--tint), var(--color-text) 60%);
 
   &:deep(> *) {
-    border-radius: var(--border-radius-half);
+    border-radius: var(--border-radius-small);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: var(--blur);
+    z-index: -1;
+    border-radius: var(--border-radius);
+    top: 0;
+    left: 0;
   }
 }
 </style>

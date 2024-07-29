@@ -36,8 +36,8 @@ defineEmits(['update:modelValue'])
   /* height: var(--spacing); */
   font-size: 14px;
   text-transform: uppercase;
-  padding: var(--border-radius-half);
-  gap: var(--border-radius-half);
+  padding: var(--border-radius-small);
+  gap: var(--border-radius-small);
   color: color-mix(in lab, var(--accent), var(--color-text) 30%);
   font-weight: bold;
 

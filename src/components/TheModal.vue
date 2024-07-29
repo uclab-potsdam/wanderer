@@ -2,6 +2,7 @@
 import { useModalStore } from '@/stores/modal'
 import ModalNode from '@/components/ModalNode.vue'
 import ModalEdge from '@/components/ModalEdge.vue'
+import ListWrapper from './ListWrapper.vue'
 // import { useSettingsStore } from '@/stores/settings'
 
 const modalStore = useModalStore()
@@ -10,8 +11,10 @@ const modalStore = useModalStore()
 
 <template>
   <div class="modal" v-if="modalStore.show" @click="modalStore.close()">
-    <ModalNode v-if="modalStore.type === 'node'" @click.stop />
-    <ModalEdge v-if="modalStore.type === 'edge'" @click.stop />
+    <ListWrapper @click.stop>
+      <ModalNode v-if="modalStore.type === 'node'" />
+      <ModalEdge v-if="modalStore.type === 'edge'" />
+    </ListWrapper>
   </div>
 </template>
 
@@ -22,28 +25,22 @@ const modalStore = useModalStore()
   height: 100vh;
   z-index: 1;
 
-  backdrop-filter: var(--blur);
-  background: color-mix(in lab, var(--color-background), transparent 50%);
+  /* backdrop-filter: var(--blur); */
+  /* background: color-mix(in lab, var(--ui-accent), rgba(0, 0, 0, 0.2) 90%); */
 
   display: grid;
   grid-template-columns:
     1fr
-    [modal-start] min(100% - var(--spacing), 400px)
+    [modal-start] min(100% - var(--spacing), 300px)
     [modal-end] 1fr;
   grid-template-rows: 1fr [modal-start] auto [modal-end] 1fr;
 
   > * {
-    padding: var(--spacing);
     grid-column: modal-start / modal-end;
     grid-row: modal-start / modal-end;
-
-    border-radius: var(--spacing-quart);
-
-    /* height: 400px; */
-    background: var(--color-background);
-    box-shadow: color-mix(in lab, var(--color-text), transparent 50%) 0px 0px
-      var(--spacing-quart);
-    /* border: 1px solid var(--color-text); */
+    display: flex;
+    flex-direction: column;
+    text-align: start;
   }
 }
 </style>
