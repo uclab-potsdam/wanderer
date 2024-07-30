@@ -8,7 +8,6 @@ export default {
   },
   graph: {
     label: 'dictionary',
-    color: 'color',
     image: 'string'
   },
   image: {
