@@ -32,7 +32,7 @@ const contextMenuStore = useContextMenuStore()
     anchor-name: --anchor-context-menu;
   }
 }
-.context-menu {
+.context-menu.list-wrapper {
   transform: var(--transform);
   position: absolute;
   z-index: 1;
