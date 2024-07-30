@@ -151,6 +151,10 @@ function onMouseDown(e) {
   }
 }
 
+function includeIf(condition, value) {
+  return condition ? [value] : []
+}
+
 function onContextMenu(e) {
   if (!settingsStore.edit) return
   e.preventDefault()
@@ -158,25 +162,25 @@ function onContextMenu(e) {
   contextMenuStore.open(
     ContextMenuList,
     [
-      {
+      ...includeIf(props.view === 'diagram', {
         label: 'delete',
         action: () => {
           dataStore.deleteNode(props.id, props.graph)
         }
-      },
+      }),
       {
         label: 'edit',
         action: () => {
           modalStore.open(props.id, 'node')
         }
       },
-      {
+      ...includeIf(props.view === 'diagram', {
         label: '→',
         action: () => {
           if (props.view !== 'diagram') return
           connectStore.open(props.id, '→', props.graph)
         }
-      },
+      }),
       // {
       //   label: '↔',
       //   action: () => {
@@ -189,12 +193,12 @@ function onContextMenu(e) {
       //     modalStore.open(props.id, 'node')
       //   }
       // },
-      {
+      ...includeIf(props.view === 'diagram', {
         label: locked.value ? 'unlock' : 'lock',
         action: () => {
           dataStore.data.nodes[props.graph].allocations[props.id].locked = !locked.value
         }
-      },
+      }),
       {
         label: 'log',
         action: () => {
