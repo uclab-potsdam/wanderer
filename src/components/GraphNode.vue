@@ -161,7 +161,7 @@ function onContextMenu(e) {
       {
         label: 'delete',
         action: () => {
-          delete dataStore.data.nodes[props.graph].allocations[props.id]
+          dataStore.deleteNode(props.id, props.graph)
         }
       },
       {

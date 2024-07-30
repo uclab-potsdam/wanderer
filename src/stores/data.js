@@ -164,6 +164,13 @@ export const useDataStore = defineStore('data', () => {
     { deep: true }
   )
 
+  function deleteNode(id, graph) {
+    delete data.value.nodes[graph].allocations[id]
+    data.value.edges = data.value.edges.filter(
+      (edge) => edge.graph !== graph || !edge.nodes.includes(id)
+    )
+  }
+
   return {
     init,
     data,
@@ -181,6 +188,7 @@ export const useDataStore = defineStore('data', () => {
     project,
     addProject,
     deleteProject,
-    storeData
+    storeData,
+    deleteNode
   }
 })
