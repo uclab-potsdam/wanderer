@@ -164,11 +164,20 @@ export const useDataStore = defineStore('data', () => {
     { deep: true }
   )
 
-  function deleteNode(id, graph) {
-    delete data.value.nodes[graph].allocations[id]
-    data.value.edges = data.value.edges.filter(
-      (edge) => edge.graph !== graph || !edge.nodes.includes(id)
-    )
+  function deleteNode(id, graph, force = false) {
+    const occurances = graphs.value.filter((g) => g.allocations?.[id] != null).map(({ id }) => id)
+    const deleteFrom = force ? occurances : [graph]
+
+    deleteFrom.forEach((graph) => {
+      delete data.value.nodes[graph].allocations[id]
+      data.value.edges = data.value.edges.filter(
+        (edge) => edge.graph !== graph || !edge.nodes.includes(id)
+      )
+    })
+
+    if (occurances.length === 1 || force) {
+      delete data.value.nodes[id]
+    }
   }
 
   return {
