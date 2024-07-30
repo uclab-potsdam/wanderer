@@ -1,5 +1,6 @@
 const shorthands = {
-  xe: 'https://amazoniafuturelab.fh-potsdam.de/media/xingu-entangled/'
+  xe: 'https://amazoniafuturelab.fh-potsdam.de/media/xingu-entangled/',
+  xingu: 'https://amazoniafuturelab.fh-potsdam.de/media/xingu-entangled/_/'
 }
 
 function shorten(url) {
