@@ -44,6 +44,7 @@ defineProps({
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  text-decoration: none;
 
   &:not(.disable-padding) {
     padding: var(--spacing-quart) var(--spacing-half);
@@ -58,7 +59,8 @@ defineProps({
     border: 1px solid currentColor;
   }
 
-  &:not(:disabled):hover {
+  &:not(:disabled):hover,
+  &.router-link-exact-active {
     background: color-mix(in lab, var(--ui-accent), transparent 70%);
     color: var(--ui-accent-deep);
   }
