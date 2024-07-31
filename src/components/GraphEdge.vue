@@ -48,6 +48,7 @@ const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
 // })
 
 const color = computed(() => {
+  const color = dataStore.data.nodes[props.edge.graph].color
   // if (
   //   occurances.value == null ||
   //   occurances.value.length === 0 ||
@@ -55,7 +56,7 @@ const color = computed(() => {
   // )
   //   return
   // return { '--graph-accent': `var(--${occurances.value[0].color})` }
-  return { '--graph-accent': `var(--${dataStore.data.nodes[props.edge.graph].color})` }
+  return { '--graph-accent': color ? `var(--${color})` : null }
 })
 
 const display = computed(() => displayStore.inheritStateFromNodes(props.edge.nodes))
@@ -236,7 +237,7 @@ function onContextMenu(e) {
 <style scoped>
 .edge {
   transition: all var(--transition);
-  --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
+  --tinted: color-mix(in lab, var(--graph-accent, var(--ui-accent)), var(--color-text) 60%);
   color: color-mix(in lab, var(--tinted), var(--color-background) 10%);
   stroke: color-mix(in lab, var(--tinted), var(--color-background) 10%);
 
