@@ -11,6 +11,14 @@ const dataStore = useDataStore()
 const constantStore = useConstantStore()
 
 // const route = useRoute()
+function importFile(e) {
+  const file = e.target.files[0]
+  const reader = new FileReader()
+  reader.addEventListener('load', (event) => {
+    dataStore.addProject(null, JSON.parse(event.target.result))
+  })
+  reader.readAsText(file)
+}
 </script>
 
 <template>
@@ -24,7 +32,10 @@ const constantStore = useConstantStore()
       </ListWrapper>
       <div class="right">
         <ListWrapper horizontal>
-          <InputButton @click="dataStore.importFromStatic()">import</InputButton>
+          <InputButton tag="label" for="file-import" type="file" accept="application/json">
+            import
+          </InputButton>
+          <input id="file-import" type="file" accept="application/json" @change="importFile" />
         </ListWrapper>
         <ListWrapper horizontal>
           <InputButton @click="dataStore.addProject()">new</InputButton>
@@ -97,6 +108,10 @@ const constantStore = useConstantStore()
     .right {
       display: flex;
       gap: var(--spacing-quart);
+
+      #file-import {
+        display: none;
+      }
     }
   }
 }
