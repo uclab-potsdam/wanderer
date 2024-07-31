@@ -29,26 +29,35 @@ export const useDataStore = defineStore('data', () => {
 
   async function init() {
     // console.log(project.value)
+    data.value = { nodes: {}, edges: [] }
     if (project.value == null) {
       data.value = await fetch(constantStore.wandererStatic).then((d) => d.json())
     } else if (!project.value.remote) {
       data.value = JSON.parse(localStorage.getItem(`wanderer-${project.value.id}`))
     } else {
-      socket = io(constantStore.wandererServer)
-      socket.on('data', (d) => {
-        skipUpdate = true
-        data.value = d
-      })
-      socket.on('update', (patch) => {
-        skipUpdate = true
-        applyPatch(data.value, patch)
-      })
-      socket.on('disconnect', () => {
-        console.log('connection closed')
-      })
-
+      console.log(constantStore.wandererServer)
+      initSocket()
       socket.emit('fetch', projectId.value)
     }
+  }
+
+  function initSocket() {
+    socket = io(constantStore.wandererServer, { path: '/api/socket.io' })
+    socket.on('data', (d) => {
+      console.log('hey', d)
+      skipUpdate = true
+      data.value = d
+    })
+    socket.on('update', (patch) => {
+      skipUpdate = true
+      applyPatch(data.value, patch)
+    })
+    socket.on('disconnect', () => {
+      console.log('connection closed')
+    })
+    socket.on('created', (id) => {
+      open(id)
+    })
   }
 
   const nodeOccurances = computed(() => {
@@ -116,14 +125,17 @@ export const useDataStore = defineStore('data', () => {
     localStorage.setItem(`wanderer-${projectId.value}`, JSON.stringify(data))
   }
 
-  function addProject(id, data = { nodes: {}, edges: [] }, remote = false) {
-    id = id ?? crypto.randomUUID()
-    projectList.value.push({ id, remote, opened: new Date() })
+  function addProject(id, data = { nodes: {}, edges: [] }) {
+    const remote = settingsStore.remote
+
     if (!remote) {
+      id = id ?? crypto.randomUUID()
+      projectList.value.push({ id, remote, opened: new Date() })
       localStorage.setItem(`wanderer-${id}`, JSON.stringify(data))
       open(id)
     } else {
-      console.log('remote')
+      if (socket == null) initSocket()
+      socket.emit('create', data)
     }
   }
 
@@ -168,6 +180,13 @@ export const useDataStore = defineStore('data', () => {
     addProject(null, data)
   }
 
+  async function copyProjectLink(id) {
+    const projectLink = `${window.location.origin}/share/${id}`
+
+    console.log(projectLink)
+    await navigator.clipboard.writeText(projectLink)
+  }
+
   const dataCopy = computed(() => {
     return cloneDeep(data.value)
   })
@@ -179,6 +198,7 @@ export const useDataStore = defineStore('data', () => {
       if (!project.value.remote) return storeData(value)
 
       if (skipUpdate) return (skipUpdate = false)
+      console.log(compare(oldValue, value))
       socket.emit('patch', compare(oldValue, value))
 
       // if (skipUpdate) return (skipUpdate = false)
@@ -230,6 +250,7 @@ export const useDataStore = defineStore('data', () => {
     deleteNode,
     createNode,
     exportProject,
-    duplicateProject
+    duplicateProject,
+    copyProjectLink
   }
 })

@@ -46,7 +46,7 @@ const zoomBehaviour = ref(null)
 const displayBoundsTemp = ref(null)
 
 const id = computed(() => route.params.id)
-const node = computed(() => dataStore.data.nodes[id.value])
+const node = computed(() => dataStore.data.nodes[id.value] ?? {})
 const view = computed(() => (route.params.type === 'graph' ? 'diagram' : 'network'))
 
 const transformString = computed(

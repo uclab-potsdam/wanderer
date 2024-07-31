@@ -4,11 +4,13 @@ import ListWrapper from './ListWrapper.vue'
 import ListItem from './ListItem.vue'
 import { useConstantStore } from '@/stores/constant'
 import { useDataStore } from '@/stores/data'
+import { useSettingsStore } from '@/stores/settings'
 
 // import { useRoute } from 'vue-router'
 
 const dataStore = useDataStore()
 const constantStore = useConstantStore()
+const settingsStore = useSettingsStore()
 
 // const route = useRoute()
 function importFile(e) {
@@ -70,7 +72,11 @@ function importFile(e) {
           <InputButton @click.stop.prevent="dataStore.deleteProject(project.id)">
             delete
           </InputButton>
-          <InputButton @click.stop.prevent> share </InputButton>
+          <template v-if="settingsStore.remote">
+            <InputButton @click.stop.prevent="dataStore.copyProjectLink(project.id)">
+              share
+            </InputButton>
+          </template>
           <InputButton @click.stop.prevent="dataStore.duplicateProject(project.id)">
             duplicate
           </InputButton>
