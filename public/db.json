@@ -2939,11 +2939,7 @@
           }
         }
       ]
-    },
-    "graph-eBXDawiT6fGgM79n": { "type": "graph", "image": "xe:undefined" },
-    "graph-7qGbfXtnUgco9fgp": { "type": "graph", "image": "xe:undefined" },
-    "graph-hnX0dHUPSOv2vgp3": { "type": "graph", "image": "xe:undefined" },
-    "graph-iegd4VDzlSdG4L3B": { "type": "graph", "image": "xe:undefined" }
+    }
   },
   "edges": [
     {
