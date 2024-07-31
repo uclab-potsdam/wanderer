@@ -180,6 +180,12 @@ export const useDataStore = defineStore('data', () => {
     }
   }
 
+  function createNode(node) {
+    const id = crypto.randomUUID()
+    data.value.nodes[id] = node
+    return id
+  }
+
   return {
     init,
     data,
@@ -198,6 +204,7 @@ export const useDataStore = defineStore('data', () => {
     addProject,
     deleteProject,
     storeData,
-    deleteNode
+    deleteNode,
+    createNode
   }
 })

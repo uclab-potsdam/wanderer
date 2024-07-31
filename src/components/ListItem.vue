@@ -7,7 +7,7 @@ defineProps({
   },
   label: {
     type: [String, Object],
-    default: 'Item'
+    default: 'Untitled'
   },
   meta: {
     type: [String, Object, Array],

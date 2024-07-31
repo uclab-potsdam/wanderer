@@ -10,6 +10,11 @@ const dataStore = useDataStore()
 const modalStore = useModalStore()
 
 const route = useRoute()
+
+function createNode() {
+  const id = dataStore.createNode({ type: route.params.type })
+  modalStore.open(id, 'node')
+}
 </script>
 
 <template>
@@ -21,19 +26,24 @@ const route = useRoute()
         <InputButton tag="RouterLink" to="entity"> Entities </InputButton>
         <InputButton tag="RouterLink" to="image"> Images </InputButton>
       </ListWrapper>
+      <ListWrapper horizontal>
+        <InputButton @click="createNode"> Add {{ route.params.type }} </InputButton>
+      </ListWrapper>
     </nav>
 
-    <template v-for="(node, id) in dataStore.data.nodes" :key="id">
-      <ListItem
-        tag="RouterLink"
-        :to="{ name: 'graph', params: { type: node.type, id } }"
-        v-if="node.type === route.params.type"
-        :label="node.label"
-        :meta="dataStore.data.nodes[node.class]?.label"
-      >
-        <InputButton @click.stop.prevent="modalStore.open(id, 'node')">edit</InputButton>
-      </ListItem>
-    </template>
+    <div class="node-list">
+      <template v-for="(node, id) in dataStore.data.nodes" :key="id">
+        <ListItem
+          tag="RouterLink"
+          :to="{ name: 'graph', params: { type: node.type, id } }"
+          v-if="node.type === route.params.type"
+          :label="node.label"
+          :meta="dataStore.data.nodes[node.class]?.label"
+        >
+          <InputButton @click.stop.prevent="modalStore.open(id, 'node')">edit</InputButton>
+        </ListItem>
+      </template>
+    </div>
   </main>
 </template>
 
@@ -47,6 +57,11 @@ const route = useRoute()
     display: flex;
     gap: var(--spacing);
     justify-content: space-between;
+  }
+
+  .node-list {
+    display: flex;
+    flex-direction: column-reverse;
   }
 }
 </style>

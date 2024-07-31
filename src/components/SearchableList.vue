@@ -48,14 +48,11 @@ const nodes = computed(() => {
 })
 
 function createNode() {
-  const uuid = crypto.randomUUID()
-  const node = {
+  const id = dataStore.createNode({
     type: props.context.nodeType,
-    // class: { en: 'none' },
     label: { [settingsStore.lang]: label.value }
-  }
-  dataStore.data.nodes[uuid] = node
-  emit('select-item', uuid)
+  })
+  emit('select-item', id)
 }
 </script>
 
