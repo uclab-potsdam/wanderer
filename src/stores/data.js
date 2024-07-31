@@ -175,7 +175,7 @@ export const useDataStore = defineStore('data', () => {
       )
     })
 
-    if (occurances.length === 1 || force) {
+    if ((occurances.length === 1 && data.value.nodes[id].type != 'graph') || force) {
       delete data.value.nodes[id]
     }
   }
