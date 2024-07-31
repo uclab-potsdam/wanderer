@@ -160,6 +160,14 @@ export const useDataStore = defineStore('data', () => {
     link.remove()
   }
 
+  async function duplicateProject(id) {
+    const data = id
+      ? JSON.parse(localStorage.getItem(`wanderer-${id}`))
+      : await fetch(constantStore.wandererStatic).then((d) => d.json())
+
+    addProject(null, data)
+  }
+
   const dataCopy = computed(() => {
     return cloneDeep(data.value)
   })
@@ -221,6 +229,7 @@ export const useDataStore = defineStore('data', () => {
     storeData,
     deleteNode,
     createNode,
-    exportProject
+    exportProject,
+    duplicateProject
   }
 })

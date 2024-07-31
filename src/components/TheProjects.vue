@@ -56,7 +56,7 @@ function importFile(e) {
     </div> -->
     <div class="project-list">
       <ListItem label="static" :meta="constantStore.wandererStatic">
-        <InputButton @click.stop.prevent> duplicate </InputButton>
+        <InputButton @click.stop.prevent="dataStore.duplicateProject()"> duplicate </InputButton>
         <InputButton @click.stop.prevent="dataStore.exportProject()"> export </InputButton>
       </ListItem>
       <template v-for="project in dataStore.projects" :key="project.id">
@@ -71,7 +71,9 @@ function importFile(e) {
             delete
           </InputButton>
           <InputButton @click.stop.prevent> share </InputButton>
-          <InputButton @click.stop.prevent> duplicate </InputButton>
+          <InputButton @click.stop.prevent="dataStore.duplicateProject(project.id)">
+            duplicate
+          </InputButton>
           <InputButton @click.stop.prevent="dataStore.exportProject(project.id)">
             export
           </InputButton>
