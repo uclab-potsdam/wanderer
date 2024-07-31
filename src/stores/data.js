@@ -113,11 +113,10 @@ export const useDataStore = defineStore('data', () => {
   }
 
   function storeData(data) {
-    console.log(projectId.value)
     localStorage.setItem(`wanderer-${projectId.value}`, JSON.stringify(data))
   }
 
-  function addProject(id, data = {}, remote = false) {
+  function addProject(id, data = { nodes: {}, edges: [] }, remote = false) {
     id = id ?? crypto.randomUUID()
     projectList.value.push({ id, remote, opened: new Date() })
     if (!remote) {

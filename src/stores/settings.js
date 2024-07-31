@@ -14,7 +14,9 @@ export const useSettingsStore = defineStore('settings', () => {
 
   const remote = useStorage('remote', false)
 
-  watch(edit, () => editStore.resetMode())
+  watch(edit, (edit) => {
+    if (!edit) editStore.exit()
+  })
 
   return { lang, pictureInPicture, edit, server, remote, db }
 })

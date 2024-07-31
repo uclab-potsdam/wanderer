@@ -1,14 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { useVideoStore } from '@/stores/video'
+import { useSettingsStore } from '@/stores/settings'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      redirect: { name: 'list', params: { type: 'graph' } }
+      name: 'home'
+      // redirect: { name: 'list', params: { type: 'graph' } }
     },
     {
       path: '/settings',
@@ -50,12 +51,25 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  const settingsStore = useSettingsStore()
   const dataStore = useDataStore()
+
+  if (to.name === 'home') {
+    return settingsStore.edit
+      ? next({ name: 'projects' })
+      : next({ name: 'list', params: { type: 'graph' } })
+  }
+
   if (to.name === 'open') {
-    dataStore.open(to.params.id)
+    if (settingsStore.edit) dataStore.open(to.params.id)
     // dataStore.data = null
     return next({ name: 'list', params: { type: 'graph' } })
   }
+
+  if (to.name === 'projects' && !settingsStore.edit) {
+    return next({ name: 'list', params: { type: 'graph' } })
+  }
+
   const videoStore = useVideoStore()
   if (dataStore.data === null && ['list', 'graph', 'video'].includes(to.name)) {
     await dataStore.init()

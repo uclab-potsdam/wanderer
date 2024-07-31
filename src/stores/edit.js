@@ -12,6 +12,11 @@ export const useEditStore = defineStore('edit', () => {
     mode.value = 'default'
   }
 
+  function exit() {
+    resetMode()
+    dataStore.projectId = null
+  }
+
   function setDisplay(id, display, graphId) {
     const graph = dataStore.data.nodes[graphId]
     const time = videoStore.time
@@ -67,5 +72,5 @@ export const useEditStore = defineStore('edit', () => {
     }
   }
 
-  return { mode, resetMode, setDisplay, setBounds }
+  return { mode, resetMode, exit, setDisplay, setBounds }
 })

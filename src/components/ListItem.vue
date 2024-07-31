@@ -12,12 +12,16 @@ defineProps({
   meta: {
     type: [String, Object, Array],
     default: null
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
 
 <template>
-  <component :is="tag" class="list-item">
+  <component :is="tag" class="list-item" :class="{ disabled }">
     <div class="left">
       <h3 class="label"><LocalizeText :text="label" /></h3>
       <span class="meta"><LocalizeText :text="meta" /></span>
@@ -55,7 +59,7 @@ defineProps({
     display: flex;
   }
 
-  &:hover {
+  &:not(.disabled):hover {
     background: color-mix(in lab, var(--ui-accent), transparent 90%);
     color: color-mix(in lab, var(--ui-accent), var(--color-text) 50%);
   }

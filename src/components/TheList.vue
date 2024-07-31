@@ -5,9 +5,11 @@ import ListItem from './ListItem.vue'
 import ListWrapper from './ListWrapper.vue'
 import InputButton from './InputButton.vue'
 import { useModalStore } from '@/stores/modal'
+import { useSettingsStore } from '@/stores/settings'
 
 const dataStore = useDataStore()
 const modalStore = useModalStore()
+const settingsStore = useSettingsStore()
 
 const route = useRoute()
 
@@ -21,7 +23,9 @@ function createNode() {
   <main class="list">
     <nav>
       <ListWrapper horizontal equal-size>
-        <InputButton tag="RouterLink" to="projects"> Projects </InputButton>
+        <InputButton tag="RouterLink" to="projects" v-if="settingsStore.edit">
+          Projects
+        </InputButton>
         <InputButton tag="RouterLink" to="graph"> Stories </InputButton>
         <InputButton tag="RouterLink" to="entity"> Entities </InputButton>
         <InputButton tag="RouterLink" to="image"> Images </InputButton>
