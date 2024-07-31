@@ -144,6 +144,22 @@ export const useDataStore = defineStore('data', () => {
     }
   }
 
+  function exportProject(id) {
+    const project = id && localStorage.getItem(`wanderer-${id}`)
+    const blob = id && new Blob([project], { type: 'application/json' })
+    const link = document.createElement('a')
+    link.download = `${id?.split('-')[0] ?? 'db'}.json`
+    link.href = id ? window.URL.createObjectURL(blob) : constantStore.wandererStatic
+    link.dataset.downloadurl = ['text/json', link.download, link.href].join(':')
+    const evt = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    })
+    link.dispatchEvent(evt)
+    link.remove()
+  }
+
   const dataCopy = computed(() => {
     return cloneDeep(data.value)
   })
@@ -204,6 +220,7 @@ export const useDataStore = defineStore('data', () => {
     deleteProject,
     storeData,
     deleteNode,
-    createNode
+    createNode,
+    exportProject
   }
 })

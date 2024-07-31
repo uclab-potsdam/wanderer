@@ -46,7 +46,7 @@ const constantStore = useConstantStore()
     <div class="project-list">
       <ListItem label="static" :meta="constantStore.wandererStatic">
         <InputButton @click.stop.prevent> duplicate </InputButton>
-        <InputButton @click.stop.prevent> export </InputButton>
+        <InputButton @click.stop.prevent="dataStore.exportProject()"> export </InputButton>
       </ListItem>
       <template v-for="project in dataStore.projects" :key="project.id">
         <ListItem
@@ -61,7 +61,9 @@ const constantStore = useConstantStore()
           </InputButton>
           <InputButton @click.stop.prevent> share </InputButton>
           <InputButton @click.stop.prevent> duplicate </InputButton>
-          <InputButton @click.stop.prevent> export </InputButton>
+          <InputButton @click.stop.prevent="dataStore.exportProject(project.id)">
+            export
+          </InputButton>
         </ListItem>
       </template>
       <!-- <RouterLink
