@@ -41,6 +41,9 @@ function createNode() {
           :meta="dataStore.data.nodes[node.class]?.label"
         >
           <InputButton @click.stop.prevent="modalStore.open(id, 'node')">edit</InputButton>
+          <InputButton @click.stop.prevent="dataStore.deleteNode(id, null, true)"
+            >delete</InputButton
+          >
         </ListItem>
       </template>
     </div>

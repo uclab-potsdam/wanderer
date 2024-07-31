@@ -51,6 +51,10 @@ defineProps({
     }
   }
 
+  .right {
+    display: flex;
+  }
+
   &:hover {
     background: color-mix(in lab, var(--ui-accent), transparent 90%);
     color: color-mix(in lab, var(--ui-accent), var(--color-text) 50%);
