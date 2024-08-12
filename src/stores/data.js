@@ -28,14 +28,13 @@ export const useDataStore = defineStore('data', () => {
   // })
 
   async function init() {
-    // console.log(project.value)
     data.value = { nodes: {}, edges: [] }
     if (project.value == null) {
       data.value = await fetch(constantStore.wandererStatic).then((d) => d.json())
     } else if (!project.value.remote) {
       data.value = JSON.parse(localStorage.getItem(`wanderer-${project.value.id}`))
     } else {
-      console.log(constantStore.wandererServer)
+      skipUpdate = true
       initSocket()
       socket.emit('fetch', projectId.value)
     }
@@ -44,7 +43,6 @@ export const useDataStore = defineStore('data', () => {
   function initSocket() {
     socket = io(constantStore.wandererServer, { path: '/api/socket.io' })
     socket.on('data', (d) => {
-      console.log('hey', d)
       skipUpdate = true
       data.value = d
     })
@@ -118,6 +116,7 @@ export const useDataStore = defineStore('data', () => {
         opened: new Date(),
         remote: true
       })
+      projectId.value = id
     }
   }
 
@@ -183,7 +182,6 @@ export const useDataStore = defineStore('data', () => {
   async function copyProjectLink(id) {
     const projectLink = `${window.location.origin}/share/${id}`
 
-    console.log(projectLink)
     await navigator.clipboard.writeText(projectLink)
   }
 
@@ -198,7 +196,6 @@ export const useDataStore = defineStore('data', () => {
       if (!project.value.remote) return storeData(value)
 
       if (skipUpdate) return (skipUpdate = false)
-      console.log(compare(oldValue, value))
       socket.emit('patch', compare(oldValue, value))
 
       // if (skipUpdate) return (skipUpdate = false)
