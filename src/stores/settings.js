@@ -12,7 +12,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const server = useStorage('server', 'http://localhost:3000')
   const db = useStorage('db', null)
 
-  const remote = useStorage('remote', false)
+  const remote = useStorage('remote', true)
 
   watch(edit, (edit) => {
     if (!edit) editStore.exit()

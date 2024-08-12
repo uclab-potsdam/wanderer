@@ -33,7 +33,7 @@ const constantStore = useConstantStore()
           <label for="remote">remote</label>
           <input id="remote" type="checkbox" v-model="settingsStore.remote" />
         </li>
-        <li>
+        <!-- <li>
           <label for="server">server</label>
           <input id="server" :disabled="!settingsStore.remote" v-model="settingsStore.server" />
         </li>
@@ -44,7 +44,7 @@ const constantStore = useConstantStore()
         <li>
           <button :disabled="!settingsStore.remote">new</button>
           <button :disabled="!settingsStore.remote">duplicate</button>
-        </li>
+        </li> -->
       </ul>
     </main>
   </div>
