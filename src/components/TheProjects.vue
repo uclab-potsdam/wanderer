@@ -6,6 +6,13 @@ import { useConstantStore } from '@/stores/constant'
 import { useDataStore } from '@/stores/data'
 import { useSettingsStore } from '@/stores/settings'
 
+import IconDelete from '~icons/base/Delete'
+import IconShare from '~icons/base/Share'
+import IconDuplicate from '~icons/base/Duplicate'
+import IconExport from '~icons/base/Export'
+import IconImport from '~icons/base/Import'
+import IconNew from '~icons/base/New'
+
 // import { useRoute } from 'vue-router'
 
 const dataStore = useDataStore()
@@ -34,13 +41,19 @@ function importFile(e) {
       </ListWrapper>
       <div class="right">
         <ListWrapper horizontal>
-          <InputButton tag="label" for="file-import" type="file" accept="application/json">
-            import
+          <InputButton
+            tag="label"
+            for="file-import"
+            type="file"
+            accept="application/json"
+            disable-padding
+          >
+            <IconImport />
           </InputButton>
           <input id="file-import" type="file" accept="application/json" @change="importFile" />
         </ListWrapper>
         <ListWrapper horizontal>
-          <InputButton @click="dataStore.addProject()">new</InputButton>
+          <InputButton @click="dataStore.addProject()" disable-padding><IconNew /></InputButton>
         </ListWrapper>
       </div>
     </nav>
@@ -58,8 +71,12 @@ function importFile(e) {
     </div> -->
     <div class="project-list">
       <ListItem label="static" :meta="constantStore.wandererStatic">
-        <InputButton @click.stop.prevent="dataStore.duplicateProject()"> duplicate </InputButton>
-        <InputButton @click.stop.prevent="dataStore.exportProject()"> export </InputButton>
+        <InputButton @click.stop.prevent="dataStore.duplicateProject()" disable-padding>
+          <IconDuplicate />
+        </InputButton>
+        <InputButton @click.stop.prevent="dataStore.exportProject()" disable-padding>
+          <IconExport />
+        </InputButton>
       </ListItem>
       <template v-for="project in dataStore.projects" :key="project.id">
         <ListItem
@@ -69,19 +86,22 @@ function importFile(e) {
           :label="project.id.split('-')[0]"
           :meta="`${project.opened.toLocaleString()} – ${project.remote ? 'remote' : 'local'}`"
         >
-          <InputButton @click.stop.prevent="dataStore.deleteProject(project.id)">
-            delete
+          <InputButton @click.stop.prevent="dataStore.deleteProject(project.id)" disable-padding>
+            <IconDelete />
           </InputButton>
           <template v-if="settingsStore.remote">
-            <InputButton @click.stop.prevent="dataStore.copyProjectLink(project.id)">
-              share
+            <InputButton
+              @click.stop.prevent="dataStore.copyProjectLink(project.id)"
+              disable-padding
+            >
+              <IconShare />
             </InputButton>
           </template>
-          <InputButton @click.stop.prevent="dataStore.duplicateProject(project.id)">
-            duplicate
+          <InputButton @click.stop.prevent="dataStore.duplicateProject(project.id)" disable-padding>
+            <IconDuplicate />
           </InputButton>
-          <InputButton @click.stop.prevent="dataStore.exportProject(project.id)">
-            export
+          <InputButton @click.stop.prevent="dataStore.exportProject(project.id)" disable-padding>
+            <IconExport />
           </InputButton>
         </ListItem>
       </template>

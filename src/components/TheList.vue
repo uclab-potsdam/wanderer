@@ -7,6 +7,10 @@ import InputButton from './InputButton.vue'
 import { useModalStore } from '@/stores/modal'
 import { useSettingsStore } from '@/stores/settings'
 
+import IconDelete from '~icons/base/Delete'
+import IconEdit from '~icons/base/Edit'
+import IconNew from '~icons/base/New'
+
 const dataStore = useDataStore()
 const modalStore = useModalStore()
 const settingsStore = useSettingsStore()
@@ -31,7 +35,7 @@ function createNode() {
         <InputButton tag="RouterLink" to="image"> Images </InputButton>
       </ListWrapper>
       <ListWrapper horizontal>
-        <InputButton @click="createNode"> Add {{ route.params.type }} </InputButton>
+        <InputButton @click="createNode" disable-padding> <IconNew /> </InputButton>
       </ListWrapper>
     </nav>
 
@@ -44,10 +48,12 @@ function createNode() {
           :label="node.label"
           :meta="dataStore.data.nodes[node.class]?.label"
         >
-          <InputButton @click.stop.prevent="modalStore.open(id, 'node')">edit</InputButton>
-          <InputButton @click.stop.prevent="dataStore.deleteNode(id, null, true)"
-            >delete</InputButton
-          >
+          <InputButton @click.stop.prevent="modalStore.open(id, 'node')" disable-padding>
+            <IconEdit />
+          </InputButton>
+          <InputButton @click.stop.prevent="dataStore.deleteNode(id, null, true)" disable-padding>
+            <IconDelete />
+          </InputButton>
         </ListItem>
       </template>
     </div>
