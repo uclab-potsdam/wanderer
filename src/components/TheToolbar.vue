@@ -21,17 +21,17 @@ const editStore = useEditStore()
     <InputSegment
       v-model="editStore.mode"
       :options="[
-        { value: 'default', slot: 'default' },
-        { value: 'add-entity', slot: 'add-entity' },
-        { value: 'add-story', slot: 'add-story' },
-        { value: 'add-image', slot: 'add-image' },
-        { value: 'add-edge', slot: 'add-edge' },
+        { value: 'default', slot: 'default', tooltip: 'Select' },
+        { value: 'add-entity', slot: 'add-entity', tooltip: 'add entity' },
+        { value: 'add-story', slot: 'add-story', tooltip: 'add story' },
+        { value: 'add-image', slot: 'add-image', tooltip: 'add image' },
+        { value: 'add-edge', slot: 'add-edge', tooltip: 'add edge' },
         { disabled: true, slot: 'seperator' },
-        { value: 'display-blur', slot: 'display-blur' },
-        { value: 'display-default', slot: 'display-default' },
-        { value: 'display-highlight', slot: 'display-highlight' },
-        { value: 'display-unset', slot: 'display-unset' },
-        { value: 'display-frame', slot: 'display-frame' }
+        { value: 'display-blur', slot: 'display-blur', tooltip: 'blur' },
+        { value: 'display-default', slot: 'display-default', tooltip: 'default' },
+        { value: 'display-highlight', slot: 'display-highlight', tooltip: 'highlight' },
+        { value: 'display-unset', slot: 'display-unset', tooltip: 'unset' },
+        { value: 'display-frame', slot: 'display-frame', tooltip: 'frame' }
       ]"
     >
       <template #default><CursorDefault /></template>

@@ -13,7 +13,7 @@ defineEmits(['update:modelValue'])
 </script>
 <template>
   <ListWrapper :horizontal="horizontal" :equal-size="equalSize">
-    <label class="label" v-for="(option, i) in options" :key="i">
+    <label class="label" v-for="(option, i) in options" :key="i" :title="option.tooltip">
       <InputSegmentItem v-if="!option.slot">
         {{ option.label ?? option.value ?? option }}
       </InputSegmentItem>

@@ -35,7 +35,7 @@ function createNode() {
         <InputButton tag="RouterLink" to="image"> Images </InputButton>
       </ListWrapper>
       <ListWrapper horizontal>
-        <InputButton @click="createNode" disable-padding> <IconNew /> </InputButton>
+        <InputButton @click="createNode" disable-padding title="new"> <IconNew /> </InputButton>
       </ListWrapper>
     </nav>
 
@@ -48,8 +48,16 @@ function createNode() {
           :label="node.label"
           :meta="dataStore.data.nodes[node.class]?.label"
         >
-          <InputButtonDelete @click.prevent @confirmed="dataStore.deleteNode(id, null, true)" />
-          <InputButton @click.stop.prevent="modalStore.open(id, 'node')" disable-padding>
+          <InputButtonDelete
+            title="delete"
+            @click.prevent
+            @confirmed="dataStore.deleteNode(id, null, true)"
+          />
+          <InputButton
+            title="edit"
+            @click.stop.prevent="modalStore.open(id, 'node')"
+            disable-padding
+          >
             <IconEdit />
           </InputButton>
         </ListItem>

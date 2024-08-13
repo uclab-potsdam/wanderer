@@ -48,13 +48,16 @@ function importFile(e) {
             type="file"
             accept="application/json"
             disable-padding
+            title="import"
           >
             <IconImport />
           </InputButton>
           <input id="file-import" type="file" accept="application/json" @change="importFile" />
         </ListWrapper>
         <ListWrapper horizontal>
-          <InputButton @click="dataStore.addProject()" disable-padding><IconNew /></InputButton>
+          <InputButton @click="dataStore.addProject()" disable-padding title="new"
+            ><IconNew
+          /></InputButton>
         </ListWrapper>
       </div>
     </nav>
@@ -73,10 +76,10 @@ function importFile(e) {
     <div class="project-list">
       <ListItem label="static" :meta="constantStore.wandererStatic">
         <InputButton @click.stop.prevent="dataStore.duplicateProject()" disable-padding>
-          <IconDuplicate />
+          <IconDuplicate title="duplicate" />
         </InputButton>
         <InputButton @click.stop.prevent="dataStore.exportProject()" disable-padding>
-          <IconExport />
+          <IconExport title="export" />
         </InputButton>
       </ListItem>
       <template v-for="project in dataStore.projects" :key="project.id">
@@ -87,19 +90,32 @@ function importFile(e) {
           :label="project.id.split('-')[0]"
           :meta="`${project.opened.toLocaleString()} – ${project.remote ? 'remote' : 'local'}`"
         >
-          <InputButtonDelete @click.prevent @confirmed="dataStore.deleteProject(project.id)" />
+          <InputButtonDelete
+            @click.prevent
+            @confirmed="dataStore.deleteProject(project.id)"
+            title="delete"
+          />
           <template v-if="settingsStore.remote">
             <InputButton
               @click.stop.prevent="dataStore.copyProjectLink(project.id)"
               disable-padding
+              title="copy link"
             >
               <IconShare />
             </InputButton>
           </template>
-          <InputButton @click.stop.prevent="dataStore.duplicateProject(project.id)" disable-padding>
+          <InputButton
+            @click.stop.prevent="dataStore.duplicateProject(project.id)"
+            disable-padding
+            title="duplicate"
+          >
             <IconDuplicate />
           </InputButton>
-          <InputButton @click.stop.prevent="dataStore.exportProject(project.id)" disable-padding>
+          <InputButton
+            @click.stop.prevent="dataStore.exportProject(project.id)"
+            disable-padding
+            title="export"
+          >
             <IconExport />
           </InputButton>
         </ListItem>
