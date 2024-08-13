@@ -21,7 +21,6 @@ const constantStore = useConstantStore()
 
     <span class="right">
       <RouterLink v-if="route.name !== 'settings'" to="/settings"> settings </RouterLink>
-      <RouterLink v-if="route.name !== 'projects'" to="/projects"> projects </RouterLink>
       <InputSegment
         horizontal
         equal-size
