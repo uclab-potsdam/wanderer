@@ -40,12 +40,15 @@ const fields = computed(() => {
 function getValue(item, key) {
   const fragments = key.split(/\.(.*)/s)
   if (fragments.length > 1) return getValue(item[fragments[0]], fragments[1])
-  return item[key]
+  return item?.[key]
 }
 
 function setValue(item, key, value) {
   const fragments = key.split(/\.(.*)/s)
-  if (fragments.length > 1) return setValue(item[fragments[0]], fragments[1], value)
+  if (fragments.length > 1) {
+    if (item[fragments[0]] == null) item[fragments[0]] = {}
+    return setValue(item[fragments[0]], fragments[1], value)
+  }
   item[key] = value
 }
 </script>
