@@ -8,7 +8,9 @@ export default {
   },
   graph: {
     label: 'dictionary',
-    image: 'string'
+    image: 'string',
+    'media.file': 'string',
+    'media.subtitles': 'dictionary'
   },
   image: {
     label: 'dictionary',
