@@ -113,6 +113,7 @@ watch(
   }
 
   .subtitle {
+    pointer-events: none;
     position: relative;
     grid-column: st-start / st-end;
     grid-row: 1 / -2;
