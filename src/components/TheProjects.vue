@@ -1,5 +1,6 @@
 <script setup>
 import InputButton from '@/components/InputButton.vue'
+import InputButtonDelete from '@/components/InputButtonDelete.vue'
 import ListWrapper from './ListWrapper.vue'
 import ListItem from './ListItem.vue'
 import { useConstantStore } from '@/stores/constant'
@@ -86,9 +87,7 @@ function importFile(e) {
           :label="project.id.split('-')[0]"
           :meta="`${project.opened.toLocaleString()} – ${project.remote ? 'remote' : 'local'}`"
         >
-          <InputButton @click.stop.prevent="dataStore.deleteProject(project.id)" disable-padding>
-            <IconDelete />
-          </InputButton>
+          <InputButtonDelete @click.prevent @confirmed="dataStore.deleteProject(project.id)" />
           <template v-if="settingsStore.remote">
             <InputButton
               @click.stop.prevent="dataStore.copyProjectLink(project.id)"

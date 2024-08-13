@@ -7,9 +7,9 @@ import InputButton from './InputButton.vue'
 import { useModalStore } from '@/stores/modal'
 import { useSettingsStore } from '@/stores/settings'
 
-import IconDelete from '~icons/base/Delete'
 import IconEdit from '~icons/base/Edit'
 import IconNew from '~icons/base/New'
+import InputButtonDelete from './InputButtonDelete.vue'
 
 const dataStore = useDataStore()
 const modalStore = useModalStore()
@@ -48,11 +48,9 @@ function createNode() {
           :label="node.label"
           :meta="dataStore.data.nodes[node.class]?.label"
         >
+          <InputButtonDelete @click.prevent @confirmed="dataStore.deleteNode(id, null, true)" />
           <InputButton @click.stop.prevent="modalStore.open(id, 'node')" disable-padding>
             <IconEdit />
-          </InputButton>
-          <InputButton @click.stop.prevent="dataStore.deleteNode(id, null, true)" disable-padding>
-            <IconDelete />
           </InputButton>
         </ListItem>
       </template>
