@@ -116,6 +116,7 @@ export const useDataStore = defineStore('data', () => {
         opened: new Date(),
         remote: true
       })
+      skipUpdate.value = true
       projectId.value = id
     }
   }
