@@ -3,12 +3,14 @@ import { useSettingsStore } from '@/stores/settings'
 import { useRoute, useRouter } from 'vue-router'
 import { ref } from 'vue'
 import InputSegment from '@/components/InputSegment.vue'
+import { useConstantStore } from '@/stores/constant'
 
 const projectTitle = ref(import.meta.env.VITE_PROJECT_TITLE)
 
 const route = useRoute()
 const router = useRouter()
 const settingsStore = useSettingsStore()
+const constantStore = useConstantStore()
 </script>
 
 <template>
@@ -20,7 +22,12 @@ const settingsStore = useSettingsStore()
     <span class="right">
       <RouterLink v-if="route.name !== 'settings'" to="/settings"> settings </RouterLink>
       <RouterLink v-if="route.name !== 'projects'" to="/projects"> projects </RouterLink>
-      <InputSegment horizontal equal-size v-model="settingsStore.lang" :options="['pt', 'en']" />
+      <InputSegment
+        horizontal
+        equal-size
+        v-model="settingsStore.lang"
+        :options="constantStore.languages"
+      />
     </span>
     <!-- <a v-else @click="router.go(-1)">back</a> -->
   </header>

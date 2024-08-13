@@ -29,7 +29,7 @@ function select(id) {
     </label>
 
     <span class="value"
-      ><LocalizeText v-if="modelValue" :text="dataStore.data.nodes[modelValue].label" />
+      ><LocalizeText v-if="modelValue" :text="dataStore.data.nodes[modelValue]?.label" />
       <template v-else>–</template>
     </span>
     <!-- <select :value="modelValue" @change="$emit('update:modelValue', $event.target.value)">

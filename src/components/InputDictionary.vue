@@ -1,4 +1,5 @@
 <script setup>
+import { useConstantStore } from '@/stores/constant'
 import { useHelperStore } from '@/stores/helper'
 import { useSettingsStore } from '@/stores/settings'
 
@@ -12,21 +13,37 @@ defineProps({
 defineEmits(['update:modelValue'])
 const settingsStore = useSettingsStore()
 const helperStore = useHelperStore()
+const constantStore = useConstantStore()
+
+const id = crypto.randomUUID()
 </script>
 <template>
   <div class="input-text">
-    <label>
+    <span class="labels">
       {{ label }}
-
-      <input
-        type="text"
-        :value="modelValue?.[settingsStore.lang]"
-        :placeholder="helperStore.localize(modelValue)"
-        @change="
-          $emit('update:modelValue', { ...modelValue, [settingsStore.lang]: $event.target.value })
-        "
-      />
-    </label>
+      <span class="languages">
+        <label v-for="lang in constantStore.languages" :key="lang" :for="`${id}-${lang}`">
+          {{ lang }}
+        </label>
+        <label :for="`${id}-universal`"> ♥ </label>
+      </span>
+    </span>
+    <input
+      v-for="lang in constantStore.languages"
+      :key="lang"
+      :id="`${id}-${lang}`"
+      type="text"
+      :value="modelValue?.[lang]"
+      :placeholder="helperStore.localize(modelValue)"
+      @change="$emit('update:modelValue', { ...modelValue, [lang]: $event.target.value })"
+    />
+    <input
+      :id="`${id}-universal`"
+      type="text"
+      :value="modelValue?.universal"
+      :placeholder="helperStore.localize(modelValue)"
+      @change="$emit('update:modelValue', { ...modelValue, universal: $event.target.value })"
+    />
   </div>
 </template>
 
@@ -35,13 +52,18 @@ const helperStore = useHelperStore()
   padding: var(--spacing-quart);
   backdrop-filter: brightness(106%) saturate(10%);
 
-  label {
+  .labels {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     gap: var(--spacing-quart);
     font-size: var(--font-size-tiny);
     text-transform: uppercase;
     color: inherit;
+
+    .languages {
+      display: flex;
+      gap: var(--spacing-quart);
+    }
   }
 
   input {
@@ -51,10 +73,59 @@ const helperStore = useHelperStore()
     background: transparent;
     padding: 0;
     outline: none;
+    /* visibility: hidden; */
+    width: 0;
+
+    &:focus {
+      width: auto;
+      /* visibility: visible; */
+    }
   }
 
   &:has(input:focus-visible) {
     outline: 1px solid var(--ui-accent);
+  }
+
+  &:not(:has(input:focus)) {
+    input:first-of-type {
+      width: auto;
+    }
+
+    label:first-of-type {
+      color: var(--ui-accent);
+      text-decoration: underline;
+    }
+  }
+
+  &:has(input:nth-of-type(1):focus) {
+    label:nth-of-type(1) {
+      color: var(--ui-accent);
+      text-decoration: underline;
+    }
+  }
+  &:has(input:nth-of-type(2):focus) {
+    label:nth-of-type(2) {
+      color: var(--ui-accent);
+      text-decoration: underline;
+    }
+  }
+  &:has(input:nth-of-type(3):focus) {
+    label:nth-of-type(3) {
+      color: var(--ui-accent);
+      text-decoration: underline;
+    }
+  }
+  &:has(input:nth-of-type(4):focus) {
+    label:nth-of-type(4) {
+      color: var(--ui-accent);
+      text-decoration: underline;
+    }
+  }
+  &:has(input:nth-of-type(5):focus) {
+    label:nth-of-type(5) {
+      color: var(--ui-accent);
+      text-decoration: underline;
+    }
   }
 }
 </style>
