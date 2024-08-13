@@ -22,7 +22,7 @@ function computeAllocations(id) {
   const neighborsWithDuplicates = getNeighbors(id, depth).flat(depth + 1)
   const neighborsUniqueIds = [...new Set(neighborsWithDuplicates.map((d) => d.id))]
     // only show entities and predicates
-    .filter((id) => ['entity', 'predicate'].includes(dataStore.data.nodes[id].type))
+    .filter((id) => ['entity', 'predicate'].includes(dataStore.data.nodes[id]?.type))
   const neighbors = neighborsUniqueIds.map((id) => {
     const depths = neighborsWithDuplicates.filter((n) => n.id === id).map(({ depth }) => depth)
     return { id, depth: depth - Math.max(...depths) }

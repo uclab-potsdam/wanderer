@@ -59,7 +59,7 @@ export const useDataStore = defineStore('data', () => {
   }
 
   const nodeOccurances = computed(() => {
-    if (node.value == null || node.value.type === 'graph') return
+    if (node.value == null || node.value.type === 'graph') return {}
     return Object.fromEntries(
       Object.entries(data.value.nodes).filter(
         (d) =>

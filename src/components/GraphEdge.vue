@@ -48,7 +48,7 @@ const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
 // })
 
 const color = computed(() => {
-  const color = dataStore.data.nodes[props.edge.graph].color
+  const color = dataStore.data.nodes[props.edge.graph]?.color
   // if (
   //   occurances.value == null ||
   //   occurances.value.length === 0 ||
