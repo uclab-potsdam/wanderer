@@ -30,6 +30,7 @@ export const useDataStore = defineStore('data', () => {
   async function init() {
     data.value = { nodes: {}, edges: [] }
     if (project.value == null) {
+      console.log(constantStore.wandererStatic)
       data.value = await fetch(constantStore.wandererStatic).then((d) => d.json())
     } else if (!project.value.remote) {
       data.value = JSON.parse(localStorage.getItem(`wanderer-${project.value.id}`))
