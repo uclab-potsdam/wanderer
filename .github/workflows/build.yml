@@ -2,10 +2,6 @@ name: Deploy to GitHub Pages
 
 on:
   workflow_dispatch:
-    inputs:
-      manualrun:
-        description: 'Manually run workflow'
-        required: true
   push:
     branches: 
     - main
