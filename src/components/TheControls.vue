@@ -69,7 +69,6 @@ function next() {
   position: absolute;
   bottom: 0;
   width: 100vw;
-  min-height: var(--spacing);
 
   z-index: 1;
   display: flex;
