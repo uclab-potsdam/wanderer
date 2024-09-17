@@ -7,16 +7,17 @@ export const useSettingsStore = defineStore('settings', () => {
   const editStore = useEditStore()
 
   const lang = useStorage('lang', 'en')
-  const edit = useStorage('edit', false)
+  const edit = computed(() => mode.value === 'edit')
   const pictureInPicture = useStorage('pip', false)
   const server = useStorage('server', 'http://localhost:3000')
   const db = useStorage('db', null)
 
-  const remote = useStorage('remote', true)
+  const mode = useStorage('mode', 'live')
+  const modeOptions = ['live', 'edit', 'preview']
 
   watch(edit, (edit) => {
     if (!edit) editStore.exit()
   })
 
-  return { lang, pictureInPicture, edit, server, remote, db }
+  return { lang, pictureInPicture, edit, server, db, mode, modeOptions }
 })

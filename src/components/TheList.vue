@@ -27,14 +27,11 @@ function createNode() {
   <main class="list">
     <nav>
       <ListWrapper horizontal equal-size>
-        <InputButton tag="RouterLink" to="projects" v-if="settingsStore.edit">
-          Projects
-        </InputButton>
         <InputButton tag="RouterLink" to="graph"> Stories </InputButton>
         <InputButton tag="RouterLink" to="entity"> Entities </InputButton>
         <InputButton tag="RouterLink" to="image"> Images </InputButton>
       </ListWrapper>
-      <ListWrapper horizontal>
+      <ListWrapper horizontal v-if="settingsStore.edit">
         <InputButton @click="createNode" disable-padding title="new"> <IconNew /> </InputButton>
       </ListWrapper>
     </nav>
@@ -48,18 +45,20 @@ function createNode() {
           :label="node.label"
           :meta="dataStore.data.nodes[node.class]?.label"
         >
-          <InputButtonDelete
-            title="delete"
-            @click.prevent
-            @confirmed="dataStore.deleteNode(id, null, true)"
-          />
-          <InputButton
-            title="edit"
-            @click.stop.prevent="modalStore.open(id, 'node')"
-            disable-padding
-          >
-            <IconEdit />
-          </InputButton>
+          <template v-if="settingsStore.edit">
+            <InputButtonDelete
+              title="delete"
+              @click.prevent
+              @confirmed="dataStore.deleteNode(id, null, true)"
+            />
+            <InputButton
+              title="edit"
+              @click.stop.prevent="modalStore.open(id, 'node')"
+              disable-padding
+            >
+              <IconEdit />
+            </InputButton>
+          </template>
         </ListItem>
       </template>
     </div>

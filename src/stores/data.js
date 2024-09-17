@@ -1,6 +1,5 @@
 import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
-import { io } from 'socket.io-client'
 import { useStorage } from '@vueuse/core'
 import { useConstantStore } from './constant'
 import { useSettingsStore } from './settings'
@@ -14,49 +13,18 @@ export const useDataStore = defineStore('data', () => {
   const data = ref({ nodes: [] })
   const nodeId = ref(null)
 
-  let socket = null
   let skipUpdate = false
 
   const projectList = useStorage('wanderer-projects', [])
   const projectId = useStorage('project', null)
 
-  // const socket = computed(() => {
-  //   console.log('aaa')
-  //   if (!settingsStore.remote) return
-  //   const socket = io(settingsStore.server)
-  //   return socket
-  // })
-
   async function init() {
     data.value = { nodes: {}, edges: [] }
-    if (project.value == null) {
-      console.log(constantStore.wandererStatic)
+    if (settingsStore.mode === 'live' || localStorage.getItem(`wanderer:data`) == null) {
       data.value = await fetch(constantStore.wandererStatic).then((d) => d.json())
-    } else if (!project.value.remote) {
-      data.value = JSON.parse(localStorage.getItem(`wanderer-${project.value.id}`))
     } else {
-      skipUpdate = true
-      initSocket()
-      socket.emit('fetch', projectId.value)
+      data.value = JSON.parse(localStorage.getItem(`wanderer:data`))
     }
-  }
-
-  function initSocket() {
-    socket = io(constantStore.wandererServer, { path: '/api/socket.io' })
-    socket.on('data', (d) => {
-      skipUpdate = true
-      data.value = d
-    })
-    socket.on('update', (patch) => {
-      skipUpdate = true
-      applyPatch(data.value, patch)
-    })
-    socket.on('disconnect', () => {
-      console.log('connection closed')
-    })
-    socket.on('created', (id) => {
-      open(id)
-    })
   }
 
   const nodeOccurances = computed(() => {
@@ -123,21 +91,14 @@ export const useDataStore = defineStore('data', () => {
   }
 
   function storeData(data) {
-    localStorage.setItem(`wanderer-${projectId.value}`, JSON.stringify(data))
+    localStorage.setItem(`wanderer:data`, JSON.stringify(data))
   }
 
   function addProject(id, data = { nodes: {}, edges: [] }) {
-    const remote = settingsStore.remote
-
-    if (!remote) {
-      id = id ?? crypto.randomUUID()
-      projectList.value.push({ id, remote, opened: new Date() })
-      localStorage.setItem(`wanderer-${id}`, JSON.stringify(data))
-      open(id)
-    } else {
-      if (socket == null) initSocket()
-      socket.emit('create', data)
-    }
+    id = id ?? crypto.randomUUID()
+    projectList.value.push({ id, remote: false, opened: new Date() })
+    localStorage.setItem(`wanderer-${id}`, JSON.stringify(data))
+    open(id)
   }
 
   function deleteProject(id, all) {
@@ -157,12 +118,12 @@ export const useDataStore = defineStore('data', () => {
     }
   }
 
-  function exportProject(id) {
-    const project = id && localStorage.getItem(`wanderer-${id}`)
-    const blob = id && new Blob([project], { type: 'application/json' })
+  function exportProject() {
+    const project = localStorage.getItem(`wanderer:data`)
+    const blob = new Blob([project], { type: 'application/json' })
     const link = document.createElement('a')
-    link.download = `${id?.split('-')[0] ?? 'db'}.json`
-    link.href = id ? window.URL.createObjectURL(blob) : constantStore.wandererStatic
+    link.download = `db.json`
+    link.href = window.URL.createObjectURL(blob)
     link.dataset.downloadurl = ['text/json', link.download, link.href].join(':')
     const evt = new MouseEvent('click', {
       view: window,
@@ -193,15 +154,10 @@ export const useDataStore = defineStore('data', () => {
 
   watch(
     dataCopy,
-    (value, oldValue) => {
-      if (projectId.value == null) return
-      if (!project.value.remote) return storeData(value)
+    (value) => {
+      if (settingsStore.edit) storeData(value)
 
-      if (skipUpdate) return (skipUpdate = false)
-      socket.emit('patch', compare(oldValue, value))
-
-      // if (skipUpdate) return (skipUpdate = false)
-      // socket.value.emit('update', compare(oldValue, value))
+      // compare(oldValue, value))
     },
     { deep: true }
   )
@@ -237,7 +193,6 @@ export const useDataStore = defineStore('data', () => {
     graphs,
     nodeId,
     nodeOccurances,
-    socket,
     projects,
     importFromStatic,
     open,

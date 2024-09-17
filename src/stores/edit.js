@@ -14,7 +14,6 @@ export const useEditStore = defineStore('edit', () => {
 
   function exit() {
     resetMode()
-    dataStore.projectId = null
   }
 
   function setDisplay(id, display, graphId) {

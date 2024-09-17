@@ -1,9 +1,11 @@
 <script setup>
 import TheHeader from '@/components/TheHeader.vue'
 import { useConstantStore } from '@/stores/constant'
+import { useDataStore } from '@/stores/data'
 import { useSettingsStore } from '@/stores/settings'
 const settingsStore = useSettingsStore()
 const constantStore = useConstantStore()
+const dataStore = useDataStore()
 </script>
 
 <template>
@@ -24,27 +26,23 @@ const constantStore = useConstantStore()
           <input id="edit-mode" type="checkbox" v-model="settingsStore.edit" />
         </li>
         <li>
+          <span>mode</span>
+          <select v-model="settingsStore.mode">
+            <option v-for="option in settingsStore.modeOptions" :key="option">
+              {{ option }}
+            </option>
+          </select>
+        </li>
+        <li>
           <label for="pip">picture in picture</label>
           <input id="pip" type="checkbox" v-model="settingsStore.pictureInPicture" />
         </li>
       </ul>
       <ul>
         <li>
-          <label for="remote">remote</label>
-          <input id="remote" type="checkbox" v-model="settingsStore.remote" />
+          <!-- <label for="export">export</label> -->
+          <button @click="dataStore.exportProject">export data</button>
         </li>
-        <!-- <li>
-          <label for="server">server</label>
-          <input id="server" :disabled="!settingsStore.remote" v-model="settingsStore.server" />
-        </li>
-        <li>
-          <label for="server">database id</label>
-          <input id="server" :disabled="!settingsStore.remote" v-model="settingsStore.db" />
-        </li>
-        <li>
-          <button :disabled="!settingsStore.remote">new</button>
-          <button :disabled="!settingsStore.remote">duplicate</button>
-        </li> -->
       </ul>
     </main>
   </div>
