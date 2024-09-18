@@ -1,13 +1,13 @@
 import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
-import { useConstantStore } from './constant'
+import { useConfigStore } from './config'
 import { useSettingsStore } from './settings'
 import { applyPatch, compare } from 'fast-json-patch'
 
 import cloneDeep from 'lodash.clonedeep'
 
 export const useDataStore = defineStore('data', () => {
-  const constantStore = useConstantStore()
+  const configStore = useConfigStore()
   const settingsStore = useSettingsStore()
   const data = ref({ nodes: [] })
   const nodeId = ref(null)
@@ -15,7 +15,7 @@ export const useDataStore = defineStore('data', () => {
   async function init() {
     data.value = { nodes: {}, edges: [] }
     if (settingsStore.mode === 'live' || localStorage.getItem(`wanderer:data`) == null) {
-      data.value = await fetch(constantStore.wandererStatic).then((d) => d.json())
+      data.value = await fetch(configStore.wandererStatic).then((d) => d.json())
     } else {
       data.value = JSON.parse(localStorage.getItem(`wanderer:data`))
     }

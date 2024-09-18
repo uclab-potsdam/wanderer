@@ -1,10 +1,10 @@
 <script setup>
 import TheHeader from '@/components/TheHeader.vue'
-import { useConstantStore } from '@/stores/constant'
+import { useConfigStore } from '@/stores/config'
 import { useDataStore } from '@/stores/data'
 import { useSettingsStore } from '@/stores/settings'
 const settingsStore = useSettingsStore()
-const constantStore = useConstantStore()
+const configStore = useConfigStore()
 const dataStore = useDataStore()
 </script>
 
@@ -16,7 +16,7 @@ const dataStore = useDataStore()
         <li>
           <span>language</span>
           <select v-model="settingsStore.lang">
-            <option v-for="lang in constantStore.languages" :key="lang">
+            <option v-for="lang in configStore.languages" :key="lang">
               {{ lang }}
             </option>
           </select>

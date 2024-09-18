@@ -1,5 +1,5 @@
 <script setup>
-import { useConstantStore } from '@/stores/constant'
+import { useConfigStore } from '@/stores/config'
 import { useHelperStore } from '@/stores/helper'
 import { useSettingsStore } from '@/stores/settings'
 
@@ -13,7 +13,7 @@ defineProps({
 defineEmits(['update:modelValue'])
 const settingsStore = useSettingsStore()
 const helperStore = useHelperStore()
-const constantStore = useConstantStore()
+const configStore = useConfigStore()
 
 const id = crypto.randomUUID()
 </script>
@@ -22,14 +22,14 @@ const id = crypto.randomUUID()
     <span class="labels">
       {{ label }}
       <span class="languages">
-        <label v-for="lang in constantStore.languages" :key="lang" :for="`${id}-${lang}`">
+        <label v-for="lang in configStore.languages" :key="lang" :for="`${id}-${lang}`">
           {{ lang }}
         </label>
         <label :for="`${id}-universal`"> ♥ </label>
       </span>
     </span>
     <input
-      v-for="lang in constantStore.languages"
+      v-for="lang in configStore.languages"
       :key="lang"
       :id="`${id}-${lang}`"
       type="text"

@@ -5,7 +5,6 @@ import { getLineRoundedRectangleIntersection } from '@/assets/js/intersection'
 import { useLayoutStore } from '@/stores/layout'
 import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
-import { useConstantStore } from '@/stores/constant'
 import { useVideoStore } from '@/stores/video'
 import { useDataStore } from '@/stores/data'
 
@@ -16,10 +15,11 @@ import { useModalStore } from '@/stores/modal'
 import { useContextMenuStore } from '@/stores/contextMenu'
 import LocalizeText from './LocalizeText.vue'
 
+import { spacing } from '@/assets/js/style'
+
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
-const constantStore = useConstantStore()
 const videoStore = useVideoStore()
 const dataStore = useDataStore()
 const settingsStore = useSettingsStore()
@@ -64,8 +64,8 @@ const display = computed(() => displayStore.inheritStateFromNodes(props.edge.nod
 const points = computed(() => {
   if (source.value == null || target.value == null) return
 
-  const margin = constantStore.spacing
-  const radius = constantStore.spacing
+  const margin = spacing
+  const radius = spacing
 
   const sourceWidth = source.value.width + margin
   const sourceHeight = source.value.height + margin
@@ -206,7 +206,7 @@ function onContextMenu(e) {
         d
       }"
       :delay="0"
-      :duration="constantStore.transition"
+      :duration="transition"
       v-slot="value"
     >
       <path :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />

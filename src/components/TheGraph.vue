@@ -6,7 +6,7 @@ import { computeAllocations } from '@/assets/js/nodeAllocation'
 
 import { useRoute, useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/data'
-import { useConstantStore } from '@/stores/constant'
+import { useConfigStore } from '@/stores/config'
 import { useDisplayStore } from '@/stores/display'
 import { useActivityStore } from '@/stores/activity'
 import { useVideoStore } from '@/stores/video'
@@ -21,13 +21,14 @@ import ContextMenuList from './ContextMenuList.vue'
 import ContextMenuSearch from './ContextMenuSearch.vue'
 
 import { shorten } from '@/assets/js/resolveUrl'
+import { spacing, transition } from '@/assets/js/style'
 
 // import CursorAddEntity from '@/assets/icons/AddEntity.svg'
 
 const route = useRoute()
 const router = useRouter()
 const dataStore = useDataStore()
-const constantStore = useConstantStore()
+const configStore = useConfigStore()
 const displayStore = useDisplayStore()
 const activityStore = useActivityStore()
 const videoStore = useVideoStore()
@@ -102,18 +103,18 @@ const displayBounds = computed(() => {
   return `M${x1},${y1} L${x2},${y1} L${x2},${y2} L${x1},${y2} Z`
 })
 
-watch(node, () => initGraph(constantStore.transition))
+watch(node, () => initGraph(transition))
 
 watch(bounds, () => {
   if (!activityStore.inactivityShort) return
-  zoomToBounds(bounds.value, constantStore.transition)
+  zoomToBounds(bounds.value, transition)
 })
 
 watch(
   () => activityStore.inactivityShort,
   () => {
     if (!videoStore.playing) return
-    zoomToBounds(bounds.value, constantStore.transition)
+    zoomToBounds(bounds.value, transition)
   }
 )
 
@@ -179,7 +180,7 @@ function zoomToBounds(bounds, duration = 0) {
   const zoomElementDimensions = zoomElement.value.getBoundingClientRect()
 
   const scaleX = zoomElementDimensions.width / diff.x
-  const scaleY = (zoomElementDimensions.height - constantStore.spacing * 2.7) / diff.y
+  const scaleY = (zoomElementDimensions.height - spacing * 2.7) / diff.y
   const scale = Math.min(scaleX, scaleY)
 
   const x = bounds.x1 + diff.x / 2
