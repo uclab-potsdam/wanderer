@@ -1,6 +1,5 @@
 import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
-import { useStorage } from '@vueuse/core'
 import { useConstantStore } from './constant'
 import { useSettingsStore } from './settings'
 import { applyPatch, compare } from 'fast-json-patch'
@@ -12,11 +11,6 @@ export const useDataStore = defineStore('data', () => {
   const settingsStore = useSettingsStore()
   const data = ref({ nodes: [] })
   const nodeId = ref(null)
-
-  let skipUpdate = false
-
-  const projectList = useStorage('wanderer-projects', [])
-  const projectId = useStorage('project', null)
 
   async function init() {
     data.value = { nodes: {}, edges: [] }
@@ -54,68 +48,14 @@ export const useDataStore = defineStore('data', () => {
       }))
   })
 
-  const projects = computed(() => {
-    return projectList.value
-      .toSorted((a, b) => (a.opened < b.opened ? 1 : -1))
-      .map((p) => ({
-        ...p,
-        opened: new Date(p.opened)
-      }))
-  })
-
-  const project = computed(() => {
-    return projectList.value.find((p) => p.id === projectId.value)
-  })
-
-  watch(projectId, () => init(), { immediate: true })
-
-  async function importFromStatic() {
-    const data = await fetch(constantStore.wandererStatic).then((d) => d.json())
-    addProject(null, data)
-  }
-
-  function open(id) {
-    const available = projectList.value.find((p) => p.id === id)
-    if (available) {
-      available.opened = new Date()
-      projectId.value = id
-    } else {
-      projectList.value.push({
-        id,
-        opened: new Date(),
-        remote: true
-      })
-      skipUpdate.value = true
-      projectId.value = id
-    }
-  }
+  watch(
+    () => settingsStore.mode,
+    () => init(),
+    { immediate: true }
+  )
 
   function storeData(data) {
     localStorage.setItem(`wanderer:data`, JSON.stringify(data))
-  }
-
-  function addProject(id, data = { nodes: {}, edges: [] }) {
-    id = id ?? crypto.randomUUID()
-    projectList.value.push({ id, remote: false, opened: new Date() })
-    localStorage.setItem(`wanderer-${id}`, JSON.stringify(data))
-    open(id)
-  }
-
-  function deleteProject(id, all) {
-    if (!all) {
-      projectList.value = projectList.value.filter((project) => project.id !== id)
-      localStorage.removeItem(`wanderer-${id}`)
-    } else {
-      // update()
-      const storage = { ...localStorage }
-      Object.keys(storage)
-        .filter((key) => /^wanderer-/.test(key))
-        .forEach((key) => localStorage.removeItem(key))
-      projectList.value = []
-    }
-    if (id === projectId.value || all) {
-      projectId.value = null
-    }
   }
 
   function exportProject() {
@@ -132,20 +72,6 @@ export const useDataStore = defineStore('data', () => {
     })
     link.dispatchEvent(evt)
     link.remove()
-  }
-
-  async function duplicateProject(id) {
-    const data = id
-      ? JSON.parse(localStorage.getItem(`wanderer-${id}`))
-      : await fetch(constantStore.wandererStatic).then((d) => d.json())
-
-    addProject(null, data)
-  }
-
-  async function copyProjectLink(id) {
-    const projectLink = `${window.location.origin}/share/${id}`
-
-    await navigator.clipboard.writeText(projectLink)
   }
 
   const dataCopy = computed(() => {
@@ -193,18 +119,10 @@ export const useDataStore = defineStore('data', () => {
     graphs,
     nodeId,
     nodeOccurances,
-    projects,
-    importFromStatic,
     open,
-    projectId,
-    project,
-    addProject,
-    deleteProject,
     storeData,
     deleteNode,
     createNode,
-    exportProject,
-    duplicateProject,
-    copyProjectLink
+    exportProject
   }
 })
