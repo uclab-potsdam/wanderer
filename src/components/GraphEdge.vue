@@ -237,19 +237,18 @@ function onContextMenu(e) {
 <style scoped>
 .edge {
   transition: all var(--transition);
-  --tinted: color-mix(in lab, var(--graph-accent, var(--ui-accent)), var(--color-text) 60%);
-  color: color-mix(in lab, var(--tinted), var(--color-background) 10%);
-  stroke: color-mix(in lab, var(--tinted), var(--color-background) 10%);
+  color: var(--color-text);
+  stroke: var(--color-text);
 
   &.hide {
     opacity: 0.2;
     filter: var(--blur);
 
     &.user-active {
+      color: color-mix(in lab, var(--color-text), var(--color-background) 70%);
+      stroke: color-mix(in lab, var(--color-text), var(--color-background) 70%);
       filter: none;
       opacity: 1;
-      color: color-mix(in lab, var(--tinted), var(--color-background) 50%);
-      stroke: color-mix(in lab, var(--tinted), var(--color-background) 50%);
     }
   }
 
@@ -316,8 +315,8 @@ function onContextMenu(e) {
 
   &.highlight,
   &.network {
-    color: color-mix(in lab, var(--graph-accent), var(--color-text) 10%);
-    stroke: color-mix(in lab, var(--graph-accent), var(--color-text) 10%);
+    color: var(--graph-accent);
+    stroke: var(--graph-accent);
   }
 }
 </style>

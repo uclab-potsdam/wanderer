@@ -1102,7 +1102,7 @@
     "graph-5a3cdcf3fc8153ea91a58262d759745fe56c58c2c46f95320a3857a2168bd56a": {
       "type": "graph",
       "label": { "en": "Introduction", "pt": "Introdução" },
-      "color": "indigo",
+      "color": "orange",
       "image": "xe:places.jpg",
       "media": {
         "type": "video",
@@ -1174,7 +1174,6 @@
     "graph-78a456f667326b013eb847c7d804f144547454e8207ca7674a66960ef879344e": {
       "type": "graph",
       "label": { "en": "Peeling Ambé", "pt": "Processando ambé" },
-      "color": "yellow",
       "image": "xe:peeling the vine.jpg",
       "media": {
         "type": "video",
@@ -1412,7 +1411,6 @@
     "graph-Ag2pJE4-Wtr2of8M": {
       "type": "graph",
       "label": { "en": "Using Kusu", "pt": "O uso da armadilha kusu" },
-      "color": "cyan",
       "image": "xe:using kusu.jpg",
       "media": {
         "type": "video",
@@ -1764,7 +1762,6 @@
     "graph-e95b0e50e94af1da6d7173151ba2bb43c75b669efb16f03deba498614c61d241": {
       "type": "graph",
       "label": { "de": "Ambe Sammeln", "en": "Collecting Ambé", "pt": "Coletando ambé" },
-      "color": "green",
       "image": "xe:collecting ambé.jpg",
       "media": {
         "type": "video",
@@ -2118,7 +2115,6 @@
     "graph-nOtEYEjHoQD1J0vU": {
       "type": "graph",
       "label": { "en": "Using Utu", "pt": "O uso do utu" },
-      "color": "lime",
       "image": "xe:using utu.jpg",
       "media": {
         "type": "video",
@@ -2366,7 +2362,6 @@
     "graph-REq5SXPre4MP2olX": {
       "type": "graph",
       "label": { "en": "The Story of Uhi", "pt": "A história de Uhi" },
-      "color": "magenta",
       "image": "xe:the story of the fish trap - jamalui.jpg",
       "media": {
         "type": "video",

@@ -41,7 +41,7 @@ defineExpose({
   width: max-content;
   padding: var(--spacing-half);
   --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
-  color: color-mix(in lab, var(--tinted), var(--color-background) 10%);
+  color: var(--color-text);
 
   text-align: center;
 
@@ -52,15 +52,15 @@ defineExpose({
     &.user-active {
       filter: none;
       opacity: 1;
-      color: color-mix(in lab, var(--tinted), var(--color-background) 50%);
+      color: color-mix(in lab, var(--color-text), var(--color-background) 70%);
     }
   }
 
   &.highlight {
-    color: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
+    color: var(--graph-accent);
 
     span {
-      --highlight-color: color-mix(in lab, var(--graph-accent), transparent 60%);
+      --highlight-color: color-mix(in lab, var(--graph-accent), transparent 80%);
       padding: 0.1em 10px;
       margin: -0.1em -10px;
       border-radius: 10px 2.5px 7.5px 5.5px;

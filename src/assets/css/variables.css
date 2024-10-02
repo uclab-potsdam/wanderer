@@ -28,8 +28,8 @@
   /* Colors */
   --color-background: white;
   --color-text: black;
-  --graph-accent: var(--gray);
-  --ui-accent: var(--teal);
+  --graph-accent: var(--orange);
+  --ui-accent: var(--green);
 
   /* Shadows */
   --ui-shadow: 0px 0px 5px color-mix(in lab, var(--color-text), transparent 80%);

@@ -36,11 +36,11 @@ defineExpose({
   }
   z-index: -2;
 
-  background: var(--graph-accent);
+  /* background: var(--graph-accent); */
 
   img {
     background: var(--color-background);
-    mix-blend-mode: hard-light;
+    /* mix-blend-mode: hard-light; */
     filter: grayscale(1);
     display: block;
     transform: scale(1.005);
