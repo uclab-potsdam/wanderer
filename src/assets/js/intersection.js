@@ -47,12 +47,12 @@ export function getLineRoundedRectangleIntersection(x0, y0, x1, y1, x, y, w, h, 
         const pointAngle = normalizeAngle(getAngle(cx, cy, pt[0], pt[1]))
         return pointAngle > as && pointAngle < ae
       })
-      .forEach((pt) => points.push(pt))
+      .forEach((point) => points.push({ point, anchor: i * 2 + 1 }))
 
     const segmentInt = getSegmentSegmentIntersection(x0, y0, x1, y1, px0, py0, px1, py1)
 
     if (segmentInt) {
-      points.push(segmentInt)
+      points.push({ point: segmentInt, anchor: i * 2 })
     }
   })
 

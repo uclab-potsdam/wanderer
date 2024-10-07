@@ -16,6 +16,7 @@ import { useContextMenuStore } from '@/stores/contextMenu'
 import LocalizeText from './LocalizeText.vue'
 
 import { spacing } from '@/assets/js/style'
+import { useRoute } from 'vue-router'
 
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
@@ -26,10 +27,14 @@ const settingsStore = useSettingsStore()
 const modalStore = useModalStore()
 const contextMenuStore = useContextMenuStore()
 
+const route = useRoute()
+
 const props = defineProps({
   edge: Object,
   view: String
 })
+
+const isNetwork = computed(() => route.params.type !== 'graph')
 
 const source = computed(() => layoutStore.nodes[props.edge.nodes[0]])
 const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
@@ -99,23 +104,38 @@ const points = computed(() => {
   if (start == null || end == null) {
     return
   }
-  return [
-    [start[0] + layoutStore.offset.x, start[1] + layoutStore.offset.y],
-    [end[0] + layoutStore.offset.x, end[1] + layoutStore.offset.y]
-  ]
+
+  const a = { x: start.point[0] + layoutStore.offset.x, y: start.point[1] + layoutStore.offset.y }
+  const b = { x: end.point[0] + layoutStore.offset.x, y: end.point[1] + layoutStore.offset.y }
+
+  if (isNetwork.value) {
+    return [a, b]
+  }
+
+  const c = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
+
+  switch (start.anchor) {
+    case 0:
+      switch (end.anchor) {
+        case 4:
+          return [a, { x: c.x, y: a.y }, { x: c.x, y: b.y }, b]
+      }
+  }
+  return [a, b]
 })
 
 const d = computed(() => {
   if (points.value == null) return
 
-  return `M${points.value[0][0]},${points.value[0][1]} L${points.value[1][0]},${points.value[1][1]}`
+  return `M${points.value.map((p) => `${p.x},${p.y}`).join(' L')}`
+  // return `M${points.value[0][0]},${points.value[0][1]} L${points.value[1][0]},${points.value[1][1]}`
 })
 const center = computed(() => {
   if (points.value == null) return []
-  return [
-    (points.value[0][0] + points.value[1][0]) / 2,
-    (points.value[0][1] + points.value[1][1]) / 2
-  ]
+  return {
+    x: (points.value[0].x + points.value[points.value.length - 1].x) / 2,
+    y: (points.value[0].y + points.value[points.value.length - 1].y) / 2
+  }
 })
 
 const id = computed(() => props.edge.nodes.join('-'))
@@ -223,20 +243,21 @@ function onContextMenu(e) {
     <text
       class="shadow"
       :class="{ edit: settingsStore.edit }"
-      :x="center[0]"
-      :y="center[1]"
+      :x="center.x"
+      :y="center.y"
       @dblclick.stop="onDoubleClick"
       @contextmenu="onContextMenu"
       @click="onClick"
       ><LocalizeText :text="edge.label" />
     </text>
-    <text :x="center[0]" :y="center[1]"><LocalizeText :text="edge.label" /> </text>
+    <text :x="center.x" :y="center.y"><LocalizeText :text="edge.label" /> </text>
   </g>
 </template>
 
 <style scoped>
 .edge {
   transition: all var(--transition);
+  fill: none;
   color: var(--color-text);
   stroke: var(--color-text);
 

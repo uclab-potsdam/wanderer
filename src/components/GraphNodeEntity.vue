@@ -3,9 +3,12 @@ import { computed, onMounted, ref } from 'vue'
 import { useDataStore } from '@/stores/data'
 import { getContentWidth } from '@/assets/js/utils'
 import LocalizeText from './LocalizeText.vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const props = defineProps({
-  node: Object
+  node: Object,
+  id: String
 })
 
 const dataStore = useDataStore()
@@ -16,8 +19,10 @@ const width = ref(null)
 
 const nodeClass = computed(() => dataStore.data.nodes[props.node.class]?.label)
 
+const detail = computed(() => route.params.id === props.id)
+
 onMounted(() => {
-  width.value = getContentWidth(el)
+  width.value = !detail.value && getContentWidth(el)
 })
 
 defineExpose({
@@ -26,7 +31,7 @@ defineExpose({
 </script>
 
 <template>
-  <div class="entity" ref="el" :style="{ width }">
+  <div class="entity" ref="el" :style="{ width }" :class="{ detail }">
     <span class="text"><LocalizeText :text="node.label" /></span>
     <br v-if="nodeClass" />
     <span class="class" v-if="nodeClass"><LocalizeText :text="nodeClass" /></span>
@@ -100,6 +105,12 @@ defineExpose({
 
   .inner {
     display: inline;
+  }
+
+  &.detail {
+    width: 300px;
+    background-color: var(--graph-accent);
+    text-align: left;
   }
 }
 </style>
