@@ -275,7 +275,7 @@ onBeforeUnmount(() => {
         outline: var(--light) solid 2px;
         background: var(--light);
         /* outline-offset: 2px; */
-        border-radius: 5px;
+        border-radius: var(--spacing);
       }
     }
 

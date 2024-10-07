@@ -112,22 +112,49 @@ const points = computed(() => {
     return [a, b]
   }
 
-  const c = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
+  // const c = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
+  // const d = { x: Math.abs(b.x - a.x), y: Math.abs(b.y - a.y) }
 
-  switch (start.anchor) {
-    case 0:
-      switch (end.anchor) {
-        case 4:
-          return [a, { x: c.x, y: a.y }, { x: c.x, y: b.y }, b]
-      }
-  }
-  return [a, b]
+  const directions = ['←', '↖', '↑', '↗︎', '→', '↘︎', '↓', '↙︎']
+  console.log(directions[start.anchor], directions[(end.anchor + 4) % 8])
+
+  const vectors = [
+    { x: -1, y: 0 },
+    { x: -1, y: -1 },
+    { x: 0, y: -1 },
+    { x: 1, y: -1 },
+    { x: 1, y: 0 },
+    { x: 1, y: 1 },
+    { x: 0, y: 1 },
+    { x: -1, y: 1 }
+  ]
+
+  // switch (directions[start.anchor]) {
+  //   case '←':
+  //     switch (directions[(end.anchor + 4) % 8]) {
+  //       case '←':
+  //         return [a, { x: c.x + d.y / 2, y: a.y }, { x: c.x - d.y / 2, y: b.y }, b]
+  //       case '↖':
+  //         return [a, { x: b.x + d.y, y: a.y }, b]
+  //     }
+  // }
+
+  return [
+    a,
+    { x: a.x + vectors[start.anchor].x * 100, y: a.y + vectors[start.anchor].y * 100 },
+    { x: b.x + vectors[end.anchor].x * 100, y: b.y + vectors[end.anchor].y * 100 },
+    b
+  ]
 })
 
 const d = computed(() => {
   if (points.value == null) return
 
-  return `M${points.value.map((p) => `${p.x},${p.y}`).join(' L')}`
+  if (isNetwork.value) {
+    return `M${points.value.map((p) => `${p.x},${p.y}`).join(' L')}`
+  }
+
+  return `M${points.value.map((p, i) => `${i === 1 ? 'C' : ''}${p.x},${p.y}`).join(' ')}`
   // return `M${points.value[0][0]},${points.value[0][1]} L${points.value[1][0]},${points.value[1][1]}`
 })
 const center = computed(() => {
