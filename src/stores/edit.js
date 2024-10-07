@@ -29,7 +29,7 @@ export const useEditStore = defineStore('edit', () => {
     } else {
       if (marker == null) {
         marker = { time }
-        graph.marker = [...graph.marker, marker]
+        graph.marker = [...(graph.marker ?? []), marker]
       }
       marker.states = { ...marker.states, [id]: display }
     }
