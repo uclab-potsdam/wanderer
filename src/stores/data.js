@@ -55,7 +55,11 @@ export const useDataStore = defineStore('data', () => {
   )
 
   function storeData(data) {
-    localStorage.setItem(`wanderer:data`, JSON.stringify(data))
+    localStorage.setItem('wanderer:data', JSON.stringify(data))
+  }
+
+  function deleteLocalChanges() {
+    localStorage.removeItem('wanderer:data')
   }
 
   function exportProject() {
@@ -123,6 +127,7 @@ export const useDataStore = defineStore('data', () => {
     storeData,
     deleteNode,
     createNode,
-    exportProject
+    exportProject,
+    deleteLocalChanges
   }
 })

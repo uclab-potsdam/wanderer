@@ -13,18 +13,14 @@ const dataStore = useDataStore()
     <TheHeader />
     <main>
       <ul>
-        <li>
+        <!-- <li>
           <span>language</span>
           <select v-model="settingsStore.lang">
             <option v-for="lang in configStore.languages" :key="lang">
               {{ lang }}
             </option>
           </select>
-        </li>
-        <li>
-          <label for="edit-mode">edit mode</label>
-          <input id="edit-mode" type="checkbox" v-model="settingsStore.edit" />
-        </li>
+        </li> -->
         <li>
           <span>mode</span>
           <select v-model="settingsStore.mode">
@@ -42,6 +38,10 @@ const dataStore = useDataStore()
         <li>
           <!-- <label for="export">export</label> -->
           <button @click="dataStore.exportProject">export data</button>
+        </li>
+        <li>
+          <!-- <label for="export">export</label> -->
+          <button @click="dataStore.deleteLocalChanges">delete local changes</button>
         </li>
       </ul>
     </main>
