@@ -63,7 +63,7 @@ export const useDataStore = defineStore('data', () => {
   }
 
   function exportProject() {
-    const project = localStorage.getItem(`wanderer:data`)
+    const project = JSON.stringify(JSON.parse(localStorage.getItem(`wanderer:data`)), null, 2)
     const blob = new Blob([project], { type: 'application/json' })
     const link = document.createElement('a')
     link.download = `db.json`
