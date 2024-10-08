@@ -15,9 +15,12 @@ const configStore = useConfigStore()
 
 <template>
   <header>
-    <RouterLink to="/">
-      <h1>{{ projectTitle }}</h1>
-    </RouterLink>
+    <span class="left">
+      <RouterLink to="/">
+        <h1>{{ projectTitle }}</h1>
+      </RouterLink>
+      <span class="mode">{{ settingsStore.mode }}</span>
+    </span>
 
     <span class="right">
       <RouterLink v-if="route.name !== 'settings'" to="/settings"> settings </RouterLink>
@@ -41,7 +44,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing);
+  gap: var(--spacing-half);
 
   padding: var(--spacing-half);
 
@@ -51,10 +54,20 @@ header {
     cursor: pointer;
   }
 
-  .right {
+  .right,
+  .left {
     display: inherit;
     gap: inherit;
     align-items: center;
+  }
+
+  .left .mode {
+    font-size: var(--font-size-tiny);
+    background: var(--color-accent);
+    color: var(--color-background);
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-quart) var(--spacing-half);
   }
 }
 </style>

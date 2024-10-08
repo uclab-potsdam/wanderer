@@ -19,5 +19,13 @@ export const useSettingsStore = defineStore('settings', () => {
     if (!edit) editStore.exit()
   })
 
+  watch(
+    mode,
+    (mode) => {
+      document.querySelector(':root').style.setProperty('--color-accent', `var(--color-${mode})`)
+    },
+    { immediate: true }
+  )
+
   return { lang, pictureInPicture, edit, server, db, mode, modeOptions }
 })
