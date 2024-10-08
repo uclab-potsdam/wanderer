@@ -134,13 +134,8 @@ onMounted(() => {
     // .scaleExtent([0.1, 2])
     .scaleExtent([0.1, 1])
     .on('zoom', (e) => {
-      // e.preventDefault()
       layoutStore.transform = e.transform
     })
-    // .on('touchstart', (e) => {
-    //   e.stopPropagation()
-    //   e.preventDefault()
-    // })
 
     .filter((e) => {
       if (editStore.mode === 'display-frame') return
