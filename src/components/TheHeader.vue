@@ -19,7 +19,11 @@ const configStore = useConfigStore()
       <RouterLink to="/">
         <h1>{{ projectTitle }}</h1>
       </RouterLink>
-      <span class="mode">{{ settingsStore.mode }}</span>
+      <div class="mode">
+        <InputSegment collapse v-model="settingsStore.mode" :options="settingsStore.modeOptions" />
+      </div>
+
+      <!-- <span class="mode">{{ settingsStore.mode }}</span> -->
     </span>
 
     <span class="right">
@@ -45,6 +49,7 @@ header {
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-half);
+  position: relative;
 
   padding: var(--spacing-half);
 
@@ -61,13 +66,21 @@ header {
     align-items: center;
   }
 
-  .left .mode {
-    font-size: var(--font-size-tiny);
-    background: var(--color-accent);
-    color: var(--color-background);
-    font-weight: bold;
-    border-radius: var(--border-radius);
-    padding: var(--spacing-quart) var(--spacing-half);
+  .left {
+    display: inherit;
+    gap: inherit;
+    .mode {
+      /* font-size: var(--font-size-tiny);
+      background: var(--color-accent);
+      color: var(--color-background);
+      font-weight: bold;
+      border-radius: var(--border-radius);
+      padding: var(--spacing-quart) var(--spacing-half); */
+      /* position: relative; */
+      /* height: 100%; */
+      /* overflow: visible; */
+      height: 35px;
+    }
   }
 }
 </style>

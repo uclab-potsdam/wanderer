@@ -10,10 +10,13 @@ import DisplayDefault from '~icons/base/DisplayDefault'
 import DisplayHighlight from '~icons/base/DisplayHighlight'
 import DisplayUnset from '~icons/base/DisplayUnset'
 import DisplayFrame from '~icons/base/DisplayFrame'
+import IconExport from '~icons/base/Export'
 import InputSegment from './InputSegment.vue'
 import { useEditStore } from '@/stores/edit'
+import { useDataStore } from '@/stores/data'
 
 const editStore = useEditStore()
+const dataStore = useDataStore()
 </script>
 
 <template>
@@ -31,7 +34,14 @@ const editStore = useEditStore()
         { value: 'display-default', slot: 'display-default', tooltip: 'default' },
         { value: 'display-highlight', slot: 'display-highlight', tooltip: 'highlight' },
         { value: 'display-unset', slot: 'display-unset', tooltip: 'unset' },
-        { value: 'display-frame', slot: 'display-frame', tooltip: 'frame' }
+        { value: 'display-frame', slot: 'display-frame', tooltip: 'frame' },
+        { disabled: true, slot: 'seperator2' },
+        {
+          value: 'download',
+          slot: 'download',
+          tooltip: 'download data',
+          action: dataStore.exportProject
+        }
       ]"
     >
       <template #default><CursorDefault /></template>
@@ -45,6 +55,8 @@ const editStore = useEditStore()
       <template #display-highlight><DisplayHighlight /></template>
       <template #display-unset><DisplayUnset /></template>
       <template #display-frame><DisplayFrame /></template>
+      <template #seperator2><SeperatorHorizontal /></template>
+      <template #download><IconExport /></template>
     </InputSegment>
   </section>
 </template>

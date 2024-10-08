@@ -13,7 +13,21 @@ export const useDataStore = defineStore('data', () => {
   const nodeId = ref(null)
 
   async function init() {
-    data.value = { nodes: {}, edges: [] }
+    // data.value = { nodes: {}, edges: [] }
+    data.value = await fetch(configStore.wandererStatic).then((d) => d.json())
+    if (settingsStore.mode !== 'live' && localStorage.getItem(`wanderer:data`) != null) {
+      const localData = JSON.parse(localStorage.getItem(`wanderer:data`))
+      if (
+        data.value.exported === localData.exported ||
+        !window.confirm(
+          'Your local changes are based on a dataset version that does not match the live version. Do you want to discard your local changes and make a local copy of the latest live version?'
+        )
+      ) {
+        data.value = localData
+      } else {
+        localStorage.setItem(`wanderer:data`, JSON.stringify(data.value))
+      }
+    }
     if (settingsStore.mode === 'live' || localStorage.getItem(`wanderer:data`) == null) {
       data.value = await fetch(configStore.wandererStatic).then((d) => d.json())
     } else {
@@ -60,11 +74,14 @@ export const useDataStore = defineStore('data', () => {
 
   function deleteLocalChanges() {
     localStorage.removeItem('wanderer:data')
+    settingsStore.mode = 'live'
   }
 
   function exportProject() {
-    const project = JSON.stringify(JSON.parse(localStorage.getItem(`wanderer:data`)), null, 2)
-    const blob = new Blob([project], { type: 'application/json' })
+    const project = JSON.parse(localStorage.getItem(`wanderer:data`))
+    project.exported = new Date().getTime()
+    const projectJSON = JSON.stringify(project, null, 2)
+    const blob = new Blob([projectJSON], { type: 'application/json' })
     const link = document.createElement('a')
     link.download = `db.json`
     link.href = window.URL.createObjectURL(blob)

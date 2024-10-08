@@ -1,4 +1,4 @@
-import { ref, watchEffect } from 'vue'
+import { nextTick, ref, watch, watchEffect } from 'vue'
 import { defineStore } from 'pinia'
 import { useDataStore } from './data'
 import { useVideoStore } from './video'
@@ -70,6 +70,13 @@ export const useEditStore = defineStore('edit', () => {
       graph.marker = graph.marker.filter((m) => m.time !== marker.time)
     }
   }
+
+  watch(mode, (value, oldValue) => {
+    if (value === 'download') {
+      dataStore.exportProject()
+      nextTick(() => (mode.value = oldValue))
+    }
+  })
 
   return { mode, resetMode, exit, setDisplay, setBounds }
 })

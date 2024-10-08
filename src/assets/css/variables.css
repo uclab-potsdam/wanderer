@@ -29,7 +29,7 @@
   --color-background: white;
   --color-text: black;
   --graph-accent: var(--orange);
-  --ui-accent: var(--green);
+  --ui-accent: var(--color-accent);
 
   --color-live: var(--orange);
   --color-edit: var(--green);

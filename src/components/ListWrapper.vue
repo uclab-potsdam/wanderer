@@ -1,11 +1,12 @@
 <script setup>
 defineProps({
   horizontal: Boolean,
-  equalSize: Boolean
+  equalSize: Boolean,
+  hide: Boolean
 })
 </script>
 <template>
-  <div class="list-wrapper" :class="{ horizontal, 'equal-size': equalSize }"><slot /></div>
+  <div class="list-wrapper" :class="{ horizontal, 'equal-size': equalSize, hide }"><slot /></div>
 </template>
 
 <style scoped>
@@ -33,6 +34,9 @@ defineProps({
   text-align: center;
 
   background: color-mix(in lab, var(--tint), rgba(255, 255, 255, 0.5) 90%);
+  &.hide {
+    background: none;
+  }
   /* backdrop-filter: var(--blur); */
   border-radius: var(--border-radius);
   padding: var(--border-radius-small);
