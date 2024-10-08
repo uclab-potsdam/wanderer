@@ -18,6 +18,7 @@ const route = useRoute()
   <div
     class="graph-view"
     :class="{ 'split-screen': videoStore.showVideo && !settingsStore.pictureInPicture }"
+    @wheel.prevent
   >
     <TheHeader v-if="!route.meta.hideMenuBar" />
     <TheGraph />
