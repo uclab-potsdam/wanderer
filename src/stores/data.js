@@ -13,7 +13,6 @@ export const useDataStore = defineStore('data', () => {
   const nodeId = ref(null)
 
   async function init() {
-    // data.value = { nodes: {}, edges: [] }
     data.value = await fetch(configStore.wandererStatic).then((d) => d.json())
     if (settingsStore.mode !== 'live' && localStorage.getItem(`wanderer:data`) != null) {
       const localData = JSON.parse(localStorage.getItem(`wanderer:data`))
@@ -27,11 +26,6 @@ export const useDataStore = defineStore('data', () => {
       } else {
         localStorage.setItem(`wanderer:data`, JSON.stringify(data.value))
       }
-    }
-    if (settingsStore.mode === 'live' || localStorage.getItem(`wanderer:data`) == null) {
-      data.value = await fetch(configStore.wandererStatic).then((d) => d.json())
-    } else {
-      data.value = JSON.parse(localStorage.getItem(`wanderer:data`))
     }
   }
 
