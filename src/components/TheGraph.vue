@@ -170,10 +170,11 @@ function initGraph(duration, previous) {
       layoutStore.offset.x = layoutStore.offset.x + source.x - target.x
       layoutStore.offset.y = layoutStore.offset.y + source.y - target.y
     }
+    zoomToBounds(bounds.value, duration)
   } else {
     allocations.value = computeAllocations(id.value)
+    zoomToCenter(layoutStore.offset, duration)
   }
-  zoomToBounds(bounds.value, duration)
 }
 
 function getAllocationCenter(allocations) {
@@ -217,6 +218,19 @@ function zoomToBounds(bounds, duration = 0) {
       zoomIdentity
         .translate(zoomElementDimensions.width / 2, zoomElementDimensions.height / 2)
         .scale(scale)
+        .translate(-x, -y)
+    )
+}
+
+function zoomToCenter({ x, y }, duration = 0) {
+  const zoomElementDimensions = zoomElement.value.getBoundingClientRect()
+  zoomElementSelection.value
+    .transition()
+    .duration(duration)
+    .call(
+      zoomBehaviour.value.transform,
+      zoomIdentity
+        .translate(zoomElementDimensions.width / 2, zoomElementDimensions.height / 2)
         .translate(-x, -y)
     )
 }
