@@ -99,7 +99,7 @@ const cssProps = computed(() => {
 const displayBounds = computed(() => {
   if ((displayStore.exactMarker?.bounds == null && displayBoundsTemp.value) == null) return
   const { x1, y1, x2, y2 } = displayBoundsTemp.value || displayStore.exactMarker.bounds
-  return `M${x1},${y1} L${x2},${y1} L${x2},${y2} L${x1},${y2} Z`
+  return `M${x1 + layoutStore.offset.x},${y1 + layoutStore.offset.y} L${x2 + layoutStore.offset.x},${y1 + layoutStore.offset.y} L${x2 + layoutStore.offset.x},${y2 + layoutStore.offset.y} L${x1 + layoutStore.offset.x},${y2 + layoutStore.offset.y} Z`
 })
 
 watch([id, () => dataStore.data], ([value], [oldValue]) => {
@@ -299,10 +299,10 @@ function onMouseDown(e) {
     e.stopPropagation()
     const coords = screenToCoordinates(e)
     displayBoundsTemp.value = {
-      x1: coords.x,
-      y1: coords.y,
-      x2: coords.x,
-      y2: coords.y
+      x1: coords.x - layoutStore.offset.x,
+      y1: coords.y - layoutStore.offset.y,
+      x2: coords.x - layoutStore.offset.x,
+      y2: coords.y - layoutStore.offset.y
     }
 
     const controller = new AbortController()
@@ -326,8 +326,8 @@ function onMouseDown(e) {
       'mousemove',
       (e) => {
         const { x, y } = screenToCoordinates(e)
-        displayBoundsTemp.value.x2 = x
-        displayBoundsTemp.value.y2 = y
+        displayBoundsTemp.value.x2 = x - layoutStore.offset.x
+        displayBoundsTemp.value.y2 = y - layoutStore.offset.y
       },
       { signal: controller.signal }
     )
