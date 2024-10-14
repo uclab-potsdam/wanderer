@@ -14,10 +14,8 @@ const layoutStore = useLayoutStore()
 
 function computeAllocations(id) {
   const depth = 2
-  layoutStore.offset = layoutStore.nodes[id] ?? {
-    x: 0,
-    y: 0
-  }
+  layoutStore.offset.x += layoutStore.nodes[id]?.x ?? 0
+  layoutStore.offset.y += layoutStore.nodes[id]?.y ?? 0
 
   const neighborsWithDuplicates = getNeighbors(id, depth).flat(depth + 1)
   const neighborsUniqueIds = [...new Set(neighborsWithDuplicates.map((d) => d.id))]

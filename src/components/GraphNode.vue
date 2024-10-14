@@ -40,12 +40,8 @@ const componentRef = ref(null)
 
 const node = computed(() => dataStore.data.nodes[props.id])
 const positioning = computed(() => ({
-  transform: `translate(${position.value.x + layoutStore.offset.x}px, ${position.value.y + layoutStore.offset.y}px) translate(-50%, -50%)`
+  transform: `translate(${props.position.x + layoutStore.offset.x}px, ${props.position.y + layoutStore.offset.y}px) translate(-50%, -50%)`
 }))
-
-const position = computed(
-  () => props.position ?? dataStore.data.nodes[props.graph].allocations[props.id]
-)
 
 const component = computed(() => getComponentForType(node.value.type))
 
@@ -71,8 +67,8 @@ const resizeObserver = new ResizeObserver((entries) => {
       layoutStore.nodes[props.id] = {
         width: entry.contentRect.width,
         height: entry.contentRect.height,
-        x: position.value.x,
-        y: position.value.y
+        x: props.position.x,
+        y: props.position.y
       }
     }
   }
@@ -211,12 +207,12 @@ function onContextMenu(e) {
 }
 
 watch(
-  () => [position.value.y, position.value.x],
+  () => [props.position.y, props.position.x],
   () => {
     layoutStore.nodes[props.id] = {
       ...layoutStore.nodes[props.id],
-      x: position.value.x,
-      y: position.value.y
+      x: props.position.x,
+      y: props.position.y
     }
   }
 )
@@ -266,7 +262,8 @@ onBeforeUnmount(() => {
   transition:
     /* transform var(--transition), */
     opacity var(--transition),
-    filter var(--transition);
+    filter var(--transition),
+    width var(--transition);
 
   &.edit {
     &:hover {

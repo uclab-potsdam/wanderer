@@ -42,12 +42,11 @@ const allocations = ref([])
 const zoomElement = ref(null)
 const zoomElementSelection = ref(null)
 const zoomBehaviour = ref(null)
-// const transform = ref({ x: 0, y: 0, k: 1 })
+const node = ref(dataStore.data.nodes[id.value])
 
 const displayBoundsTemp = ref(null)
 
 const id = computed(() => route.params.id)
-const node = computed(() => dataStore.data.nodes[id.value] ?? {})
 const view = computed(() => (route.params.type === 'graph' ? 'diagram' : 'network'))
 
 const transformString = computed(
@@ -103,7 +102,10 @@ const displayBounds = computed(() => {
   return `M${x1},${y1} L${x2},${y1} L${x2},${y2} L${x1},${y2} Z`
 })
 
-watch(node, () => initGraph(transition))
+watch(id, (value, oldValue) => {
+  node.value = dataStore.data.nodes[value]
+  initGraph(transition, oldValue)
+})
 
 watch(bounds, () => {
   if (!activityStore.inactivityShort) return
@@ -151,24 +153,44 @@ onBeforeUnmount(() => {
   if (zoomElement.value != null) resizeObserver.unobserve(zoomElement.value)
 })
 
-function initGraph(duration) {
-  allocations.value =
-    route.params.type === 'graph' ? translate(node.value.allocations) : computeAllocations(id.value)
+function initGraph(duration, previous) {
+  if (node.value.type === 'graph') {
+    allocations.value = node.value.allocations
 
+    if (previous != null) {
+      const source =
+        dataStore.data.nodes[previous].type === 'graph'
+          ? getAllocationCenter(dataStore.data.nodes[previous].allocations)
+          : { x: 0, y: 0 }
+      const target =
+        dataStore.data.nodes[previous].type === 'graph' || allocations.value[previous] == null
+          ? getAllocationCenter(allocations.value)
+          : allocations.value[previous]
+
+      layoutStore.offset.x = layoutStore.offset.x + source.x - target.x
+      layoutStore.offset.y = layoutStore.offset.y + source.y - target.y
+    }
+  } else {
+    allocations.value = computeAllocations(id.value)
+  }
   zoomToBounds(bounds.value, duration)
 }
 
-function translate(allocations) {
-  return Object.fromEntries(
-    Object.entries(allocations ?? {}).map((allocation) => [
-      allocation[0],
-      {
-        ...allocation[1]
-        // x: allocation[1].x + layoutStore.offset.x,
-        // y: allocation[1].y + layoutStore.offset.y
-      }
-    ])
-  )
+function getAllocationCenter(allocations) {
+  const values = Object.values(allocations)
+  const valuesX = values.map(({ x }) => x)
+  const valuesY = values.map(({ y }) => y)
+
+  const minX = Math.min(...valuesX)
+  const maxX = Math.max(...valuesX)
+
+  const minY = Math.min(...valuesY)
+  const maxY = Math.max(...valuesY)
+
+  return {
+    x: (minX + maxX) / 2,
+    y: (minY + maxY) / 2
+  }
 }
 
 function zoomToBounds(bounds, duration = 0) {
@@ -388,11 +410,7 @@ function screenToCoordinates(screen) {
           v-for="nodeId in allocationOrder"
           :key="nodeId"
           :id="nodeId"
-          :position="
-            route.params.type === 'graph' && settingsStore.mode === 'edit'
-              ? null
-              : allocations[nodeId]
-          "
+          :position="allocations[nodeId]"
           :view="view"
           :graph="view === 'diagram' && id"
         />
