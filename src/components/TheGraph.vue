@@ -102,7 +102,7 @@ const displayBounds = computed(() => {
   return `M${x1},${y1} L${x2},${y1} L${x2},${y2} L${x1},${y2} Z`
 })
 
-watch([id, () => settingsStore.mode], ([value], [oldValue]) => {
+watch([id, () => dataStore.data], ([value], [oldValue]) => {
   node.value = dataStore.data.nodes[value]
   initGraph(transition, oldValue)
 })
