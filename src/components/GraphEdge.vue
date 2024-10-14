@@ -115,8 +115,8 @@ const points = computed(() => {
   // const c = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
   // const d = { x: Math.abs(b.x - a.x), y: Math.abs(b.y - a.y) }
 
-  const directions = ['←', '↖', '↑', '↗︎', '→', '↘︎', '↓', '↙︎']
-  console.log(directions[start.anchor], directions[(end.anchor + 4) % 8])
+  // const directions = ['←', '↖', '↑', '↗︎', '→', '↘︎', '↓', '↙︎']
+  // console.log(directions[start.anchor], directions[(end.anchor + 4) % 8])
 
   const vectors = [
     { x: -1, y: 0 },
