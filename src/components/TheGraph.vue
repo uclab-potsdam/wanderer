@@ -42,11 +42,11 @@ const allocations = ref([])
 const zoomElement = ref(null)
 const zoomElementSelection = ref(null)
 const zoomBehaviour = ref(null)
-const node = ref(dataStore.data.nodes[id.value])
 
 const displayBoundsTemp = ref(null)
 
 const id = computed(() => route.params.id)
+const node = ref(dataStore.data.nodes[id.value])
 const view = computed(() => (route.params.type === 'graph' ? 'diagram' : 'network'))
 
 const transformString = computed(
