@@ -108,8 +108,9 @@ const points = computed(() => {
   const a = { x: start.point[0] + layoutStore.offset.x, y: start.point[1] + layoutStore.offset.y }
   const b = { x: end.point[0] + layoutStore.offset.x, y: end.point[1] + layoutStore.offset.y }
 
+  const c = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
   if (isNetwork.value) {
-    return [a, b]
+    return [a, c, c, b]
   }
 
   // const c = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
@@ -150,9 +151,9 @@ const points = computed(() => {
 const d = computed(() => {
   if (points.value == null) return
 
-  if (isNetwork.value) {
-    return `M${points.value.map((p) => `${p.x},${p.y}`).join(' L')}`
-  }
+  // if (isNetwork.value) {
+  //   return `M${points.value.map((p) => `${p.x},${p.y}`).join(' L')}`
+  // }
 
   return `M${points.value.map((p, i) => `${i === 1 ? 'C' : ''}${p.x},${p.y}`).join(' ')}`
   // return `M${points.value[0][0]},${points.value[0][1]} L${points.value[1][0]},${points.value[1][1]}`
@@ -309,7 +310,7 @@ function onContextMenu(e) {
   }
 
   path {
-    /* transition: all var(--transition); */
+    transition: all var(--transition);
 
     &.edit {
       opacity: 0;
