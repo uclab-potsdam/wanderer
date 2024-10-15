@@ -1,7 +1,9 @@
 export default {
   entity: {
     label: 'dictionary',
-    class: 'entity'
+    class: 'entity',
+    description: 'dictionary'
+    // url: 'string'
   },
   note: {
     text: 'dictionary'
