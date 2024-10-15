@@ -13,7 +13,7 @@ const dataStore = useDataStore()
 const layoutStore = useLayoutStore()
 
 function computeAllocations(id) {
-  const depth = 2
+  const depth = 1
   layoutStore.offset.x += layoutStore.nodes[id]?.x ?? 0
   layoutStore.offset.y += layoutStore.nodes[id]?.y ?? 0
 
@@ -39,15 +39,7 @@ function computeAllocations(id) {
   const nodes = [
     ...neighbors.map(({ id, depth }) => {
       return { id, depth, ...getCoordinates(id) }
-    }),
-    ...Object.entries(dataStore.nodeOccurances)
-      .map((graph) => {
-        return [
-          { id: graph[0], ...getCoordinates(graph[0]), depth: 2 },
-          { id: `${graph[0]}-proxy`, ...getCoordinates(`${graph[0]}-proxy`), proxy: true, depth: 1 }
-        ]
-      })
-      .flat()
+    })
   ]
 
   const edges = [
@@ -59,19 +51,7 @@ function computeAllocations(id) {
       .map((edge) => ({
         source: edge.nodes[0],
         target: edge.nodes[1]
-      })),
-    ...Object.entries(dataStore.nodeOccurances)
-      .map((graph) => [
-        {
-          source: id,
-          target: `${graph[0]}-proxy`
-        },
-        {
-          source: `${graph[0]}-proxy`,
-          target: graph[0]
-        }
-      ])
-      .flat()
+      }))
   ]
 
   const simulation = forceSimulation(nodes)
