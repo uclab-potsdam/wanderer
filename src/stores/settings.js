@@ -23,6 +23,11 @@ export const useSettingsStore = defineStore('settings', () => {
     mode,
     (mode) => {
       document.querySelector(':root').style.setProperty('--color-accent', `var(--color-${mode})`)
+      if (mode === 'edit') {
+        document.querySelector(':root').style.setProperty('--transition', `0s`)
+      } else {
+        document.querySelector(':root').style.removeProperty('--transition')
+      }
     },
     { immediate: true }
   )
