@@ -251,7 +251,8 @@ function onContextMenu(e) {
     </defs>
     <BaseInterpolate
       :props="{
-        d
+        d,
+        ...center
       }"
       :delay="0"
       v-slot="value"
@@ -269,14 +270,14 @@ function onContextMenu(e) {
       <text
         class="shadow"
         :class="{ edit: settingsStore.edit }"
-        :x="center.x"
-        :y="center.y"
+        :x="value.x"
+        :y="value.y"
         @dblclick.stop="onDoubleClick"
         @contextmenu="onContextMenu"
         @click="onClick"
         ><LocalizeText :text="edge.label" />
       </text>
-      <text :x="center.x" :y="center.y"><LocalizeText :text="edge.label" /> </text>
+      <text :x="value.x" :y="value.y"><LocalizeText :text="edge.label" /> </text>
     </BaseInterpolate>
   </g>
 </template>
