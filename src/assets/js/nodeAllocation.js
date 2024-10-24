@@ -70,14 +70,15 @@ function computeAllocations(id) {
     .force(
       'radial',
       // forceRadial(200)
-      forceRadial((d) => d.depth * 200, 0, 0).strength(2)
+      forceRadial((d) => d.depth * 550, 0, 0).strength(2)
     )
-    .stop()
+  // .stop()
 
   for (let i = 0; i < 1000; i++) {
     // if (i === 900) simulation.force('collide', forceCollide(100))
     simulation.tick()
   }
+
   // simulation.tick()
 
   return Object.fromEntries(

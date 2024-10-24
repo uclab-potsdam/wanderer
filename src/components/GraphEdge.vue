@@ -249,36 +249,35 @@ function onContextMenu(e) {
         <path d="M8,6.5 L0,10 L8,13.5" />
       </marker>
     </defs>
-    <!-- <BaseInterpolate
+    <BaseInterpolate
       :props="{
         d
       }"
       :delay="0"
-      :duration="transition"
       v-slot="value"
     >
+      <!-- <path :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" /> -->
+      <path
+        v-if="settingsStore.edit"
+        class="edit"
+        :d="value.d"
+        @dblclick.stop="onDoubleClick"
+        @contextmenu="onContextMenu"
+        @click="onClick"
+      />
       <path :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
-    </BaseInterpolate> -->
-    <path
-      v-if="settingsStore.edit"
-      class="edit"
-      :d="d"
-      @dblclick.stop="onDoubleClick"
-      @contextmenu="onContextMenu"
-      @click="onClick"
-    />
-    <path :d="d" :marker-end="markerEnd" :marker-start="markerStart" />
-    <text
-      class="shadow"
-      :class="{ edit: settingsStore.edit }"
-      :x="center.x"
-      :y="center.y"
-      @dblclick.stop="onDoubleClick"
-      @contextmenu="onContextMenu"
-      @click="onClick"
-      ><LocalizeText :text="edge.label" />
-    </text>
-    <text :x="center.x" :y="center.y"><LocalizeText :text="edge.label" /> </text>
+      <text
+        class="shadow"
+        :class="{ edit: settingsStore.edit }"
+        :x="center.x"
+        :y="center.y"
+        @dblclick.stop="onDoubleClick"
+        @contextmenu="onContextMenu"
+        @click="onClick"
+        ><LocalizeText :text="edge.label" />
+      </text>
+      <text :x="center.x" :y="center.y"><LocalizeText :text="edge.label" /> </text>
+    </BaseInterpolate>
   </g>
 </template>
 
@@ -310,7 +309,9 @@ function onContextMenu(e) {
   }
 
   path {
-    transition: all var(--transition);
+    transition:
+      color var(--transition),
+      opacity var(--transition);
 
     &.edit {
       opacity: 0;

@@ -3,9 +3,11 @@ import { ref, watch } from 'vue'
 import { interpolate } from 'd3-interpolate'
 import BezierEasing from 'bezier-easing'
 import isEqual from 'lodash.isequal'
+import { transition } from '@/assets/js/style'
+
 const initial = defineProps({
   props: Object,
-  duration: { type: Number, default: 500 },
+  duration: { type: Number, default: transition },
   delay: { type: Number, default: 0 }
 })
 const props = ref(initial.props)

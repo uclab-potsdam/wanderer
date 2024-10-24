@@ -174,6 +174,7 @@ function initGraph(duration, previous) {
   } else {
     allocations.value = computeAllocations(id.value)
     zoomToCenter(layoutStore.offset, duration)
+    // zoomToBounds(bounds.value, duration)
   }
 }
 
@@ -231,6 +232,7 @@ function zoomToCenter({ x, y }, duration = 0) {
       zoomBehaviour.value.transform,
       zoomIdentity
         .translate(zoomElementDimensions.width / 2, zoomElementDimensions.height / 2)
+        .scale(1)
         .translate(-x, -y)
     )
 }
@@ -524,7 +526,7 @@ function screenToCoordinates(screen) {
   &.initializing {
     .nodes-enter-active,
     .edges-enter-active {
-      transition: opacity var(--transition);
+      transition: opacity 0s;
     }
   }
 }

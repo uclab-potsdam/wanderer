@@ -1,40 +1,125 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, Transition, watch } from 'vue'
 import { useDataStore } from '@/stores/data'
-import { getContentWidth } from '@/assets/js/utils'
+import { getElementWidth, setLayout } from '@/assets/js/utils'
 import LocalizeText from './LocalizeText.vue'
 import { useRoute } from 'vue-router'
+import HorizontalSlider from './HorizontalSlider.vue'
+import GraphNodeGraph from './GraphNodeGraph.vue'
+import { useSettingsStore } from '@/stores/settings'
+import { useLayoutStore } from '@/stores/layout'
 
 const route = useRoute()
 const props = defineProps({
   node: Object,
-  id: String
+  id: String,
+  occurances: Object,
+  position: Object
 })
 
 const dataStore = useDataStore()
+const settingsStore = useSettingsStore()
 
 const el = ref(null)
 
 const width = ref(null)
+const height = ref(null)
+
+const animateTextAlign = ref(false)
+const transformLabel = ref(null)
+const transformClass = ref(null)
 
 const nodeClass = computed(() => dataStore.data.nodes[props.node.class]?.label)
 
 const detail = computed(() => route.params.id === props.id)
 
 onMounted(() => {
-  width.value = !detail.value && getContentWidth(el)
+  // console.log(getContentWidth(el))
+  updateLayout()
+  // width.value = !detail.value && getContentWidth(el)
 })
+
+watch(detail, (detail) => {
+  // nextTick(() => updateLayout(detail ? 0 : 1))
+
+  if (detail) {
+    animateTextAlign.value = true
+  }
+  const labelOffset = (getElementWidth(el.value.querySelector('.label')) - 250) / 2
+  transformLabel.value = {
+    margin: `0 ${-labelOffset}px 0 ${labelOffset}px`
+  }
+  const classOffset = (getElementWidth(el.value.querySelector('.class')) - 250) / 2
+  transformClass.value = {
+    margin: `0 ${-classOffset}px 0 ${classOffset}px`
+  }
+
+  nextTick(() => {
+    updateLayout(detail ? 0 : 1)
+    if (!detail) {
+      animateTextAlign.value = true
+      transformLabel.value = null
+      transformClass.value = null
+    }
+
+    // transformLabel.value = null
+  })
+})
+
+watch(
+  () => settingsStore.lang,
+  () => nextTick(() => updateLayout())
+)
 
 defineExpose({
   el
 })
+
+function updateLayout(endOffset) {
+  const layout = setLayout(el, props.id, props.position, null, endOffset)
+  height.value = `${layout.height}px`
+}
+
+function onTransitionend(e) {
+  console.log(e.propertyName)
+  if (e.propertyName === 'margin-left') {
+    animateTextAlign.value = false
+    transformLabel.value = null
+    transformClass.value = null
+  }
+}
 </script>
 
 <template>
-  <div class="entity" ref="el" :style="{ width }" :class="{ detail }">
-    <span class="text"><LocalizeText :text="node.label" /></span>
+  <div class="entity" ref="el" :style="{ width, height }" :class="{ detail }">
+    <span
+      class="label"
+      :class="{ 'animate-text-align': animateTextAlign }"
+      :style="transformLabel"
+      @transitionend="onTransitionend"
+      ><LocalizeText :text="node.label"
+    /></span>
     <br v-if="nodeClass" />
-    <span class="class" v-if="nodeClass"><LocalizeText :text="nodeClass" /></span>
+    <span
+      class="class"
+      v-if="nodeClass"
+      :class="{ 'animate-text-align': animateTextAlign }"
+      :style="transformClass"
+      ><LocalizeText :text="nodeClass"
+    /></span>
+    <Transition name="stories">
+      <HorizontalSlider v-if="detail" class="occurances" @wheel.stop :no-arrows="animateTextAlign">
+        <RouterLink
+          class="occurance"
+          @click.stop
+          v-for="occurance in occurances"
+          :key="occurance.id"
+          :to="{ name: 'graph', params: { type: 'graph', id: occurance.id } }"
+        >
+          <GraphNodeGraph :id="occurance.id" :node="occurance" class="compact"></GraphNodeGraph>
+        </RouterLink>
+      </HorizontalSlider>
+    </Transition>
   </div>
 </template>
 
@@ -42,13 +127,24 @@ defineExpose({
 .entity {
   font-size: var(--font-size-small);
   box-sizing: content-box;
-  max-width: 200px;
-  width: max-content;
+  width: 250px;
+  /* width: max-content; */
   padding: var(--spacing-half);
   --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
   color: var(--color-text);
+  border-radius: var(--border-radius);
+
+  transition:
+    height var(--transition),
+    background var(--transition),
+    text-align var(--transition) var(--transition);
 
   text-align: center;
+
+  &:has(.animate-text-align),
+  &:not(.detail) {
+    overflow: hidden;
+  }
 
   &.hide {
     opacity: 0.2;
@@ -93,7 +189,23 @@ defineExpose({
     color: var(--color-text);
   }
 
-  .text {
+  /* .label,
+  .class {
+    text-align: center;
+
+    &.left-align {
+      text-align: left;
+    }
+  } */
+
+  .label,
+  .class {
+    &.animate-text-align {
+      transition: margin var(--transition);
+    }
+  }
+
+  .label {
     /* font-weight: 900; */
     font: var(--serif);
     font-weight: bold;
@@ -108,9 +220,47 @@ defineExpose({
   }
 
   &.detail {
-    width: 300px;
+    max-width: none;
+    width: 250px !important;
     background-color: var(--graph-accent);
+
+    &:not(:has(.animate-text-align)) {
+      text-align: left;
+    }
+  }
+
+  .occurances {
     text-align: left;
+    margin-top: var(--spacing-half);
+    .occurance {
+      text-decoration: none;
+    }
+
+    &.stories-leave-active {
+      transition: all var(--transition);
+    }
+    &.stories-leave-to {
+      /* background-color: aqua; */
+    }
   }
 }
+/* @keyframes animate-text-align {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+    text-align: center;
+  }
+
+  50% {
+    opacity: 0;
+    text-align: left;
+  }
+
+  100% {
+    opacity: 1;
+  }
+} */
 </style>

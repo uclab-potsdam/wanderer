@@ -5,6 +5,10 @@
   margin: 0;
 }
 
+html {
+  background: var(--color-background);
+}
+
 button {
   font: inherit;
   color: inherit;

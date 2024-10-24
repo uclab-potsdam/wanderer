@@ -1,9 +1,18 @@
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import {
+  ref,
+  computed,
+  watch,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+  triggerRef,
+  onUpdated
+} from 'vue'
 
 import ContextMenuList from './ContextMenuList.vue'
 
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { useLayoutStore } from '@/stores/layout'
 import { useDisplayStore } from '@/stores/display'
@@ -16,6 +25,9 @@ import { useEditStore } from '@/stores/edit'
 
 import { getComponentForType } from '@/assets/js/nodes'
 import { useSettingsStore } from '@/stores/settings'
+import BaseInterpolate from './BaseInterpolate.vue'
+
+import { transition } from '@/assets/js/style'
 
 const props = defineProps({
   id: String,
@@ -25,6 +37,7 @@ const props = defineProps({
 })
 
 const router = useRouter()
+const route = useRoute()
 const dataStore = useDataStore()
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
@@ -39,9 +52,17 @@ const editStore = useEditStore()
 const componentRef = ref(null)
 
 const node = computed(() => dataStore.data.nodes[props.id])
-const positioning = computed(() => ({
-  transform: `translate(${props.position.x + layoutStore.offset.x}px, ${props.position.y + layoutStore.offset.y}px) translate(-50%, -50%)`
-}))
+const positioning = computed(() => {
+  // nextTick(() => {
+  //   if (route.params.id === props.id) {
+  //     console.log('triggered')
+  //   }
+  //   triggerRef(positioning)
+  // })
+  return {
+    transform: `translate(${props.position.x + layoutStore.offset.x}px, ${props.position.y + layoutStore.offset.y}px) translate(-50%, -50%)`
+  }
+})
 
 const component = computed(() => getComponentForType(node.value.type))
 
@@ -64,12 +85,13 @@ const locked = computed(() => dataStore.data.nodes?.[props.graph]?.allocations?.
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.contentRect) {
-      layoutStore.nodes[props.id] = {
-        width: entry.contentRect.width,
-        height: entry.contentRect.height,
-        x: props.position.x,
-        y: props.position.y
-      }
+      // console.log('resizing')
+      //   layoutStore.nodes[props.id] = {
+      //     width: entry.contentRect.width,
+      //     height: entry.contentRect.height,
+      //     x: props.position.x,
+      //     y: props.position.y
+      //   }
     }
   }
 })
@@ -228,42 +250,65 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <component
-    :is="component"
-    ref="componentRef"
-    :id="id"
-    class="node"
-    :class="[
-      display,
-      view,
-      `mode-${editStore.mode}`,
-      {
-        'user-active': !activityStore.inactivityShort || !videoStore.playing,
-        edit: settingsStore.edit,
-        locked,
-        exact: displayStore.exactMarker?.states?.hasOwnProperty(id)
-      }
-    ]"
-    :style="positioning"
-    :node="node"
-    :occurances="occurances"
-    @click="onClick"
-    @dblclick.stop="onDoubleClick"
-    @mousedown="onMouseDown"
-    @contextmenu="onContextMenu"
-  />
+  <div class="node-wrapper">
+    <div :style="positioning">
+      <!-- <BaseInterpolate
+    :props="{
+      positioning
+    }"
+    :delay="0"
+    :duration="transition"
+    v-slot="value"
+  > -->
+      <component
+        :is="component"
+        ref="componentRef"
+        :id="id"
+        class="node"
+        :class="[
+          display,
+          view,
+          `mode-${editStore.mode}`,
+          {
+            'user-active': !activityStore.inactivityShort || !videoStore.playing,
+            edit: settingsStore.edit,
+            locked,
+            exact: displayStore.exactMarker?.states?.hasOwnProperty(id)
+          }
+        ]"
+        :no-style="positioning"
+        :node="node"
+        :occurances="occurances"
+        :position="position"
+        @click="onClick"
+        @dblclick.stop="onDoubleClick"
+        @mousedown="onMouseDown"
+        @contextmenu="onContextMenu"
+      />
+      <!-- </BaseInterpolate> -->
+    </div>
+  </div>
 </template>
 
 <style scoped>
+.node-wrapper > div {
+  position: absolute;
+  transition:
+    transform var(--transition),
+    opacity var(--transition),
+    filter var(--transition);
+}
 .node {
   user-select: none;
   position: absolute;
   transform: translate(-50%, -50%);
+  /* position: absolute;
+  transform: translate(-50%, -50%);
   transition:
     transform var(--transition),
     opacity var(--transition),
-    filter var(--transition),
-    width var(--transition);
+    filter var(--transition); */
+  /* width var(--transition); */
 
   &.edit {
     &:hover {

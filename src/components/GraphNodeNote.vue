@@ -25,12 +25,12 @@ defineExpose({ el })
 
 <template>
   <div class="note" ref="el" :style="{ ...color, width }">
-    <span class="text measure-width">{{ text }}</span>
+    <!-- <span class="text measure-width">{{ text }}</span> -->
   </div>
 </template>
 
 <style scoped>
-.note {
+/* .note {
   pointer-events: none;
   &.edit {
     pointer-events: initial;
@@ -44,7 +44,6 @@ defineExpose({ el })
   hyphens: auto;
 
   border: 1px dashed color-mix(in lab, var(--graph-accent), var(--color-background) 70%);
-  /* padding: var(--spacing-half); */
   border-radius: var(--spacing-quart);
 
   font-size: 14px;
@@ -57,6 +56,6 @@ defineExpose({ el })
     border: 1px dashed color-mix(in lab, var(--graph-accent), var(--color-background) 70%);
     padding: var(--spacing-half);
     border-radius: var(--spacing-quart);
-  }
-}
+  } 
+} */
 </style>

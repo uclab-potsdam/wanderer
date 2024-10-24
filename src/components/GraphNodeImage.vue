@@ -39,7 +39,7 @@ defineExpose({
   /* background: var(--graph-accent); */
 
   img {
-    background: var(--color-background);
+    /* background: var(--color-background); */
     /* mix-blend-mode: hard-light; */
     filter: grayscale(1);
     display: block;
