@@ -17,6 +17,7 @@ import LocalizeText from './LocalizeText.vue'
 
 import { spacing } from '@/assets/js/style'
 import { useRoute } from 'vue-router'
+import { transition } from '@/assets/js/style'
 
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
@@ -255,6 +256,7 @@ function onContextMenu(e) {
         ...center
       }"
       :delay="0"
+      :duration="settingsStore.edit ? 0 : transition"
       v-slot="value"
     >
       <!-- <path :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" /> -->

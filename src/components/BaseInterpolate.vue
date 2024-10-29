@@ -29,8 +29,10 @@ watch(
 )
 
 function tick(t) {
+  if (initial.duration === 0) return (props.value = { ...initial.props })
   if (start === null) start = t
   const delta = Math.max(Math.min((t - start - initial.delay) / initial.duration, 1), 0)
+  console.log(delta)
   props.value = { ...interpolation(ease(delta)) }
   if (delta < 1) requestAnimationFrame(tick)
 }
