@@ -46,22 +46,53 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const settingsStore = useSettingsStore()
+  console.log(from)
   const dataStore = useDataStore()
-
-  if (to.name === 'open') {
-    if (settingsStore.edit) dataStore.open(to.params.id)
-    // dataStore.data = null
-    return next({ name: 'list', params: { type: 'graph' } })
-  }
 
   const videoStore = useVideoStore()
   if (dataStore.data === null && ['list', 'graph', 'video'].includes(to.name)) {
     await dataStore.init()
   }
+
+  if (from.name === 'graph') {
+    if (dataStore.data.nodes?.[from.params?.id]?.style) {
+      Object.keys(dataStore.data.nodes?.[from.params?.id]?.style).forEach((property) => {
+        document.querySelector(':root').style.removeProperty(property)
+      })
+    }
+
+    if (from.params.type === 'entity') {
+      document.querySelector(':root').style.removeProperty('--color-background')
+      document.querySelector(':root').style.removeProperty('--color-text')
+      document.querySelector(':root').style.removeProperty('--color-edge')
+      document.querySelector(':root').style.removeProperty('--colorBackground')
+    }
+  }
+
   if (to.name === 'graph') {
     dataStore.nodeId = to.params.id
+
+    if (dataStore.data.nodes?.[to.params?.id]?.style) {
+      Object.entries(dataStore.data.nodes?.[to.params?.id]?.style).forEach((entry) => {
+        document.querySelector(':root').style.setProperty(...entry)
+      })
+    } else {
+      if (to.params.type === 'entity') {
+        document
+          .querySelector(':root')
+          .style.setProperty('--color-background', 'var(--color-network-background)')
+        document
+          .querySelector(':root')
+          .style.setProperty('--color-text', 'var(--color-network-text)')
+        document
+          .querySelector(':root')
+          .style.setProperty('--color-edge', 'var(--color-network-edge)')
+
+        document.querySelector(':root').style.setProperty('--colorBackground', 'red')
+      }
+    }
   }
+
   if (to.params.type === 'graph' && to.name === 'graph') {
     videoStore.graphId = to.params.id
   }

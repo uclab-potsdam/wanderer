@@ -9,7 +9,7 @@ import cloneDeep from 'lodash.clonedeep'
 export const useDataStore = defineStore('data', () => {
   const configStore = useConfigStore()
   const settingsStore = useSettingsStore()
-  const data = ref({ nodes: [] })
+  const data = ref(null)
   const nodeId = ref(null)
 
   async function init() {
@@ -58,8 +58,7 @@ export const useDataStore = defineStore('data', () => {
 
   watch(
     () => settingsStore.mode,
-    () => init(),
-    { immediate: true }
+    () => init()
   )
 
   function storeData(data) {
@@ -134,7 +133,6 @@ export const useDataStore = defineStore('data', () => {
     graphs,
     nodeId,
     nodeOccurances,
-    open,
     storeData,
     deleteNode,
     createNode,

@@ -32,18 +32,10 @@ const resizeObserver = new ResizeObserver((entries) => {
 })
 
 const enableArrowLeft = computed(() => scrollLeft.value > 35 && !props.noArrows)
-const enableArrowRight = computed(() => {
-  // console.log(
-  //   scrollLeft.value,
-  //   wrapperScrollWidth.value - wrapperVisibleWidth.value - 35,
-  //   wrapperScrollWidth.value,
-  //   wrapperVisibleWidth.value
-  // )
-  console.log(props.noArrows)
-  return (
+const enableArrowRight = computed(
+  () =>
     scrollLeft.value < wrapperScrollWidth.value - wrapperVisibleWidth.value - 35 && !props.noArrows
-  )
-})
+)
 
 function onScroll() {
   scrollLeft.value = wrapper.value.scrollLeft ?? 0
