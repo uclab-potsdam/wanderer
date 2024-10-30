@@ -34,9 +34,7 @@ const nodeClass = computed(() => dataStore.data.nodes[props.node.class]?.label)
 const detail = computed(() => route.params.id === props.id)
 
 onMounted(() => {
-  // console.log(getContentWidth(el))
   updateLayout()
-  // width.value = !detail.value && getContentWidth(el)
 })
 
 watch(detail, (detail) => {

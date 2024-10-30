@@ -1,18 +1,22 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useHelperStore } from '@/stores/helper'
 import { useVideoStore } from '@/stores/video'
 
 import ControlsPlay from '~icons/base/ControlsPlay'
 import IconPlaying from '@/components/IconPlaying.vue'
+import { useSettingsStore } from '@/stores/settings'
+import { setLayout } from '@/assets/js/utils'
 
 const props = defineProps({
   node: Object,
-  id: String
+  id: String,
+  position: Object
 })
 
 const helperStore = useHelperStore()
 const videoStore = useVideoStore()
+const settingsStore = useSettingsStore()
 
 const textElement = ref(null)
 
@@ -32,6 +36,20 @@ const autoplay = computed(() => {
   if (remaining > 5) return
   return { '--autoplay': `${100 - remaining * 20}%` }
 })
+
+onMounted(() => {
+  updateLayout()
+})
+
+watch(
+  () => settingsStore.lang,
+  () => nextTick(() => updateLayout())
+)
+
+function updateLayout(endOffset) {
+  setLayout(el, props.id, props.position, null, endOffset)
+  console.log()
+}
 
 defineExpose({
   el

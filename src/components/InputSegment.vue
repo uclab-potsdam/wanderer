@@ -32,7 +32,6 @@ function toggle(option) {
 }
 
 function onChange(option) {
-  console.log('change', option)
   emit('update:modelValue', option.value === undefined ? option : option.value)
   isExpanded.value = false
 }
