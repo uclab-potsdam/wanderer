@@ -1,48 +1,55 @@
 <script setup>
-import { useConfigStore } from '@/stores/config'
-import { useHelperStore } from '@/stores/helper'
-import { useSettingsStore } from '@/stores/settings'
+import { computed } from 'vue'
 
-defineProps({
+const props = defineProps({
   modelValue: {
-    type: Object,
-    default: () => ({})
+    type: Array,
+    default: () => []
   },
   label: String
 })
-defineEmits(['update:modelValue'])
-const settingsStore = useSettingsStore()
-const helperStore = useHelperStore()
-const configStore = useConfigStore()
+const emit = defineEmits(['update:modelValue'])
 
 const id = crypto.randomUUID()
+
+const proxy = computed({
+  // getter
+  get() {
+    return [...props.modelValue, '']
+  },
+  // setter
+  set(value) {
+    console.log('huhu')
+    emit(
+      'update:modelValue',
+      value.filter((v) => v.trim() !== '')
+    )
+  }
+})
+
+function setValue(index, value) {
+  console.log(index, value)
+  // proxy.value[index] = value
+  proxy.value = proxy.value.toSpliced(index, 1, value)
+}
 </script>
 <template>
   <div class="input-text">
     <span class="labels">
       {{ label }}
       <span class="languages">
-        <label v-for="lang in configStore.languages" :key="lang" :for="`${id}-${lang}`">
-          {{ lang }}
+        <label v-for="(item, i) in proxy" :key="i" :for="`${id}-${i}`">
+          {{ i }}
         </label>
-        <label :for="`${id}-universal`"> ♥ </label>
       </span>
     </span>
     <input
-      v-for="lang in configStore.languages"
-      :key="lang"
-      :id="`${id}-${lang}`"
+      v-for="(value, i) in proxy"
+      :key="i"
+      :id="`${id}-${i}`"
       type="text"
-      :value="modelValue?.[lang]"
-      :placeholder="helperStore.localize(modelValue)"
-      @change="$emit('update:modelValue', { ...modelValue, [lang]: $event.target.value })"
-    />
-    <input
-      :id="`${id}-universal`"
-      type="text"
-      :value="modelValue?.universal"
-      :placeholder="helperStore.localize(modelValue)"
-      @change="$emit('update:modelValue', { ...modelValue, universal: $event.target.value })"
+      :value="value"
+      @input="setValue(i, $event.target.value)"
     />
   </div>
 </template>

@@ -5,6 +5,7 @@ import { computed } from 'vue'
 import InputText from './InputText.vue'
 import InputSelectNode from './InputSelectNode.vue'
 import InputDictionary from './InputDictionary.vue'
+import InputMultiString from './InputMultiString.vue'
 import ListWrapper from './ListWrapper.vue'
 
 const colors = [
@@ -63,6 +64,12 @@ function setValue(item, key, value) {
     />
     <InputDictionary
       v-else-if="field.type === 'dictionary'"
+      :label="field.label"
+      :model-value="field.value"
+      @update:modelValue="($event) => setValue(modalStore.item, field.key, $event)"
+    />
+    <InputMultiString
+      v-else-if="field.type === 'multi-string'"
       :label="field.label"
       :model-value="field.value"
       @update:modelValue="($event) => setValue(modalStore.item, field.key, $event)"

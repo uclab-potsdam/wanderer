@@ -15,6 +15,8 @@ export const useSettingsStore = defineStore('settings', () => {
   const mode = useStorage('mode', 'live')
   const modeOptions = ['live', 'edit', 'preview']
 
+  const exhibition = false
+
   watch(edit, (edit) => {
     if (!edit) editStore.exit()
   })
@@ -32,5 +34,5 @@ export const useSettingsStore = defineStore('settings', () => {
     { immediate: true }
   )
 
-  return { lang, pictureInPicture, edit, server, db, mode, modeOptions }
+  return { lang, pictureInPicture, edit, server, db, mode, modeOptions, exhibition }
 })

@@ -2,8 +2,8 @@ export default {
   entity: {
     label: 'dictionary',
     class: 'entity',
-    description: 'dictionary'
-    // url: 'string'
+    description: 'dictionary',
+    url: 'multi-string'
   },
   note: {
     text: 'dictionary'

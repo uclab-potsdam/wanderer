@@ -12,6 +12,10 @@ const props = defineProps({
   separator: {
     type: String,
     default: '; '
+  },
+  strict: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -21,7 +25,7 @@ function transform(d) {
   if (typeof d === 'string') return d
   if (d === null) return
   if (Array.isArray(d)) return d.map((d) => transform(d)).join(props.separator)
-  if (typeof d === 'object') return helperStore.localize(d)
+  if (typeof d === 'object') return helperStore.localize(d, props.strict)
 }
 </script>
 

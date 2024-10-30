@@ -59,6 +59,7 @@ defineExpose({
 <template>
   <div class="node-graph" ref="el" :style="{ ...color, ...autoplay }">
     <img v-if="image" :src="image" draggable="false" />
+    <div v-else class="image-placeholder" />
     <div class="icon">
       <ControlsPlay v-if="!playing" />
       <IconPlaying v-else />
@@ -92,7 +93,8 @@ defineExpose({
   outline-offset: 2px;
   position: relative;
 
-  img {
+  img,
+  .image-placeholder {
     width: 250px;
     height: 150px;
     /* position: absolute; */
@@ -102,6 +104,10 @@ defineExpose({
     filter: grayscale(1) contrast(1.2);
     /* mix-blend-mode: hard-light; */
     /* mix-blend-mode: luminosity; */
+  }
+
+  .image-placeholder {
+    background-color: var(--color-text);
   }
 
   > .icon {

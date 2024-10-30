@@ -21,6 +21,9 @@
   --serif: var(--regular) var(--font-size) / 1.25 'Redaction',
   sans-serif;
 
+  --serif-small: var(--regular) var(--font-size-small) / 1.25 'Redaction',
+  sans-serif;
+
   /* Transitions */
   --transition: 1000ms;
   --ui-transition: 200ms;

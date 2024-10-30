@@ -9,7 +9,8 @@ export const useHelperStore = defineStore('helper', () => {
     return expand(path)
   }
 
-  function localize(text) {
+  function localize(text, strict) {
+    if (strict) return text?.[settingsStore.lang]
     return text?.[settingsStore.lang] || text?.universal || text?.en
   }
 

@@ -8,6 +8,7 @@ import HorizontalSlider from './HorizontalSlider.vue'
 import GraphNodeGraph from './GraphNodeGraph.vue'
 import { useSettingsStore } from '@/stores/settings'
 import { useLayoutStore } from '@/stores/layout'
+import { useHelperStore } from '@/stores/helper'
 
 const route = useRoute()
 const props = defineProps({
@@ -19,6 +20,7 @@ const props = defineProps({
 
 const dataStore = useDataStore()
 const settingsStore = useSettingsStore()
+const helperStore = useHelperStore()
 
 const el = ref(null)
 
@@ -33,6 +35,17 @@ const nodeClass = computed(() => dataStore.data.nodes[props.node.class]?.label)
 
 const detail = computed(() => route.params.id === props.id)
 
+const description = computed(() => {
+  if (!detail.value) return
+  return helperStore.localize(props.node.description, true)
+})
+const urls = computed(() => {
+  if (!detail.value || props.node.url == null) return
+  return props.node.url.map((url) => ({
+    full: url,
+    domain: new URL(url).hostname.replace(/^www\./, '')
+  }))
+})
 onMounted(() => {
   updateLayout()
 })
@@ -79,7 +92,6 @@ function updateLayout(endOffset) {
 }
 
 function onTransitionend(e) {
-  console.log(e.propertyName)
   if (e.propertyName === 'margin-left') {
     animateTextAlign.value = false
     transformLabel.value = null
@@ -105,6 +117,14 @@ function onTransitionend(e) {
       :style="transformClass"
       ><LocalizeText :text="nodeClass"
     /></span>
+    <div v-if="description" class="description">
+      {{ description }}
+    </div>
+    <div v-if="urls && !settingsStore.exhibition" class="urls">
+      <span v-for="(url, i) in urls" :key="i">
+        <a :href="url.full"> {{ url.domain }} </a>&nbsp;
+      </span>
+    </div>
     <Transition name="stories">
       <HorizontalSlider v-if="detail" class="occurances" @wheel.stop :no-arrows="animateTextAlign">
         <RouterLink
@@ -211,6 +231,21 @@ function onTransitionend(e) {
 
   .class {
     font-size: var(--font-size-small);
+  }
+
+  .description {
+    text-align: left;
+    margin-top: var(--spacing-quart);
+    font: var(--serif-small);
+    hyphens: auto;
+  }
+
+  .urls {
+    text-align: left;
+    margin-top: var(--spacing-quart);
+    a {
+      color: inherit;
+    }
   }
 
   .inner {
