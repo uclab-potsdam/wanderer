@@ -40,7 +40,7 @@ defineExpose({
 
 <template>
   <div class="node-graph" ref="el" :style="{ ...color, ...autoplay }">
-    <img :src="image" draggable="false" />
+    <img v-if="image" :src="image" draggable="false" />
     <div class="icon">
       <ControlsPlay v-if="!playing" />
       <IconPlaying v-else />
@@ -110,7 +110,7 @@ defineExpose({
       box-decoration-break: clone;
 
       > span {
-        mix-blend-mode: lighten;
+        /* mix-blend-mode: lighten; */
       }
     }
 
@@ -134,7 +134,7 @@ defineExpose({
 
   &.compact {
     justify-content: flex-end;
-    height: 300px;
+    height: 150px;
     width: 250px;
     img {
       height: 300px;
