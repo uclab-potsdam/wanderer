@@ -18,6 +18,7 @@ import LocalizeText from './LocalizeText.vue'
 import { spacing } from '@/assets/js/style'
 import { useRoute } from 'vue-router'
 import { transition } from '@/assets/js/style'
+import { getPathLengthLookup } from 'svg-getpointatlength'
 
 const layoutStore = useLayoutStore()
 const displayStore = useDisplayStore()
@@ -160,11 +161,10 @@ const d = computed(() => {
   // return `M${points.value[0][0]},${points.value[0][1]} L${points.value[1][0]},${points.value[1][1]}`
 })
 const center = computed(() => {
-  if (points.value == null) return []
-  return {
-    x: (points.value[0].x + points.value[points.value.length - 1].x) / 2,
-    y: (points.value[0].y + points.value[points.value.length - 1].y) / 2
-  }
+  if (d.value == null) return []
+  let pathLengthLookup = getPathLengthLookup(d.value)
+  let totalLength = pathLengthLookup.totalLength
+  return pathLengthLookup.getPointAtLength(totalLength / 2)
 })
 
 const id = computed(() => props.edge.nodes.join('-'))

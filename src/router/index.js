@@ -46,7 +46,6 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  console.log(from)
   const dataStore = useDataStore()
 
   const videoStore = useVideoStore()
