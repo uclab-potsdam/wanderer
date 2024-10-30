@@ -119,7 +119,7 @@ defineExpose({
     /* margin-left: -1px; */
     /* background: var(--color-background); */
     background: var(--color-accent);
-    color: var(--color-background);
+    color: white;
   }
 
   .text {
@@ -129,16 +129,16 @@ defineExpose({
     margin-top: var(--spacing-half);
 
     > span {
-      background: var(--color-text);
+      background: black;
       padding: var(--spacing-half) calc(var(--spacing) * 0.75);
       box-decoration-break: clone;
 
       > span {
-        /* mix-blend-mode: lighten; */
+        mix-blend-mode: lighten;
       }
     }
 
-    color: var(--color-background);
+    color: white;
     /* --background: color-mix(
       in lab,
       color-mix(in lab, var(--graph-accent), var(--color-text) 60%),
@@ -156,21 +156,21 @@ defineExpose({
     /* backdrop-filter: var(--blur); */
   }
 
-  &.compact {
-    justify-content: flex-end;
+  /* &.compact { */
+  justify-content: flex-end;
+  height: 150px;
+  width: 250px;
+  img {
     height: 150px;
-    width: 250px;
-    img {
-      height: 300px;
-      position: absolute;
-    }
-    > .icon {
-      background-color: var(--color-background);
-      color: var(--color-accent);
-    }
-    .text {
-      margin: var(--spacing-half) 0;
-    }
+    position: absolute;
   }
+  > .icon {
+    /* background-color: var(--color-background); */
+    /* color: var(--color-accent); */
+  }
+  .text {
+    margin: var(--spacing-half) 0;
+  }
+  /* } */
 }
 </style>
