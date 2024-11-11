@@ -43,6 +43,7 @@ const target = computed(() => {
       <div class="icon-wrapper">
         <IconBack v-if="videoStore.restoreState != null" class="pulse" />
         <IconNowhereToGo
+          class="index"
           v-else-if="
             route.name === 'graph' && route.params.type === 'graph' && dataStore.node?.index
           "
@@ -93,6 +94,13 @@ svg {
     .icon-wrapper {
       background-color: color-mix(in lab, var(--ui-accent), transparent 70%);
     }
+  }
+}
+
+a:has(.index) {
+  pointer-events: none;
+  .icon-wrapper {
+    opacity: 0.4;
   }
 }
 @keyframes pulse {

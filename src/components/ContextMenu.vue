@@ -42,7 +42,7 @@ const contextMenuStore = useContextMenuStore()
 
     position-area: right bottom;
     margin: -5px 0 0 0;
-    position-try-options:
+    position-try-fallbacks:
       flip-block,
       flip-inline,
       flip-block flip-inline;
