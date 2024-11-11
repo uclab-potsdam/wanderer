@@ -42,7 +42,11 @@ const target = computed(() => {
     <ListWrapper horizontal class="header-item">
       <div class="icon-wrapper">
         <IconBack v-if="videoStore.restoreState != null" class="pulse" />
-        <IconNowhereToGo v-else-if="route.params.type === 'graph' && dataStore.node?.index" />
+        <IconNowhereToGo
+          v-else-if="
+            route.name === 'graph' && route.params.type === 'graph' && dataStore.node?.index
+          "
+        />
         <IconHome v-else-if="route.params.type === 'graph' || route.name !== 'graph'" />
         <IconBack v-else />
       </div>
