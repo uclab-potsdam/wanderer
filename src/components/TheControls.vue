@@ -16,10 +16,12 @@ import SeperatorVerical from '~icons/base/SeperatorVertical'
 // import IconPlay from '~icons/base/IconPlay'
 
 import ControlsProgress from './ControlsProgress.vue'
+import { useRoute } from 'vue-router'
 
 const dataStore = useDataStore()
 const videoStore = useVideoStore()
 const settingsStore = useSettingsStore()
+const route = useRoute()
 
 const graph = computed(() => {
   return dataStore.data.nodes[videoStore.graphId]
@@ -46,7 +48,7 @@ function next() {
 
 <template>
   <section class="timeline" :class="{ edit: settingsStore.edit }" :style="color">
-    <template v-if="settingsStore.edit">
+    <template v-if="settingsStore.edit && route.name === 'graph'">
       <ListWrapper class="button-group" horizontal>
         <InputButton disable-padding>
           <ControlsPlay v-if="!playing" @click="videoStore.setPlaying = true" />

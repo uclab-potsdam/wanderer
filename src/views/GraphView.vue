@@ -44,7 +44,8 @@ const fullscreenGraph = computed(() => {
       <TheHeader />
       <TheControls />
       <TheToolbar v-if="settingsStore.edit" />
-      <TheFooter />
+      <TheFooter v-if="!settingsStore.edit" />
+      <TheFooter style="bottom: 70px" v-else />
     </div>
   </div>
   <!-- <ThePlayer width="450" v-if="!syncStore.hasPlayer" /> -->

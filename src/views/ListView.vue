@@ -1,12 +1,16 @@
 <script setup>
 import TheList from '@/components/TheList.vue'
 import TheHeader from '@/components/TheHeader.vue'
+import TheFooter from '@/components/TheFooter.vue'
+import TheControls from '@/components/TheControls.vue'
 </script>
 
 <template>
   <div class="list-view">
     <TheHeader />
     <TheList />
+    <TheFooter />
+    <TheControls />
   </div>
 </template>
 
