@@ -9,6 +9,7 @@ import TheControls from '@/components/TheControls.vue'
 import TheHeader from '@/components/TheHeader.vue'
 import TheToolbar from '@/components/TheToolbar.vue'
 import { computed } from 'vue'
+import TheFooter from '@/components/TheFooter.vue'
 
 const videoStore = useVideoStore()
 const settingsStore = useSettingsStore()
@@ -43,6 +44,7 @@ const fullscreenGraph = computed(() => {
       <TheHeader />
       <TheControls />
       <TheToolbar v-if="settingsStore.edit" />
+      <TheFooter />
     </div>
   </div>
   <!-- <ThePlayer width="450" v-if="!syncStore.hasPlayer" /> -->
