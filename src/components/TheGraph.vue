@@ -445,14 +445,15 @@ function screenToCoordinates(screen) {
       </g>
     </svg>
   </main>
-  <div class="tint" />
 </template>
 
 <style scoped>
 .graph {
-  grid-column: graph-start / graph-end;
-  grid-row: graph-start / graph-end;
-  position: relative;
+  /* grid-column: graph-start / graph-end;
+  grid-row: graph-start / graph-end; */
+  position: absolute;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 
   /* cursor: pointer; */
@@ -529,15 +530,5 @@ function screenToCoordinates(screen) {
       transition: opacity 0s;
     }
   }
-}
-.tint {
-  transition: all var(--transition);
-  /* position: absolute; */
-  grid-column: graph-start-x / graph-end-x;
-  grid-row: graph-start-y / graph-end-y;
-  background: var(--graph-accent);
-  opacity: 0.05;
-  pointer-events: none;
-  z-index: 5;
 }
 </style>

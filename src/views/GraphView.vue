@@ -8,23 +8,42 @@ import TheVideo from '@/components/TheVideo.vue'
 import TheControls from '@/components/TheControls.vue'
 import TheHeader from '@/components/TheHeader.vue'
 import TheToolbar from '@/components/TheToolbar.vue'
+import { computed } from 'vue'
 
 const videoStore = useVideoStore()
 const settingsStore = useSettingsStore()
 const route = useRoute()
+
+const fullscreenGraph = computed(() => {
+  return (
+    !videoStore.showVideo || !settingsStore.pictureInPicture || settingsStore.pictureInPictureVideo
+  )
+})
 </script>
 
 <template>
   <div
     class="graph-view"
-    :class="{ 'split-screen': videoStore.showVideo && !settingsStore.pictureInPicture }"
+    :class="{
+      'split-screen': videoStore.showVideo && !settingsStore.pictureInPicture,
+      'pip-graph':
+        videoStore.showVideo &&
+        settingsStore.pictureInPicture &&
+        !settingsStore.pictureInPictureVideo
+    }"
     @wheel.prevent
   >
-    <TheHeader v-if="!route.meta.hideMenuBar" />
-    <TheGraph />
-    <TheVideo v-if="videoStore.showVideo" />
-    <TheControls />
-    <TheToolbar v-if="settingsStore.edit" />
+    <TheVideo class="video" v-if="videoStore.showVideo" :class="{ fullscreen: !fullscreenGraph }" />
+    <TheGraph class="graph" :class="{ fullscreen: fullscreenGraph }" />
+    <div
+      class="toggle-pip"
+      @click="settingsStore.pictureInPictureVideo = !settingsStore.pictureInPictureVideo"
+    ></div>
+    <div class="interface-layer fullscreen">
+      <TheHeader />
+      <TheControls />
+      <TheToolbar v-if="settingsStore.edit" />
+    </div>
   </div>
   <!-- <ThePlayer width="450" v-if="!syncStore.hasPlayer" /> -->
   <!-- <TheRelatedGraphs /> -->
@@ -38,37 +57,94 @@ const route = useRoute()
   grid-row: 1 / -1;
 
   max-height: 100vh;
+  position: relative;
   display: grid;
 
   grid-template-columns:
-    [graph-start controls-start header-start] 1fr
-    [video-start] 320px
-    [video-end] var(--spacing-half)
-    [graph-end controls-end header-end];
+    [main-start] 1fr
+    [header-end];
 
   grid-template-rows:
-    [graph-start header-start] var(--spacing-double)
-    [header-end]
+    [main-start]
     1fr
-    [video-start]
-    180px
-    [video-end] var(--spacing-half)
-    [controls-start] var(--spacing-quad)
-    [graph-end controls-end];
+    [controls-end];
+
+  .fullscreen {
+    grid-column: main-start / main-end;
+    grid-row: main-start / main-end;
+    position: relative;
+  }
+
+  .video:not(.fullscreen),
+  .graph:not(.fullscreen),
+  .toggle-pip {
+    position: absolute;
+    top: var(--spacing-half);
+    right: var(--spacing-half);
+    width: min(calc(50vw - var(--spacing) * 2), 360px);
+    height: calc(min(calc(50vw - var(--spacing) * 2), 360px) / (16 / 9));
+    border-radius: var(--border-radius);
+    z-index: 1;
+  }
+
+  .graph {
+    &:not(.fullscreen) {
+      background: var(--color-background);
+    }
+  }
+
+  .toggle-pip {
+    /* transition: backdrop-filter var(--ui-transition);
+    &:hover {
+      backdrop-filter: var(--blur);
+    } */
+  }
+
+  .interface-layer {
+    pointer-events: none;
+    > * {
+      pointer-events: initial;
+    }
+  }
+
+  .video {
+  }
 
   &.split-screen {
     --font-size-subtitle: max(2vw, 40px);
     grid-template-columns:
-      [graph-start controls-start header-start] 1fr
-      [graph-end controls-end video-start header-end] 1fr
-      [video-end];
+      [main-start video-start]
+      1fr
+      [main-end video-end];
 
     grid-template-rows:
-      [graph-start video-start header-start] var(--spacing-double)
-      [header-end]
-      1fr
-      [controls-start] var(--spacing-double)
-      [graph-end video-end controls-end];
+      [video-start] min(calc(100vw / (16 / 9)), 50vh)
+      [video-end main-start] 1fr
+      [main-end];
+
+    @media (min-aspect-ratio: 3/2) {
+      grid-template-columns:
+        [main-start] 1fr
+        [main-end video-start] 1fr
+        [video-end];
+
+      grid-template-rows:
+        [main-start video-start]
+        1fr
+        [main-end video-end];
+    }
+
+    .video {
+      z-index: 1;
+      grid-column: video-start / video-end;
+      grid-row: video-start / video-end;
+      position: unset;
+      top: unset;
+      right: unset;
+      width: unset;
+      height: unset;
+      border-radius: unset;
+    }
 
     /* grid-template-rows:
       [graph-start header-start] var(--spacing-double)

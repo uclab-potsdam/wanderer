@@ -6,6 +6,7 @@ import InputText from './InputText.vue'
 import InputSelectNode from './InputSelectNode.vue'
 import InputDictionary from './InputDictionary.vue'
 import InputMultiString from './InputMultiString.vue'
+import InputBoolean from './InputBoolean.vue'
 import ListWrapper from './ListWrapper.vue'
 
 const colors = [
@@ -73,6 +74,13 @@ function setValue(item, key, value) {
       :label="field.label"
       :model-value="field.value"
       @update:modelValue="($event) => setValue(modalStore.item, field.key, $event)"
+    />
+    <InputBoolean
+      v-else-if="field.type === 'boolean'"
+      :label="field.label"
+      :model-value="field.value"
+      @update:modelValue="($event) => setValue(modalStore.item, field.key, $event)"
+      :options="colors"
     />
     <InputSelectNode
       v-else-if="field.type === 'color'"

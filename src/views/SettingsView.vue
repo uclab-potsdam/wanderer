@@ -13,17 +13,13 @@ const dataStore = useDataStore()
     <TheHeader />
     <main>
       <ul>
-        <!-- <li>
-          <span>language</span>
-          <select v-model="settingsStore.lang">
-            <option v-for="lang in configStore.languages" :key="lang">
-              {{ lang }}
-            </option>
-          </select>
-        </li> -->
+        <li>
+          <span>enable editing</span>
+          <input type="checkbox" v-model="settingsStore.enableEditing" />
+        </li>
         <li>
           <span>mode</span>
-          <select v-model="settingsStore.mode">
+          <select v-model="settingsStore.mode" :disabled="!settingsStore.enableEditing">
             <option v-for="option in settingsStore.modeOptions" :key="option">
               {{ option }}
             </option>
@@ -32,6 +28,18 @@ const dataStore = useDataStore()
         <li>
           <label for="pip">picture in picture</label>
           <input id="pip" type="checkbox" v-model="settingsStore.pictureInPicture" />
+        </li>
+        <li>
+          <label for="pip-video">graph is big</label>
+          <input id="pip-video" type="checkbox" v-model="settingsStore.pictureInPictureVideo" />
+        </li>
+        <li>
+          <span>language</span>
+          <select v-model="settingsStore.lang">
+            <option v-for="lang in configStore.languages" :key="lang">
+              {{ lang }}
+            </option>
+          </select>
         </li>
       </ul>
       <ul>

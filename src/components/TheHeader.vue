@@ -5,28 +5,42 @@ import { ref } from 'vue'
 import InputSegment from '@/components/InputSegment.vue'
 import { useConfigStore } from '@/stores/config'
 
+import IconHome from '~icons/base/Home'
+import IconBack from '~icons/base/Back'
+import ListWrapper from './ListWrapper.vue'
+import { useVideoStore } from '@/stores/video'
+import LocalizeText from './LocalizeText.vue'
+import { useDataStore } from '@/stores/data'
+import HeaderNavigation from './HeaderNavigation.vue'
+
 const projectTitle = ref(import.meta.env.VITE_PROJECT_TITLE)
 
 const route = useRoute()
 const router = useRouter()
 const settingsStore = useSettingsStore()
 const configStore = useConfigStore()
+const videoStore = useVideoStore()
+const dataStore = useDataStore()
 </script>
 
 <template>
   <header>
-    <span class="left">
-      <RouterLink to="/">
-        <h1>{{ projectTitle }}</h1>
+    <HeaderNavigation />
+    <ListWrapper class="header-item">
+      <RouterLink :to="{ name: 'graph', params: { type: 'graph', id: videoStore.graphId } }">
+        <LocalizeText :text="dataStore.data.nodes[videoStore.graphId]?.label" />
       </RouterLink>
-      <div class="mode">
-        <InputSegment collapse v-model="settingsStore.mode" :options="settingsStore.modeOptions" />
-      </div>
+    </ListWrapper>
+    <!-- <ListWrapper horizontal>
+        
+      </ListWrapper> -->
+    <div class="mode" v-if="settingsStore.enableEditing">
+      <InputSegment collapse v-model="settingsStore.mode" :options="settingsStore.modeOptions" />
+    </div>
 
-      <!-- <span class="mode">{{ settingsStore.mode }}</span> -->
-    </span>
+    <!-- <span class="mode">{{ settingsStore.mode }}</span> -->
 
-    <span class="right">
+    <!-- <span class="right">
       <RouterLink v-if="route.name !== 'settings'" to="/settings"> settings </RouterLink>
       <InputSegment
         horizontal
@@ -34,53 +48,38 @@ const configStore = useConfigStore()
         v-model="settingsStore.lang"
         :options="configStore.languages"
       />
-    </span>
+    </span> -->
     <!-- <a v-else @click="router.go(-1)">back</a> -->
   </header>
 </template>
 
 <style scoped>
 header {
-  grid-column: header-start / header-end;
-  grid-row: header-start / header-end;
+  position: absolute;
+  top: var(--spacing-half);
+  left: var(--spacing-half);
 
   z-index: 1;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: var(--spacing-half);
-  position: relative;
+  /* padding: var(--spacing-half); */
+  .header-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
 
-  padding: var(--spacing-half);
+    font-weight: bold;
+    /* justify-content: space-between; */
+    /* gap: var(--spacing-half); */
+
+    padding: var(--spacing-quart) var(--spacing-half);
+  }
 
   a {
     text-decoration: none;
     color: currentColor;
     cursor: pointer;
-  }
-
-  .right,
-  .left {
-    display: inherit;
-    gap: inherit;
-    align-items: center;
-  }
-
-  .left {
-    display: inherit;
-    gap: inherit;
-    .mode {
-      /* font-size: var(--font-size-tiny);
-      background: var(--color-accent);
-      color: var(--color-background);
-      font-weight: bold;
-      border-radius: var(--border-radius);
-      padding: var(--spacing-quart) var(--spacing-half); */
-      /* position: relative; */
-      /* height: 100%; */
-      /* overflow: visible; */
-      height: 35px;
-    }
   }
 }
 </style>

@@ -12,9 +12,14 @@ const router = createRouter({
       redirect: { name: 'list', params: { type: 'graph' } }
     },
     {
+      path: '/authoring',
+      name: 'authoring',
+      component: () => import('@/views/SettingsView.vue')
+    },
+    {
       path: '/settings',
       name: 'settings',
-      component: () => import('@/views/SettingsView.vue')
+      redirect: { name: 'authoring' }
     },
     {
       path: '/:type',
@@ -24,10 +29,7 @@ const router = createRouter({
     {
       path: '/:type/:id',
       name: 'graph',
-      component: () => import('@/views/GraphView.vue'),
-      meta: {
-        hideMenuBar: import.meta.env.VITE_EXHIBITION_MODE === 'true'
-      }
+      component: () => import('@/views/GraphView.vue')
     },
     {
       path: '/share/:id',
@@ -37,20 +39,23 @@ const router = createRouter({
     {
       path: '/video',
       name: 'video',
-      component: () => import('@/views/VideoView.vue'),
-      meta: {
-        hideMenuBar: true
-      }
+      component: () => import('@/views/VideoView.vue')
     }
   ]
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, from) => {
   const dataStore = useDataStore()
+  const settingsStore = useSettingsStore()
 
   const videoStore = useVideoStore()
-  if (dataStore.data === null && ['list', 'graph', 'video'].includes(to.name)) {
+  if (dataStore.data === null) {
     await dataStore.init()
+  }
+
+  const index = dataStore.nodes.find((n) => n.type === 'graph' && n.index)
+  if (to.name === 'list' && !settingsStore.enableEditing && index != null) {
+    return { name: 'graph', params: { type: 'graph', id: index.id } }
   }
 
   if (from.name === 'graph') {
@@ -94,9 +99,12 @@ router.beforeEach(async (to, from, next) => {
 
   if (to.params.type === 'graph' && to.name === 'graph') {
     videoStore.graphId = to.params.id
+  } else if (videoStore.graphId == null || to.name === 'list') {
+    // console.log(dataStore.nodes.find((node) => node.type === 'graph' && node.index)?.id)
+    videoStore.graphId = dataStore.nodes.find((node) => node.type === 'graph' && node.index)?.id
   }
   to.meta.initializeView = to.name !== from.name
-  next()
+  // next()
 })
 
 export default router

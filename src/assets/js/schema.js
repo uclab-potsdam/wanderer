@@ -12,7 +12,8 @@ export default {
     label: 'dictionary',
     image: 'string',
     'media.file': 'string',
-    'media.subtitles': 'dictionary'
+    'media.subtitles': 'dictionary',
+    index: 'boolean'
   },
   image: {
     label: 'dictionary',

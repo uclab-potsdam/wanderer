@@ -12,11 +12,6 @@
       "label": {
         "en": "Using Kusu"
       },
-      "style": {
-        "--color-background": "var(--orange)",
-        "--color-text": "white",
-        "--color-edge": "white"
-      },
       "allocations": {
         "09eda7fb-82fc-4989-9410-fe2e1a79ec81": {
           "x": -200,
@@ -40,7 +35,7 @@
         },
         "75792baa-4747-481c-b6c1-313e0c900f2f": {
           "x": -700,
-          "y": 60
+          "y": 180
         },
         "110ac9e0-dc25-46b0-bb6d-4bdfd4ecd4f4": {
           "x": -520,
@@ -93,6 +88,14 @@
         "3236aa1c-7bbc-4410-a4d1-8f856720f6a8": {
           "x": -840,
           "y": -300
+        },
+        "68585357-ebe4-4355-bfd4-338be23c8792": {
+          "x": -5091.2167298597815,
+          "y": -2933.602485550068
+        },
+        "0e4e7592-da50-4144-a0e2-100bc760d92b": {
+          "x": -800,
+          "y": 0
         }
       },
       "media": {
@@ -137,10 +140,10 @@
             "110ac9e0-dc25-46b0-bb6d-4bdfd4ecd4f4": "default"
           },
           "bounds": {
-            "x1": -797.2076605504137,
-            "y1": -446.1052764651463,
-            "x2": -35.44725403303686,
-            "y2": 135.45374356424895
+            "x1": -804.8971825971463,
+            "y1": -454.35012216273975,
+            "x2": -85.89164049540447,
+            "y2": 208.85200473110575
           }
         },
         {
@@ -155,7 +158,14 @@
             "604c66b6-d12e-419a-a3c4-c45836316dc6": "highlight",
             "110ac9e0-dc25-46b0-bb6d-4bdfd4ecd4f4": "highlight",
             "c4a0c011-215a-444b-93a2-dc7e4f0031e2": "default",
-            "3236aa1c-7bbc-4410-a4d1-8f856720f6a8": "default"
+            "3236aa1c-7bbc-4410-a4d1-8f856720f6a8": "default",
+            "0e4e7592-da50-4144-a0e2-100bc760d92b": "default"
+          },
+          "bounds": {
+            "x1": -970.1611430205318,
+            "y1": -512.2998225709398,
+            "x2": -27.941940087204383,
+            "y2": 243.19256793596506
           }
         },
         {
@@ -164,13 +174,14 @@
             "a694ec16-831f-4fb6-8432-9efef763eee4": "highlight",
             "604c66b6-d12e-419a-a3c4-c45836316dc6": "default",
             "110ac9e0-dc25-46b0-bb6d-4bdfd4ecd4f4": "default",
-            "3236aa1c-7bbc-4410-a4d1-8f856720f6a8": "hide"
+            "3236aa1c-7bbc-4410-a4d1-8f856720f6a8": "hide",
+            "0e4e7592-da50-4144-a0e2-100bc760d92b": "hide"
           },
           "bounds": {
-            "x1": -779.0191851614177,
-            "y1": -496.2552582829394,
-            "x2": 54.059709859258135,
-            "y2": 170.00565411830496
+            "x1": -800.6046121965389,
+            "y1": -527.3238189730657,
+            "x2": 128.73687953496625,
+            "y2": 213.14457513171317
           }
         },
         {
@@ -320,7 +331,8 @@
             "09eda7fb-82fc-4989-9410-fe2e1a79ec81": "highlight",
             "75792baa-4747-481c-b6c1-313e0c900f2f": "highlight",
             "c4a0c011-215a-444b-93a2-dc7e4f0031e2": "hide",
-            "3236aa1c-7bbc-4410-a4d1-8f856720f6a8": "hide"
+            "3236aa1c-7bbc-4410-a4d1-8f856720f6a8": "hide",
+            "0e4e7592-da50-4144-a0e2-100bc760d92b": "hide"
           },
           "bounds": {
             "x1": -837.0500445456834,
@@ -914,11 +926,11 @@
           "y": -540
         },
         "84ad58b7-f256-4dd5-8cdc-1ca6e28044c8": {
-          "x": 240,
+          "x": 220,
           "y": -320
         },
         "75792baa-4747-481c-b6c1-313e0c900f2f": {
-          "x": -360,
+          "x": -340,
           "y": -320
         },
         "1108c8a3-6af6-4c29-b490-e75c948df002": {
@@ -1545,7 +1557,9 @@
       "media": {
         "file": "xe:using utu.mp4",
         "subtitles": {
-          "en": "xe:using utu - en.srt"
+          "en": "xingu:using utu/20230709_1_TL_1080p_23,976fps_Yahila_About Using Utu_ENG.srt",
+          "pt": "xingu:using utu/20230709_1_TL_1080p_23,976fps_Yahila_About Using Utu_PT.srt",
+          "de": "xingu:using utu/20230709_1_TL_1080p_23,976fps_Yahila_About Using Utu_DE.srt"
         }
       },
       "marker": [
@@ -1714,10 +1728,12 @@
           "states": {
             "9bed167f-0595-424b-974a-8ea075cf6eeb": "default",
             "13f03b38-91d6-4c69-a487-1a740a8b8351": "default",
-            "eeedfcd9-296b-41c7-9b85-9bfc888c0fc7": "default"
+            "eeedfcd9-296b-41c7-9b85-9bfc888c0fc7": "default",
+            "68585357-ebe4-4355-bfd4-338be23c8792": "hide"
           }
         }
-      ]
+      ],
+      "image": "xingu:using utu/using utu.jpg"
     },
     "9efc33b3-ffde-42d5-88c6-deb872a871a6": {
       "type": "entity",
@@ -1832,7 +1848,7 @@
         },
         "323af7b4-dfd8-4a5d-a6f8-8beddfbab4a1": {
           "x": -860,
-          "y": -400
+          "y": -380
         },
         "da173968-8851-4181-9625-037dac7ef415": {
           "x": 160,
@@ -1843,8 +1859,8 @@
           "y": -60
         },
         "dc349228-b509-4bca-bc0e-8b6e2f3c364c": {
-          "x": -860,
-          "y": -60
+          "x": -880,
+          "y": -100
         },
         "c39061bd-de63-4984-ad30-3d52dbbea062": {
           "x": -860,
@@ -2127,7 +2143,8 @@
           "pt": "xingu:making the fish trap/20220825_27_1_TL_1080p_23,976fps_Making the Fish Trap_PT.srt",
           "de": "xingu:making the fish trap/20220825_27_1_TL_1080p_23,976fps_Making the Fish Trap_DE.srt"
         }
-      }
+      },
+      "image": "xingu:making the fish trap/making the fish trap.png"
     },
     "90098cf2-a0f2-488b-b2ca-85959efe57cc": {
       "type": "entity",
@@ -2249,32 +2266,32 @@
           "y": 240
         },
         "ef4407c3-5a9e-44fb-9b7c-f21b18d3b615": {
-          "x": -20,
-          "y": -240
+          "x": 60,
+          "y": -300
         },
         "a89e19f6-e824-43ff-81ba-3b40b7627fb9": {
-          "x": -20,
-          "y": -100
+          "x": 80,
+          "y": -160
         },
         "163b2085-599e-4a0c-aacd-b8143eb9c6c5": {
           "x": -340,
-          "y": 340
+          "y": 300
         },
         "0157f38a-85e0-445f-b0e5-d6fa01ea5e75": {
-          "x": 140,
-          "y": 520
+          "x": 320,
+          "y": 500
         },
         "2c223c3f-2020-4b7c-8702-6271dc60aa20": {
           "x": -80,
           "y": 600
         },
         "d7e6aab7-0436-4da3-ac89-cea1e71cca03": {
-          "x": 140,
-          "y": 200
+          "x": 320,
+          "y": 160
         },
         "9efc33b3-ffde-42d5-88c6-deb872a871a6": {
-          "x": 140,
-          "y": 20
+          "x": 320,
+          "y": -20
         },
         "110ac9e0-dc25-46b0-bb6d-4bdfd4ecd4f4": {
           "x": -580,
@@ -2282,7 +2299,7 @@
         },
         "559790a7-7b2b-496c-b977-099c46f065a9": {
           "x": -60,
-          "y": 400
+          "y": 440
         },
         "83c5edf2-dee2-43a2-8290-5159abccdaae": {
           "x": -340,
@@ -2327,6 +2344,10 @@
         "d9956bc7-4731-4323-adfb-2a1444e89b7f": {
           "x": -1080,
           "y": 660
+        },
+        "2d928e25-3e3b-4c0a-84f1-502df3ddbf60": {
+          "x": -80,
+          "y": 40
         }
       },
       "media": {
@@ -2336,7 +2357,7 @@
           "pt": "xingu:uses of buriti/20230707-10_TL_Uses_of_Buriti_and Mats_PT.srt"
         }
       },
-      "image": "xingu:uses of buriti/uses of buriti.jpg",
+      "image": "xingu:uses of buriti/uses of buriti.png",
       "marker": [
         {
           "time": 0.324015,
@@ -2432,7 +2453,7 @@
     "c5707353-e8fe-4d55-a7be-a31a26efdb32": {
       "type": "entity",
       "label": {
-        "en": "belt"
+        "en": "moriche belt"
       }
     },
     "9dc5aee7-5bc4-4ea0-bb30-95cc99aa4278": {
@@ -2686,7 +2707,8 @@
           "en": "xingu:collecting moriche/20230708_1_TL_1080p_23,976fps_Collecting Buriti Sprouts_ENG.srt",
           "pt": "xingu:collecting moriche/20230708_1_TL_1080p_23,976fps_Collecting Buriti Sprouts_PT.srt"
         }
-      }
+      },
+      "image": "xingu:collecting moriche/collecting moriche.png"
     },
     "eb411e00-7901-41ff-b247-3370cfac94cd": {
       "type": "entity",
@@ -2777,88 +2799,80 @@
       },
       "allocations": {
         "09eda7fb-82fc-4989-9410-fe2e1a79ec81": {
-          "x": -100,
-          "y": -180
+          "x": 960,
+          "y": 180
         },
         "31d99c32-c971-4fdf-9b6e-b55cf309b568": {
-          "x": -100,
-          "y": 240
+          "x": 420,
+          "y": 640
         },
         "c5707353-e8fe-4d55-a7be-a31a26efdb32": {
-          "x": -300,
-          "y": 40
-        },
-        "83c5edf2-dee2-43a2-8290-5159abccdaae": {
-          "x": 200,
-          "y": 240
+          "x": 960,
+          "y": 780
         },
         "77e64ee2-a311-40eb-ab20-1b3afb399587": {
-          "x": -300,
-          "y": 360
-        },
-        "88f452f0-1608-4726-9d7a-64160a741fbf": {
-          "x": 420,
-          "y": -40
+          "x": -20,
+          "y": 780
         },
         "fe309e3c-ebc3-403a-97fc-3a844be1e30f": {
-          "x": 720,
-          "y": -160
+          "x": 420,
+          "y": -280
         },
         "8786a974-bf27-4968-84e9-4cdca6e45840": {
-          "x": 720,
-          "y": 220
+          "x": -40,
+          "y": -60
         },
         "a89e19f6-e824-43ff-81ba-3b40b7627fb9": {
-          "x": 80,
-          "y": -340
+          "x": 1300,
+          "y": 340
         },
         "ef4407c3-5a9e-44fb-9b7c-f21b18d3b615": {
-          "x": -100,
-          "y": -360
+          "x": 1300,
+          "y": 160
         },
         "145e88a0-443e-4cd6-a141-d09c6b6d15f6": {
-          "x": -280,
-          "y": -340
-        },
-        "63ac5b45-6a4c-4504-ae95-28d8d0bcc0a2": {
-          "x": 420,
-          "y": 100
+          "x": 1300,
+          "y": 0
         },
         "46e44a6e-7373-44c4-b7cd-cc82da18e570": {
-          "x": 560,
-          "y": 240
+          "x": 420,
+          "y": 340
         },
         "3efec77d-8792-4320-b611-d1454a98c3a3": {
-          "x": 600,
-          "y": 380
-        },
-        "3631b430-c6bc-4ed6-82eb-46db1608907b": {
-          "x": 1000,
-          "y": 300
-        },
-        "2af92af7-1b42-41ae-a26d-d0f6f055be64": {
-          "x": 820,
-          "y": -240
-        },
-        "78aca663-6f42-45e8-8ce8-1f730eec3c9c": {
-          "x": 1000,
-          "y": -340
-        },
-        "43a1ab5d-6f2d-40ee-8325-1d30c57418a4": {
-          "x": 1460,
-          "y": -20
-        },
-        "39cd9b59-05e6-4ce8-9aa2-ddbf78b6c224": {
-          "x": 1160,
-          "y": -40
+          "x": 420,
+          "y": 540
         },
         "cbf3ee50-8af0-477e-b479-8f84d7555ad2": {
-          "x": 720,
-          "y": 560
+          "x": -40,
+          "y": 260
         },
         "9efc33b3-ffde-42d5-88c6-deb872a871a6": {
-          "x": 1460,
-          "y": -160
+          "x": 140,
+          "y": 160
+        },
+        "5510c5ff-39e1-4d5c-80e1-f853fc845569": {
+          "x": 420,
+          "y": -140
+        },
+        "2d8268cb-87c8-489f-8eeb-e4103cb7de09": {
+          "x": 420,
+          "y": 20
+        },
+        "6c901eef-7ce8-44ac-b05a-3c4e343f17ed": {
+          "x": 420,
+          "y": 200
+        },
+        "fdc74b6f-d42e-4f4f-9a16-549887046854": {
+          "x": 420,
+          "y": -480
+        },
+        "2d928e25-3e3b-4c0a-84f1-502df3ddbf60": {
+          "x": -220,
+          "y": 120
+        },
+        "ac6e79eb-3efd-4843-98fa-8f74b7b959a4": {
+          "x": 620,
+          "y": 180
         }
       },
       "media": {
@@ -2867,7 +2881,8 @@
           "pt": "xingu:harvesting annatto/20230708_2__tl_1080p_23,976fps_urucum_saffron_PT.srt"
         },
         "file": "xingu:harvesting annatto/urucum saffron.mp4"
-      }
+      },
+      "image": "xingu:harvesting annatto/harvesting annatto and turmeric.png"
     },
     "31d99c32-c971-4fdf-9b6e-b55cf309b568": {
       "type": "entity",
@@ -2889,13 +2904,6 @@
       },
       "class": "c3e54f16-243a-41e8-9efb-4a74c29741da"
     },
-    "88f452f0-1608-4726-9d7a-64160a741fbf": {
-      "type": "entity",
-      "label": {
-        "en": "annatto-fruit"
-      },
-      "class": "8e79fa93-eb98-496d-93f9-460e5e82d89e"
-    },
     "fe309e3c-ebc3-403a-97fc-3a844be1e30f": {
       "type": "entity",
       "label": {
@@ -2915,12 +2923,6 @@
         "en": "Anatto roots"
       }
     },
-    "63ac5b45-6a4c-4504-ae95-28d8d0bcc0a2": {
-      "type": "entity",
-      "label": {
-        "en": "seeds"
-      }
-    },
     "c3e54f16-243a-41e8-9efb-4a74c29741da": {
       "type": "entity",
       "label": {
@@ -2936,47 +2938,14 @@
     "3efec77d-8792-4320-b611-d1454a98c3a3": {
       "type": "entity",
       "label": {
-        "en": "paste"
-      }
-    },
-    "3631b430-c6bc-4ed6-82eb-46db1608907b": {
-      "type": "entity",
-      "label": {
-        "en": "Annatto ball"
-      }
-    },
-    "2af92af7-1b42-41ae-a26d-d0f6f055be64": {
-      "type": "entity",
-      "label": {
-        "en": "forehead"
+        "en": "Maini"
       },
-      "class": "e30d0d75-28a1-43bb-b53d-21f2d12cda26"
-    },
-    "78aca663-6f42-45e8-8ce8-1f730eec3c9c": {
-      "type": "entity",
-      "label": {
-        "en": "ankles"
-      },
-      "class": "932c8dd7-9e07-441b-9d2c-fadcc5082e6d"
-    },
-    "43a1ab5d-6f2d-40ee-8325-1d30c57418a4": {
-      "type": "entity",
-      "label": {
-        "en": "back"
-      },
-      "class": "932c8dd7-9e07-441b-9d2c-fadcc5082e6d"
-    },
-    "39cd9b59-05e6-4ce8-9aa2-ddbf78b6c224": {
-      "type": "entity",
-      "label": {
-        "en": "hair"
-      },
-      "class": "932c8dd7-9e07-441b-9d2c-fadcc5082e6d"
+      "class": "3908a90b-7bbe-4c03-ad14-de4c324b3c38"
     },
     "a9038e82-1646-4339-af71-141a737827ce": {
       "type": "graph",
       "label": {
-        "en": "On Gimi and how to use"
+        "en": "On Gimi and how to make it"
       },
       "allocations": {
         "d14ef567-a2d5-463f-8264-04a7ea0500ac": {
@@ -3000,7 +2969,7 @@
           "y": -92.82247388023119
         },
         "015074e5-d7bf-4c32-a6ac-05cfd4150026": {
-          "x": 200,
+          "x": 240,
           "y": -200
         },
         "64962446-0a02-44bb-b6bc-e5970138ed41": {
@@ -3069,12 +3038,13 @@
         }
       },
       "media": {
-        "file": "",
+        "file": "xingu:on gimi/20230712-13_1_tl_1080p_23,976fps_on_gimi_and_how_to_make_it (1080p).mp4",
         "subtitles": {
-          "en": "",
-          "pt": ""
+          "en": "xingu:on gimi/20230712-13_1_TL_On_Gimi_And_How_To_Make_It_ENG.srt",
+          "pt": "xingu:on gimi/20230712-13_1_TL_On_Gimi_And_How_To_Make_It_PT.srt"
         }
-      }
+      },
+      "image": "xingu:on gimi/on gimi.png"
     },
     "d14ef567-a2d5-463f-8264-04a7ea0500ac": {
       "type": "entity",
@@ -3242,7 +3212,7 @@
       "allocations": {
         "9efc33b3-ffde-42d5-88c6-deb872a871a6": {
           "x": -420,
-          "y": -420
+          "y": -460
         },
         "323af7b4-dfd8-4a5d-a6f8-8beddfbab4a1": {
           "x": -420,
@@ -3262,75 +3232,83 @@
         },
         "d883a771-c4c2-42de-823e-51699e0248e1": {
           "x": -220,
-          "y": -160
+          "y": -120
         },
         "651ca68b-dcf5-423f-9258-ce971f298a1d": {
           "x": -640,
           "y": -120
         },
         "9dc5aee7-5bc4-4ea0-bb30-95cc99aa4278": {
-          "x": -540,
-          "y": 360
+          "x": -640,
+          "y": 380
         },
         "d54465a5-d6ea-45e6-83e9-ee89f2e1597f": {
           "x": -640,
-          "y": 60
+          "y": 20
         },
         "0e9d0133-6ef7-4cf7-8136-cafac4185cd8": {
           "x": -960,
           "y": -120
         },
         "5e0305ec-3900-49b7-9bb3-edc759256f41": {
-          "x": -800,
-          "y": 340
+          "x": -900,
+          "y": 160
         },
         "f77c8d5c-9c82-482f-b91f-97bb9c1d8a95": {
-          "x": -540,
-          "y": 220
+          "x": -640,
+          "y": 200
         },
         "94930ea4-b85a-4c96-9c88-cff133a8904e": {
           "x": -220,
-          "y": 0
+          "y": 20
         },
         "09eda7fb-82fc-4989-9410-fe2e1a79ec81": {
           "x": -220,
           "y": 200
         },
         "fb560810-0041-4c35-9ebe-e474f5c49f4d": {
-          "x": 20,
-          "y": 320
+          "x": -220,
+          "y": 380
         },
         "a42cb70b-10bb-4b4d-996b-bbec6e476a42": {
           "x": 0,
-          "y": -220
+          "y": 20
         },
         "82fb7af4-feb1-4e5f-b010-c91a295553e3": {
           "x": 0,
-          "y": 40
+          "y": 160
         },
         "749ec1fd-585b-41d2-aa1d-0edaa592e8c0": {
-          "x": 320,
-          "y": -40
+          "x": 380,
+          "y": 20
         },
         "ffadd8cf-6123-4280-9e49-477cbc59a7d4": {
-          "x": 320,
-          "y": -220
+          "x": 200,
+          "y": -120
         },
         "8b213533-513e-4581-978d-7bf27122fd6b": {
-          "x": 200,
-          "y": 100
+          "x": 380,
+          "y": 140
         },
         "1e1b5726-e467-425f-8fe8-3cc7868a5d82": {
-          "x": 540,
-          "y": 100
+          "x": 500,
+          "y": 280
         },
         "40f6d448-ff59-4087-bcf1-0fb503cca861": {
           "x": 0,
           "y": -420
         },
         "d14ef567-a2d5-463f-8264-04a7ea0500ac": {
-          "x": -860,
-          "y": -360
+          "x": -880,
+          "y": -280
+        },
+        "a9038e82-1646-4339-af71-141a737827ce": {
+          "x": -920,
+          "y": -420
+        },
+        "6d24e8f3-9832-43dd-83b9-9bb77db501cb": {
+          "x": -460,
+          "y": 320
         }
       },
       "media": {
@@ -3339,7 +3317,8 @@
           "en": "xingu:collecting for gimi/20230710_9_TL_Ugusipa_Collecting_and_Processing_for_Gimi_ENG.srt",
           "pt": "xingu:collecting for gimi/20230710_9_TL_Ugusipa_Collecting_and_Processing_for_Gimi_PT.srt"
         }
-      }
+      },
+      "image": "xingu:collecting for gimi/collecting for gimi.png"
     },
     "c2dd2098-5555-4cce-84dd-dbec78390049": {
       "type": "entity",
@@ -3477,8 +3456,8 @@
           "y": 200
         },
         "de412fdb-02ef-421c-8c2d-1a3671b3b32d": {
-          "x": 60,
-          "y": 400
+          "x": -100,
+          "y": 380
         },
         "163b2085-599e-4a0c-aacd-b8143eb9c6c5": {
           "x": 360,
@@ -3501,8 +3480,8 @@
           "y": -280
         },
         "99635892-4354-4a67-b3df-2a101ade40ff": {
-          "x": 320,
-          "y": -220
+          "x": -180,
+          "y": -180
         },
         "bca88436-a02b-48e0-a151-3e4b8bb2c684": {
           "x": 480,
@@ -3521,23 +3500,19 @@
           "y": 620
         },
         "e354e47b-050d-4e53-8701-6db67be2783b": {
-          "x": 620,
-          "y": 360
+          "x": 560,
+          "y": 560
         },
         "31d99c32-c971-4fdf-9b6e-b55cf309b568": {
           "x": 720,
-          "y": 460
-        },
-        "88f452f0-1608-4726-9d7a-64160a741fbf": {
-          "x": 840,
-          "y": 360
+          "y": 560
         },
         "b07c04ac-5e22-4c1e-b61c-762c5c15bfc5": {
-          "x": 1140,
+          "x": 1100,
           "y": 120
         },
         "df17c2a1-9233-47e5-88a1-467772c53251": {
-          "x": 1160,
+          "x": 1080,
           "y": 280
         },
         "84b003c4-f7eb-475b-931f-4d86283ee119": {
@@ -3557,11 +3532,11 @@
           "y": 20
         },
         "69dd6f80-b97e-4452-a8ea-8e01a4de3ada": {
-          "x": 1380,
-          "y": -200
+          "x": 1420,
+          "y": -180
         },
         "b4b7ba05-97cd-4d7b-b6fc-639a97bec0f5": {
-          "x": 1500,
+          "x": 1560,
           "y": -260
         },
         "165b01a2-d76d-47ea-bb88-c93439b362b2": {
@@ -3570,23 +3545,23 @@
         },
         "54c68793-6735-47f3-9640-566bd282a656": {
           "x": 1860,
-          "y": -240
+          "y": -300
         },
         "1f8d4eeb-239d-4a0c-b69c-8689425df381": {
-          "x": 1980,
-          "y": -180
+          "x": 2020,
+          "y": -340
         },
         "dc15bc7d-61f3-4295-ab7e-ffb172abfbc5": {
-          "x": 2040,
-          "y": -100
+          "x": 2120,
+          "y": -220
         },
         "28e5a955-092a-4c44-aa13-b95f90e38cfa": {
-          "x": 1360,
-          "y": -120
+          "x": 2140,
+          "y": 160
         },
         "ef34790e-42da-4ca7-9af2-30577aa53d46": {
-          "x": 1360,
-          "y": 20
+          "x": 2140,
+          "y": 380
         },
         "1cbb8e4a-8ae0-4484-b40c-f10d163caf61": {
           "x": 520,
@@ -3611,6 +3586,30 @@
         "7c081b18-a8b1-4289-8286-2649b4735bca": {
           "x": 560,
           "y": 120
+        },
+        "3908a90b-7bbe-4c03-ad14-de4c324b3c38": {
+          "x": 960,
+          "y": 540
+        },
+        "592f3ffc-b9f5-44d6-a8a0-f0caef6dde48": {
+          "x": 2260,
+          "y": -40
+        },
+        "eeedfcd9-296b-41c7-9b85-9bfc888c0fc7": {
+          "x": 2400,
+          "y": 80
+        },
+        "2d928e25-3e3b-4c0a-84f1-502df3ddbf60": {
+          "x": -200,
+          "y": 200
+        }
+      },
+      "image": "xingu:customs of mats/customs of mats.png",
+      "media": {
+        "file": "xingu:customs of mats/customs of mats(720p).mp4",
+        "subtitles": {
+          "en": "xingu:customs of mats/20230707-10_TL_The_Customs_and_The_Making_of_Mats_ENG.srt",
+          "pt": "xingu:customs of mats/20230707-10_TL_The_Customs_and_The_Making_of_Mats_PT.srt"
         }
       }
     },
@@ -3679,13 +3678,15 @@
       "type": "entity",
       "label": {
         "en": "manioc squeezer mat"
-      }
+      },
+      "class": "83c5edf2-dee2-43a2-8290-5159abccdaae"
     },
     "6c901eef-7ce8-44ac-b05a-3c4e343f17ed": {
       "type": "entity",
       "label": {
-        "en": "Tuahi mat"
-      }
+        "en": "Tuahi"
+      },
+      "class": "83c5edf2-dee2-43a2-8290-5159abccdaae"
     },
     "43cff938-259c-4887-bb11-9adb23c867ee": {
       "type": "entity",
@@ -3783,6 +3784,114 @@
       "type": "entity",
       "label": {
         "en": "whitening"
+      }
+    },
+    "3908a90b-7bbe-4c03-ad14-de4c324b3c38": {
+      "type": "entity",
+      "label": {
+        "en": "Maini"
+      },
+      "class": "fa5502bd-cc0e-4b8f-8aca-077f7f5bf25a"
+    },
+    "28c47119-1798-4f58-95ea-b25d4e7045f2": {
+      "type": "graph",
+      "label": {
+        "en": "Xingu Entangled",
+        "de": "Übersicht"
+      },
+      "index": true,
+      "allocations": {
+        "68585357-ebe4-4355-bfd4-338be23c8792": {
+          "x": -560,
+          "y": -300
+        },
+        "2e89c3bf-96bc-4dbf-81fe-e2d8445ac7c8": {
+          "x": -1380,
+          "y": -620
+        },
+        "eeedfcd9-296b-41c7-9b85-9bfc888c0fc7": {
+          "x": -160,
+          "y": -740
+        },
+        "3236aa1c-7bbc-4410-a4d1-8f856720f6a8": {
+          "x": -560,
+          "y": -620
+        },
+        "656d55d6-9db7-42dc-bd1c-406168127acb": {
+          "x": -960,
+          "y": -620
+        },
+        "6d24e8f3-9832-43dd-83b9-9bb77db501cb": {
+          "x": 100,
+          "y": -520
+        },
+        "2d928e25-3e3b-4c0a-84f1-502df3ddbf60": {
+          "x": 360,
+          "y": -120
+        },
+        "8c54c09e-e000-4878-a807-a82a19132ba1": {
+          "x": 40,
+          "y": 200
+        },
+        "a9038e82-1646-4339-af71-141a737827ce": {
+          "x": 620,
+          "y": -920
+        },
+        "bf90d0bf-e307-47c7-a540-14f25fd5fa34": {
+          "x": 240,
+          "y": -920
+        },
+        "ac6e79eb-3efd-4843-98fa-8f74b7b959a4": {
+          "x": -200,
+          "y": -200
+        },
+        "0e4e7592-da50-4144-a0e2-100bc760d92b": {
+          "x": -1020,
+          "y": -120
+        }
+      },
+      "media": {
+        "file": "xe:places.mp4"
+      }
+    },
+    "fa5502bd-cc0e-4b8f-8aca-077f7f5bf25a": {
+      "type": "entity",
+      "label": {
+        "en": "annatto paste"
+      }
+    },
+    "5510c5ff-39e1-4d5c-80e1-f853fc845569": {
+      "type": "entity",
+      "label": {
+        "en": "annatto fruit"
+      }
+    },
+    "2d8268cb-87c8-489f-8eeb-e4103cb7de09": {
+      "type": "entity",
+      "label": {
+        "en": "annatto seed"
+      },
+      "class": "8e79fa93-eb98-496d-93f9-460e5e82d89e"
+    },
+    "fdc74b6f-d42e-4f4f-9a16-549887046854": {
+      "type": "entity",
+      "label": {
+        "en": "õdo"
+      },
+      "class": "ec8cfdb6-dc4a-4de8-a6f5-c0ab72040bef"
+    },
+    "0e4e7592-da50-4144-a0e2-100bc760d92b": {
+      "type": "graph",
+      "label": {
+        "en": "The owner of Kusu"
+      },
+      "image": "xingu:owner of Kusu/owner of kusu.png",
+      "media": {
+        "file": "xingu:owner of Kusu/owner of Kusu.mp4",
+        "subtitles": {
+          "en": "xingu:owner of Kusu/20230709_12_1_tl_1080p_23,976fps_kanu_and_yahugi_ahasa_the_owner_of_kusu_ENG.srt",
+          "pt": "xingu:owner of Kusu/20230709_12_1_tl_1080p_23,976fps_kanu_and_yahugi_ahasa_the_owner_of_kusu_PT.srt"
+        }
       }
     }
   },
@@ -5105,21 +5214,6 @@
       }
     },
     {
-      "nodes": ["83c5edf2-dee2-43a2-8290-5159abccdaae", "83c5edf2-dee2-43a2-8290-5159abccdaae"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "96eea638-d83a-4286-a745-ebd3dffd7256"
-    },
-    {
-      "nodes": ["31d99c32-c971-4fdf-9b6e-b55cf309b568", "83c5edf2-dee2-43a2-8290-5159abccdaae"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "550f5b75-2a8f-4e74-8e1d-3c357f002b9b",
-      "label": {
-        "en": "to dye"
-      }
-    },
-    {
       "nodes": ["09eda7fb-82fc-4989-9410-fe2e1a79ec81", "31d99c32-c971-4fdf-9b6e-b55cf309b568"],
       "arrow": "→",
       "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
@@ -5129,28 +5223,10 @@
       }
     },
     {
-      "nodes": ["88f452f0-1608-4726-9d7a-64160a741fbf", "09eda7fb-82fc-4989-9410-fe2e1a79ec81"],
-      "arrow": "←",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "158237d7-89ae-4784-a497-48494d084cc1",
-      "label": {
-        "en": "harvest"
-      }
-    },
-    {
       "nodes": ["09eda7fb-82fc-4989-9410-fe2e1a79ec81", "09eda7fb-82fc-4989-9410-fe2e1a79ec81"],
       "arrow": "→",
       "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
       "id": "5a9b6ec9-4d56-4e8d-b1bb-5b26bd400c25"
-    },
-    {
-      "nodes": ["88f452f0-1608-4726-9d7a-64160a741fbf", "fe309e3c-ebc3-403a-97fc-3a844be1e30f"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "a1319bdd-8ac3-48d1-b710-60ab43b43139",
-      "label": {
-        "en": "part of"
-      }
     },
     {
       "nodes": ["8786a974-bf27-4968-84e9-4cdca6e45840", "fe309e3c-ebc3-403a-97fc-3a844be1e30f"],
@@ -5189,90 +5265,12 @@
       }
     },
     {
-      "nodes": ["63ac5b45-6a4c-4504-ae95-28d8d0bcc0a2", "88f452f0-1608-4726-9d7a-64160a741fbf"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "82a49b94-9b29-4839-8228-316edff53008",
-      "label": {
-        "en": "are extracted from"
-      }
-    },
-    {
-      "nodes": ["63ac5b45-6a4c-4504-ae95-28d8d0bcc0a2", "46e44a6e-7373-44c4-b7cd-cc82da18e570"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "f1e15995-6748-4f11-b8d5-edc65c6fedd6",
-      "label": {
-        "en": "becomes"
-      }
-    },
-    {
       "nodes": ["46e44a6e-7373-44c4-b7cd-cc82da18e570", "3efec77d-8792-4320-b611-d1454a98c3a3"],
       "arrow": "→",
       "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
       "id": "9f880a2a-8cbb-4b5f-8908-9184be70d3a9",
       "label": {
         "en": "cooked and dried to"
-      }
-    },
-    {
-      "nodes": ["3efec77d-8792-4320-b611-d1454a98c3a3", "3631b430-c6bc-4ed6-82eb-46db1608907b"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "c2eed58a-5ce4-499d-b832-46beed20f3cb",
-      "label": {
-        "en": "shaped to"
-      }
-    },
-    {
-      "nodes": ["3631b430-c6bc-4ed6-82eb-46db1608907b", "2af92af7-1b42-41ae-a26d-d0f6f055be64"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "ffb2ea4c-6b5f-4604-ade6-4d0e1b63f5d1",
-      "label": {
-        "en": "to paint"
-      }
-    },
-    {
-      "nodes": ["3631b430-c6bc-4ed6-82eb-46db1608907b", "78aca663-6f42-45e8-8ce8-1f730eec3c9c"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "5fb5073d-0e1e-4dd7-9d0a-afaa05fadea6",
-      "label": {
-        "en": "to paint"
-      }
-    },
-    {
-      "nodes": ["43a1ab5d-6f2d-40ee-8325-1d30c57418a4", "3631b430-c6bc-4ed6-82eb-46db1608907b"],
-      "arrow": "←",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "8b0e80ac-5590-4bbc-a2b4-17a4e1f094e0",
-      "label": {
-        "en": "to paint"
-      }
-    },
-    {
-      "nodes": ["3631b430-c6bc-4ed6-82eb-46db1608907b", "39cd9b59-05e6-4ce8-9aa2-ddbf78b6c224"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "dafd9c07-a18c-45be-90f7-a0ed94b97016",
-      "label": {
-        "en": "to paint"
-      }
-    },
-    {
-      "nodes": ["2af92af7-1b42-41ae-a26d-d0f6f055be64", "2af92af7-1b42-41ae-a26d-d0f6f055be64"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "e1a35b40-bbe0-4aba-b791-0d65a599eef8"
-    },
-    {
-      "nodes": ["3631b430-c6bc-4ed6-82eb-46db1608907b", "cbf3ee50-8af0-477e-b479-8f84d7555ad2"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "29915e58-cd3b-4fed-a564-d475bb60ad31",
-      "label": {
-        "en": "to paint"
       }
     },
     {
@@ -5294,60 +5292,12 @@
       }
     },
     {
-      "nodes": ["43a1ab5d-6f2d-40ee-8325-1d30c57418a4", "9efc33b3-ffde-42d5-88c6-deb872a871a6"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "2bea436e-a4b4-4a7f-9d75-3aa55fe2bfa6",
-      "label": {
-        "en": "of"
-      }
-    },
-    {
-      "nodes": ["78aca663-6f42-45e8-8ce8-1f730eec3c9c", "9efc33b3-ffde-42d5-88c6-deb872a871a6"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "ca4cb357-979f-4555-b93c-f40b5a9193a4",
-      "label": {
-        "en": "of"
-      }
-    },
-    {
-      "nodes": ["39cd9b59-05e6-4ce8-9aa2-ddbf78b6c224", "9efc33b3-ffde-42d5-88c6-deb872a871a6"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "62c4b39e-71df-45c2-8a82-72c1f7a2cd19",
-      "label": {
-        "en": "of"
-      }
-    },
-    {
-      "nodes": ["2af92af7-1b42-41ae-a26d-d0f6f055be64", "09eda7fb-82fc-4989-9410-fe2e1a79ec81"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "bf78afb8-4d05-4592-b2d9-1c9e04e126fa"
-    },
-    {
-      "nodes": ["78aca663-6f42-45e8-8ce8-1f730eec3c9c", "09eda7fb-82fc-4989-9410-fe2e1a79ec81"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "16fa376e-939c-482f-b9b3-bec4e135273b"
-    },
-    {
       "nodes": ["8786a974-bf27-4968-84e9-4cdca6e45840", "cbf3ee50-8af0-477e-b479-8f84d7555ad2"],
       "arrow": "→",
       "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
       "id": "5e06687d-bcff-4268-8506-c81e420ddea0",
       "label": {
         "en": "to dye"
-      }
-    },
-    {
-      "nodes": ["63ac5b45-6a4c-4504-ae95-28d8d0bcc0a2", "83c5edf2-dee2-43a2-8290-5159abccdaae"],
-      "arrow": "→",
-      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
-      "id": "4c22e135-850e-47e6-bc11-9d94105ddae1",
-      "label": {
-        "en": "rubbed, washed and strained on"
       }
     },
     {
@@ -5901,20 +5851,20 @@
     },
     {
       "nodes": ["8971c15c-d536-4161-b148-6983d34d8d10", "de412fdb-02ef-421c-8c2d-1a3671b3b32d"],
-      "arrow": "→",
+      "arrow": "←",
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "5135f056-f911-4e70-85c4-33d3b7900e50",
       "label": {
-        "en": "divided into"
+        "en": "made of"
       }
     },
     {
       "nodes": ["163b2085-599e-4a0c-aacd-b8143eb9c6c5", "8971c15c-d536-4161-b148-6983d34d8d10"],
-      "arrow": "←",
+      "arrow": "→",
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "a0526050-ab1f-4fab-993a-4acd191bbda9",
       "label": {
-        "en": "divided into"
+        "en": "made of"
       }
     },
     {
@@ -6045,12 +5995,6 @@
       "label": {
         "en": "dyed with"
       }
-    },
-    {
-      "nodes": ["e41974fe-67f1-4ea9-8507-d8f22fc64f39", "88f452f0-1608-4726-9d7a-64160a741fbf"],
-      "arrow": "→",
-      "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
-      "id": "fc47cd65-bba9-4f3b-a312-feac814db1a5"
     },
     {
       "nodes": ["e41974fe-67f1-4ea9-8507-d8f22fc64f39", "b07c04ac-5e22-4c1e-b61c-762c5c15bfc5"],
@@ -6273,7 +6217,184 @@
       "label": {
         "en": "to make"
       }
+    },
+    {
+      "nodes": ["2e89c3bf-96bc-4dbf-81fe-e2d8445ac7c8", "656d55d6-9db7-42dc-bd1c-406168127acb"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "08d89d15-e5ba-419d-85e5-8e4fe2c755d4"
+    },
+    {
+      "nodes": ["2e89c3bf-96bc-4dbf-81fe-e2d8445ac7c8", "656d55d6-9db7-42dc-bd1c-406168127acb"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "3903e177-a8f6-4f30-bf19-fa61a97b89b9"
+    },
+    {
+      "nodes": ["2e89c3bf-96bc-4dbf-81fe-e2d8445ac7c8", "656d55d6-9db7-42dc-bd1c-406168127acb"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "6fcd4103-9bd5-4e35-81af-ba39f00b0b89"
+    },
+    {
+      "nodes": ["656d55d6-9db7-42dc-bd1c-406168127acb", "3236aa1c-7bbc-4410-a4d1-8f856720f6a8"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "85327e6c-bf8a-426b-9da7-79676c97b88d"
+    },
+    {
+      "nodes": ["3236aa1c-7bbc-4410-a4d1-8f856720f6a8", "eeedfcd9-296b-41c7-9b85-9bfc888c0fc7"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "b0503786-7585-4df3-892e-3f0c6f14ff38"
+    },
+    {
+      "nodes": ["bf90d0bf-e307-47c7-a540-14f25fd5fa34", "a9038e82-1646-4339-af71-141a737827ce"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "92e82bbf-5dfc-4cae-b20e-16d9a665c7a2"
+    },
+    {
+      "nodes": ["e41974fe-67f1-4ea9-8507-d8f22fc64f39", "3908a90b-7bbe-4c03-ad14-de4c324b3c38"],
+      "arrow": "→",
+      "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
+      "id": "1d3b36b0-4535-47bb-95f5-1dfeaca75d03",
+      "label": {
+        "en": "dyed with"
+      }
+    },
+    {
+      "nodes": ["dc15bc7d-61f3-4295-ab7e-ffb172abfbc5", "592f3ffc-b9f5-44d6-a8a0-f0caef6dde48"],
+      "arrow": "→",
+      "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
+      "id": "104fc1a5-ecc9-4864-8cd0-667db890dbf9",
+      "label": {
+        "en": "used in spirit's hammock"
+      }
+    },
+    {
+      "nodes": ["5510c5ff-39e1-4d5c-80e1-f853fc845569", "fe309e3c-ebc3-403a-97fc-3a844be1e30f"],
+      "arrow": "→",
+      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
+      "id": "edec6272-3438-486d-a7ce-57ac036c2b16",
+      "label": {
+        "en": "is part of"
+      }
+    },
+    {
+      "nodes": ["2d8268cb-87c8-489f-8eeb-e4103cb7de09", "6c901eef-7ce8-44ac-b05a-3c4e343f17ed"],
+      "arrow": "→",
+      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
+      "id": "470e43ca-b6fb-4323-ad41-6a18e6db82bd",
+      "label": {
+        "en": "rubbed washed and strained on"
+      }
+    },
+    {
+      "nodes": ["6c901eef-7ce8-44ac-b05a-3c4e343f17ed", "46e44a6e-7373-44c4-b7cd-cc82da18e570"],
+      "arrow": "→",
+      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
+      "id": "c32a2ac1-6815-4c04-b2fb-eb58d4b0c85e",
+      "label": {
+        "en": "becomes"
+      }
+    },
+    {
+      "nodes": ["2d8268cb-87c8-489f-8eeb-e4103cb7de09", "5510c5ff-39e1-4d5c-80e1-f853fc845569"],
+      "arrow": "→",
+      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
+      "id": "a25eab35-de5c-45b3-a0c4-48b6d25cfaa4",
+      "label": {
+        "en": "is extracted from"
+      }
+    },
+    {
+      "nodes": ["2d8268cb-87c8-489f-8eeb-e4103cb7de09", "2d8268cb-87c8-489f-8eeb-e4103cb7de09"],
+      "arrow": "→",
+      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
+      "id": "eebe8078-cb36-41d7-996c-453c6c99aaf7"
+    },
+    {
+      "nodes": ["fe309e3c-ebc3-403a-97fc-3a844be1e30f", "fdc74b6f-d42e-4f4f-9a16-549887046854"],
+      "arrow": "↔",
+      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
+      "id": "2e76b532-63cd-47d3-b96b-c40a731a741f",
+      "label": {
+        "en": "are related species"
+      }
+    },
+    {
+      "nodes": ["09eda7fb-82fc-4989-9410-fe2e1a79ec81", "5510c5ff-39e1-4d5c-80e1-f853fc845569"],
+      "arrow": "→",
+      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
+      "id": "5f496870-8882-426a-b0c4-606d178d2f91",
+      "label": {
+        "en": "harvest"
+      }
+    },
+    {
+      "nodes": ["3efec77d-8792-4320-b611-d1454a98c3a3", "9efc33b3-ffde-42d5-88c6-deb872a871a6"],
+      "arrow": "→",
+      "graph": "8c54c09e-e000-4878-a807-a82a19132ba1",
+      "id": "18b46c14-d773-4080-bc87-0dc8ffbb6524",
+      "label": {
+        "en": "used to paint"
+      }
+    },
+    {
+      "nodes": ["68585357-ebe4-4355-bfd4-338be23c8792", "0e4e7592-da50-4144-a0e2-100bc760d92b"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "a8059790-59ad-44fd-9ebf-867c5cdc9552"
+    },
+    {
+      "nodes": ["8c54c09e-e000-4878-a807-a82a19132ba1", "ac6e79eb-3efd-4843-98fa-8f74b7b959a4"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "bad57e5a-8465-4632-a2e5-9f18864a182b"
+    },
+    {
+      "nodes": ["ac6e79eb-3efd-4843-98fa-8f74b7b959a4", "2d928e25-3e3b-4c0a-84f1-502df3ddbf60"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "50f77d34-6222-4920-aaca-869a6f303680"
+    },
+    {
+      "nodes": ["3236aa1c-7bbc-4410-a4d1-8f856720f6a8", "68585357-ebe4-4355-bfd4-338be23c8792"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "6f256987-c445-477a-83e9-3d103ebde380"
+    },
+    {
+      "nodes": ["eeedfcd9-296b-41c7-9b85-9bfc888c0fc7", "bf90d0bf-e307-47c7-a540-14f25fd5fa34"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "4e7688bd-0835-4acf-ab42-3be3fc1d4252"
+    },
+    {
+      "nodes": ["bf90d0bf-e307-47c7-a540-14f25fd5fa34", "6d24e8f3-9832-43dd-83b9-9bb77db501cb"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "689e9696-151a-474d-b84b-c255253e7257"
+    },
+    {
+      "nodes": ["6d24e8f3-9832-43dd-83b9-9bb77db501cb", "68585357-ebe4-4355-bfd4-338be23c8792"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "1e8f46be-b4eb-4d83-a15a-ac904461584c"
+    },
+    {
+      "nodes": ["6d24e8f3-9832-43dd-83b9-9bb77db501cb", "2d928e25-3e3b-4c0a-84f1-502df3ddbf60"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "325ef986-5d06-4739-b58c-484679f46c59"
+    },
+    {
+      "nodes": ["8c54c09e-e000-4878-a807-a82a19132ba1", "2d928e25-3e3b-4c0a-84f1-502df3ddbf60"],
+      "arrow": "→",
+      "graph": "28c47119-1798-4f58-95ea-b25d4e7045f2",
+      "id": "0d903e43-2b0e-4e17-819d-deae79e8f7f5"
     }
   ],
-  "exported": 1730121192817
+  "exported": 1730733961961
 }

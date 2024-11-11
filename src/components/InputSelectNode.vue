@@ -76,7 +76,7 @@ function select(id) {
     position-anchor: --anchor-input-select;
     transform: none;
 
-    inset-area: bottom;
+    position-area: bottom;
     position-try-options: flip-block;
   }
 }

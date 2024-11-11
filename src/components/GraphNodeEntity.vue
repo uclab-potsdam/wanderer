@@ -7,7 +7,6 @@ import { useRoute } from 'vue-router'
 import HorizontalSlider from './HorizontalSlider.vue'
 import GraphNodeGraph from './GraphNodeGraph.vue'
 import { useSettingsStore } from '@/stores/settings'
-import { useLayoutStore } from '@/stores/layout'
 import { useHelperStore } from '@/stores/helper'
 
 const route = useRoute()
@@ -129,7 +128,7 @@ function onTransitionend(e) {
       <HorizontalSlider v-if="detail" class="occurances" @wheel.stop :no-arrows="animateTextAlign">
         <RouterLink
           class="occurance"
-          @click.stop
+          @click.stop=""
           v-for="occurance in occurances"
           :key="occurance.id"
           :to="{ name: 'graph', params: { type: 'graph', id: occurance.id } }"

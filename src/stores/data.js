@@ -14,12 +14,12 @@ export const useDataStore = defineStore('data', () => {
 
   async function init() {
     data.value = await fetch(configStore.wandererStatic).then((d) => d.json())
-    if (settingsStore.mode !== 'live' && localStorage.getItem(`wanderer:data`) != null) {
+    if (settingsStore.mode !== 'public' && localStorage.getItem(`wanderer:data`) != null) {
       const localData = JSON.parse(localStorage.getItem(`wanderer:data`))
       if (
         data.value.exported === localData.exported ||
         !window.confirm(
-          'Your local changes are based on a dataset version that does not match the live version. Do you want to discard your local changes and make a local copy of the latest live version?'
+          'Your local changes are based on a dataset version that does not match the public version. Do you want to discard your local changes and make a local copy of the latest public version?'
         )
       ) {
         data.value = localData
@@ -67,7 +67,7 @@ export const useDataStore = defineStore('data', () => {
 
   function deleteLocalChanges() {
     localStorage.removeItem('wanderer:data')
-    settingsStore.mode = 'live'
+    settingsStore.mode = 'public'
   }
 
   function exportProject() {

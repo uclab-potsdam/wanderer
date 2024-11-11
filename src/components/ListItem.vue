@@ -1,5 +1,6 @@
 <script setup>
 import LocalizeText from '@/components/LocalizeText.vue'
+import IconIndex from '~icons/base/NowhereToGo'
 defineProps({
   tag: {
     type: String,
@@ -16,6 +17,10 @@ defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  index: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
@@ -23,7 +28,9 @@ defineProps({
 <template>
   <component :is="tag" class="list-item" :class="{ disabled }">
     <div class="left">
-      <h3 class="label"><LocalizeText :text="label" /></h3>
+      <h3 class="label">
+        <LocalizeText :text="label" />
+      </h3>
       <span class="meta"><LocalizeText :text="meta" /></span>
     </div>
     <div class="right">
@@ -36,11 +43,13 @@ defineProps({
 .list-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   text-decoration: none;
   color: inherit;
 
-  padding: var(--spacing-half);
+  padding: var(--spacing-quart) var(--spacing-quart) var(--spacing-quart) var(--spacing-half);
+  min-height: 45px;
   border-radius: var(--border-radius);
 
   .left {

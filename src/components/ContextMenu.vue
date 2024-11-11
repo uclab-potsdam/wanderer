@@ -40,7 +40,7 @@ const contextMenuStore = useContextMenuStore()
     position-anchor: --anchor-context-menu;
     transform: none;
 
-    inset-area: right bottom;
+    position-area: right bottom;
     margin: -5px 0 0 0;
     position-try-options:
       flip-block,

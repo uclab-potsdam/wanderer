@@ -27,6 +27,9 @@ export const useVideoStore = defineStore('video', () => {
   const playing = ref(false)
   const duration = ref(1)
 
+  const restoreState = ref(null)
+  let restoreTimeout = null
+
   const setPlaying = ref(null)
 
   const video = computed(() => dataStore.data?.nodes[graphId.value]?.media)
@@ -44,7 +47,21 @@ export const useVideoStore = defineStore('video', () => {
     subtitles.value = parseSRT(text)
   })
 
-  watch(graphId, (id) => {
+  watch(graphId, (id, oldId) => {
+    if (duration.value - time.value > 5 && restoreState.value?.graphId !== id) {
+      restoreState.value = {
+        time: Math.max(time.value - 5, 0),
+        graphId: oldId
+      }
+      clearTimeout(restoreTimeout)
+      restoreTimeout = setTimeout(() => {
+        restoreState.value = null
+      }, 7500)
+    } else {
+      console.log('clear trap')
+      clearTimeout(restoreTimeout)
+      restoreState.value = null
+    }
     if (isExternalPlayer.value) return
     history.value.push(id)
     if (history.value.length > 3) history.value.splice(0, 1)
@@ -174,6 +191,7 @@ export const useVideoStore = defineStore('video', () => {
     detachPlayer,
     requestNext,
     isExternalPlayer,
+    restoreState,
     next,
     playing,
     duration

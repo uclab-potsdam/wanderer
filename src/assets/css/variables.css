@@ -34,11 +34,11 @@
   --graph-accent: var(--orange);
   --ui-accent: var(--color-accent);
 
-  --color-live: var(--orange);
+  --color-public: var(--orange);
   --color-edit: var(--green);
   --color-preview: var(--violet);
 
-  --color-accent: var(--color-live);
+  --color-accent: var(--color-public);
 
 
   --color-edge: black;

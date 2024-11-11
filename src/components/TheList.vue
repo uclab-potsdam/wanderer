@@ -1,6 +1,7 @@
 <script setup>
 import { useDataStore } from '@/stores/data'
 import { useRoute } from 'vue-router'
+import IconIndex from '~icons/base/Index'
 import ListItem from './ListItem.vue'
 import ListWrapper from './ListWrapper.vue'
 import InputButton from './InputButton.vue'
@@ -31,8 +32,15 @@ function createNode() {
         <InputButton tag="RouterLink" to="entity"> Entities </InputButton>
         <InputButton tag="RouterLink" to="image"> Images </InputButton>
       </ListWrapper>
-      <ListWrapper horizontal v-if="settingsStore.edit">
-        <InputButton @click="createNode" disable-padding title="new"> <IconNew /> </InputButton>
+      <ListWrapper horizontal>
+        <InputButton
+          :disabled="!settingsStore.edit"
+          @click="createNode"
+          disable-padding
+          title="new"
+        >
+          <IconNew />
+        </InputButton>
       </ListWrapper>
     </nav>
 
@@ -43,22 +51,24 @@ function createNode() {
           :to="{ name: 'graph', params: { type: node.type, id } }"
           v-if="node.type === route.params.type"
           :label="node.label"
+          :index="node.index"
           :meta="dataStore.data.nodes[node.class]?.label"
         >
-          <template v-if="settingsStore.edit">
-            <InputButtonDelete
-              title="delete"
-              @click.prevent
-              @confirmed="dataStore.deleteNode(id, null, true)"
-            />
-            <InputButton
-              title="edit"
-              @click.stop.prevent="modalStore.open(id, 'node')"
-              disable-padding
-            >
-              <IconEdit />
-            </InputButton>
-          </template>
+          <IconIndex v-if="node.index" style="color: var(--color-accent)" />
+          <InputButtonDelete
+            title="delete"
+            @click.prevent
+            @confirmed="dataStore.deleteNode(id, null, true)"
+            :disabled="!settingsStore.edit"
+          />
+          <InputButton
+            title="edit"
+            @click.stop.prevent="modalStore.open(id, 'node')"
+            disable-padding
+            :disabled="!settingsStore.edit"
+          >
+            <IconEdit />
+          </InputButton>
         </ListItem>
       </template>
     </div>

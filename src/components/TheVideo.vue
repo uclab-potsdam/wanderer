@@ -3,6 +3,7 @@ import { useVideoStore } from '@/stores/video'
 import { useHelperStore } from '@/stores/helper'
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { useSettingsStore } from '@/stores/settings'
 
 defineProps({
   letterbox: Boolean
@@ -10,6 +11,7 @@ defineProps({
 
 const videoStore = useVideoStore()
 const helperStore = useHelperStore()
+const settingsStore = useSettingsStore()
 
 const router = useRouter()
 
@@ -72,7 +74,7 @@ watch(
     <video
       ref="video"
       crossorigin="anonymous"
-      :autoplay="exhibitionMode"
+      :autoplay="!settingsStore.edit"
       :controls="!exhibitionMode"
       :src="source"
       @loadstart="onLoadStart"
@@ -90,10 +92,6 @@ watch(
 
 <style scoped>
 .video {
-  z-index: 1;
-  grid-column: video-start / video-end;
-  grid-row: video-start / video-end;
-
   display: grid;
   grid-template-columns:
     1fr
@@ -102,6 +100,8 @@ watch(
   grid-template-rows: 1fr 7.5%;
 
   background: black;
+
+  overflow: hidden;
 
   video {
     object-fit: cover;
