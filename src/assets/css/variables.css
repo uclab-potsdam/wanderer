@@ -32,6 +32,7 @@
   --color-background: white;
   --color-text: black;
   --graph-accent: var(--orange);
+  --graph-highlight: var(--orange);
   --ui-accent: var(--color-accent);
 
   --color-public: var(--orange);
@@ -53,11 +54,21 @@
 
   /* Filter */
   --blur: blur(7px);  
-  transition: --color-background var(--transition);
+
+  &.initialized {
+    transition: --color-background var(--transition), --color-edge var(--transition);
+  }
 }
+
 
 @property --color-background {
   syntax: "<color>";
   initial-value: white;
+  inherits: true;
+}
+
+@property --color-edge {
+  syntax: "<color>";
+  initial-value: black;
   inherits: true;
 }

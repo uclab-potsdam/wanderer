@@ -62,7 +62,6 @@ const color = computed(() => {
   //   occurances.value[0].color == null
   // )
   //   return
-  // return { '--graph-accent': `var(--${occurances.value[0].color})` }
   return { '--graph-accent': color ? `var(--${color})` : null }
 })
 
@@ -313,6 +312,7 @@ function onContextMenu(e) {
   path {
     transition:
       color var(--transition),
+      stroke var(--transition),
       opacity var(--transition);
 
     &.edit {

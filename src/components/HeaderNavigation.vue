@@ -2,15 +2,19 @@
 import IconHome from '~icons/base/Home'
 import IconBack from '~icons/base/Back'
 import IconNowhereToGo from '~icons/base/NowhereToGo'
+import IconList from '~icons/base/List'
+import IconSettings from '~icons/base/Settings'
 import ListWrapper from './ListWrapper.vue'
 
 import { useVideoStore } from '@/stores/video'
 import { useDataStore } from '@/stores/data'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
+import { useSettingsStore } from '@/stores/settings'
 
 const videoStore = useVideoStore()
 const dataStore = useDataStore()
+const settingsStore = useSettingsStore()
 const route = useRoute()
 
 const target = computed(() => {
@@ -32,12 +36,26 @@ const target = computed(() => {
       }
     }
   return {
-    name: 'home'
+    name: 'index'
   }
 })
 </script>
 
 <template>
+  <RouterLink :to="{ name: 'list', params: { type: 'graph' } }" v-if="settingsStore.enableEditing">
+    <ListWrapper horizontal class="header-item">
+      <div class="icon-wrapper">
+        <IconList />
+      </div>
+    </ListWrapper>
+  </RouterLink>
+  <RouterLink :to="{ name: 'authoring' }" v-if="settingsStore.enableEditing">
+    <ListWrapper horizontal class="header-item">
+      <div class="icon-wrapper">
+        <IconSettings />
+      </div>
+    </ListWrapper>
+  </RouterLink>
   <RouterLink :to="target">
     <ListWrapper horizontal class="header-item">
       <div class="icon-wrapper">

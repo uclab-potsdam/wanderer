@@ -8,8 +8,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      redirect: { name: 'list', params: { type: 'graph' } }
+      name: 'index'
     },
     {
       path: '/authoring',
@@ -53,8 +52,11 @@ router.beforeEach(async (to, from) => {
     await dataStore.init()
   }
 
-  const index = dataStore.nodes.find((n) => n.type === 'graph' && n.index)
-  if (to.name === 'list' && !settingsStore.enableEditing && index != null) {
+  const index =
+    dataStore.nodes.find((n) => n.type === 'graph' && n.index) ??
+    dataStore.nodes.find((n) => n.type === 'graph')
+
+  if (to.name === 'index') {
     return { name: 'graph', params: { type: 'graph', id: index.id } }
   }
 
@@ -100,11 +102,14 @@ router.beforeEach(async (to, from) => {
   if (to.params.type === 'graph' && to.name === 'graph') {
     videoStore.graphId = to.params.id
   } else if (videoStore.graphId == null || to.name === 'list') {
-    // console.log(dataStore.nodes.find((node) => node.type === 'graph' && node.index)?.id)
-    videoStore.graphId = dataStore.nodes.find((node) => node.type === 'graph' && node.index)?.id
+    videoStore.graphId = index.id
   }
   to.meta.initializeView = to.name !== from.name
   // next()
+})
+
+router.afterEach(() => {
+  document.querySelector(':root').classList.add('initialized')
 })
 
 export default router
