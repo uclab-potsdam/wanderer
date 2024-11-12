@@ -68,7 +68,7 @@ function next() {
 .timeline {
   --tint: var(--accent, var(--ui-accent));
 
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100vw;
 

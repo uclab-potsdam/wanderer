@@ -39,7 +39,7 @@ const dataStore = useDataStore()
 
 <style scoped>
 footer {
-  position: absolute;
+  position: fixed;
   bottom: calc(var(--spacing-half) + var(--spacing-quart));
   left: var(--spacing-half);
 
