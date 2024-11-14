@@ -54,6 +54,35 @@ function computeAllocations(id) {
       }))
   ]
 
+  const entityClass = dataStore.data.nodes[id].class
+  if (entityClass != null) {
+    nodes.push({
+      id: entityClass,
+      depth: 1,
+      ...getCoordinates(entityClass)
+    })
+
+    edges.push({
+      source: id,
+      target: entityClass
+    })
+  }
+
+  dataStore.nodes
+    .filter((n) => n.class === id)
+    .forEach((n) => {
+      nodes.push({
+        id: n.id,
+        depth: 1,
+        ...getCoordinates(n.id)
+      })
+
+      edges.push({
+        source: n.id,
+        target: id
+      })
+    })
+
   const simulation = forceSimulation(nodes)
     .force(
       'link',

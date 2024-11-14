@@ -79,12 +79,33 @@ const bounds = computed(() => {
 })
 const edges = computed(() => {
   const nodes = Object.keys(allocations.value ?? {})
-  return dataStore.data.edges.filter(
+  const edges = dataStore.data.edges.filter(
     (edge) =>
       nodes.includes(edge.nodes[0]) &&
       nodes.includes(edge.nodes[1]) &&
       (edge.graph === id.value || node.value.type !== 'graph')
   )
+  if (view.value === 'network') {
+    const classId = dataStore.data.nodes[id.value].class
+    if (classId != null) {
+      edges.push({
+        id: `class-${[id.value, classId].join('-')}`,
+        nodes: [id.value, classId],
+        arrow: '→'
+      })
+    }
+  }
+
+  dataStore.nodes
+    .filter((n) => n.class === id.value)
+    .forEach((n) => {
+      edges.push({
+        id: `class-${[n.id, id.value].join('-')}`,
+        nodes: [n.id, id.value],
+        arrow: '→'
+      })
+    })
+  return edges
 })
 
 const allocationOrder = computed(() => Object.keys(allocations.value ?? {}).sort())
