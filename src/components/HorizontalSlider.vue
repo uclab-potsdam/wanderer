@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, onBeforeUnmount, computed, nextTick } from 'vue'
+import { onMounted, ref, onBeforeUnmount, computed, nextTick, watch } from 'vue'
 
 const props = defineProps({
   itemWidth: {
@@ -10,10 +10,14 @@ const props = defineProps({
     type: Number,
     default: 10
   },
+  position: {
+    type: Number,
+    default: null
+  },
   noArrows: Boolean
 })
 
-const emit = defineEmits(['select-item'])
+const emit = defineEmits(['select-item', 'update:modelValue'])
 
 const offset = 30
 const wrapper = ref(null)
@@ -53,7 +57,25 @@ const slide = (dir) => {
   wrapper.value.scrollBy({ left: (props.itemWidth + props.gap) * dir, behavior: 'smooth' })
 }
 
+watch(
+  () => props.position,
+  (pos) => {
+    if (pos == null) return
+    wrapper.value.scrollTo({
+      left: (props.itemWidth + props.gap) * pos,
+      behavior: 'smooth'
+    })
+  }
+)
+
 onMounted(() => {
+  if (props.position) {
+    wrapper.value.scrollTo({
+      left: (props.itemWidth + props.gap) * props.position,
+      behavior: 'instant'
+    })
+  }
+
   resizeObserver.observe(wrapper.value)
 })
 onBeforeUnmount(() => {

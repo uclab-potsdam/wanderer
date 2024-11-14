@@ -22,6 +22,7 @@ const settingsStore = useSettingsStore()
 const helperStore = useHelperStore()
 
 const el = ref(null)
+const slider = ref(null)
 
 const width = ref(null)
 const height = ref(null)
@@ -29,6 +30,8 @@ const height = ref(null)
 const animateTextAlign = ref(false)
 const transformLabel = ref(null)
 const transformClass = ref(null)
+
+const sliderPosition = ref(0)
 
 const nodeClass = computed(() => dataStore.data.nodes[props.node.class]?.label)
 
@@ -62,6 +65,10 @@ watch(detail, (detail) => {
 
   if (detail) {
     animateTextAlign.value = true
+    sliderPosition.value = Math.max(
+      props.occurances.findIndex((o) => o.id === dataStore.storyId),
+      0
+    )
   }
   const labelOffset = (getElementWidth(el.value.querySelector('.label')) - 250) / 2
   transformLabel.value = {
@@ -89,6 +96,19 @@ watch(
   () => nextTick(() => updateLayout())
 )
 
+watch(
+  () => dataStore.storyIdForce,
+  (storyId) => {
+    if (storyId == null) return
+    if (detail.value) {
+      const position = props.occurances.findIndex((o) => o.id === storyId)
+      sliderPosition.value = null
+      dataStore.storyIdForce = null
+      nextTick(() => (sliderPosition.value = position))
+    }
+  }
+)
+
 defineExpose({
   el
 })
@@ -109,10 +129,29 @@ function onTransitionend(e) {
 function selectOccurance(index) {
   dataStore.storyId = props.occurances[index].id
 }
+
+function findRelatedStory() {
+  if (route.name === 'graph' && route.params.type !== 'graph' && !detail.value) {
+    const detail = route.params.id
+    const edges = dataStore.data.edges.filter(
+      (e) => e.nodes.includes(detail) && e.nodes.includes(props.id) && e.graph != null
+    )
+    if (edges.length) {
+      if (edges.find((e) => e.graph === dataStore.storyId)) return
+      dataStore.storyIdForce = edges[0].graph
+    }
+  }
+}
 </script>
 
 <template>
-  <div class="entity" ref="el" :style="{ width, height }" :class="{ detail, secondary }">
+  <div
+    class="entity"
+    ref="el"
+    :style="{ width, height }"
+    :class="{ detail, secondary }"
+    @mouseover="findRelatedStory"
+  >
     <span
       class="label"
       :class="{ 'animate-text-align': animateTextAlign }"
@@ -139,6 +178,8 @@ function selectOccurance(index) {
     <Transition name="stories">
       <HorizontalSlider
         v-if="detail"
+        :position="sliderPosition"
+        ref="slider"
         class="occurances"
         @wheel.stop
         :no-arrows="animateTextAlign"

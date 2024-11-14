@@ -100,7 +100,7 @@ router.beforeEach(async (to, from) => {
   }
 
   if (to.params.type === 'graph' && to.name === 'graph') {
-    videoStore.graphId = to.params.id
+    videoStore.graphId = dataStore.storyId = to.params.id
   } else if (videoStore.graphId == null || to.name === 'list') {
     videoStore.graphId = index.id
   }

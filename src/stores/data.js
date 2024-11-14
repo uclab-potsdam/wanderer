@@ -12,6 +12,7 @@ export const useDataStore = defineStore('data', () => {
   const data = ref(null)
   const nodeId = ref(null)
   const storyId = ref(null)
+  const storyIdForce = ref(null)
 
   async function init() {
     data.value = await fetch(configStore.wandererStatic).then((d) => d.json())
@@ -139,6 +140,7 @@ export const useDataStore = defineStore('data', () => {
     deleteNode,
     createNode,
     exportProject,
-    deleteLocalChanges
+    deleteLocalChanges,
+    storyIdForce
   }
 })
