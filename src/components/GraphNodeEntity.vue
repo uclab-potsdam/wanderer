@@ -13,7 +13,7 @@ const route = useRoute()
 const props = defineProps({
   node: Object,
   id: String,
-  occurances: Object,
+  occurances: Array,
   position: Object
 })
 
@@ -34,6 +34,13 @@ const nodeClass = computed(() => dataStore.data.nodes[props.node.class]?.label)
 
 const detail = computed(() => route.params.id === props.id)
 
+const secondary = computed(
+  () =>
+    dataStore.storyId != null &&
+    route.params.type !== 'graph' &&
+    dataStore.data.nodes[dataStore.storyId].allocations[props.id] == null
+)
+
 const description = computed(() => {
   if (!detail.value) return
   return helperStore.localize(props.node.description, true)
@@ -45,6 +52,7 @@ const urls = computed(() => {
     domain: new URL(url).hostname.replace(/^www\./, '')
   }))
 })
+
 onMounted(() => {
   updateLayout()
 })
@@ -97,10 +105,14 @@ function onTransitionend(e) {
     transformClass.value = null
   }
 }
+
+function selectOccurance(index) {
+  dataStore.storyId = props.occurances[index].id
+}
 </script>
 
 <template>
-  <div class="entity" ref="el" :style="{ width, height }" :class="{ detail }">
+  <div class="entity" ref="el" :style="{ width, height }" :class="{ detail, secondary }">
     <span
       class="label"
       :class="{ 'animate-text-align': animateTextAlign }"
@@ -125,7 +137,13 @@ function onTransitionend(e) {
       </span>
     </div>
     <Transition name="stories">
-      <HorizontalSlider v-if="detail" class="occurances" @wheel.stop :no-arrows="animateTextAlign">
+      <HorizontalSlider
+        v-if="detail"
+        class="occurances"
+        @wheel.stop
+        :no-arrows="animateTextAlign"
+        @select-item="selectOccurance"
+      >
         <RouterLink
           class="occurance"
           @click.stop=""
@@ -153,8 +171,25 @@ function onTransitionend(e) {
 
   transition:
     height var(--transition),
-    background var(--transition),
-    text-align var(--transition) var(--transition);
+    background var(--ui-transition) var(--transition),
+    text-align var(--transition) var(--transition),
+    color var(--ui-transition);
+
+  &.network {
+    transition:
+      height var(--transition),
+      background var(--transition),
+      text-align var(--transition) var(--transition),
+      color var(--ui-transition);
+  }
+
+  &.detail {
+    transition:
+      height var(--transition),
+      text-align var(--transition) var(--transition),
+      color var(--ui-transition),
+      background var(--ui-transition);
+  }
 
   text-align: center;
 
@@ -200,10 +235,6 @@ function onTransitionend(e) {
           color-mix(in lab, var(--highlight-color), transparent 99%) 50%
         );
     }
-  }
-
-  &.network {
-    color: var(--color-text);
   }
 
   /* .label,
@@ -254,7 +285,7 @@ function onTransitionend(e) {
   &.detail {
     max-width: none;
     width: 250px !important;
-    background-color: var(--graph-accent);
+    background-color: white;
 
     &:not(:has(.animate-text-align)) {
       text-align: left;
@@ -272,7 +303,7 @@ function onTransitionend(e) {
       transition: all var(--transition);
     }
     &.stories-leave-to {
-      /* background-color: aqua; */
+      opacity: 0;
     }
   }
 }

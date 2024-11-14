@@ -173,7 +173,8 @@ function initGraph(duration, previous) {
     zoomToBounds(bounds.value, duration)
   } else {
     allocations.value = computeAllocations(id.value)
-    zoomToCenter(layoutStore.offset, duration)
+    zoomToBounds(bounds.value, duration, layoutStore.offset)
+    // zoomToCenter(layoutStore.offset, duration)
     // zoomToBounds(bounds.value, duration)
   }
 }
@@ -195,7 +196,7 @@ function getAllocationCenter(allocations) {
   }
 }
 
-function zoomToBounds(bounds, duration = 0) {
+function zoomToBounds(bounds, duration = 0, center) {
   if (bounds == null) return
   const diff = {
     x: bounds.x2 - bounds.x1,

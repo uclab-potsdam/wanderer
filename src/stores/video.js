@@ -58,7 +58,6 @@ export const useVideoStore = defineStore('video', () => {
         restoreState.value = null
       }, 7500)
     } else {
-      console.log('clear trap')
       clearTimeout(restoreTimeout)
       restoreState.value = null
     }

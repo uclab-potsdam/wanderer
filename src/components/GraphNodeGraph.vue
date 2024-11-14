@@ -61,8 +61,10 @@ defineExpose({
     <img v-if="image" :src="image" draggable="false" />
     <div v-else class="image-placeholder" />
     <div class="icon">
-      <ControlsPlay v-if="!playing" />
-      <IconPlaying v-else />
+      <Transition name="fade" mode="out-in">
+        <ControlsPlay v-if="!playing" />
+        <IconPlaying v-else />
+      </Transition>
     </div>
     <div class="text" ref="textElement">
       <span
@@ -113,6 +115,9 @@ defineExpose({
   > .icon {
     /* position: absolute; */
     /* top: 105px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 45px;
     width: 45px;
     margin-top: -45px;
@@ -120,6 +125,16 @@ defineExpose({
     /* background: var(--color-background); */
     background: var(--color-accent);
     color: white;
+
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity var(--transition) var(--ui-transition);
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+      opacity: 0;
+    }
   }
 
   .text {
@@ -127,6 +142,7 @@ defineExpose({
     /* text-shadow: var(--color-text) 0 0 10px; */
     display: block;
     margin-top: var(--spacing-half);
+    width: 235px;
 
     > span {
       background: black;

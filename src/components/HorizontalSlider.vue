@@ -6,9 +6,16 @@ const props = defineProps({
     type: Number,
     default: 250
   },
+  gap: {
+    type: Number,
+    default: 10
+  },
   noArrows: Boolean
 })
 
+const emit = defineEmits(['select-item'])
+
+const offset = 30
 const wrapper = ref(null)
 
 const wrapperScrollWidth = ref(0)
@@ -39,13 +46,11 @@ const enableArrowRight = computed(
 
 function onScroll() {
   scrollLeft.value = wrapper.value.scrollLeft ?? 0
+  emit('select-item', Math.round((scrollLeft.value - offset) / (props.itemWidth + props.gap)))
 }
 
 const slide = (dir) => {
-  const contentWidth = 250
-  const gap = 10
-  const offset = Math.max(Math.floor(contentWidth / props.itemWidth), 1)
-  wrapper.value.scrollBy({ left: offset * (props.itemWidth + gap) * dir, behavior: 'smooth' })
+  wrapper.value.scrollBy({ left: (props.itemWidth + props.gap) * dir, behavior: 'smooth' })
 }
 
 onMounted(() => {
@@ -118,24 +123,28 @@ onBeforeUnmount(() => {
     transition:
       color 0.2s,
       font-size 0.2s,
-      font-weight 0.2s;
+      font-weight 0.2s,
+      transform 0.2s;
+    /* transform-origin: center; */
 
     &:not(:disabled) {
       &:hover {
         font-size: 1em;
         font-weight: 310;
+        transform: translateY(-50%) scale(1.2);
       }
     }
 
     &:disabled {
       /* color: color-mix(in lab, var(--color-user), transparent 70%); */
       transform: translateY(-50%) scale(0.1);
-      color: var(--color-accent);
+      color: var(--color-background);
       cursor: default;
     }
+
     --button-size: 30px;
 
-    background: var(--color-accent);
+    background: var(--color-detail-background);
     height: var(--button-size);
     width: var(--button-size);
     top: 50%;

@@ -38,30 +38,16 @@ const props = defineProps({
 
 const isNetwork = computed(() => route.params.type !== 'graph')
 
+const secondary = computed(() => isNetwork.value && props.edge.graph !== dataStore.storyId)
+
 const source = computed(() => layoutStore.nodes[props.edge.nodes[0]])
 const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
 
-// const occurances = computed(() => {
-//   const predicate =
-//     dataStore.data.nodes[props.edge.nodes[0]].type === 'predicate'
-//       ? props.edge.nodes[0]
-//       : dataStore.data.nodes[props.edge.nodes[1]].type === 'predicate'
-//         ? props.edge.nodes[1]
-//         : null
-//   if (predicate === null) return
-//   return dataStore.graphs.filter((d) =>
-//     Object.prototype.hasOwnProperty.call(d.allocations ?? {}, predicate)
-//   )
-// })
+const detailIsSource = computed(() => isNetwork.value && route.params.id === props.edge.nodes[0])
+const detailIsTarget = computed(() => isNetwork.value && route.params.id === props.edge.nodes[1])
 
 const color = computed(() => {
   const color = dataStore.data.nodes[props.edge.graph]?.color
-  // if (
-  //   occurances.value == null ||
-  //   occurances.value.length === 0 ||
-  //   occurances.value[0].color == null
-  // )
-  //   return
   return { '--graph-accent': color ? `var(--${color})` : null }
 })
 
@@ -73,10 +59,10 @@ const points = computed(() => {
   const margin = spacing
   const radius = spacing
 
-  const sourceWidth = source.value.width + margin
-  const sourceHeight = source.value.height + margin
-  const targetWidth = target.value.width + margin
-  const targetHeight = target.value.height + margin
+  const sourceWidth = source.value.width + margin + margin * detailIsSource.value
+  const sourceHeight = source.value.height + margin + margin * detailIsSource.value * 2
+  const targetWidth = target.value.width + margin + margin * detailIsTarget.value
+  const targetHeight = target.value.height + margin + margin * detailIsTarget.value * 2
 
   const start = getLineRoundedRectangleIntersection(
     source.value.x,
@@ -114,12 +100,6 @@ const points = computed(() => {
     return [a, c, c, b]
   }
 
-  // const c = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
-  // const d = { x: Math.abs(b.x - a.x), y: Math.abs(b.y - a.y) }
-
-  // const directions = ['←', '↖', '↑', '↗︎', '→', '↘︎', '↓', '↙︎']
-  // console.log(directions[start.anchor], directions[(end.anchor + 4) % 8])
-
   const vectors = [
     { x: -1, y: 0 },
     { x: -1, y: -1 },
@@ -131,16 +111,6 @@ const points = computed(() => {
     { x: -1, y: 1 }
   ]
 
-  // switch (directions[start.anchor]) {
-  //   case '←':
-  //     switch (directions[(end.anchor + 4) % 8]) {
-  //       case '←':
-  //         return [a, { x: c.x + d.y / 2, y: a.y }, { x: c.x - d.y / 2, y: b.y }, b]
-  //       case '↖':
-  //         return [a, { x: b.x + d.y, y: a.y }, b]
-  //     }
-  // }
-
   return [
     a,
     { x: a.x + vectors[start.anchor].x * 100, y: a.y + vectors[start.anchor].y * 100 },
@@ -151,13 +121,7 @@ const points = computed(() => {
 
 const d = computed(() => {
   if (points.value == null) return
-
-  // if (isNetwork.value) {
-  //   return `M${points.value.map((p) => `${p.x},${p.y}`).join(' L')}`
-  // }
-
   return `M${points.value.map((p, i) => `${i === 1 ? 'C' : ''}${p.x},${p.y}`).join(' ')}`
-  // return `M${points.value[0][0]},${points.value[0][1]} L${points.value[1][0]},${points.value[1][1]}`
 })
 const center = computed(() => {
   if (d.value == null) return []
@@ -166,7 +130,7 @@ const center = computed(() => {
   return pathLengthLookup.getPointAtLength(totalLength / 2)
 })
 
-const id = computed(() => props.edge.nodes.join('-'))
+const id = computed(() => `${props.edge.nodes.join('-')}-${props.edge.graph}`)
 const markerId = computed(() => `url('#marker-${id.value}')`)
 const markerAltId = computed(() => `url('#marker-${id.value}-alt')`)
 const markerEnd = computed(
@@ -223,7 +187,7 @@ function onContextMenu(e) {
     :class="[
       display,
       view,
-      { 'user-active': !activityStore.inactivityShort || !videoStore.playing }
+      { 'user-active': !activityStore.inactivityShort || !videoStore.playing, secondary }
     ]"
     :style="color"
   >
@@ -311,8 +275,8 @@ function onContextMenu(e) {
 
   path {
     transition:
-      color var(--transition),
-      stroke var(--transition),
+      color var(--ui-transition),
+      stroke var(--ui-transition),
       opacity var(--transition);
 
     &.edit {
@@ -328,6 +292,7 @@ function onContextMenu(e) {
   }
 
   text {
+    transition: color var(--ui-transition);
     stroke: none;
     fill: currentColor;
     font-size: var(--font-size-small);
@@ -365,10 +330,18 @@ function onContextMenu(e) {
     }
   }
 
-  &.highlight,
   &.network {
+    mix-blend-mode: darken;
+  }
+
+  &.highlight {
     color: var(--color-edge-highlight);
     stroke: var(--color-edge-highlight);
+  }
+
+  &.secondary {
+    color: var(--color-edge-secondary);
+    stroke: var(--color-edge-secondary);
   }
 }
 </style>

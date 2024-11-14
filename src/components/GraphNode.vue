@@ -302,6 +302,8 @@ onBeforeUnmount(() => {
   user-select: none;
   position: absolute;
   transform: translate(-50%, -50%);
+
+  text-wrap: balance;
   /* position: absolute;
   transform: translate(-50%, -50%);
   transition:

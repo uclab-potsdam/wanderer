@@ -90,9 +90,9 @@ router.beforeEach(async (to, from) => {
         document
           .querySelector(':root')
           .style.setProperty('--color-text', 'var(--color-network-text)')
-        document
-          .querySelector(':root')
-          .style.setProperty('--color-edge', 'var(--color-network-edge)')
+        // document
+        //   .querySelector(':root')
+        //   .style.setProperty('--color-edge', 'var(--color-network-edge)')
 
         document.querySelector(':root').style.setProperty('--colorBackground', 'red')
       }
