@@ -38,6 +38,12 @@ const props = defineProps({
 
 const isNetwork = computed(() => route.params.type !== 'graph')
 
+const isBetweenGraphs = computed(
+  () =>
+    dataStore.data.nodes[props.edge.nodes[0]].type === 'graph' &&
+    dataStore.data.nodes[props.edge.nodes[1]].type === 'graph'
+)
+
 const source = computed(() => layoutStore.nodes[props.edge.nodes[0]])
 const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
 
@@ -212,7 +218,7 @@ function offsetPoint(point, r = 500) {
       { 'user-active': !activityStore.inactivityShort || !videoStore.playing, secondary, tertiary }
     ]"
     :style="color"
-    v-if="points != null"
+    v-if="points != null && !(isBetweenGraphs && secondary)"
   >
     <defs>
       <marker
