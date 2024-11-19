@@ -19,7 +19,7 @@ const video = ref(null)
 
 const exhibitionMode = ref(import.meta.env.VITE_EXHIBITION_MODE === 'true')
 
-const source = computed(() => helperStore.getMediaUrl(videoStore.video.file))
+const source = computed(() => helperStore.getLocalizedMediaUrl(videoStore.video.file))
 
 function onTimeUpdate() {
   if (video.value == null) return
@@ -30,7 +30,10 @@ function onTimeUpdate() {
 function onLoadStart(e) {
   e.target.currentTime = videoStore.playFrom ?? 0
   videoStore.playFrom = null
-  // requestAnimationFrame(onTimeUpdate)
+  if (videoStore.restoreTimeAfterLanguageChange) {
+    e.target.currentTime = videoStore.restoreTimeAfterLanguageChange
+    videoStore.restoreTimeAfterLanguageChange = null
+  }
 }
 
 function requestNext() {
@@ -52,6 +55,13 @@ watch(
     if (time == null) return
     video.value.currentTime = time
     videoStore.playFrom = null
+  }
+)
+
+watch(
+  () => settingsStore.videoLang,
+  () => {
+    videoStore.restoreTimeAfterLanguageChange = video.value.currentTime
   }
 )
 

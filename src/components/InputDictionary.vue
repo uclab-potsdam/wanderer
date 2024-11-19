@@ -1,5 +1,6 @@
 <script setup>
 import { useConfigStore } from '@/stores/config'
+import { useDataStore } from '@/stores/data'
 import { useHelperStore } from '@/stores/helper'
 import { useSettingsStore } from '@/stores/settings'
 
@@ -8,12 +9,17 @@ defineProps({
     type: Object,
     default: () => ({})
   },
-  label: String
+  label: String,
+  type: {
+    type: String,
+    default: 'text'
+  }
 })
 defineEmits(['update:modelValue'])
 const settingsStore = useSettingsStore()
 const helperStore = useHelperStore()
 const configStore = useConfigStore()
+const dataStore = useDataStore()
 
 const id = crypto.randomUUID()
 </script>
@@ -22,28 +28,33 @@ const id = crypto.randomUUID()
     <span class="labels">
       {{ label }}
       <span class="languages">
-        <label v-for="lang in configStore.languages" :key="lang" :for="`${id}-${lang}`">
-          {{ lang }}
+        <label
+          v-for="lang in dataStore.data.config.languages[type]"
+          :key="lang.key"
+          :for="`${id}-${lang.key}`"
+          :title="lang.label"
+        >
+          {{ lang.short ?? lang.key }}
         </label>
-        <label :for="`${id}-universal`"> ♥ </label>
+        <!-- <label :for="`${id}-universal`"> ♥ </label> -->
       </span>
     </span>
     <input
-      v-for="lang in configStore.languages"
-      :key="lang"
-      :id="`${id}-${lang}`"
+      v-for="lang in dataStore.data.config.languages[type]"
+      :key="lang.key"
+      :id="`${id}-${lang.key}`"
       type="text"
-      :value="modelValue?.[lang]"
+      :value="modelValue?.[lang.key]"
       :placeholder="helperStore.localize(modelValue)"
-      @change="$emit('update:modelValue', { ...modelValue, [lang]: $event.target.value })"
+      @change="$emit('update:modelValue', { ...modelValue, [lang.key]: $event.target.value })"
     />
-    <input
+    <!-- <input
       :id="`${id}-universal`"
       type="text"
       :value="modelValue?.universal"
       :placeholder="helperStore.localize(modelValue)"
       @change="$emit('update:modelValue', { ...modelValue, universal: $event.target.value })"
-    />
+    /> -->
   </div>
 </template>
 

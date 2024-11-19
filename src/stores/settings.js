@@ -7,6 +7,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const editStore = useEditStore()
 
   const lang = useStorage('lang', 'en')
+  const videoLang = useStorage('video-lang', 'en')
   const edit = computed(() => mode.value === 'edit')
   const pictureInPicture = useStorage('pip', false)
   const pictureInPictureVideo = useStorage('pip-video', true)
@@ -47,6 +48,7 @@ export const useSettingsStore = defineStore('settings', () => {
 
   return {
     lang,
+    videoLang,
     pictureInPicture,
     pictureInPictureVideo,
     edit,

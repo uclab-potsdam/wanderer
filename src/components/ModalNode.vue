@@ -69,6 +69,13 @@ function setValue(item, key, value) {
       :model-value="field.value"
       @update:modelValue="($event) => setValue(modalStore.item, field.key, $event)"
     />
+    <InputDictionary
+      v-else-if="field.type === 'video-dictionary'"
+      :label="field.label"
+      type="video"
+      :model-value="field.value"
+      @update:modelValue="($event) => setValue(modalStore.item, field.key, $event)"
+    />
     <InputMultiString
       v-else-if="field.type === 'multi-string'"
       :label="field.label"

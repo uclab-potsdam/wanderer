@@ -33,14 +33,14 @@ const dataStore = useDataStore()
           <label for="pip-video">graph is big</label>
           <input id="pip-video" type="checkbox" v-model="settingsStore.pictureInPictureVideo" />
         </li>
-        <li>
+        <!-- <li>
           <span>language</span>
           <select v-model="settingsStore.lang">
             <option v-for="lang in configStore.languages" :key="lang">
               {{ lang }}
             </option>
           </select>
-        </li>
+        </li> -->
       </ul>
       <ul>
         <li>

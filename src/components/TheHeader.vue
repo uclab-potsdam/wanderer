@@ -31,25 +31,9 @@ const dataStore = useDataStore()
         <LocalizeText :text="dataStore.data.nodes[videoStore.graphId]?.label ?? 'Wanderer'" />
       </RouterLink>
     </ListWrapper>
-    <!-- <ListWrapper horizontal>
-        
-      </ListWrapper> -->
     <div class="mode" v-if="settingsStore.enableEditing">
       <InputSegment collapse v-model="settingsStore.mode" :options="settingsStore.modeOptions" />
     </div>
-
-    <!-- <span class="mode">{{ settingsStore.mode }}</span> -->
-
-    <!-- <span class="right">
-      <RouterLink v-if="route.name !== 'settings'" to="/settings"> settings </RouterLink>
-      <InputSegment
-        horizontal
-        equal-size
-        v-model="settingsStore.lang"
-        :options="configStore.languages"
-      />
-    </span> -->
-    <!-- <a v-else @click="router.go(-1)">back</a> -->
   </header>
 </template>
 

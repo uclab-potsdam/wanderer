@@ -29,6 +29,13 @@ export const useDataStore = defineStore('data', () => {
         localStorage.setItem(`wanderer:data`, JSON.stringify(data.value))
       }
     }
+    // setting languages if unset / not compatible
+    if (!data.value.config.languages.text.map((t) => t.key).includes(settingsStore.lang)) {
+      settingsStore.lang = data.value.config.languages.text[0].key
+    }
+    if (!data.value.config.languages.video.map((t) => t.key).includes(settingsStore.videoLang)) {
+      settingsStore.videoLang = data.value.config.languages.video[0].key
+    }
   }
 
   const nodeOccurances = computed(() => {

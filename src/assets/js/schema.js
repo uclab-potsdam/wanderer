@@ -11,7 +11,7 @@ export default {
   graph: {
     label: 'dictionary',
     image: 'string',
-    'media.file': 'string',
+    'media.file': 'video-dictionary',
     'media.subtitles': 'dictionary',
     index: 'boolean'
   },

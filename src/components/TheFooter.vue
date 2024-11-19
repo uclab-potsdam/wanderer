@@ -61,7 +61,21 @@ const dataStore = useDataStore()
         horizontal
         equal-size
         v-model="settingsStore.lang"
-        :options="configStore.languages"
+        :options="
+          dataStore.data.config.languages.text
+            .filter((l) => l.selectable !== false)
+            .map(({ key, label }) => ({ value: key, label }))
+        "
+      />
+      <InputSegment
+        horizontal
+        equal-size
+        v-model="settingsStore.videoLang"
+        :options="
+          dataStore.data.config.languages.video
+            .filter((l) => l.selectable !== false)
+            .map(({ key, label }) => ({ value: key, label }))
+        "
       />
     </span>
     <span class="right" v-if="route.name === 'graph'">
