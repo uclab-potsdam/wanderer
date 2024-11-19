@@ -81,9 +81,10 @@ const edges = computed(() => {
   const nodes = Object.keys(allocations.value ?? {})
   const edges = dataStore.data.edges.filter(
     (edge) =>
-      nodes.includes(edge.nodes[0]) &&
-      nodes.includes(edge.nodes[1]) &&
-      (edge.graph === id.value || node.value.type !== 'graph')
+      dataStore.data.nodes[edge.nodes[0]] != null && dataStore.data.nodes[edge.nodes[1]] != null
+    // nodes.includes(edge.nodes[0]) &&
+    // nodes.includes(edge.nodes[1]) &&
+    // edge.graph === id.value || node.value.type !== 'graph'
   )
   if (view.value === 'network') {
     const classId = dataStore.data.nodes[id.value].class
@@ -94,17 +95,17 @@ const edges = computed(() => {
         arrow: '→'
       })
     }
-  }
 
-  dataStore.nodes
-    .filter((n) => n.class === id.value)
-    .forEach((n) => {
-      edges.push({
-        id: `class-${[n.id, id.value].join('-')}`,
-        nodes: [n.id, id.value],
-        arrow: '→'
+    dataStore.nodes
+      .filter((n) => n.class === id.value)
+      .forEach((n) => {
+        edges.push({
+          id: `class-${[n.id, id.value].join('-')}`,
+          nodes: [n.id, id.value],
+          arrow: '→'
+        })
       })
-    })
+  }
   return edges
 })
 

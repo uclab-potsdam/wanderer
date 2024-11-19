@@ -49,7 +49,7 @@ const enableArrowRight = computed(
 )
 
 function onScroll() {
-  scrollLeft.value = wrapper.value.scrollLeft ?? 0
+  scrollLeft.value = wrapper.value?.scrollLeft ?? 0
   emit('select-item', Math.round((scrollLeft.value - offset) / (props.itemWidth + props.gap)))
 }
 

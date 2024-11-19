@@ -38,13 +38,14 @@ const props = defineProps({
 
 const isNetwork = computed(() => route.params.type !== 'graph')
 
-const secondary = computed(() => isNetwork.value && props.edge.graph !== dataStore.storyId)
-
 const source = computed(() => layoutStore.nodes[props.edge.nodes[0]])
 const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
 
 const detailIsSource = computed(() => isNetwork.value && route.params.id === props.edge.nodes[0])
 const detailIsTarget = computed(() => isNetwork.value && route.params.id === props.edge.nodes[1])
+
+const secondary = computed(() => isNetwork.value && props.edge.graph !== dataStore.storyId)
+const tertiary = computed(() => source.value == null || target.value == null)
 
 const color = computed(() => {
   const color = dataStore.data.nodes[props.edge.graph]?.color
@@ -54,35 +55,37 @@ const color = computed(() => {
 const display = computed(() => displayStore.inheritStateFromNodes(props.edge.nodes))
 
 const points = computed(() => {
-  if (source.value == null || target.value == null) return
+  if (source.value == null && target.value == null) return
+  const s = source.value ?? offsetPoint(target.value)
+  const t = target.value ?? offsetPoint(source.value)
 
   const margin = spacing
   const radius = spacing
 
-  const sourceWidth = source.value.width + margin + margin * detailIsSource.value
-  const sourceHeight = source.value.height + margin + margin * detailIsSource.value * 2
-  const targetWidth = target.value.width + margin + margin * detailIsTarget.value
-  const targetHeight = target.value.height + margin + margin * detailIsTarget.value * 2
+  const sourceWidth = s.width ? s.width + margin + margin * detailIsSource.value : 0
+  const sourceHeight = s.height ? s.height + margin + margin * detailIsSource.value * 2 : 0
+  const targetWidth = t.width ? t.width + margin + margin * detailIsTarget.value : 0
+  const targetHeight = t.height ? t.height + margin + margin * detailIsTarget.value * 2 : 0
 
   const start = getLineRoundedRectangleIntersection(
-    source.value.x,
-    source.value.y,
-    target.value.x,
-    target.value.y,
-    source.value.x - sourceWidth / 2,
-    source.value.y - sourceHeight / 2,
+    s.x,
+    s.y,
+    t.x,
+    t.y,
+    s.x - sourceWidth / 2,
+    s.y - sourceHeight / 2,
     sourceWidth,
     sourceHeight,
     Math.min(radius, sourceHeight / 2 - 0.1) // fix issue when radius >= height / 2
   )[0]
 
   const end = getLineRoundedRectangleIntersection(
-    source.value.x,
-    source.value.y,
-    target.value.x,
-    target.value.y,
-    target.value.x - targetWidth / 2,
-    target.value.y - targetHeight / 2,
+    s.x,
+    s.y,
+    t.x,
+    t.y,
+    t.x - targetWidth / 2,
+    t.y - targetHeight / 2,
     targetWidth,
     targetHeight,
     Math.min(radius, targetHeight / 2 - 0.1) // fix issue when radius >= height / 2
@@ -94,6 +97,20 @@ const points = computed(() => {
 
   const a = { x: start.point[0] + layoutStore.offset.x, y: start.point[1] + layoutStore.offset.y }
   const b = { x: end.point[0] + layoutStore.offset.x, y: end.point[1] + layoutStore.offset.y }
+
+  if (target.value == null) {
+    let pathLengthLookup = getPathLengthLookup(`M${a.x},${a.y} L${b.x},${b.y}`)
+    const z = pathLengthLookup.getPointAtLength(6)
+    const zc = pathLengthLookup.getPointAtLength(3)
+    return [a, zc, zc, z]
+  }
+
+  if (source.value == null) {
+    let pathLengthLookup = getPathLengthLookup(`M${b.x},${b.y} L${a.x},${a.y}`)
+    const z = pathLengthLookup.getPointAtLength(6)
+    const zc = pathLengthLookup.getPointAtLength(3)
+    return [z, zc, zc, b]
+  }
 
   const c = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
   if (isNetwork.value) {
@@ -179,6 +196,11 @@ function onContextMenu(e) {
     { x: e.x, y: e.y }
   )
 }
+
+function offsetPoint(point, r = 500) {
+  const angle = Math.random() * Math.PI * 2
+  return { x: Math.cos(angle) * r + point.x, y: Math.sin(angle) * r + point.y }
+}
 </script>
 
 <template>
@@ -187,9 +209,10 @@ function onContextMenu(e) {
     :class="[
       display,
       view,
-      { 'user-active': !activityStore.inactivityShort || !videoStore.playing, secondary }
+      { 'user-active': !activityStore.inactivityShort || !videoStore.playing, secondary, tertiary }
     ]"
     :style="color"
+    v-if="points != null"
   >
     <defs>
       <marker
@@ -232,17 +255,19 @@ function onContextMenu(e) {
         @click="onClick"
       />
       <path :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
-      <text
-        class="shadow"
-        :class="{ edit: settingsStore.edit }"
-        :x="value.x"
-        :y="value.y"
-        @dblclick.stop="onDoubleClick"
-        @contextmenu="onContextMenu"
-        @click="onClick"
-        ><LocalizeText :text="edge.label" />
-      </text>
-      <text :x="value.x" :y="value.y"><LocalizeText :text="edge.label" /> </text>
+      <template v-if="!tertiary">
+        <text
+          class="shadow"
+          :class="{ edit: settingsStore.edit }"
+          :x="value.x"
+          :y="value.y"
+          @dblclick.stop="onDoubleClick"
+          @contextmenu="onContextMenu"
+          @click="onClick"
+          ><LocalizeText :text="edge.label" />
+        </text>
+        <text :x="value.x" :y="value.y"><LocalizeText :text="edge.label" /> </text>
+      </template>
     </BaseInterpolate>
   </g>
 </template>
@@ -342,6 +367,12 @@ function onContextMenu(e) {
   &.secondary {
     color: var(--color-edge-secondary);
     stroke: var(--color-edge-secondary);
+  }
+  &.tertiary {
+    color: var(--color-edge-secondary);
+    stroke: var(--color-edge-secondary);
+
+    opacity: 0.4;
   }
 }
 </style>
