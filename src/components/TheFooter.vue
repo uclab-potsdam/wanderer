@@ -32,7 +32,7 @@ const dataStore = useDataStore()
 </script>
 
 <template>
-  <footer>
+  <footer :class="{ edit: settingsStore.edit && route.name === 'graph' }">
     <span class="icon-group">
       <template v-if="route.name === 'graph'">
         <ListWrapper class="footer-item" horizontal>
@@ -88,6 +88,10 @@ const dataStore = useDataStore()
 footer {
   position: sticky;
   top: calc(100vh - 40px - var(--spacing-half) - var(--spacing-quart));
+
+  &.edit {
+    top: calc(100vh - 95px - var(--spacing-half) - var(--spacing-quart));
+  }
   user-select: none;
   pointer-events: none;
   padding: 0 var(--spacing-half);
