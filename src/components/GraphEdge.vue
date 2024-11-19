@@ -44,7 +44,7 @@ const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
 const detailIsSource = computed(() => isNetwork.value && route.params.id === props.edge.nodes[0])
 const detailIsTarget = computed(() => isNetwork.value && route.params.id === props.edge.nodes[1])
 
-const secondary = computed(() => isNetwork.value && props.edge.graph !== dataStore.storyId)
+const secondary = computed(() => props.edge.graph !== dataStore.storyId)
 const tertiary = computed(() => source.value == null || target.value == null)
 
 const color = computed(() => {
