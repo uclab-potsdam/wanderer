@@ -58,6 +58,7 @@ header {
   position: absolute;
   top: var(--spacing-half);
   left: var(--spacing-half);
+  user-select: none;
 
   z-index: 1;
   display: flex;

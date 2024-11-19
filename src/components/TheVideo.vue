@@ -67,6 +67,13 @@ watch(
     videoStore.setPlaying = null
   }
 )
+
+watch(
+  () => videoStore.muted,
+  (muted) => {
+    video.value.muted = muted
+  }
+)
 </script>
 
 <template>

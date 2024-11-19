@@ -25,12 +25,14 @@ export const useVideoStore = defineStore('video', () => {
   const isExternalPlayer = ref(false)
   const next = ref(null)
   const playing = ref(false)
+  const muted = ref(false)
   const duration = ref(1)
 
   const restoreState = ref(null)
   let restoreTimeout = null
 
   const setPlaying = ref(null)
+  const setMuted = ref(null)
 
   const video = computed(() => dataStore.data?.nodes[graphId.value]?.media)
   const showVideo = computed(() => video.value != null && !hasExternalPlayer.value)
@@ -189,10 +191,13 @@ export const useVideoStore = defineStore('video', () => {
     attachPlayer,
     detachPlayer,
     requestNext,
+    setPlaying,
+    setMuted,
     isExternalPlayer,
     restoreState,
     next,
     playing,
+    muted,
     duration
   }
 })

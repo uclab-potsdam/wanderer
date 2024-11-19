@@ -44,8 +44,8 @@ const fullscreenGraph = computed(() => {
       <TheHeader />
       <TheControls />
       <TheToolbar v-if="settingsStore.edit" />
-      <TheFooter v-if="!settingsStore.edit" />
-      <TheFooter style="bottom: 70px" v-else />
+      <TheFooter v-if="!settingsStore.edit" class="no-events" />
+      <TheFooter v-else style="bottom: 70px" class="no-events" />
     </div>
   </div>
   <!-- <ThePlayer width="450" v-if="!syncStore.hasPlayer" /> -->
@@ -104,8 +104,9 @@ const fullscreenGraph = computed(() => {
   }
 
   .interface-layer {
+    position: relative;
     pointer-events: none;
-    > * {
+    > *:not(.no-events) {
       pointer-events: initial;
     }
   }

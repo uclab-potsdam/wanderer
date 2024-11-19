@@ -50,10 +50,10 @@ function next() {
   <section class="timeline" :class="{ edit: settingsStore.edit }" :style="color">
     <template v-if="settingsStore.edit && route.name === 'graph'">
       <ListWrapper class="button-group" horizontal>
-        <InputButton disable-padding>
+        <!-- <InputButton disable-padding>
           <ControlsPlay v-if="!playing" @click="videoStore.setPlaying = true" />
           <ControlsPause v-else @click="videoStore.setPlaying = false" />
-        </InputButton>
+        </InputButton> -->
         <InputButton disable-padding><ControlsMarkerPrevious @click="previous" /></InputButton>
         <InputButton disable-padding><ControlsMarkerNext @click="next" /></InputButton>
         <SeperatorVerical />
