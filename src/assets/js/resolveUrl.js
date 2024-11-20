@@ -1,10 +1,8 @@
-const shorthands = {
-  xingu: 'https://amazoniafuturelab.fh-potsdam.de/media/xingu-entangled/_/',
-  xe: 'https://amazoniafuturelab.fh-potsdam.de/media/xingu-entangled/'
-}
+import { useDataStore } from '@/stores/data'
 
 function shorten(url) {
-  const prefix = Object.entries(shorthands).find((shorthand) =>
+  const dataStore = useDataStore()
+  const prefix = Object.entries(dataStore.data.config.shorthands).find((shorthand) =>
     new RegExp(`^${shorthand[1]}`).test(url)
   )
   if (!prefix) return url
@@ -12,7 +10,8 @@ function shorten(url) {
 }
 
 function expand(url) {
-  const prefix = Object.entries(shorthands).find((shorthand) =>
+  const dataStore = useDataStore()
+  const prefix = Object.entries(dataStore.data.config.shorthands).find((shorthand) =>
     new RegExp(`^${shorthand[0]}:`).test(url)
   )
   if (!prefix) return url

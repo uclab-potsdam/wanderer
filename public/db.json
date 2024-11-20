@@ -36,6 +36,10 @@
           "short": "de"
         }
       ]
+    },
+    "shorthands": {
+      "xingu": "https://amazoniafuturelab.fh-potsdam.de/media/xingu-entangled/_/",
+      "xe": "https://amazoniafuturelab.fh-potsdam.de/media/xingu-entangled/"
     }
   },
   "nodes": {
