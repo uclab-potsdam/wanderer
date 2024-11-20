@@ -50,8 +50,17 @@ const target = computed(() => layoutStore.nodes[props.edge.nodes[1]])
 const detailIsSource = computed(() => isNetwork.value && route.params.id === props.edge.nodes[0])
 const detailIsTarget = computed(() => isNetwork.value && route.params.id === props.edge.nodes[1])
 
-const secondary = computed(() => props.edge.graph !== dataStore.storyId)
-const tertiary = computed(() => source.value == null || target.value == null)
+const secondary = computed(
+  () =>
+    props.edge.graph !== dataStore.storyId ||
+    (isNetwork.value && !props.edge.nodes.includes(route.params.id))
+)
+const tertiary = computed(
+  () =>
+    source.value == null ||
+    target.value == null ||
+    (isNetwork.value && !props.edge.nodes.includes(route.params.id))
+)
 
 const color = computed(() => {
   const color = dataStore.data.nodes[props.edge.graph]?.color
@@ -260,7 +269,12 @@ function offsetPoint(point, r = 500) {
         @contextmenu="onContextMenu"
         @click="onClick"
       />
-      <path :d="value.d" :marker-end="markerEnd" :marker-start="markerStart" />
+      <path
+        :d="value.d"
+        :marker-end="markerEnd"
+        :marker-start="markerStart"
+        :class="{ dashed: edge.classRelationship }"
+      />
       <template v-if="!tertiary">
         <text
           class="shadow"
@@ -319,6 +333,10 @@ function offsetPoint(point, r = 500) {
         opacity: 0.1;
         stroke-linecap: round;
       }
+    }
+
+    &.dashed {
+      stroke-dasharray: 8 12;
     }
   }
 

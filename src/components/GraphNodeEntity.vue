@@ -41,7 +41,14 @@ const secondary = computed(
   () =>
     dataStore.storyId != null &&
     route.params.type !== 'graph' &&
-    dataStore.data.nodes[dataStore.storyId].allocations[props.id] == null
+    dataStore.data.edges.find(
+      (e) =>
+        e.nodes.includes(props.id) &&
+        e.nodes.includes(route.params.id) &&
+        e.graph === dataStore.storyId
+    ) == null
+
+  // nodes[dataStore.storyId].allocations[props.id] == null
 )
 
 const description = computed(() => {
@@ -209,6 +216,7 @@ function findRelatedStory() {
   --tinted: color-mix(in lab, var(--graph-accent), var(--color-text) 60%);
   color: var(--color-text);
   border-radius: var(--border-radius);
+  cursor: pointer;
 
   transition:
     height var(--transition),
@@ -230,6 +238,14 @@ function findRelatedStory() {
       text-align var(--transition) var(--transition),
       color var(--ui-transition),
       background var(--ui-transition);
+  }
+
+  &.secondary {
+    color: var(--color-text-secondary);
+
+    &:hover {
+      color: var(--color-text);
+    }
   }
 
   text-align: center;

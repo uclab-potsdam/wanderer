@@ -78,7 +78,7 @@ const bounds = computed(() => {
   }
 })
 const edges = computed(() => {
-  const nodes = Object.keys(allocations.value ?? {})
+  // const nodes = Object.keys(allocations.value ?? {})
   const edges = dataStore.data.edges.filter(
     (edge) =>
       dataStore.data.nodes[edge.nodes[0]] != null && dataStore.data.nodes[edge.nodes[1]] != null
@@ -92,7 +92,8 @@ const edges = computed(() => {
       edges.push({
         id: `class-${[id.value, classId].join('-')}`,
         nodes: [id.value, classId],
-        arrow: '→'
+        arrow: '→',
+        classRelationship: true
       })
     }
 
@@ -102,7 +103,8 @@ const edges = computed(() => {
         edges.push({
           id: `class-${[n.id, id.value].join('-')}`,
           nodes: [n.id, id.value],
-          arrow: '→'
+          arrow: '→',
+          classRelationship: true
         })
       })
   }
