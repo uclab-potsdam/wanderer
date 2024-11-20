@@ -50,16 +50,12 @@ defineProps({
     padding: var(--spacing-quart) var(--spacing-half);
   }
 
-  &.active {
-    color: var(--ui-accent);
-    background-color: color-mix(in lab, currentColor, transparent 90%);
-  }
-
   &.primary {
     border: 1px solid currentColor;
   }
 
   &:not(:disabled):hover,
+  &.active,
   &.router-link-exact-active {
     background: color-mix(in lab, var(--ui-accent), transparent 70%);
     color: var(--ui-accent-deep);

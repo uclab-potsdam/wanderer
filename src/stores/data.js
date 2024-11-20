@@ -14,7 +14,14 @@ export const useDataStore = defineStore('data', () => {
   const storyId = ref(null)
   const storyIdForce = ref(null)
 
+  const about = ref(null)
+
   async function init() {
+    fetch('./about.md')
+      .then((d) => d.text())
+      .then((t) => {
+        about.value = t
+      })
     data.value = await fetch(configStore.wandererStatic).then((d) => d.json())
     if (settingsStore.mode !== 'public' && localStorage.getItem(`wanderer:data`) != null) {
       const localData = JSON.parse(localStorage.getItem(`wanderer:data`))
@@ -148,6 +155,7 @@ export const useDataStore = defineStore('data', () => {
     createNode,
     exportProject,
     deleteLocalChanges,
-    storyIdForce
+    storyIdForce,
+    about
   }
 })

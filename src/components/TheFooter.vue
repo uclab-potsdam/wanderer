@@ -119,7 +119,7 @@ function toggleText() {
         </InputButton>
       </ListWrapper>
       <ListWrapper class="footer-item" v-if="!hideTextIcon">
-        <InputButton disable-padding @click.stop="toggleText">
+        <InputButton disable-padding @click.stop="toggleText" :class="{ active: showText }">
           <IconText />
         </InputButton>
       </ListWrapper>

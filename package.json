@@ -21,6 +21,7 @@
     "fastest-levenshtein": "^1.0.16",
     "lodash.clonedeep": "^4.5.0",
     "lodash.isequal": "^4.5.0",
+    "marked": "^15.0.1",
     "pinia": "^2.1.7",
     "svg-getpointatlength": "github:fidelthomet/svg-getpointatlength#patch-1",
     "unplugin-icons": "^0.18.5",

@@ -6,12 +6,13 @@ import InputSegment from '@/components/InputSegment.vue'
 import { useConfigStore } from '@/stores/config'
 
 import IconHome from '~icons/base/Home'
-import IconBack from '~icons/base/Back'
 import ListWrapper from './ListWrapper.vue'
+import TheAbout from './TheAbout.vue'
 import { useVideoStore } from '@/stores/video'
 import LocalizeText from './LocalizeText.vue'
 import { useDataStore } from '@/stores/data'
 import HeaderNavigation from './HeaderNavigation.vue'
+import InputButton from './InputButton.vue'
 
 const projectTitle = ref(import.meta.env.VITE_PROJECT_TITLE)
 
@@ -26,7 +27,7 @@ const dataStore = useDataStore()
 <template>
   <header>
     <HeaderNavigation />
-    <ListWrapper class="header-item">
+    <ListWrapper class="header-item title">
       <RouterLink :to="{ name: 'graph', params: { type: 'graph', id: videoStore.graphId } }">
         <LocalizeText :text="dataStore.data.nodes[videoStore.graphId]?.label ?? 'Wanderer'" />
       </RouterLink>
@@ -58,7 +59,15 @@ header {
     /* justify-content: space-between; */
     /* gap: var(--spacing-half); */
 
-    padding: var(--spacing-quart) var(--spacing-half);
+    button {
+      border-radius: var(--border-radius-small);
+      width: 35px;
+      height: 35px;
+    }
+
+    &.title {
+      padding: var(--spacing-quart) var(--spacing-half);
+    }
   }
 
   a {
@@ -66,5 +75,13 @@ header {
     color: currentColor;
     cursor: pointer;
   }
+}
+
+.about {
+  /* pointer-events: all; */
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  overflow: auto;
 }
 </style>

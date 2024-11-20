@@ -10,6 +10,7 @@ import TheHeader from '@/components/TheHeader.vue'
 import TheToolbar from '@/components/TheToolbar.vue'
 import { computed } from 'vue'
 import TheFooter from '@/components/TheFooter.vue'
+import TheAbout from '@/components/TheAbout.vue'
 
 const videoStore = useVideoStore()
 const settingsStore = useSettingsStore()
@@ -32,19 +33,24 @@ const fullscreenGraph = computed(() => {
         settingsStore.pictureInPicture &&
         !settingsStore.pictureInPictureVideo
     }"
-    @wheel.prevent
   >
-    <TheVideo class="video" v-if="videoStore.showVideo" :class="{ fullscreen: !fullscreenGraph }" />
-    <TheGraph class="graph" :class="{ fullscreen: fullscreenGraph }" />
+    <TheVideo
+      class="video"
+      v-if="videoStore.showVideo"
+      :class="{ fullscreen: !fullscreenGraph }"
+      @wheel.prevent
+    />
+    <TheGraph class="graph" :class="{ fullscreen: fullscreenGraph }" @wheel.prevent />
     <div
       class="toggle-pip"
       @click="settingsStore.pictureInPictureVideo = !settingsStore.pictureInPictureVideo"
     ></div>
     <div class="interface-layer fullscreen">
-      <TheHeader />
-      <TheControls />
-      <TheToolbar v-if="settingsStore.edit" />
-      <TheFooter class="no-events" />
+      <TheHeader @wheel.prevent />
+      <TheAbout />
+      <TheControls @wheel.prevent />
+      <TheToolbar v-if="settingsStore.edit" @wheel.prevent />
+      <TheFooter class="no-events" @wheel.prevent />
     </div>
   </div>
   <!-- <ThePlayer width="450" v-if="!syncStore.hasPlayer" /> -->
@@ -103,6 +109,7 @@ const fullscreenGraph = computed(() => {
   }
 
   .interface-layer {
+    container-type: size;
     position: relative;
     pointer-events: none;
     > *:not(.no-events) {
