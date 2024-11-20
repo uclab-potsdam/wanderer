@@ -92,7 +92,6 @@ watch(
       ref="video"
       crossorigin="anonymous"
       :autoplay="!settingsStore.edit"
-      :controls="!exhibitionMode"
       :src="source"
       @loadstart="onLoadStart"
       @ended="requestNext"
