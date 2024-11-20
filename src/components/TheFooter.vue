@@ -1,7 +1,7 @@
 <script setup>
 import { useSettingsStore } from '@/stores/settings'
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import InputSegment from '@/components/InputSegment.vue'
 import InputButton from './InputButton.vue'
 import { useConfigStore } from '@/stores/config'
@@ -34,6 +34,9 @@ const dataStore = useDataStore()
 
 const showText = ref(false)
 const showAudio = ref(false)
+
+const hideTextIcon = computed(() => dataStore.data.config.languages.text.length <= 1)
+const hideAudioIcon = computed(() => dataStore.data.config.languages.video.length <= 1)
 
 function toggleAudio() {
   showAudio.value = !showAudio.value
@@ -106,12 +109,12 @@ function toggleText() {
           ><ControlsSplit class="split" /><ControlsSplitAlt class="split-alt"
         /></template>
       </InputSegment>
-      <ListWrapper class="footer-item">
+      <ListWrapper class="footer-item" v-if="!hideAudioIcon">
         <InputButton disable-padding>
           <IconAudio @click.stop="toggleAudio" />
         </InputButton>
       </ListWrapper>
-      <ListWrapper class="footer-item">
+      <ListWrapper class="footer-item" v-if="!hideTextIcon">
         <InputButton disable-padding>
           <IconText @click.stop="toggleText" />
         </InputButton>
