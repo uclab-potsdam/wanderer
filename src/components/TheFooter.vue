@@ -38,6 +38,10 @@ const showAudio = ref(false)
 const hideTextIcon = computed(() => dataStore.data.config.languages.text.length <= 1)
 const hideAudioIcon = computed(() => dataStore.data.config.languages.video.length <= 1)
 
+const disableAudioIcon = computed(
+  () => Object.values(videoStore.video.file).filter((d) => d).length <= 1
+)
+
 function toggleAudio() {
   showAudio.value = !showAudio.value
   if (showAudio.value) {
@@ -110,13 +114,13 @@ function toggleText() {
         /></template>
       </InputSegment>
       <ListWrapper class="footer-item" v-if="!hideAudioIcon">
-        <InputButton disable-padding>
-          <IconAudio @click.stop="toggleAudio" />
+        <InputButton disable-padding :disabled="disableAudioIcon" @click.stop="toggleAudio">
+          <IconAudio />
         </InputButton>
       </ListWrapper>
       <ListWrapper class="footer-item" v-if="!hideTextIcon">
-        <InputButton disable-padding>
-          <IconText @click.stop="toggleText" />
+        <InputButton disable-padding @click.stop="toggleText">
+          <IconText />
         </InputButton>
       </ListWrapper>
     </span>
@@ -131,7 +135,11 @@ function toggleText() {
       :options="
         dataStore.data.config.languages.video
           .filter((l) => l.selectable !== false)
-          .map(({ key, label }) => ({ value: key, label }))
+          .map(({ key, label }) => ({
+            value: key,
+            label,
+            disabled: videoStore.video.file[key] == null
+          }))
       "
     />
     <InputSegment
