@@ -53,7 +53,7 @@ const fullscreenGraph = computed(() => {
 
 <style scoped>
 .graph-view {
-  --font-size-subtitle: 16px;
+  --font-size-subtitle: 20px;
 
   grid-column: 1 / -1;
   grid-row: 1 / -1;
@@ -83,8 +83,8 @@ const fullscreenGraph = computed(() => {
     position: absolute;
     top: var(--spacing-half);
     right: var(--spacing-half);
-    width: min(calc(50vw - var(--spacing) * 2), 360px);
-    height: calc(min(calc(50vw - var(--spacing) * 2), 360px) / (16 / 9));
+    width: min(calc(50vw - var(--spacing) * 2), 420px);
+    height: calc(min(calc(50vw - var(--spacing) * 2), 420px) / (16 / 9));
     border-radius: var(--border-radius);
     z-index: 1;
   }
@@ -114,7 +114,7 @@ const fullscreenGraph = computed(() => {
   }
 
   &.split-screen {
-    --font-size-subtitle: max(2vw, 40px);
+    --font-size-subtitle: min(5vw, 40px);
     grid-template-columns:
       [main-start video-start]
       1fr
