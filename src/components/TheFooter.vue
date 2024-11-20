@@ -13,6 +13,8 @@ import ControlsUnmuted from '~icons/base/ControlsUnmuted'
 import ControlsSplit from '~icons/base/ControlsSplit'
 import ControlsSplitAlt from '~icons/base/ControlsSplitAlt'
 import ControlsPip from '~icons/base/ControlsPip'
+import IconText from '~icons/base/Text'
+import IconAudio from '~icons/base/Audio'
 import IconHome from '~icons/base/Home'
 import IconBack from '~icons/base/Back'
 import ListWrapper from './ListWrapper.vue'
@@ -29,6 +31,37 @@ const settingsStore = useSettingsStore()
 const configStore = useConfigStore()
 const videoStore = useVideoStore()
 const dataStore = useDataStore()
+
+const showText = ref(false)
+const showAudio = ref(false)
+
+function toggleAudio() {
+  showAudio.value = !showAudio.value
+  if (showAudio.value) {
+    showText.value = false
+    window.addEventListener(
+      'click',
+      () => {
+        showAudio.value = false
+      },
+      { once: true }
+    )
+  }
+}
+
+function toggleText() {
+  showText.value = !showText.value
+  if (showText.value) {
+    showAudio.value = false
+    window.addEventListener(
+      'click',
+      () => {
+        showText.value = false
+      },
+      { once: true }
+    )
+  }
+}
 </script>
 
 <template>
@@ -57,28 +90,8 @@ const dataStore = useDataStore()
         </InputButton>
       </ListWrapper> -->
       </template>
-      <InputSegment
-        horizontal
-        equal-size
-        v-model="settingsStore.lang"
-        :options="
-          dataStore.data.config.languages.text
-            .filter((l) => l.selectable !== false)
-            .map(({ key, label }) => ({ value: key, label }))
-        "
-      />
-      <InputSegment
-        horizontal
-        equal-size
-        v-model="settingsStore.videoLang"
-        :options="
-          dataStore.data.config.languages.video
-            .filter((l) => l.selectable !== false)
-            .map(({ key, label }) => ({ value: key, label }))
-        "
-      />
     </span>
-    <span class="right" v-if="route.name === 'graph'">
+    <span class="right icon-group" v-if="route.name === 'graph'">
       <InputSegment
         horizontal
         equal-size
@@ -93,7 +106,44 @@ const dataStore = useDataStore()
           ><ControlsSplit class="split" /><ControlsSplitAlt class="split-alt"
         /></template>
       </InputSegment>
+      <ListWrapper class="footer-item">
+        <InputButton disable-padding>
+          <IconAudio @click.stop="toggleAudio" />
+        </InputButton>
+      </ListWrapper>
+      <ListWrapper class="footer-item">
+        <InputButton disable-padding>
+          <IconText @click.stop="toggleText" />
+        </InputButton>
+      </ListWrapper>
     </span>
+
+    <InputSegment
+      v-if="showAudio"
+      @click.stop
+      @update:model-value="showAudio = false"
+      class="languages"
+      equal-size
+      v-model="settingsStore.videoLang"
+      :options="
+        dataStore.data.config.languages.video
+          .filter((l) => l.selectable !== false)
+          .map(({ key, label }) => ({ value: key, label }))
+      "
+    />
+    <InputSegment
+      v-if="showText"
+      @click.stop
+      @update:model-value="showText = false"
+      class="languages"
+      equal-size
+      v-model="settingsStore.lang"
+      :options="
+        dataStore.data.config.languages.text
+          .filter((l) => l.selectable !== false)
+          .map(({ key, label }) => ({ value: key, label }))
+      "
+    />
     <!-- <a v-else @click="router.go(-1)">back</a> -->
   </footer>
 </template>
@@ -158,6 +208,15 @@ footer {
     .split-alt {
       display: none;
     }
+  }
+
+  .languages {
+    position: absolute;
+    right: var(--spacing-half);
+    bottom: calc(40px + var(--spacing-half));
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
   }
 }
 </style>

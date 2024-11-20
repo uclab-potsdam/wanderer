@@ -83,6 +83,13 @@ function onChange(option) {
     color: var(--ui-accent-deep);
     /* outline: 1px solid currentColor; */
   }
+  &:has(input:disabled) {
+    /* background: color-mix(in lab, var(--ui-accent), transparent 70%);
+    color: var(--ui-accent-deep); */
+    opacity: 0.5;
+    cursor: not-allowed;
+    /* outline: 1px solid currentColor; */
+  }
   &:hover:not(:has(input:disabled)) {
     background: color-mix(in lab, var(--ui-accent), transparent 70%);
     color: var(--ui-accent-deep);

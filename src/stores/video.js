@@ -27,6 +27,7 @@ export const useVideoStore = defineStore('video', () => {
   const playing = ref(false)
   const muted = ref(false)
   const duration = ref(1)
+  const restoreTimeAfterLanguageChange = ref(null)
 
   const restoreState = ref(null)
   let restoreTimeout = null
@@ -195,6 +196,7 @@ export const useVideoStore = defineStore('video', () => {
     setMuted,
     isExternalPlayer,
     restoreState,
+    restoreTimeAfterLanguageChange,
     next,
     playing,
     muted,
