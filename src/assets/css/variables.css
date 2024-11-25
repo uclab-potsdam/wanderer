@@ -33,11 +33,13 @@
   --color-text: black;
   --color-text-secondary: #6A9D95;
 
+  --color-index-background: #1c6569;
+  --color-index-edge: white;
+
   --color-detail-background: white;
 
-  --graph-accent: var(--orange);
-  --graph-highlight: var(--orange);
-  --ui-accent: var(--color-accent);
+  --graph-accent: red;
+  --ui-accent: #137465;
 
   --color-public: var(--orange);
   --color-edit: var(--green);

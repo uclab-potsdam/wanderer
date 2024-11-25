@@ -78,7 +78,7 @@ function next() {
   align-items: flex-end;
   gap: var(--spacing-half);
 
-  --accent: color-mix(in lab, var(--graph-accent), var(--color-text) 30%);
+  --accent: color-mix(in lab, var(--ui-accent), var(--color-text) 30%);
 
   .button-group {
     margin: var(--spacing-half);

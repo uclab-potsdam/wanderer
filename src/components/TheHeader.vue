@@ -33,7 +33,12 @@ const dataStore = useDataStore()
       </RouterLink>
     </ListWrapper>
     <div class="mode" v-if="settingsStore.enableEditing">
-      <InputSegment collapse v-model="settingsStore.mode" :options="settingsStore.modeOptions" />
+      <InputSegment
+        class="modes"
+        horizontal
+        v-model="settingsStore.mode"
+        :options="settingsStore.modeOptions"
+      />
     </div>
   </header>
 </template>
@@ -74,6 +79,10 @@ header {
     text-decoration: none;
     color: currentColor;
     cursor: pointer;
+  }
+
+  .modes {
+    height: 40px;
   }
 }
 

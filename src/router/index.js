@@ -66,13 +66,10 @@ router.beforeEach(async (to, from) => {
         document.querySelector(':root').style.removeProperty(property)
       })
     }
-
-    if (from.params.type === 'entity') {
-      document.querySelector(':root').style.removeProperty('--color-background')
-      document.querySelector(':root').style.removeProperty('--color-text')
-      document.querySelector(':root').style.removeProperty('--color-edge')
-      document.querySelector(':root').style.removeProperty('--colorBackground')
-    }
+    document.querySelector(':root').style.removeProperty('--color-background')
+    document.querySelector(':root').style.removeProperty('--color-text')
+    document.querySelector(':root').style.removeProperty('--color-edge')
+    document.querySelector(':root').style.removeProperty('--colorBackground')
   }
 
   if (to.name === 'graph') {
@@ -93,8 +90,11 @@ router.beforeEach(async (to, from) => {
         // document
         //   .querySelector(':root')
         //   .style.setProperty('--color-edge', 'var(--color-network-edge)')
-
-        document.querySelector(':root').style.setProperty('--colorBackground', 'red')
+      } else if (to.params.id === index.id) {
+        document
+          .querySelector(':root')
+          .style.setProperty('--color-background', 'var(--color-index-background)')
+        document.querySelector(':root').style.setProperty('--color-edge', 'var(--color-index-edge)')
       }
     }
   }
