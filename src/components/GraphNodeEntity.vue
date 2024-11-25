@@ -217,6 +217,10 @@ function findRelatedStory() {
   color: var(--color-text);
   border-radius: var(--border-radius);
   cursor: pointer;
+  pointer-events: none;
+  > * {
+    pointer-events: initial;
+  }
 
   transition:
     height var(--transition),
