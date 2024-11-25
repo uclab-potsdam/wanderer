@@ -39,7 +39,7 @@ const hideTextIcon = computed(() => dataStore.data.config.languages.text.length 
 const hideAudioIcon = computed(() => dataStore.data.config.languages.video.length <= 1)
 
 const disableAudioIcon = computed(
-  () => Object.values(videoStore.video.file).filter((d) => d).length <= 1
+  () => Object.values(videoStore.video?.file ?? {}).filter((d) => d).length <= 1
 )
 
 function toggleAudio() {
