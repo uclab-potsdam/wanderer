@@ -41,8 +41,8 @@
   --graph-accent: rgb(255, 65, 30);
   --ui-accent: #136774;
 
-  --color-public: var(--orange);
-  --color-edit: var(--green);
+  --color-public: var(--ui-accent);
+  --color-edit: rgb(255, 65, 30);
   --color-preview: var(--violet);
 
   --color-accent: var(--graph-accent);

@@ -44,6 +44,7 @@ function onChange(option) {
       v-for="option in options.filter(
         (o) => !collapse || isExpanded || (o.value === undefined ? o : o.value) === modelValue
       )"
+      :style="{ '--ui-accent': option?.color }"
       :key="option.value === undefined ? option : option.value"
       :title="option.tooltip"
     >

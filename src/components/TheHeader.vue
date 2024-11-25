@@ -37,7 +37,12 @@ const dataStore = useDataStore()
         class="modes"
         horizontal
         v-model="settingsStore.mode"
-        :options="settingsStore.modeOptions"
+        :options="
+          settingsStore.modeOptions.map((o, i) => ({
+            value: o,
+            color: `var(--color-${o})`
+          }))
+        "
       />
     </div>
   </header>
