@@ -270,6 +270,10 @@ function findRelatedStory() {
     }
   }
 
+  span {
+    box-decoration-break: clone;
+  }
+
   &.highlight {
     color: var(--graph-accent);
 
@@ -346,7 +350,7 @@ function findRelatedStory() {
   &.detail {
     max-width: none;
     width: 250px !important;
-    background-color: white;
+    background-color: var(--color-detail-background);
 
     &:not(:has(.animate-text-align)) {
       text-align: left;

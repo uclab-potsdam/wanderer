@@ -29,28 +29,28 @@
   --ui-transition: 200ms;
 
   /* Colors */  
-  --color-background: white;
+  --color-background: rgb(249, 247, 247);
   --color-text: black;
   --color-text-secondary: #6A9D95;
 
   --color-index-background: #1c6569;
   --color-index-edge: white;
 
-  --color-detail-background: white;
+  --color-detail-background: rgb(249, 247, 247);
 
-  --graph-accent: red;
-  --ui-accent: #137465;
+  --graph-accent: rgb(255, 65, 30);
+  --ui-accent: #136774;
 
   --color-public: var(--orange);
   --color-edit: var(--green);
   --color-preview: var(--violet);
 
-  --color-accent: var(--color-public);
+  --color-accent: var(--graph-accent);
 
 
   --color-edge: var(--color-text);
   --color-edge-secondary: var(--color-text-secondary);
-  --color-edge-highlight: var(--color-accent);
+  --color-edge-highlight: var(--graph-accent);
 
   --color-network-background: #B8D1D1;
   --color-network-text: black;

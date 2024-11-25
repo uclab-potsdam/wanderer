@@ -143,7 +143,7 @@ function onContextMenu(e, marker, index) {
   bottom: 0;
   width: 100%;
 
-  backdrop-filter: var(--blur);
+  backdrop-filter: brightness(106%) saturate(40%) var(--blur);
 
   display: flex;
   justify-content: center;

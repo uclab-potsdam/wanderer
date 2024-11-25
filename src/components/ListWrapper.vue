@@ -52,7 +52,7 @@ defineProps({
     position: absolute;
     width: 100%;
     height: 100%;
-    backdrop-filter: var(--blur);
+    backdrop-filter: brightness(106%) saturate(40%) var(--blur);
     z-index: -1;
     border-radius: var(--border-radius);
     top: 0;
