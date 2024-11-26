@@ -38,7 +38,7 @@ function select(id) {
       </option>
     </select> -->
   </button>
-  <SearchableList v-if="showOptions" class="input-select" @select-item="select" />
+  <SearchableList v-if="showOptions" none class="input-select" @select-item="select" />
 </template>
 
 <style scoped>

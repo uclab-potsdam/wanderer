@@ -13,6 +13,10 @@ const props = defineProps({
     default: () => ({
       nodeType: 'entity'
     })
+  },
+  none: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -73,11 +77,16 @@ function createNode() {
 <template>
   <!-- <div> -->
   <ListWrapper class="context-menu-search">
-    <input :placeholder="context.nodeType" @click.stop v-model="label" ref="input" />
-    <button :disabled="label === ''" @click="createNode">add {{ label }}</button>
-    <button v-for="(node, i) in nodes" :key="i" @click="emit('select-item', node.id)">
-      <LocalizeText :text="node.label" />
-    </button>
+    <div>
+      <input :placeholder="`${context.nodeType} label`" @click.stop v-model="label" ref="input" />
+      <button class="create" :disabled="label === ''" @click="createNode">
+        create «{{ label || '…' }}»
+      </button>
+      <button v-if="none" class="none" @click="emit('select-item', null)">–</button>
+      <button v-for="(node, i) in nodes" :key="i" @click="emit('select-item', node.id)">
+        <LocalizeText :text="node.label" />
+      </button>
+    </div>
   </ListWrapper>
   <!-- </div> -->
 </template>
@@ -92,26 +101,49 @@ function createNode() {
   padding: var(--border-radius-small); */
 
   font-size: var(--font-size-small);
-  min-width: 150px;
+  min-width: 255px;
 
-  max-height: 300px;
+  /* max-height: 300px; */
   /* max-width: 250px; */
   overflow: auto;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    overflow: auto;
+    gap: calc(var(--spacing-quart) / 2);
+  }
 
   input {
     font-size: inherit;
     padding: var(--spacing-half);
     max-width: 250px;
+    border: none;
+    background: color-mix(in hsl, var(--ui-accent), transparent 80%);
+    outline: 1px solid var(--ui-accent);
+    outline-offset: -1px;
+    border-radius: var(--border-radius-small);
+
+    &:focus {
+      outline-offset: -2.5px;
+      outline: 2.5px solid var(--ui-accent);
+    }
   }
 
   button {
     text-align: left;
     padding: var(--spacing-half);
     max-width: 250px;
+    border-radius: var(--border-radius-small);
 
     &:not(:disabled):hover {
       color: var(--ui-accent);
       background-color: color-mix(in lab, currentColor, transparent 90%);
+    }
+
+    &.create {
+      background-color: color-mix(in lab, var(--ui-accent), transparent 70%);
     }
   }
 }
