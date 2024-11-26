@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-import { computed, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useEditStore } from './edit'
 
 export const useSettingsStore = defineStore('settings', () => {
@@ -16,6 +16,10 @@ export const useSettingsStore = defineStore('settings', () => {
 
   const mode = useStorage('mode', 'public')
   const modeOptions = ['public', 'edit', 'preview']
+
+  const disableMarkers = ref(false)
+
+  const markersDisabled = computed(() => disableMarkers.value && edit.value)
 
   const enableEditing = useStorage('enableEditing', false)
 
@@ -56,6 +60,8 @@ export const useSettingsStore = defineStore('settings', () => {
     mode,
     modeOptions,
     exhibition,
-    enableEditing
+    enableEditing,
+    disableMarkers,
+    markersDisabled
   }
 })

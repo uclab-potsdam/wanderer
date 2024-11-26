@@ -8,8 +8,13 @@ import ContextMenuList from './ContextMenuList.vue'
 
 import DisplayDefaultFrame from '~icons/base/DisplayDefaultFrame'
 import DisplayDefault from '~icons/base/DisplayDefault'
+
+import DisplayDefaultFrameDisabled from '~icons/base/DisplayDefaultFrameDisabled'
+import DisplayDefaultDisabled from '~icons/base/DisplayDefaultDisabled'
+
 import DisplayFrame from '~icons/base/DisplayFrame'
 import { useEditStore } from '@/stores/edit'
+import { useSettingsStore } from '@/stores/settings'
 
 defineProps({
   showMarkers: Boolean
@@ -20,6 +25,7 @@ const time = ref(0)
 const dataStore = useDataStore()
 const videoStore = useVideoStore()
 const contextMenuStore = useContextMenuStore()
+const settingsStore = useSettingsStore()
 const editStore = useEditStore()
 
 const graph = computed(() => {
@@ -113,7 +119,7 @@ function onContextMenu(e, marker, index) {
     @mouseenter="saveTime"
     @mouseleave="resetTime"
   >
-    <div class="markers" v-if="showMarkers && graph?.marker">
+    <div class="markers" :class="{disabled: settingsStore.markersDisabled}" v-if="showMarkers && graph?.marker">
       <div
         v-for="(m, i) in graph.marker"
         :key="i"
@@ -124,9 +130,16 @@ function onContextMenu(e, marker, index) {
         @mousemove="selectMarker($event, m)"
         @contextmenu="onContextMenu($event, m, i)"
       >
+      <!-- <template v-if="settingsStore.markersDisabled">
+        <DisplayDefaultFrameDisabled v-if="m.bounds && m.states" />
+        <DisplayDefaultDisabled v-else-if="m.states" />
+        <DisplayFrame v-else />
+      </template>
+      <template v-else> -->
         <DisplayDefaultFrame v-if="m.bounds && m.states" />
         <DisplayDefault v-else-if="m.states" />
         <DisplayFrame v-else />
+      <!-- </template> -->
       </div>
     </div>
   </div>
@@ -168,6 +181,8 @@ function onContextMenu(e, marker, index) {
       align-content: center;
       justify-content: center;
 
+     
+
       &:hover,
       &.active {
         /* color: opacit; */
@@ -175,12 +190,29 @@ function onContextMenu(e, marker, index) {
         mix-blend-mode: normal;
         z-index: 100;
       }
+
       svg {
         display: block;
         pointer-events: none;
         /* transform: translate(-50%, -50%); */
         &:deep(> *) {
           pointer-events: visible;
+        }
+      }
+      
+    }
+
+    &.disabled {
+      .marker {
+        pointer-events: none;
+        opacity: 0.1;
+        &.active {
+          opacity: 0.1;
+        }
+        svg {
+          &:deep(> *) {
+            pointer-events: none;
+          }
         }
       }
     }

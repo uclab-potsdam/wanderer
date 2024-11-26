@@ -14,9 +14,11 @@ import IconExport from '~icons/base/Export'
 import InputSegment from './InputSegment.vue'
 import { useEditStore } from '@/stores/edit'
 import { useDataStore } from '@/stores/data'
+import { useSettingsStore } from '@/stores/settings'
 
 const editStore = useEditStore()
 const dataStore = useDataStore()
+const settingsStore = useSettingsStore()
 </script>
 
 <template>
@@ -30,11 +32,31 @@ const dataStore = useDataStore()
         { value: 'add-image', slot: 'add-image', tooltip: 'add image' },
         { value: 'add-edge', slot: 'add-edge', tooltip: 'add edge' },
         { disabled: true, slot: 'seperator' },
-        { value: 'display-blur', slot: 'display-blur', tooltip: 'blur' },
-        { value: 'display-default', slot: 'display-default', tooltip: 'default' },
-        { value: 'display-highlight', slot: 'display-highlight', tooltip: 'highlight' },
-        { value: 'display-unset', slot: 'display-unset', tooltip: 'unset' },
-        { value: 'display-frame', slot: 'display-frame', tooltip: 'frame' },
+        {
+          disabled: settingsStore.markersDisabled,
+          value: 'display-blur',
+          slot: 'display-blur',
+          tooltip: 'blur'
+        },
+        {
+          disabled: settingsStore.markersDisabled,
+          value: 'display-default',
+          slot: 'display-default',
+          tooltip: 'default'
+        },
+        {
+          disabled: settingsStore.markersDisabled,
+          value: 'display-highlight',
+          slot: 'display-highlight',
+          tooltip: 'highlight'
+        },
+        // { value: 'display-unset', slot: 'display-unset', tooltip: 'unset' },
+        {
+          disabled: settingsStore.markersDisabled,
+          value: 'display-frame',
+          slot: 'display-frame',
+          tooltip: 'frame'
+        },
         { disabled: true, slot: 'seperator2' },
         {
           value: 'download',
@@ -53,7 +75,7 @@ const dataStore = useDataStore()
       <template #display-blur><DisplayBlur /></template>
       <template #display-default><DisplayDefault /></template>
       <template #display-highlight><DisplayHighlight /></template>
-      <template #display-unset><DisplayUnset /></template>
+      <!-- <template #display-unset><DisplayUnset /></template> -->
       <template #display-frame><DisplayFrame /></template>
       <template #seperator2><SeperatorHorizontal /></template>
       <template #download><IconExport /></template>

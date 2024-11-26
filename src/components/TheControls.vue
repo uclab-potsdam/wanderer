@@ -7,6 +7,7 @@ import { useHelperStore } from '@/stores/helper'
 import { useSettingsStore } from '@/stores/settings'
 import ListWrapper from './ListWrapper.vue'
 import InputButton from './InputButton.vue'
+import DisplayUnset from '~icons/base/DisplayUnset'
 
 import ControlsPlay from '~icons/base/ControlsPlay'
 import ControlsPause from '~icons/base/ControlsPause'
@@ -17,6 +18,7 @@ import SeperatorVerical from '~icons/base/SeperatorVertical'
 
 import ControlsProgress from './ControlsProgress.vue'
 import { useRoute } from 'vue-router'
+import InputSegment from './InputSegment.vue'
 
 const dataStore = useDataStore()
 const videoStore = useVideoStore()
@@ -56,6 +58,13 @@ function next() {
         </InputButton> -->
         <InputButton disable-padding><ControlsMarkerPrevious @click="previous" /></InputButton>
         <InputButton disable-padding><ControlsMarkerNext @click="next" /></InputButton>
+        <InputButton
+          :title="settingsStore.disableMarkers ? 'enable markers' : 'disable markers'"
+          disable-padding
+          :class="{ active: settingsStore.disableMarkers }"
+          @click="settingsStore.disableMarkers = !settingsStore.disableMarkers"
+          ><DisplayUnset
+        /></InputButton>
         <SeperatorVerical />
         <ControlsProgress show-markers />
       </ListWrapper>

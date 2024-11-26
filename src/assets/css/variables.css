@@ -26,6 +26,7 @@
 
   /* Transitions */
   --transition: 1000ms;
+  --delay-transition: 1000ms;
   --ui-transition: 200ms;
 
   /* Colors */  
@@ -40,6 +41,7 @@
 
   --graph-accent: rgb(255, 65, 30);
   --ui-accent: #136774;
+  --ui-accent-bright: rgb(255, 65, 30);
 
   --color-public: var(--ui-accent);
   --color-edit: rgb(255, 65, 30);

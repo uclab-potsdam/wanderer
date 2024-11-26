@@ -260,14 +260,14 @@ function findRelatedStory() {
     overflow: hidden;
   }
 
-  &.hide {
+  &.hide:not(.paused) {
     opacity: 0.2;
     filter: var(--blur);
 
     &.user-active {
-      filter: none;
+      /* filter: none;
       opacity: 1;
-      color: color-mix(in lab, var(--color-text), var(--color-background) 70%);
+      color: color-mix(in lab, var(--color-text), var(--color-background) 70%); */
     }
 
     &:hover {

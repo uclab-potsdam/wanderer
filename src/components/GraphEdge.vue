@@ -224,7 +224,12 @@ function offsetPoint(point, r = 500) {
     :class="[
       display,
       view,
-      { 'user-active': !activityStore.inactivityShort || !videoStore.playing, secondary, tertiary }
+      {
+        'user-active': !activityStore.inactivityShort || !videoStore.playing,
+        secondary,
+        tertiary,
+        paused: !videoStore.playing && settingsStore.mode !== 'edit'
+      }
     ]"
     :style="color"
     v-if="points != null && !(isBetweenGraphs && secondary)"
@@ -298,15 +303,25 @@ function offsetPoint(point, r = 500) {
   color: var(--color-edge);
   stroke: var(--color-edge);
 
-  &.hide {
+  &.hide:not(.paused) {
     opacity: 0.2;
     filter: var(--blur);
+    pointer-events: all;
 
     &.user-active {
       /* color: color-mix(in lab, var(--color-text), var(--color-background) 70%);
       stroke: color-mix(in lab, var(--color-text), var(--color-background) 70%); */
-      filter: none;
+      /* filter: none; */
       /* opacity: 0.2; */
+    }
+    transition:
+      opacity var(--ui-transition) var(--delay-transition),
+      filter 0s calc(var(--delay-transition) + var(--ui-transition));
+
+    &:hover {
+      opacity: 1;
+      filter: none;
+      transition: none;
     }
   }
 
@@ -347,6 +362,7 @@ function offsetPoint(point, r = 500) {
     font-size: var(--font-size-small);
     text-anchor: middle;
     dominant-baseline: middle;
+    cursor: default;
 
     &.shadow {
       /* stroke: currentColor; */

@@ -84,6 +84,7 @@ watch(
 )
 
 onMounted(() => {
+  if (settingsStore.mode === 'edit') return
   window.addEventListener(
     'click',
     () => {

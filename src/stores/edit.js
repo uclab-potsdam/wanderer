@@ -21,7 +21,7 @@ export const useEditStore = defineStore('edit', () => {
     const time = videoStore.time
     let marker = graph.marker?.find((m) => m.time === time)
 
-    if (display === null) {
+    if (display === null || marker?.states?.[id] === display) {
       if (marker?.states?.[id] !== null) {
         delete marker.states[id]
         cleanUpMarker(marker, graph)
