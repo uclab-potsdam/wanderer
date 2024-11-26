@@ -28,7 +28,7 @@ const dataStore = useDataStore()
   <header>
     <HeaderNavigation />
     <ListWrapper class="header-item title">
-      <RouterLink :to="`graph/${videoStore.graphId ?? ''}`">
+      <RouterLink :to="`/graph/${videoStore.graphId ?? ''}`">
         <LocalizeText :text="dataStore.data.nodes[videoStore.graphId]?.label ?? 'Wanderer'" />
       </RouterLink>
     </ListWrapper>
