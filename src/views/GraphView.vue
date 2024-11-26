@@ -64,7 +64,7 @@ const fullscreenGraph = computed(() => {
   grid-column: 1 / -1;
   grid-row: 1 / -1;
 
-  max-height: 100vh;
+  max-height: var(--app-height);
   position: relative;
   display: grid;
 

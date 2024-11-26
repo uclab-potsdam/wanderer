@@ -61,9 +61,13 @@
   /* Filter */
   --blur: blur(7px);  
 
+  --app-height: 100vh;
+
   &.initialized {
     transition: --color-background var(--transition), --color-edge var(--transition);
   }
+
+  
 }
 
 

@@ -101,6 +101,7 @@ onMounted(() => {
       crossorigin="anonymous"
       :autoplay="!settingsStore.edit"
       :src="source"
+      playsinline
       @loadstart="onLoadStart"
       @ended="requestNext"
       @timeupdate="onTimeUpdate"

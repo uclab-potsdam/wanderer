@@ -164,10 +164,9 @@ function toggleText() {
 <style scoped>
 footer {
   position: sticky;
-  top: calc(100vh - 40px - var(--spacing-half) - var(--spacing-quart));
-
+  top: calc(var(--app-height) - 40px - var(--spacing-half) - var(--spacing-quart));
   &.edit {
-    top: calc(100vh - 95px - var(--spacing-half) - var(--spacing-quart));
+    top: calc(var(--app-height) - 95px - var(--spacing-half) - var(--spacing-quart));
   }
   user-select: none;
   pointer-events: none;

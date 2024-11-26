@@ -37,7 +37,6 @@ const nodes = computed(() => {
         : 1
     )
 
-  // .map(({ node, distance }) => ({ ...node, distance }))
   if (label.value.length >= 3) {
     results.push(
       ...nodes
@@ -51,7 +50,6 @@ const nodes = computed(() => {
         })
         .filter(({ distance }) => distance < 0.5)
         .sort((a, b) => a.distance - b.distance)
-      // .map(({ node, distance }) => ({ ...node, distance }))
     )
   }
 
@@ -73,13 +71,15 @@ function createNode() {
 </script>
 
 <template>
+  <!-- <div> -->
   <ListWrapper class="context-menu-search">
-    <input placeholder="search" @click.stop v-model="label" ref="input" />
+    <input :placeholder="context.nodeType" @click.stop v-model="label" ref="input" />
     <button :disabled="label === ''" @click="createNode">add {{ label }}</button>
     <button v-for="(node, i) in nodes" :key="i" @click="emit('select-item', node.id)">
       <LocalizeText :text="node.label" />
     </button>
   </ListWrapper>
+  <!-- </div> -->
 </template>
 
 <style scoped>
@@ -95,7 +95,14 @@ function createNode() {
   min-width: 150px;
 
   max-height: 300px;
+  /* max-width: 250px; */
   overflow: auto;
+
+  input {
+    font-size: inherit;
+    padding: var(--spacing-half);
+    max-width: 250px;
+  }
 
   button {
     text-align: left;

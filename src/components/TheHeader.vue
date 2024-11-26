@@ -53,6 +53,7 @@ header {
   position: absolute;
   top: var(--spacing-half);
   left: var(--spacing-half);
+  right: var(--spacing-half);
   user-select: none;
 
   z-index: 1;
@@ -77,6 +78,11 @@ header {
 
     &.title {
       padding: var(--spacing-quart) var(--spacing-half);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-wrap: nowrap;
+      display: block;
+      line-height: 30px;
     }
   }
 

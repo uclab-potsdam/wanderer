@@ -22,7 +22,7 @@ const modalStore = useModalStore()
 .modal {
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: var(--app-height);
   z-index: 1;
 
   /* backdrop-filter: var(--blur); */

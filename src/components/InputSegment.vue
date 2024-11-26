@@ -102,6 +102,7 @@ function onChange(option) {
 
   input {
     appearance: none;
+    width: 0;
   }
 }
 </style>

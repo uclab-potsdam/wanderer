@@ -7,8 +7,20 @@ import TheModal from '@/components/TheModal.vue'
 
 const activityStore = useActivityStore()
 
-onMounted(() => activityStore.startActivityTracking())
-onUnmounted(() => activityStore.stopActivityTracking())
+onMounted(() => {
+  activityStore.startActivityTracking()
+
+  window.addEventListener('resize', setAppHeight)
+  setAppHeight()
+})
+onUnmounted(() => {
+  activityStore.stopActivityTracking()
+  window.removeEventListener('resize', setAppHeight)
+})
+
+function setAppHeight() {
+  document.querySelector(':root').style.setProperty('--app-height', `${window.innerHeight}px`)
+}
 </script>
 
 <template>
