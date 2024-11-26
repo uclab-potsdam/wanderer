@@ -1,6 +1,6 @@
 <script setup>
 import { useDataStore } from '@/stores/data'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import LocalizeText from './LocalizeText.vue'
 import { useSettingsStore } from '@/stores/settings'
 import { distance } from 'fastest-levenshtein'
@@ -22,29 +22,45 @@ const dataStore = useDataStore()
 const settingsStore = useSettingsStore()
 const helperStore = useHelperStore()
 const label = ref('')
+const input = ref(null)
 
 const nodes = computed(() => {
   const nodes = dataStore.nodes.filter((n) => n.type === props.context.nodeType)
   if (label.value.length === 0) return nodes
-  if (label.value.length < 3)
-    return nodes
-      .filter((node) => {
-        return new RegExp(`^${label.value}`).test(helperStore.localize(node.label))
-      })
-      .sort((a, b) => (helperStore.localize(a.label) < helperStore.localize(b.label) ? -1 : 1))
-  // .map(({ node, distance }) => ({ ...node, distance }))
-  return nodes
-    .map((node) => {
-      const s1 = label.value
-      const s2 = helperStore.localize(node.label)
-      return {
-        distance: distance(s1, s2) / Math.max(s1.length, s2.length),
-        node
-      }
+  const results = nodes
+    .filter((node) => {
+      return new RegExp(`^${label.value}`, 'i').test(helperStore.localize(node.label))
     })
-    .filter(({ distance }) => distance < 0.5)
-    .sort((a, b) => a.distance - b.distance)
-    .map(({ node, distance }) => ({ ...node, distance }))
+    .sort((a, b) =>
+      helperStore.localize(a.label).toLowerCase() < helperStore.localize(b.label).toLowerCase()
+        ? -1
+        : 1
+    )
+
+  // .map(({ node, distance }) => ({ ...node, distance }))
+  if (label.value.length >= 3) {
+    results.push(
+      ...nodes
+        .map((node) => {
+          const s1 = label.value.toLowerCase()
+          const s2 = helperStore.localize(node.label).toLowerCase()
+          return {
+            distance: distance(s1, s2) / Math.max(s1.length, s2.length),
+            node
+          }
+        })
+        .filter(({ distance }) => distance < 0.5)
+        .sort((a, b) => a.distance - b.distance)
+      // .map(({ node, distance }) => ({ ...node, distance }))
+    )
+  }
+
+  results.filter((r, i, results) => results.findIndex(({ id }) => r.id === id) <= i)
+  return results
+})
+
+onMounted(() => {
+  input.value.focus()
 })
 
 function createNode() {
@@ -58,11 +74,10 @@ function createNode() {
 
 <template>
   <ListWrapper class="context-menu-search">
-    <input placeholder="search" @click.stop v-model="label" />
+    <input placeholder="search" @click.stop v-model="label" ref="input" />
     <button :disabled="label === ''" @click="createNode">add {{ label }}</button>
     <button v-for="(node, i) in nodes" :key="i" @click="emit('select-item', node.id)">
       <LocalizeText :text="node.label" />
-      – {{ node.distance }}
     </button>
   </ListWrapper>
 </template>
