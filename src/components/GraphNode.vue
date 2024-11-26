@@ -1,14 +1,5 @@
 <script setup>
-import {
-  ref,
-  computed,
-  watch,
-  onMounted,
-  onBeforeUnmount,
-  nextTick,
-  triggerRef,
-  onUpdated
-} from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 
 import ContextMenuList from './ContextMenuList.vue'
 
@@ -25,9 +16,6 @@ import { useEditStore } from '@/stores/edit'
 
 import { getComponentForType } from '@/assets/js/nodes'
 import { useSettingsStore } from '@/stores/settings'
-import BaseInterpolate from './BaseInterpolate.vue'
-
-import { transition } from '@/assets/js/style'
 
 const props = defineProps({
   id: String,
@@ -247,11 +235,17 @@ onBeforeUnmount(() => {
   if (nodeElement.value != null) resizeObserver.unobserve(nodeElement.value)
   delete layoutStore.nodes[props.id]
 })
+
+const zIndex = computed(() => {
+  console.log(node.value.type)
+  if (node.value.type === 'image') return -1
+  return 1
+})
 </script>
 
 <template>
-  <div class="node-wrapper">
-    <div :style="positioning">
+  <div class="node-wrapper" :style="{ 'z-index': zIndex }">
+    <div :style="{ ...positioning, 'z-index': zIndex }">
       <!-- <BaseInterpolate
     :props="{
       positioning
