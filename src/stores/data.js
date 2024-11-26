@@ -2,7 +2,6 @@ import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useConfigStore } from './config'
 import { useSettingsStore } from './settings'
-import { applyPatch, compare } from 'fast-json-patch'
 
 import cloneDeep from 'lodash.clonedeep'
 
@@ -17,11 +16,6 @@ export const useDataStore = defineStore('data', () => {
   const about = ref(null)
 
   async function init() {
-    fetch('./about.md')
-      .then((d) => d.text())
-      .then((t) => {
-        about.value = t
-      })
     data.value = await fetch(configStore.wandererStatic).then((d) => d.json())
     if (settingsStore.mode !== 'public' && localStorage.getItem(`wanderer:data`) != null) {
       const localData = JSON.parse(localStorage.getItem(`wanderer:data`))
@@ -43,7 +37,19 @@ export const useDataStore = defineStore('data', () => {
     if (!data.value.config.languages.video.map((t) => t.key).includes(settingsStore.videoLang)) {
       settingsStore.videoLang = data.value.config.languages.video[0].key
     }
+
+    if (data.value?.config?.about) {
+      Object.entries(data.value?.config?.about).forEach(([lang, url]) => {
+        fetch(expandUrl(url))
+          .then((d) => d.text())
+          .then((t) => {
+            about.value = { ...about.value, [lang]: t }
+          })
+      })
+    }
   }
+
+  const kiosk = computed(() => data.value?.config?.kiosk)
 
   const nodeOccurances = computed(() => {
     if (node.value == null || node.value.type === 'graph') return {}
@@ -104,6 +110,37 @@ export const useDataStore = defineStore('data', () => {
     link.remove()
   }
 
+  function importProject(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.addEventListener('load', (event) => {
+        try {
+          const db = JSON.parse(event.target.result)
+
+          const valid = db.config?.languages != null && db.nodes != null && db.edges != null
+          if (!valid) {
+            alert('file not compatible')
+            reject()
+          } else {
+            data.value = db
+            localStorage.setItem('wanderer:data', event.target.result)
+            alert('file imported')
+            resolve(db)
+          }
+        } catch (error) {
+          console.error(error)
+          alert('file not compatible')
+          reject()
+        }
+      })
+
+      reader.addEventListener('error', (error) => {
+        console.error(error)
+      })
+      reader.readAsText(file)
+    })
+  }
+
   const dataCopy = computed(() => {
     return cloneDeep(data.value)
   })
@@ -140,6 +177,14 @@ export const useDataStore = defineStore('data', () => {
     return id
   }
 
+  function expandUrl(url) {
+    const prefix = Object.entries(data.value.config.shorthands).find((shorthand) =>
+      new RegExp(`^${shorthand[0]}:`).test(url)
+    )
+    if (!prefix) return url
+    return url.replace(`${prefix[0]}:`, prefix[1])
+  }
+
   return {
     init,
     data,
@@ -154,8 +199,10 @@ export const useDataStore = defineStore('data', () => {
     deleteNode,
     createNode,
     exportProject,
+    importProject,
     deleteLocalChanges,
     storyIdForce,
-    about
+    about,
+    kiosk
   }
 })

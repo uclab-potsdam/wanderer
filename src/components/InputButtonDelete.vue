@@ -24,6 +24,7 @@ function onClick() {
     :class="{ activated }"
     @mouseout="activated = false"
   >
+    <slot />
     <IconDelete v-if="!activated" />
     <IconDeleteConfirm v-else />
   </InputButton>

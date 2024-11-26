@@ -177,7 +177,7 @@ function findRelatedStory() {
     <div v-if="description" class="description">
       {{ description }}
     </div>
-    <div v-if="urls && !settingsStore.exhibition" class="urls">
+    <div v-if="urls && !dataStore.kiosk" class="urls">
       <span v-for="(url, i) in urls" :key="i">
         <a :href="url.full"> {{ url.domain }} </a>&nbsp;
       </span>
@@ -267,6 +267,10 @@ function findRelatedStory() {
       filter: none;
       opacity: 1;
       color: color-mix(in lab, var(--color-text), var(--color-background) 70%);
+    }
+
+    &:hover {
+      color: var(--color-text);
     }
   }
 

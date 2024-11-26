@@ -1,7 +1,7 @@
 <script setup>
 import { useVideoStore } from '@/stores/video'
 import { useHelperStore } from '@/stores/helper'
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSettingsStore } from '@/stores/settings'
 
@@ -16,8 +16,6 @@ const settingsStore = useSettingsStore()
 const router = useRouter()
 
 const video = ref(null)
-
-const exhibitionMode = ref(import.meta.env.VITE_EXHIBITION_MODE === 'true')
 
 const source = computed(() => helperStore.getLocalizedMediaUrl(videoStore.video.file))
 
@@ -84,6 +82,16 @@ watch(
     video.value.muted = muted
   }
 )
+
+onMounted(() => {
+  window.addEventListener(
+    'click',
+    () => {
+      if (video.value.currentTime === 0) video.value.play()
+    },
+    { once: true }
+  )
+})
 </script>
 
 <template>

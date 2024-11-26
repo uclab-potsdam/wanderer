@@ -9,7 +9,7 @@ import TheControls from '@/components/TheControls.vue'
   <div class="list-view">
     <TheHeader />
     <TheList />
-    <TheFooter />
+    <TheFooter class="footer" />
     <TheControls />
   </div>
 </template>
@@ -24,9 +24,13 @@ import TheControls from '@/components/TheControls.vue'
     [header-end];
 
   grid-template-rows:
-    [header-start] 45px
+    [header-start] 65px
     [header-end main-start]
     1fr
     [main-end];
+
+  .footer {
+    grid-column: 1 / -1;
+  }
 }
 </style>

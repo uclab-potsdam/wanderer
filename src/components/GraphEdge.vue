@@ -379,9 +379,9 @@ function offsetPoint(point, r = 500) {
     }
   }
 
-  /* &.network { */
-  mix-blend-mode: darken;
-  /* } */
+  &.network {
+    mix-blend-mode: darken;
+  }
 
   &.highlight {
     color: var(--color-edge-highlight);

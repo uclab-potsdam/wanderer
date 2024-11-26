@@ -57,7 +57,8 @@ router.beforeEach(async (to, from) => {
     dataStore.nodes.find((n) => n.type === 'graph')
 
   if (to.name === 'index') {
-    return { name: 'graph', params: { type: 'graph', id: index.id } }
+    if (index?.id != null) return { name: 'graph', params: { type: 'graph', id: index.id } }
+    return { name: 'list', params: { type: 'graph' } }
   }
 
   if (from.name === 'graph') {
@@ -102,7 +103,7 @@ router.beforeEach(async (to, from) => {
   if (to.params.type === 'graph' && to.name === 'graph') {
     videoStore.graphId = dataStore.storyId = to.params.id
   } else if (videoStore.graphId == null || to.name === 'list') {
-    videoStore.graphId = index.id
+    videoStore.graphId = index?.id
   }
   to.meta.initializeView = to.name !== from.name
   // next()

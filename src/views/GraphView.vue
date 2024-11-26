@@ -83,6 +83,10 @@ const fullscreenGraph = computed(() => {
     position: relative;
   }
 
+  .video.fullscreen {
+    --font-size-subtitle: min(5vw, 40px);
+  }
+
   .video:not(.fullscreen),
   .graph:not(.fullscreen),
   .toggle-pip {

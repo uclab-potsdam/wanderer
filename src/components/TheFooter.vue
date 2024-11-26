@@ -74,7 +74,7 @@ function toggleText() {
 <template>
   <footer :class="{ edit: settingsStore.edit && route.name === 'graph' }">
     <span class="icon-group">
-      <template v-if="route.name === 'graph'">
+      <template v-if="route.name === 'graph' && (!dataStore.kiosk || settingsStore.enableEditing)">
         <ListWrapper class="footer-item" horizontal>
           <InputButton disable-padding>
             <ControlsPlay v-if="!videoStore.playing" @click="videoStore.setPlaying = true" />
@@ -98,26 +98,28 @@ function toggleText() {
       </ListWrapper> -->
       </template>
     </span>
-    <span class="right icon-group" v-if="route.name === 'graph'">
-      <InputSegment
-        horizontal
-        equal-size
-        v-model="settingsStore.pictureInPicture"
-        :options="[
-          { value: true, slot: 'pip', tooltip: 'picture in picture' },
-          { value: false, slot: 'split', tooltip: 'split screen' }
-        ]"
-      >
-        <template #pip><ControlsPip /></template>
-        <template #split
-          ><ControlsSplit class="split" /><ControlsSplitAlt class="split-alt"
-        /></template>
-      </InputSegment>
-      <ListWrapper class="footer-item" v-if="!hideAudioIcon">
-        <InputButton disable-padding :disabled="disableAudioIcon" @click.stop="toggleAudio">
-          <IconAudio />
-        </InputButton>
-      </ListWrapper>
+    <span class="right icon-group">
+      <template v-if="route.name === 'graph'">
+        <InputSegment
+          horizontal
+          equal-size
+          v-model="settingsStore.pictureInPicture"
+          :options="[
+            { value: true, slot: 'pip', tooltip: 'picture in picture' },
+            { value: false, slot: 'split', tooltip: 'split screen' }
+          ]"
+        >
+          <template #pip><ControlsPip /></template>
+          <template #split
+            ><ControlsSplit class="split" /><ControlsSplitAlt class="split-alt"
+          /></template>
+        </InputSegment>
+        <ListWrapper class="footer-item" v-if="!hideAudioIcon">
+          <InputButton disable-padding :disabled="disableAudioIcon" @click.stop="toggleAudio">
+            <IconAudio />
+          </InputButton>
+        </ListWrapper>
+      </template>
       <ListWrapper class="footer-item" v-if="!hideTextIcon">
         <InputButton disable-padding @click.stop="toggleText" :class="{ active: showText }">
           <IconText />

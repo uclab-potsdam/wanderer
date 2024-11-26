@@ -7,10 +7,13 @@ import InputButton from './InputButton.vue'
 import { useRoute } from 'vue-router'
 
 import { marked } from 'marked'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useHelperStore } from '@/stores/helper'
 
 const route = useRoute()
 const dataStore = useDataStore()
+const helperStore = useHelperStore()
+
 const showAbout = ref(false)
 
 function toggleAbout() {
@@ -25,18 +28,24 @@ function toggleAbout() {
     )
   }
 }
+
+const about = computed(() => {
+  const about = helperStore.localize(dataStore.about)
+  if (!dataStore.kiosk) return about
+  return about.replace(/([^!])\[(.*)\]\(.*\)/g, (a, b, c) => `${b}${c}`)
+})
 </script>
 
 <template>
-  <div class="about">
+  <div class="about" v-if="dataStore.about">
     <ListWrapper horizontal class="item" v-if="route.name === 'graph'">
       <InputButton disable-padding @click.stop="toggleAbout" :active="showAbout">
         <IconAbout v-if="!showAbout" />
         <IconClose v-else />
       </InputButton>
     </ListWrapper>
-    <ListWrapper v-if="showAbout" @click.stop
-      ><div class="text" v-html="marked.parse(dataStore.about)" />
+    <ListWrapper class="text-wrapper" v-if="showAbout" @click.stop
+      ><div class="text" v-html="marked.parse(about)" />
     </ListWrapper>
   </div>
 </template>
@@ -63,6 +72,10 @@ function toggleAbout() {
       width: 35px;
       height: 35px;
     }
+  }
+
+  .text-wrapper {
+    backdrop-filter: contrast(80%) brightness(200%) saturate(10%) blur(10px);
   }
 
   .text {

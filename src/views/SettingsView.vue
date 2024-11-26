@@ -1,11 +1,44 @@
 <script setup>
+import InputButton from '@/components/InputButton.vue'
+import InputButtonDelete from '@/components/InputButtonDelete.vue'
+import InputSegment from '@/components/InputSegment.vue'
+import ListWrapper from '@/components/ListWrapper.vue'
 import TheHeader from '@/components/TheHeader.vue'
 import { useConfigStore } from '@/stores/config'
 import { useDataStore } from '@/stores/data'
 import { useSettingsStore } from '@/stores/settings'
+import IconExport from '~icons/base/Export'
+import IconImport from '~icons/base/Import'
 const settingsStore = useSettingsStore()
 const configStore = useConfigStore()
 const dataStore = useDataStore()
+
+async function importProject(e) {
+  await dataStore.importProject(e.target.files[0])
+  if (settingsStore.mode === 'public') settingsStore.mode = 'edit'
+
+  e.target.value = null
+
+  // console.log(e.target.files[0])
+  // const promises = [...e.target.files].map((file) => {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader()
+  //     reader.addEventListener('load', (event) => {
+  //       try {
+  //         const id = JSON.parse(event.target.result).id
+
+  //         if (id == null) return reject()
+  //         localStorage.setItem(`story-${id}`, event.target.result)
+  //         resolve()
+  //       } catch (error) {
+  //         console.error(error)
+  //         reject(error)
+  //       }
+  //     })
+  //     reader.readAsText(file)
+  //   })
+  // })
+}
 </script>
 
 <template>
@@ -14,43 +47,37 @@ const dataStore = useDataStore()
     <main>
       <ul>
         <li>
-          <span>enable editing</span>
-          <input type="checkbox" v-model="settingsStore.enableEditing" />
+          <span class="label">editing</span>
+          <InputSegment
+            horizontal
+            equal-size
+            v-model="settingsStore.enableEditing"
+            :options="[
+              { value: false, label: 'off' },
+              { value: true, label: 'on' }
+            ]"
+          />
         </li>
-        <li>
-          <span>mode</span>
-          <select v-model="settingsStore.mode" :disabled="!settingsStore.enableEditing">
-            <option v-for="option in settingsStore.modeOptions" :key="option">
-              {{ option }}
-            </option>
-          </select>
+        <li class="button-group">
+          <ListWrapper class="extend" horizontal equal-size>
+            <InputButton @click="dataStore.exportProject" title="export data"
+              ><IconExport
+            /></InputButton>
+            <InputButton
+              tag="label"
+              title="import data"
+              for="file-import"
+              type="file"
+              accept="application/json"
+              ><IconImport
+            /></InputButton>
+            <InputButtonDelete
+              @confirmed="dataStore.deleteLocalChanges"
+              title="delete edits"
+            ></InputButtonDelete>
+          </ListWrapper>
         </li>
-        <li>
-          <label for="pip">picture in picture</label>
-          <input id="pip" type="checkbox" v-model="settingsStore.pictureInPicture" />
-        </li>
-        <li>
-          <label for="pip-video">graph is big</label>
-          <input id="pip-video" type="checkbox" v-model="settingsStore.pictureInPictureVideo" />
-        </li>
-        <!-- <li>
-          <span>language</span>
-          <select v-model="settingsStore.lang">
-            <option v-for="lang in configStore.languages" :key="lang">
-              {{ lang }}
-            </option>
-          </select>
-        </li> -->
-      </ul>
-      <ul>
-        <li>
-          <!-- <label for="export">export</label> -->
-          <button @click="dataStore.exportProject">export data</button>
-        </li>
-        <li>
-          <!-- <label for="export">export</label> -->
-          <button @click="dataStore.deleteLocalChanges">delete local changes</button>
-        </li>
+        <input id="file-import" type="file" accept="application/json" @change="importProject" />
       </ul>
     </main>
   </div>
@@ -61,12 +88,12 @@ const dataStore = useDataStore()
   display: grid;
   grid-template-columns:
     [header-start] 1fr
-    [main-start] min(100vw - var(--spacing) * 2, 800px)
+    [main-start] min(100vw - var(--spacing) * 2, 400px)
     [main-end] 1fr
     [header-end];
 
   grid-template-rows:
-    [header-start] var(--spacing-double)
+    [header-start] 65px
     [header-end main-start]
     1fr
     [main-end];
@@ -78,17 +105,29 @@ const dataStore = useDataStore()
     ul {
       list-style: none;
       padding: 0;
-      border: 1px solid var(--color-text);
       border-radius: var(--spacing-half);
+      background: color-mix(in hsl, var(--ui-accent), transparent 96%);
       li {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: var(--spacing-half);
+        grid-template-columns: 1fr 2fr;
+        /* gap: var(--spacing-half); */
         justify-content: space-between;
+        align-items: center;
         padding: var(--spacing-half);
 
-        &:not(:last-child) {
-          border-bottom: 1px solid color-mix(in lab, var(--color-text), transparent 75%);
+        .label {
+          font-size: var(--font-size-small);
+        }
+        .extend {
+          grid-column: 1 / -1;
+
+          .button {
+            border-radius: var(--border-radius-small);
+          }
+        }
+
+        &.button-group {
+          grid-template-columns: 1fr 1fr 2fr;
         }
       }
 
@@ -96,6 +135,10 @@ const dataStore = useDataStore()
         margin-top: var(--spacing);
       }
     }
+  }
+
+  #file-import {
+    display: none;
   }
 }
 </style>
