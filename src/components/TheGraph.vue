@@ -166,7 +166,7 @@ onMounted(() => {
     .filter((e) => {
       if (editStore.mode === 'display-frame') return
       nextTick(() => activityStore.registerActivity())
-      return e.button === 0 && !contextMenuStore.show
+      return (e.button === 0 || e.touches != null) && !contextMenuStore.show
     })
   zoomElementSelection.value.call(zoomBehaviour.value)
   initGraph(0)

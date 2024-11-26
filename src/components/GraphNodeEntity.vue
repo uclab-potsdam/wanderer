@@ -189,6 +189,7 @@ function findRelatedStory() {
         ref="slider"
         class="occurances"
         @wheel.stop
+        @touchstart.stop
         :no-arrows="animateTextAlign"
         @select-item="selectOccurance"
       >
