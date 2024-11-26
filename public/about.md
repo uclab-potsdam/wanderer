@@ -2,7 +2,7 @@
 
 The indigenous communities of the Upper Xingu south of the Amazon river recognise objects, places, plants, myths, rites, and spiritual owners as intertwined entities that form entangled lifeworlds. However western museal practices centre on artefacts and divide them along disciplinary boundaries into separate institutions such as ethnological museums, botanical collections, and libraries. The Amazonia Future Lab develops new formats and tools to recontextualise Xingu artefacts into narratives that surface their complex interrelationships while adequately representing indigenous perspectives.
 
-![wanderer](wanderer.png)
+![wanderer](local:wanderer.png)
 
 ## Approach
 

@@ -30,9 +30,14 @@ function toggleAbout() {
 }
 
 const about = computed(() => {
-  const about = helperStore.localize(dataStore.about)
-  if (!dataStore.kiosk) return about
-  return about.replace(/([^!])\[(.*)\]\(.*\)/g, (a, b, c) => `${b}${c}`)
+  let about = helperStore.localize(dataStore.about)
+  if (dataStore.kiosk) {
+    about = about.replace(/([^!])\[(.*)\]\((.*)\)/g, (a, b, c) => `${b}${c}`)
+  }
+
+  return about.replace(/\[(.*)\]\((.*)\)/g, (a, b, c, d) => {
+    return `[${b}](${helperStore.getMediaUrl(c)})`
+  })
 })
 </script>
 
@@ -106,6 +111,10 @@ const about = computed(() => {
       h2,
       h3 {
         font-size: inherit;
+      }
+
+      a {
+        color: inherit;
       }
     }
     &:deep(h1),
