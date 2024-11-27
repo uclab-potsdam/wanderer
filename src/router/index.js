@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { useDataStore } from '@/stores/data'
 import { useVideoStore } from '@/stores/video'
 import { useSettingsStore } from '@/stores/settings'
+import { useHelperStore } from '@/stores/helper'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   const dataStore = useDataStore()
   const settingsStore = useSettingsStore()
+  const helperStore = useHelperStore()
 
   const videoStore = useVideoStore()
   if (dataStore.data === null) {
@@ -73,6 +75,8 @@ router.beforeEach(async (to, from) => {
     document.querySelector(':root').style.removeProperty('--colorBackground')
   }
 
+  let title
+
   if (to.name === 'graph') {
     dataStore.nodeId = to.params.id
 
@@ -98,6 +102,8 @@ router.beforeEach(async (to, from) => {
         document.querySelector(':root').style.setProperty('--color-edge', 'var(--color-index-edge)')
       }
     }
+
+    title = dataStore.data.nodes?.[to.params?.id].label
   }
 
   if (to.params.type === 'graph' && to.name === 'graph') {
@@ -106,6 +112,8 @@ router.beforeEach(async (to, from) => {
     videoStore.graphId = index?.id
   }
   to.meta.initializeView = to.name !== from.name
+
+  document.title = helperStore.localize(title ?? dataStore.data.config.name) ?? 'wanderer'
   // next()
 })
 

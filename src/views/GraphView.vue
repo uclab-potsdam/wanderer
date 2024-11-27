@@ -42,6 +42,7 @@ const fullscreenGraph = computed(() => {
     />
     <TheGraph class="graph" :class="{ fullscreen: fullscreenGraph }" @wheel.prevent />
     <div
+      v-if="videoStore.showVideo"
       class="toggle-pip"
       @click="settingsStore.pictureInPictureVideo = !settingsStore.pictureInPictureVideo"
     ></div>

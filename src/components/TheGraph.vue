@@ -42,6 +42,7 @@ const allocations = ref([])
 const zoomElement = ref(null)
 const zoomElementSelection = ref(null)
 const zoomBehaviour = ref(null)
+const scaleExtent = [0.1, 1]
 
 const displayBoundsTemp = ref(null)
 
@@ -111,7 +112,9 @@ const edges = computed(() => {
   return edges
 })
 
-const allocationOrder = computed(() => Object.keys(allocations.value ?? {}).sort())
+const allocationOrder = computed(() => {
+  return Object.keys(allocations.value ?? {}).sort()
+})
 const cssProps = computed(() => {
   if (node.value.color == null) return
   return {
@@ -158,7 +161,7 @@ onMounted(() => {
   zoomElementSelection.value = select(zoomElement.value)
   zoomBehaviour.value = zoom()
     // .scaleExtent([0.1, 2])
-    .scaleExtent([0.1, 1])
+    .scaleExtent(scaleExtent)
     .on('zoom', (e) => {
       layoutStore.transform = e.transform
     })
@@ -221,7 +224,15 @@ function getAllocationCenter(allocations) {
 }
 
 function zoomToBounds(bounds, duration = 0, center) {
-  if (bounds == null) return
+  // if (bounds == null) return
+  if (bounds == null || bounds.x1 === Infinity || isNaN(bounds.x1)) {
+    bounds = {
+      x1: -innerWidth / 2,
+      x2: innerWidth / 2,
+      y1: -innerHeight / 2,
+      y2: innerHeight / 2
+    }
+  }
   const diff = {
     x: bounds.x2 - bounds.x1,
     y: bounds.y2 - bounds.y1
@@ -231,7 +242,7 @@ function zoomToBounds(bounds, duration = 0, center) {
 
   const scaleX = zoomElementDimensions.width / diff.x
   const scaleY = (zoomElementDimensions.height - spacing * 2.7) / diff.y
-  const scale = Math.min(scaleX, scaleY)
+  const scale = Math.min(scaleX, scaleY, scaleExtent[1])
 
   const x = bounds.x1 + diff.x / 2
   const y = bounds.y1 + diff.y / 2

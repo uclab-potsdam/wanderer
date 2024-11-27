@@ -61,6 +61,7 @@ function next() {
         <InputButton
           :title="settingsStore.disableMarkers ? 'enable markers' : 'disable markers'"
           disable-padding
+          class="disable-markers"
           :class="{ active: settingsStore.disableMarkers }"
           @click="settingsStore.disableMarkers = !settingsStore.disableMarkers"
           ><DisplayUnset
@@ -88,6 +89,10 @@ function next() {
   gap: var(--spacing-half);
 
   --accent: color-mix(in lab, var(--ui-accent), var(--color-text) 30%);
+
+  .disable-markers.active {
+    --ui-accent: var(--color-edit);
+  }
 
   .button-group {
     margin: var(--spacing-half);

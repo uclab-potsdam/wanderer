@@ -46,7 +46,8 @@ const nodes = computed(() => {
       ...nodes
         .map((node) => {
           const s1 = label.value.toLowerCase()
-          const s2 = helperStore.localize(node.label).toLowerCase()
+          const s2 = helperStore.localize(node.label)?.toLowerCase()
+          if (s2 == null) return { distance: 1, node }
           return {
             distance: distance(s1, s2) / Math.max(s1.length, s2.length),
             node

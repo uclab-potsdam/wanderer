@@ -173,6 +173,7 @@ export const useDataStore = defineStore('data', () => {
 
   function createNode(node) {
     const id = crypto.randomUUID()
+    if (node.type === 'graph') node.allocations = {}
     data.value.nodes[id] = node
     return id
   }
