@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { getLineRoundedRectangleIntersection } from '@/assets/js/intersection'
 
 import { useLayoutStore } from '@/stores/layout'
@@ -35,6 +35,10 @@ const props = defineProps({
   edge: Object,
   view: String
 })
+
+const edgeElement = ref(null)
+const mouseover = ref(false)
+const mouseout = ref(false)
 
 const isNetwork = computed(() => route.params.type !== 'graph')
 
@@ -216,11 +220,26 @@ function offsetPoint(point, r = 500) {
   const angle = Math.random() * Math.PI * 2
   return { x: Math.cos(angle) * r + point.x, y: Math.sin(angle) * r + point.y }
 }
+
+function onMouseOver() {
+  // nextTick(() => (mouseover.value = true))
+  setTimeout(() => {
+    mouseover.value = true
+  }, 0)
+}
+
+function onMouseOut() {
+  mouseout.value = true
+  edgeElement.value.addEventListener('transitionend', () => {
+    mouseout.value = false
+  })
+}
 </script>
 
 <template>
   <g
     class="edge"
+    ref="edgeElement"
     :class="[
       display,
       view,
@@ -228,10 +247,13 @@ function offsetPoint(point, r = 500) {
         'user-active': !activityStore.inactivityShort || !videoStore.playing,
         secondary,
         tertiary,
-        paused: !videoStore.playing && settingsStore.mode !== 'edit'
+        paused: !videoStore.playing && settingsStore.mode !== 'edit',
+        mouseover,
+        mouseout
       }
     ]"
     :style="color"
+    @mouseout="onMouseOut"
     v-if="points != null && !(isBetweenGraphs && secondary)"
   >
     <defs>
@@ -273,6 +295,8 @@ function offsetPoint(point, r = 500) {
         @dblclick.stop="onDoubleClick"
         @contextmenu="onContextMenu"
         @click="onClick"
+        @x-mouseover="onMouseOver"
+        @x-mouseout="onMouseOut"
       />
       <path
         :d="value.d"
@@ -289,6 +313,8 @@ function offsetPoint(point, r = 500) {
           @dblclick.stop="onDoubleClick"
           @contextmenu="onContextMenu"
           @click="onClick"
+          @x-mouseover="onMouseOver"
+          @x-mouseout="onMouseOut"
           ><LocalizeText :text="edge.label" />
         </text>
         <text :x="value.x" :y="value.y"><LocalizeText :text="edge.label" /> </text>
@@ -314,14 +340,17 @@ function offsetPoint(point, r = 500) {
       /* filter: none; */
       /* opacity: 0.2; */
     }
-    transition:
-      opacity var(--ui-transition) var(--delay-transition),
-      filter 0s calc(var(--delay-transition) + var(--ui-transition));
 
     &:hover {
       opacity: 1;
       filter: none;
-      transition: none;
+      /* transition: none; */
+    }
+
+    &.mouseout {
+      transition:
+        opacity var(--ui-transition) var(--delay-transition),
+        filter 0s calc(var(--delay-transition) + var(--ui-transition));
     }
   }
 
@@ -378,9 +407,9 @@ function offsetPoint(point, r = 500) {
       }
     }
 
-    &.edit {
-      pointer-events: all;
-    }
+    /* &.edit { */
+    pointer-events: all;
+    /* } */
   }
 
   &:has(path.edit:hover) {

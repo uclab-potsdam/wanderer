@@ -44,6 +44,9 @@ const editStore = useEditStore()
 
 const componentRef = ref(null)
 
+const mouseover = ref(false)
+const mouseout = ref(false)
+
 const node = computed(() => dataStore.data.nodes[props.id])
 const positioning = computed(() => {
   // nextTick(() => {
@@ -91,9 +94,7 @@ const resizeObserver = new ResizeObserver((entries) => {
 
 function onClick(e) {
   if (!settingsStore.edit || e.metaKey) {
-    // hacky way to prevent changing routes when clicking on a blurred/hidden node
-    // the entites opacity on hover/click is changed only after a very brief css transition delay to make this possible
-    if (getComputedStyle(componentRef.value.el).opacity < 0.5) return
+    if (!mouseover.value && display.value === 'hide') return
     router.push({ name: 'graph', params: { type: node.value.type, id: props.id } })
   } else if (connectStore.connecting) {
     connectStore.close(props.id)
@@ -224,6 +225,25 @@ function onContextMenu(e) {
   )
 }
 
+function onMouseOver() {
+  // nextTick(() => (mouseover.value = true))
+  setTimeout(() => {
+    mouseover.value = true
+  }, 100)
+}
+
+function onMouseOut() {
+  mouseover.value = false
+  mouseout.value = true
+  nodeElement.value.addEventListener(
+    'transitionend',
+    () => {
+      mouseout.value = false
+    },
+    { once: true }
+  )
+}
+
 watch(
   () => [props.position.y, props.position.x],
   () => {
@@ -285,7 +305,9 @@ const zIndex = computed(() => {
             edit: settingsStore.edit,
             locked,
             paused: !videoStore.playing && settingsStore.mode !== 'edit',
-            exact: displayStore.exactMarker?.states?.hasOwnProperty(id)
+            exact: displayStore.exactMarker?.states?.hasOwnProperty(id),
+            mouseover,
+            mouseout
           }
         ]"
         :no-style="positioning"
@@ -296,6 +318,8 @@ const zIndex = computed(() => {
         @dblclick.stop="onDoubleClick"
         @mousedown="onMouseDown"
         @contextmenu="onContextMenu"
+        @mouseenter="onMouseOver"
+        @mouseout="onMouseOut"
       />
       <!-- </BaseInterpolate> -->
     </div>
@@ -342,15 +366,23 @@ const zIndex = computed(() => {
       filter: none;
     } */
 
-    transition:
-      opacity var(--ui-transition) var(--delay-transition),
-      filter 0s calc(var(--delay-transition) + var(--ui-transition));
+    /* transition: opacity 0s 0.01s; */
 
     &:hover {
       opacity: 1;
       filter: none;
       /* set a very brief delay on opacity change to enable checking against previous opacity value in click handler */
-      transition: opacity 0s 0.01s;
+      /* transition: opacity 0s 0.01s; */
+    }
+
+    &.mouseout {
+      /* opacity: 1;
+      filter: none; */
+      transition:
+        opacity var(--ui-transition) var(--delay-transition),
+        filter 0s calc(var(--delay-transition) + var(--ui-transition));
+      /* set a very brief delay on opacity change to enable checking against previous opacity value in click handler */
+      /* transition: opacity 0s 0.01s; */
     }
   }
 
