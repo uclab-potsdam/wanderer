@@ -47,6 +47,9 @@ export const useDataStore = defineStore('data', () => {
           })
       })
     }
+    if (data.value?.config?.kiosk) {
+      settingsStore.pictureInPicture = false
+    }
   }
 
   const kiosk = computed(() => data.value?.config?.kiosk)

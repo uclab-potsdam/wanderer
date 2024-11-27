@@ -8,7 +8,7 @@ export const useHelperStore = defineStore('helper', () => {
   const dataStore = useDataStore()
 
   function getMediaUrl(path) {
-    return expand(path)
+    return sessionStorage.getItem(path) ?? expand(path)
   }
 
   function getLocalizedMediaUrl(files) {

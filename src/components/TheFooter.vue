@@ -102,6 +102,7 @@ function toggleText() {
       <template v-if="route.name === 'graph'">
         <InputSegment
           horizontal
+          v-if="!dataStore.kiosk"
           equal-size
           v-model="settingsStore.pictureInPicture"
           :options="[
