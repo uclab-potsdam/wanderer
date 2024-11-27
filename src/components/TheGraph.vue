@@ -404,30 +404,66 @@ function onDrop(e) {
   // console.log(e.dataTransfer.files)
 
   const uri = shorten(e.dataTransfer.getData('text/uri-list'))
+  if (uri) {
+    // fetch mime types from urls (only works if cors is enabled)
+    // const controller = new AbortController();
+    // const signal = controller.signal;
+    // const mime = await fetch(uri, {signal}).then(d => {controller.abort(); return d.headers.get('Content-Type')})
 
-  // fetch mime types from urls (only works if cors is enabled)
-  // const controller = new AbortController();
-  // const signal = controller.signal;
-  // const mime = await fetch(uri, {signal}).then(d => {controller.abort(); return d.headers.get('Content-Type')})
+    const existingNode = dataStore.nodes.find((n) => n.file === shorten(uri))
+    if (existingNode != null) return insertNode(existingNode.id, e.x, e.y)
 
-  const existingNode = dataStore.nodes.find((n) => n.file === shorten(uri))
-  if (existingNode != null) return insertNode(existingNode.id, e.x, e.y)
+    // console.log(shorten(uri))
+    // .replace(location.origin, "workbench:/");
 
-  // console.log(shorten(uri))
-  // .replace(location.origin, "workbench:/");
+    const isImage = /(.png|.jpe?g|.gif|.webp)$/i.test(uri)
+    if (isImage) {
+      const uuid = crypto.randomUUID()
 
-  const isImage = /(.png|.jpe?g|.gif|.webp)$/i.test(uri)
-  if (isImage) {
-    const uuid = crypto.randomUUID()
+      const node = {
+        type: 'image',
+        file: uri,
+        label: { universal: uri.replace(/[^:]*:\/?\/?/, '').replace(/\.[^.]+$/, '') }
+      }
 
-    const node = {
-      type: 'image',
-      file: uri,
-      label: { universal: uri.replace(/[^:]*:\/?\/?/, '').replace(/\.[^.]+$/, '') }
+      dataStore.data.nodes[uuid] = node
+      insertNode(uuid, e.x, e.y)
     }
+  } else {
+    for (let i = 0; i < e.dataTransfer.files.length; i++) {
+      console.log(i)
+      const file = e.dataTransfer.files[i]
+      if (!file.type.match(/image.*/)) {
+        continue
+      }
+      // var img = document.createElement('img')
+      // img.file = file
+      // console.log(file)
+      var reader = new FileReader()
+      reader.addEventListener(
+        'load',
+        () => {
+          try {
+            const filename = `${dataStore.data.config.defaultShorthand}:${file.name}`
+            sessionStorage.setItem(filename, reader.result)
+            const uuid = crypto.randomUUID()
+            const node = {
+              type: 'image',
+              file: `${dataStore.data.config.defaultShorthand}:${file.name}`,
+              label: { universal: uri.replace(/[^:]*:\/?\/?/, '').replace(/\.[^.]+$/, '') }
+            }
 
-    dataStore.data.nodes[uuid] = node
-    insertNode(uuid, e.x, e.y)
+            dataStore.data.nodes[uuid] = node
+            insertNode(uuid, e.x, e.y)
+          } catch (error) {
+            alert('file size to large')
+          }
+        },
+        false
+      )
+
+      reader.readAsDataURL(file)
+    } // end for
   }
 }
 
