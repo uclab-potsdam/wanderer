@@ -436,11 +436,15 @@ function onMouseOut() {
   &.secondary {
     color: var(--color-edge-secondary);
     stroke: var(--color-edge-secondary);
+
+    &.diagram {
+      color: color-mix(in hsl, var(--color-edge-secondary), transparent 30%);
+      stroke: color-mix(in hsl, var(--color-edge-secondary), transparent 30%);
+    }
   }
   &.tertiary {
     color: var(--color-edge-secondary);
     stroke: var(--color-edge-secondary);
-
     opacity: 0.4;
   }
 }
