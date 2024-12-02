@@ -76,13 +76,6 @@ watch(
   }
 )
 
-watch(
-  () => videoStore.muted,
-  (muted) => {
-    video.value.muted = muted
-  }
-)
-
 onMounted(() => {
   if (settingsStore.mode === 'edit') return
   window.addEventListener(
@@ -102,6 +95,7 @@ onMounted(() => {
       crossorigin="anonymous"
       :autoplay="!settingsStore.edit"
       :src="source"
+      :muted="videoStore.muted"
       playsinline
       @loadstart="onLoadStart"
       @ended="requestNext"
