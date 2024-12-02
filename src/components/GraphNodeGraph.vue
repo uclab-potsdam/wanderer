@@ -81,6 +81,7 @@ defineExpose({
   /* overflow: hidden; */
   z-index: -1;
 
+  cursor: pointer;
   --autoplay: 0%;
 
   /* background-color: color-mix(in lab, var(--graph-accent), var(--color-text) 60%); */
