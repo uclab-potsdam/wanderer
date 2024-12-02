@@ -242,8 +242,6 @@ function getValue(item, key) {
 
       a {
         text-decoration: none;
-        white-space: nowrap;
-        word-wrap: break-word;
         word-break: break-all;
       }
     }
