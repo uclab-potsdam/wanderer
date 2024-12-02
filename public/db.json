@@ -705,7 +705,7 @@
         },
         "6f3c9424-f2dc-4db7-9127-d485dc2342fd": {
           "x": 200,
-          "y": 340
+          "y": 360
         },
         "e52a7648-59f8-40c1-a4a1-cd84c1e839e0": {
           "x": -237.46239008838614,
@@ -967,7 +967,7 @@
       "type": "entity",
       "label": {
         "en": "collecting",
-        "de": "Sammeln",
+        "de": "sammeln",
         "pt": "coletando"
       }
     },
@@ -1626,7 +1626,9 @@
     "78eabc38-e93a-420b-af5e-69fb2308900b": {
       "type": "entity",
       "label": {
-        "en": "spirit fish"
+        "en": "spirit fish",
+        "de": "Geisterfisch",
+        "pt": "peixe-espírito"
       },
       "class": "b9c6e30d-04bb-4ad7-ad48-7d8df9f3771d"
     },
@@ -1821,14 +1823,6 @@
         "399dbcb8-f1d2-4971-9c02-5866ba73ef32": {
           "x": 0,
           "y": 60
-        },
-        "8cf918a4-1847-4f42-96f2-886d4aade199": {
-          "x": 500,
-          "y": -300
-        },
-        "989dc621-eaca-483e-b233-9c6c54ad8568": {
-          "x": -180,
-          "y": 340
         },
         "f668ac38-da82-41ed-940e-01be7ab14326": {
           "x": -160,
@@ -2789,7 +2783,19 @@
         },
         "2d928e25-3e3b-4c0a-84f1-502df3ddbf60": {
           "x": -80,
-          "y": 40
+          "y": -20
+        },
+        "19665800-50b3-468f-a9bd-a6d2f055920d": {
+          "x": -1180,
+          "y": 420
+        },
+        "c7b7536f-90d6-41df-b7b8-0635554b03b4": {
+          "x": -60,
+          "y": 280
+        },
+        "6b05d29c-c9db-4083-9a79-731ce005a7ab": {
+          "x": -640,
+          "y": -200
         }
       },
       "media": {
@@ -2834,7 +2840,10 @@
             "1b0509c8-5c29-4f82-a3d4-3dacd5f82e2a": "hide",
             "c6e0056f-f0be-4232-9cdd-2bb7091524e3": "hide",
             "d9956bc7-4731-4323-adfb-2a1444e89b7f": "hide",
-            "2d928e25-3e3b-4c0a-84f1-502df3ddbf60": "default"
+            "2d928e25-3e3b-4c0a-84f1-502df3ddbf60": "hide",
+            "19665800-50b3-468f-a9bd-a6d2f055920d": "hide",
+            "c7b7536f-90d6-41df-b7b8-0635554b03b4": "hide",
+            "6b05d29c-c9db-4083-9a79-731ce005a7ab": "hide"
           },
           "bounds": {
             "x1": -725.9128065395093,
@@ -2853,7 +2862,10 @@
           },
           "states": {
             "83c5edf2-dee2-43a2-8290-5159abccdaae": "highlight",
-            "163b2085-599e-4a0c-aacd-b8143eb9c6c5": "highlight"
+            "163b2085-599e-4a0c-aacd-b8143eb9c6c5": "highlight",
+            "c7b7536f-90d6-41df-b7b8-0635554b03b4": "default",
+            "2d928e25-3e3b-4c0a-84f1-502df3ddbf60": "default",
+            "6b05d29c-c9db-4083-9a79-731ce005a7ab": "default"
           }
         },
         {
@@ -2872,7 +2884,8 @@
             "163b2085-599e-4a0c-aacd-b8143eb9c6c5": "highlight",
             "83c5edf2-dee2-43a2-8290-5159abccdaae": "default",
             "2c223c3f-2020-4b7c-8702-6271dc60aa20": "default",
-            "68585357-ebe4-4355-bfd4-338be23c8792": "default"
+            "68585357-ebe4-4355-bfd4-338be23c8792": "default",
+            "6b05d29c-c9db-4083-9a79-731ce005a7ab": "hide"
           }
         },
         {
@@ -2985,7 +2998,8 @@
             "2c223c3f-2020-4b7c-8702-6271dc60aa20": "default",
             "0157f38a-85e0-445f-b0e5-d6fa01ea5e75": "default",
             "d7e6aab7-0436-4da3-ac89-cea1e71cca03": "default",
-            "9efc33b3-ffde-42d5-88c6-deb872a871a6": "default"
+            "9efc33b3-ffde-42d5-88c6-deb872a871a6": "default",
+            "19665800-50b3-468f-a9bd-a6d2f055920d": "default"
           },
           "bounds": {
             "x1": -1341.9042921111563,
@@ -3042,22 +3056,17 @@
             "7fbfadc8-607a-4ec5-805b-9625242b5b1a": "default",
             "efdc566e-1342-46e2-a2ec-49e00197af17": "default",
             "68585357-ebe4-4355-bfd4-338be23c8792": "default",
-            "2d928e25-3e3b-4c0a-84f1-502df3ddbf60": "default",
             "09eda7fb-82fc-4989-9410-fe2e1a79ec81": "highlight",
             "8971c15c-d536-4161-b148-6983d34d8d10": "highlight",
-            "163b2085-599e-4a0c-aacd-b8143eb9c6c5": "highlight"
+            "163b2085-599e-4a0c-aacd-b8143eb9c6c5": "highlight",
+            "6b05d29c-c9db-4083-9a79-731ce005a7ab": "default",
+            "c7b7536f-90d6-41df-b7b8-0635554b03b4": "default"
           },
           "bounds": {
             "x1": -1275.0286481972005,
             "y1": -480.09132869253136,
             "x2": 605.0996185362417,
             "y2": 1107.2300768283255
-          }
-        },
-        {
-          "time": 0,
-          "states": {
-            "c4ee2f7a-c5d4-42a1-a372-57a46a5982d9": "default"
           }
         }
       ]
@@ -3152,7 +3161,7 @@
       "label": {
         "en": "splints",
         "de": "Stiele",
-        "pt": "trilho"
+        "pt": "talas"
       },
       "class": "8e79fa93-eb98-496d-93f9-460e5e82d89e"
     },
@@ -4648,7 +4657,8 @@
     "83152e07-d45a-4c3e-9f46-1ace09db272b": {
       "type": "entity",
       "label": {
-        "en": "graphic pattern"
+        "en": "graphic pattern",
+        "de": "padrão gráfico"
       }
     },
     "09e75d73-afea-4945-8db3-c1f1880a3bcb": {
@@ -4901,7 +4911,10 @@
             "40f6d448-ff59-4087-bcf1-0fb503cca861": "hide",
             "749ec1fd-585b-41d2-aa1d-0edaa592e8c0": "hide",
             "8b213533-513e-4581-978d-7bf27122fd6b": "hide",
-            "1e1b5726-e467-425f-8fe8-3cc7868a5d82": "hide"
+            "1e1b5726-e467-425f-8fe8-3cc7868a5d82": "hide",
+            "344c1ada-cbca-4b2c-973a-ba7c11c0bab8": "hide",
+            "55dc73b0-3e38-4f82-827d-2de83927f4e1": "hide",
+            "a85079f1-4678-43df-a2ee-d2fbf3e094c4": "hide"
           },
           "bounds": {
             "x1": -419.1102457951913,
@@ -4987,7 +5000,10 @@
             "a9038e82-1646-4339-af71-141a737827ce": "default",
             "9efc33b3-ffde-42d5-88c6-deb872a871a6": "default",
             "323af7b4-dfd8-4a5d-a6f8-8beddfbab4a1": "default",
-            "6d24e8f3-9832-43dd-83b9-9bb77db501cb": "hide"
+            "6d24e8f3-9832-43dd-83b9-9bb77db501cb": "hide",
+            "344c1ada-cbca-4b2c-973a-ba7c11c0bab8": "default",
+            "a85079f1-4678-43df-a2ee-d2fbf3e094c4": "default",
+            "55dc73b0-3e38-4f82-827d-2de83927f4e1": "default"
           }
         },
         {
@@ -5285,7 +5301,7 @@
         },
         "163b2085-599e-4a0c-aacd-b8143eb9c6c5": {
           "x": 340,
-          "y": 200
+          "y": 240
         },
         "09eda7fb-82fc-4989-9410-fe2e1a79ec81": {
           "x": 80,
@@ -5836,33 +5852,41 @@
     "c20a8b9d-275e-4ba4-b796-1aafb1ad4062": {
       "type": "entity",
       "label": {
-        "en": "Xingu female children and adolescents"
+        "en": "Xingu female children and adolescents",
+        "de": "weibliche Kinder und Jugendliche der Xingu",
+        "pt": "crianças e jovens do sexo feminino do Xingu"
       }
     },
     "99635892-4354-4a67-b3df-2a101ade40ff": {
       "type": "entity",
       "label": {
-        "en": "reclusion"
+        "en": "reclusion",
+        "de": "Zurückgezogenheit",
+        "pt": "reclusão"
       }
     },
     "bca88436-a02b-48e0-a151-3e4b8bb2c684": {
       "type": "entity",
       "label": {
-        "en": "short splints"
+        "en": "short splints",
+        "de": "kurze Stiele",
+        "pt": "talas curtas"
       },
       "class": "8e79fa93-eb98-496d-93f9-460e5e82d89e"
     },
     "059b0757-e2a1-40a8-91df-128167487f45": {
       "type": "entity",
       "label": {
-        "en": "longs splints"
+        "en": "longs splints",
+        "de": "lange Stiele",
+        "pt": "talas longas"
       },
       "class": "8e79fa93-eb98-496d-93f9-460e5e82d89e"
     },
     "e41974fe-67f1-4ea9-8507-d8f22fc64f39": {
       "type": "entity",
       "label": {
-        "en": "medium splints"
+        "en": "mittelgroße Stiele"
       },
       "class": "8e79fa93-eb98-496d-93f9-460e5e82d89e"
     },
@@ -5876,14 +5900,18 @@
     "b07c04ac-5e22-4c1e-b61c-762c5c15bfc5": {
       "type": "entity",
       "label": {
-        "en": "thicker splint﻿s"
+        "en": "thicker splint﻿s",
+        "de": "dickere Stiele",
+        "pt": "talas mais grossas"
       },
       "class": "8e79fa93-eb98-496d-93f9-460e5e82d89e"
     },
     "df17c2a1-9233-47e5-88a1-467772c53251": {
       "type": "entity",
       "label": {
-        "en": "flexible splint﻿﻿s"
+        "en": "flexible splint﻿﻿s",
+        "de": "flexible Stiele",
+        "pt": "talas flexíveis"
       },
       "class": "8e79fa93-eb98-496d-93f9-460e5e82d89e"
     },
@@ -5897,7 +5925,9 @@
     "952d95d4-c5bd-4962-9b82-2b98d0fd3d20": {
       "type": "entity",
       "label": {
-        "en": "manioc squeezer mat"
+        "en": "manioc squeezer mat",
+        "de": "Maniokpress-Matte",
+        "pt": "esteira de espremer madioca"
       },
       "class": "83c5edf2-dee2-43a2-8290-5159abccdaae"
     },
@@ -5914,55 +5944,71 @@
     "43cff938-259c-4887-bb11-9adb23c867ee": {
       "type": "entity",
       "label": {
-        "en": "weaving technic"
+        "en": "weaving technic",
+        "de": "Webtechnik",
+        "pt": "técnica de tecelagem"
       }
     },
     "69dd6f80-b97e-4452-a8ea-8e01a4de3ada": {
       "type": "entity",
       "label": {
-        "en": "kanikoko bird feather"
+        "en": "kanikoko bird feather",
+        "de": "Kanikoko-Vogelfeder",
+        "pt": "pena de pássaro Kanikoko"
       },
       "class": "83152e07-d45a-4c3e-9f46-1ace09db272b"
     },
     "b4b7ba05-97cd-4d7b-b6fc-639a97bec0f5": {
       "type": "entity",
       "label": {
-        "en": "man's belt"
+        "en": "man's belt",
+        "de": "Männer Gürtel",
+        "pt": "cinto masculino"
       },
       "class": "83152e07-d45a-4c3e-9f46-1ace09db272b"
     },
     "165b01a2-d76d-47ea-bb88-c93439b362b2": {
       "type": "entity",
       "label": {
-        "en": "piranha fish teeth"
+        "en": "piranha fish teeth",
+        "de": "Piranha-Fischzähne",
+        "pt": "dente de peixe piranha"
       },
       "class": "83152e07-d45a-4c3e-9f46-1ace09db272b"
     },
     "54c68793-6735-47f3-9640-566bd282a656": {
       "type": "entity",
       "label": {
-        "en": "kuarup trunk"
+        "en": "kuarup trunk",
+        "de": "Kuarup-Stamm",
+        "pt": "tribo Kuarup"
       },
       "class": "83152e07-d45a-4c3e-9f46-1ace09db272b"
     },
     "1f8d4eeb-239d-4a0c-b69c-8689425df381": {
       "type": "entity",
       "label": {
-        "en": "butterfly armpit"
+        "en": "butterfly armpit",
+        "de": "Schmetterlingsachselmuster",
+        "pt": "suvaco da borboleta"
       },
       "class": "83152e07-d45a-4c3e-9f46-1ace09db272b"
     },
     "dc15bc7d-61f3-4295-ab7e-ffb172abfbc5": {
       "type": "entity",
       "label": {
-        "en": "agouti teeth "
+        "en": "agouti teeth ",
+        "de": "Agouti muster",
+        "pt": "padrão agouti"
       },
       "class": "83152e07-d45a-4c3e-9f46-1ace09db272b"
     },
     "28e5a955-092a-4c44-aa13-b95f90e38cfa": {
       "type": "entity",
       "label": {
-        "en": "clea threads"
+        "en": "clea threads",
+        "de": "Clea Faden",
+        "pt": "fio clea"
       },
       "class": "ad3db2be-7e0d-4fe5-8cf0-19622ec88123"
     },
@@ -5975,7 +6021,9 @@
     "ef34790e-42da-4ca7-9af2-30577aa53d46": {
       "type": "entity",
       "label": {
-        "en": "tabatinga clay"
+        "en": "tabatinga clay",
+        "de": "Tabatinga-Ton",
+        "pt": "argila tabatinga"
       },
       "class": "8e79fa93-eb98-496d-93f9-460e5e82d89e"
     },
@@ -6208,12 +6256,17 @@
           "y": 420
         },
         "2ec6bbbe-bfeb-4e85-96f5-d3bfb48a846e": {
-          "x": -1040,
-          "y": 60
+          "x": -1060,
+          "y": 60,
+          "locked": true
         },
         "41893065-2d27-437c-b6ef-f72e52330c5c": {
           "x": -820,
           "y": 500
+        },
+        "6b05d29c-c9db-4083-9a79-731ce005a7ab": {
+          "x": -860,
+          "y": -340
         }
       },
       "marker": [
@@ -6238,7 +6291,8 @@
             "43943c07-27a4-43f3-a186-a958973634a4": "hide",
             "d82bc6e6-554c-44cf-a923-1c8d28048dab": "hide",
             "68585357-ebe4-4355-bfd4-338be23c8792": "default",
-            "41893065-2d27-437c-b6ef-f72e52330c5c": "hide"
+            "41893065-2d27-437c-b6ef-f72e52330c5c": "hide",
+            "6b05d29c-c9db-4083-9a79-731ce005a7ab": "hide"
           },
           "bounds": {
             "x1": -1704.5950828327464,
@@ -6365,7 +6419,8 @@
             "02ffa734-94bb-4520-9694-378fd4f97935": "default",
             "8b172be1-0554-49eb-bc07-b66f52866383": "default",
             "96193645-f7fe-4336-9e6c-f99031236f13": "highlight",
-            "d301e65b-b597-4305-af41-bed66f561a87": "default"
+            "d301e65b-b597-4305-af41-bed66f561a87": "default",
+            "6b05d29c-c9db-4083-9a79-731ce005a7ab": "default"
           }
         },
         {
@@ -6453,13 +6508,17 @@
     "dc2f7c3a-10e6-4dbd-b6bf-663e27a5e8e1": {
       "type": "entity",
       "label": {
-        "en": "fishing"
+        "en": "fishing",
+        "de": "fischen",
+        "pt": "pesca"
       }
     },
     "5a3e5494-fe3e-405f-a23d-c2c4fbf47e53": {
       "type": "entity",
       "label": {
-        "en": "singing"
+        "en": "singing",
+        "de": "singt",
+        "pt": "canta"
       }
     },
     "841a6fcd-7352-44b5-9245-5a7f1e8d2ba7": {
@@ -6484,7 +6543,7 @@
       "label": {
         "en": "owner",
         "de": "Eigentümer",
-        "pt": "proprietário"
+        "pt": "dono"
       }
     },
     "81caca6f-2455-48c4-8d18-47e2e2fb6e0d": {
@@ -6540,21 +6599,21 @@
       "type": "image",
       "file": "xingu:using%20kusu/using%20kusu%20timbo.png",
       "label": {
-        "universal": "using%20kusu/using%20kusu%20timbo"
+        "universal": "using kusu/using kusu timbo"
       }
     },
     "ef2e8af9-e56f-4e44-8a7d-5c414fa88e56": {
       "type": "image",
       "file": "xingu:using%20kusu/using%20kusu%20cichlid.png",
       "label": {
-        "universal": "using%20kusu/using%20kusu%20cichlid"
+        "universal": "using kusu/using kusu cichlid"
       }
     },
     "1b2fa3bc-1c7e-4ac5-a7c4-e9e1ea83437a": {
       "type": "image",
       "file": "xingu:using%20kusu/using%20kusu%20kusu.png",
       "label": {
-        "universal": "using%20kusu/using%20kusu%20kusu"
+        "universal": "using kusu/using kusu kusu"
       }
     },
     "0a838d76-504e-4aa1-bd75-49a6791a801f": {
@@ -7423,84 +7482,84 @@
       "type": "image",
       "file": "xingu:using%20kusu/using%20kusu%20glass%20tetra.png",
       "label": {
-        "universal": "using%20kusu/using%20kusu%20glass%20tetra"
+        "universal": "using kusu/using kusu glass tetra"
       }
     },
     "1d31d5a1-7277-4e82-bf51-aac5b5e21795": {
       "type": "image",
       "file": "xingu:collecting%20ambe/collectingAmbe_Masinua.png",
       "label": {
-        "universal": "collecting%20ambe/collectingAmbe_Masinua"
+        "universal": "collecting ambe/collectingAmbe_Masinua"
       }
     },
     "a3992788-fb1c-441c-ab12-715b83c74bf4": {
       "type": "image",
       "file": "xingu:collecting%20ambe/collecting%20ambe_graphic%202.png",
       "label": {
-        "universal": "collecting%20ambe/collecting%20ambe_graphic%202"
+        "universal": "collecting ambe/collecting ambe_graphic 2"
       }
     },
     "6f3c9424-f2dc-4db7-9127-d485dc2342fd": {
       "type": "image",
       "file": "xingu:collecting%20ambe/collecting%20ambe_graphic%201.png",
       "label": {
-        "universal": "collecting%20ambe/collecting%20ambe_graphic%201"
+        "universal": "collecting ambe/collecting ambe_graphic 1"
       }
     },
     "fcbe8a8c-c399-4587-843e-5b5a0392acb6": {
       "type": "image",
       "file": "xingu:story%20of%20uhi/story%20of%20uhi_fish.png",
       "label": {
-        "universal": "story%20of%20uhi/story%20of%20uhi_fish"
+        "universal": "story of uhi/story of uhi_fish"
       }
     },
     "c7342255-8433-48fb-aeb3-3d45007a59a8": {
       "type": "image",
       "file": "xingu:story%20of%20uhi/story%20of%20uhi_piranha.png",
       "label": {
-        "universal": "story%20of%20uhi/story%20of%20uhi_piranha"
+        "universal": "story of uhi/story of uhi_piranha"
       }
     },
     "e52a7648-59f8-40c1-a4a1-cd84c1e839e0": {
       "type": "image",
       "file": "xingu:collecting%20ambe/collectingAmbe_root.png",
       "label": {
-        "universal": "collecting%20ambe/collectingAmbe_root"
+        "universal": "collecting ambe/collectingAmbe_root"
       }
     },
     "370bd454-8dcc-4e09-b36c-ab5dea85bba3": {
       "type": "image",
       "file": "xingu:making%20the%20fish%20trap/making%20the%20fish%20trap_Utu.png",
       "label": {
-        "universal": "making%20the%20fish%20trap/making%20the%20fish%20trap_Utu"
+        "universal": "making the fish trap/making the fish trap_Utu"
       }
     },
     "e5a3e201-20b4-4a8a-829f-1b4576d3473d": {
       "type": "image",
       "file": "xingu:making%20the%20fish%20trap/making%20the%20fish%20trap_Utu2.png",
       "label": {
-        "universal": "making%20the%20fish%20trap/making%20the%20fish%20trap_Utu2"
+        "universal": "making the fish trap/making the fish trap_Utu2"
       }
     },
     "c8253b96-c675-41e8-872f-59257417ca7a": {
       "type": "image",
       "file": "xingu:making%20the%20fish%20trap/making%20the%20fish%20trap_Utu5.png",
       "label": {
-        "universal": "making%20the%20fish%20trap/making%20the%20fish%20trap_Utu5"
+        "universal": "making the fish trap/making the fish trap_Utu5"
       }
     },
     "98d52143-add2-4fb1-96d7-dd62cc20329e": {
       "type": "image",
       "file": "xingu:making%20the%20fish%20trap/making%20the%20fish%20trap_Utu4.png",
       "label": {
-        "universal": "making%20the%20fish%20trap/making%20the%20fish%20trap_Utu4"
+        "universal": "making the fish trap/making the fish trap_Utu4"
       }
     },
     "1dba5b89-c1c8-41b8-9073-5fd5d7493099": {
       "type": "image",
       "file": "xingu:making%20the%20fish%20trap/making%20the%20fish%20trap_Utu3.png",
       "label": {
-        "universal": "making%20the%20fish%20trap/making%20the%20fish%20trap_Utu3"
+        "universal": "making the fish trap/making the fish trap_Utu3"
       }
     },
     "ee25c862-f0c9-4315-8b2a-3678283c59fc": {
@@ -8042,81 +8101,10 @@
       },
       "media": {
         "file": {
-          "0": "x",
-          "1": "i",
-          "2": "n",
-          "3": "g",
-          "4": "u",
-          "5": ":",
-          "6": "N",
-          "7": "i",
-          "8": "l",
-          "9": "s",
-          "10": " ",
-          "11": "P",
-          "12": "h",
-          "13": "i",
-          "14": "l",
-          "15": "o",
-          "16": "d",
-          "17": "e",
-          "18": "n",
-          "19": "d",
-          "20": "r",
-          "21": "o",
-          "22": "n",
-          "23": " ",
-          "24": "S",
-          "25": "o",
-          "26": "l",
-          "27": "i",
-          "28": "m",
-          "29": "o",
-          "30": "i",
-          "31": "s",
-          "32": "e",
-          "33": "n",
-          "34": "s",
-          "35": "e",
-          "36": "/",
-          "37": "N",
-          "38": "i",
-          "39": "l",
-          "40": "s",
-          "41": " ",
-          "42": "P",
-          "43": "h",
-          "44": "i",
-          "45": "l",
-          "46": "o",
-          "47": "d",
-          "48": "e",
-          "49": "n",
-          "50": "d",
-          "51": "r",
-          "52": "o",
-          "53": "n",
-          "54": " ",
-          "55": "S",
-          "56": "o",
-          "57": "l",
-          "58": "i",
-          "59": "m",
-          "60": "o",
-          "61": "i",
-          "62": "s",
-          "63": "e",
-          "64": "n",
-          "65": "s",
-          "66": "e",
-          "67": ".",
-          "68": "m",
-          "69": "p",
-          "70": "4",
           "original": "xingu:Nils Philodendron Solimoisense/Nils Philodendron Solimoisense.mp4"
         },
         "subtitles": {
-          "en": "xingu:Nils Philodendron Solimoisense/Nils Philodendron Solimoisense_ENG.srt",
+          "en": "",
           "pt": "xingu:Nils Philodendron Solimoisense/Nils Philodendron Solimoisense_PT.srt",
           "de": "xingu:Nils Philodendron Solimoisense/Nils Philodendron Solimoisense_DE.srt"
         }
@@ -8265,7 +8253,7 @@
       "type": "image",
       "file": "xingu:story%20of%20uhi/storyOfUhi_burriti.png",
       "label": {
-        "universal": "story%20of%20uhi/storyOfUhi_burriti"
+        "universal": "story of uhi/storyOfUhi_burriti"
       }
     },
     "91735c49-3599-47dd-8da5-568f660c6189": {
@@ -8285,238 +8273,224 @@
       "type": "image",
       "file": "xingu:Nils%20Philodendron%20Solimoisense/AlbertCharlesSmith.png",
       "label": {
-        "universal": "Nils%20Philodendron%20Solimoisense/AlbertCharlesSmith"
+        "universal": "Nils Philodendron Solimoisense/AlbertCharlesSmith"
       }
     },
     "e13035fb-2de6-4868-91bd-66f862907a84": {
       "type": "image",
       "file": "xingu:Nils%20Philodendron%20Solimoisense/AlexanderKrukoff.png",
       "label": {
-        "universal": "Nils%20Philodendron%20Solimoisense/AlexanderKrukoff"
+        "universal": "Nils Philodendron Solimoisense/AlexanderKrukoff"
       }
     },
     "68236564-eb28-424c-a09c-3338bcde095a": {
       "type": "image",
       "file": "xingu:Nils%20Philodendron%20Solimoisense/Tihigu.png",
       "label": {
-        "universal": "Nils%20Philodendron%20Solimoisense/Tihigu"
+        "universal": "Nils Philodendron Solimoisense/Tihigu"
       }
     },
     "47fbf4f5-4809-40e0-b12f-cf7a5b134b06": {
       "type": "image",
       "file": "xingu:Nils%20Philodendron%20Solimoisense/grafic.png",
       "label": {
-        "universal": "Nils%20Philodendron%20Solimoisense/grafic"
+        "universal": "Nils Philodendron Solimoisense/grafic"
       }
     },
     "20d96d88-dbf9-45bc-bdc7-87479dfe72db": {
       "type": "image",
       "file": "xingu:Nils%20Philodendron%20Solimoisense/Ambe.png",
       "label": {
-        "universal": "Nils%20Philodendron%20Solimoisense/Ambe"
+        "universal": "Nils Philodendron Solimoisense/Ambe"
       }
     },
     "93767d53-0f42-47b5-bf28-5f5d5770eb52": {
       "type": "image",
       "file": "xingu:on%20gimi/gimi_2.png",
       "label": {
-        "universal": "on%20gimi/gimi_2"
+        "universal": "on gimi/gimi_2"
       }
     },
     "ffbc9dcc-dfae-4796-88ca-b82698ebe638": {
       "type": "image",
       "file": "xingu:on%20gimi/gimi_1.png",
       "label": {
-        "universal": "on%20gimi/gimi_1"
+        "universal": "on gimi/gimi_1"
       }
     },
     "2be41613-e740-4831-8e64-7b51e76d050d": {
       "type": "image",
       "file": "xingu:harvesting%20annatto/Annatto_3.png",
       "label": {
-        "universal": "harvesting%20annatto/Annatto_3"
+        "universal": "harvesting annatto/Annatto_3"
       }
     },
     "7eff675e-7174-411e-9498-529028edf26a": {
       "type": "image",
       "file": "xingu:harvesting%20annatto/Turmeric.png",
       "label": {
-        "universal": "harvesting%20annatto/Turmeric"
+        "universal": "harvesting annatto/Turmeric"
       }
     },
     "c36873ea-7b90-45a5-831b-b6e2745d9a30": {
       "type": "image",
       "file": "xingu:Nils%20Buriti%20Scientific%20Name/zigzagshape_2.png",
       "label": {
-        "universal": "Nils%20Buriti%20Scientific%20Name/zigzagshape_2"
+        "universal": "Nils Buriti Scientific Name/zigzagshape_2"
       }
     },
     "7d7e154a-d214-46a8-a16b-a987810f3157": {
       "type": "image",
       "file": "xingu:Nils%20Buriti%20Scientific%20Name/Johann_Moritz_von_Nassau.png",
       "label": {
-        "universal": "Nils%20Buriti%20Scientific%20Name/Johann_Moritz_von_Nassau"
+        "universal": "Nils Buriti Scientific Name/Johann_Moritz_von_Nassau"
       }
     },
     "5c61138d-5261-4011-97e2-6fdb24e0e950": {
       "type": "image",
       "file": "xingu:Nils%20Buriti%20Scientific%20Name/mauritia_flexuosa.png",
       "label": {
-        "universal": "Nils%20Buriti%20Scientific%20Name/mauritia_flexuosa"
+        "universal": "Nils Buriti Scientific Name/mauritia_flexuosa"
       }
     },
     "2ec6bbbe-bfeb-4e85-96f5-d3bfb48a846e": {
       "type": "image",
       "file": "xingu:story%20of%20uhi/story%20of%20uhi_Liquid.png",
       "label": {
-        "universal": "story%20of%20uhi/story%20of%20uhi_Liquid"
+        "universal": "story of uhi/story of uhi_Liquid"
       }
     },
     "ec4586be-07cd-4719-a10c-12808cad10c1": {
       "type": "image",
       "file": "xingu:story%20of%20uhi/story%20of%20uhi_Liquid_1.png",
       "label": {
-        "universal": "story%20of%20uhi/story%20of%20uhi_Liquid_1"
+        "universal": "story of uhi/story of uhi_Liquid_1"
       }
     },
     "fe9c28d7-3e81-46c0-a851-cb79a39e9cdc": {
       "type": "image",
       "file": "xingu:collecting%20moriche/MauritiaFlexuosa.png",
       "label": {
-        "universal": "collecting%20moriche/MauritiaFlexuosa"
+        "universal": "collecting moriche/MauritiaFlexuosa"
       }
     },
     "43943c07-27a4-43f3-a186-a958973634a4": {
       "type": "image",
       "file": "xingu:owner%20of%20Kusu/piranha.png",
       "label": {
-        "universal": "owner%20of%20Kusu/piranha"
+        "universal": "owner of Kusu/piranha"
       }
     },
     "e6392b75-50a0-4548-b221-4b8a873ab9d4": {
       "type": "image",
       "file": "xingu:harvesting%20annatto/Annatto_5.png",
       "label": {
-        "universal": "harvesting%20annatto/Annatto_5"
+        "universal": "harvesting annatto/Annatto_5"
       }
     },
     "87115017-efec-4be1-adf6-52b58c9fac83": {
       "type": "image",
       "file": "xingu:harvesting%20annatto/Annatto_4.png",
       "label": {
-        "universal": "harvesting%20annatto/Annatto_4"
+        "universal": "harvesting annatto/Annatto_4"
       }
     },
     "7cfb0860-9139-44a2-a1cd-bb0b37b11fe6": {
       "type": "image",
       "file": "xingu:harvesting%20annatto/Annatto_2.png",
       "label": {
-        "universal": "harvesting%20annatto/Annatto_2"
+        "universal": "harvesting annatto/Annatto_2"
       }
     },
     "94fcfd16-149e-472c-8611-03da6555990f": {
       "type": "image",
       "file": "xingu:harvesting%20annatto/Annatto1.png",
       "label": {
-        "universal": "harvesting%20annatto/Annatto1"
-      }
-    },
-    "8cf918a4-1847-4f42-96f2-886d4aade199": {
-      "type": "image",
-      "file": "xingu:using%20utu/Screenshot%202024-11-27%20at%2017.33.14.png",
-      "label": {
-        "universal": "using%20utu/Screenshot%202024-11-27%20at%2017.33.14"
-      }
-    },
-    "989dc621-eaca-483e-b233-9c6c54ad8568": {
-      "type": "image",
-      "file": "xingu:using%20utu/Screenshot%202024-11-27%20at%2017.40.15.png",
-      "label": {
-        "universal": "using%20utu/Screenshot%202024-11-27%20at%2017.40.15"
+        "universal": "harvesting annatto/Annatto1"
       }
     },
     "f668ac38-da82-41ed-940e-01be7ab14326": {
       "type": "image",
       "file": "xingu:using%20utu/bubbles%20raster%20Utu.png",
       "label": {
-        "universal": "using%20utu/bubbles%20raster%20Utu"
+        "universal": "using utu/bubbles raster Utu"
       }
     },
     "e16fdccf-5717-42a0-80ee-488792daca1e": {
       "type": "image",
       "file": "xingu:using%20utu/bubbles_raster.png",
       "label": {
-        "universal": "using%20utu/bubbles_raster"
+        "universal": "using utu/bubbles_raster"
       }
     },
     "77c2b609-cc05-46b7-9b79-cc123e10d801": {
       "type": "image",
       "file": "xingu:customs%20of%20mats/customs%20of%20mats_mats4.png",
       "label": {
-        "universal": "customs%20of%20mats/customs%20of%20mats_mats4"
+        "universal": "customs of mats/customs of mats_mats4"
       }
     },
     "694d579a-3e8f-4df8-a488-68ebffd68e75": {
       "type": "image",
       "file": "xingu:customs%20of%20mats/customs%20of%20mats_mats2.png",
       "label": {
-        "universal": "customs%20of%20mats/customs%20of%20mats_mats2"
+        "universal": "customs of mats/customs of mats_mats2"
       }
     },
     "7c6a7e39-2cca-4086-be14-9231b7d087cd": {
       "type": "image",
       "file": "xingu:customs%20of%20mats/customs%20of%20mats_mats1.png",
       "label": {
-        "universal": "customs%20of%20mats/customs%20of%20mats_mats1"
+        "universal": "customs of mats/customs of mats_mats1"
       }
     },
     "7f9c76c1-ad8b-4a05-8600-ddc521d7dcd3": {
       "type": "image",
       "file": "xingu:customs%20of%20mats/Screenshot%202024-11-27%20at%2017.51.30.png",
       "label": {
-        "universal": "customs%20of%20mats/Screenshot%202024-11-27%20at%2017.51.30"
+        "universal": "customs of mats/Screenshot 2024-11-27 at 17.51.30"
       }
     },
     "57cc2dca-c021-4368-bc2c-a31d7279ea5d": {
       "type": "image",
       "file": "xingu:customs%20of%20mats/Screenshot%202024-11-27%20at%2017.49.42.png",
       "label": {
-        "universal": "customs%20of%20mats/Screenshot%202024-11-27%20at%2017.49.42"
+        "universal": "customs of mats/Screenshot 2024-11-27 at 17.49.42"
       }
     },
     "57c81a8d-bdec-4109-8bf7-2b2398d44f15": {
       "type": "image",
       "file": "xingu:customs%20of%20mats/Screenshot%202024-11-27%20at%2017.49.42%20Copy.png",
       "label": {
-        "universal": "customs%20of%20mats/Screenshot%202024-11-27%20at%2017.49.42%20Copy"
+        "universal": "customs of mats/Screenshot 2024-11-27 at 17.49.42 Copy"
       }
     },
     "db0e95d9-f660-413e-a88e-1b7a9ef22d52": {
       "type": "image",
       "file": "xingu:Nils%20Buriti%20pollination/grafik_dots.png",
       "label": {
-        "universal": "Nils%20Buriti%20pollination/grafik_dots"
+        "universal": "Nils Buriti pollination/grafik_dots"
       }
     },
     "f9dffd5f-3ee8-4b76-b2b3-7498151593d5": {
       "type": "image",
       "file": "xingu:Nils%20Buriti%20pollination/MF.png",
       "label": {
-        "universal": "Nils%20Buriti%20pollination/MF"
+        "universal": "Nils Buriti pollination/MF"
       }
     },
     "3ba996a8-a5b7-4759-afd4-081c10a0728d": {
       "type": "image",
       "file": "xingu:Nils%20Buriti%20pollination/insect_leave.png",
       "label": {
-        "universal": "Nils%20Buriti%20pollination/insect_leave"
+        "universal": "Nils Buriti pollination/insect_leave"
       }
     },
     "39c3cfb2-868c-4daf-a5e5-e0bc89dc7aa8": {
       "type": "image",
       "file": "xingu:collecting%20ambe/Ambe%20collage.png",
       "label": {
-        "universal": "collecting%20ambe/Ambe%20collage"
+        "universal": "collecting ambe/Ambe collage"
       }
     },
     "e2b31ad2-8c3b-46a2-960e-5f3af54c11a3": {
@@ -8530,28 +8504,42 @@
       "type": "image",
       "file": "xingu:owner%20of%20Kusu/serpiente_2.png",
       "label": {
-        "universal": "owner%20of%20Kusu/serpiente_2"
+        "universal": "owner of Kusu/serpiente_2"
       }
     },
     "a85079f1-4678-43df-a2ee-d2fbf3e094c4": {
       "type": "image",
       "file": "xingu:collecting%20for%20gimi/Gimi.png",
       "label": {
-        "universal": "collecting%20for%20gimi/Gimi"
+        "universal": "collecting for gimi/Gimi"
       }
     },
     "55dc73b0-3e38-4f82-827d-2de83927f4e1": {
       "type": "image",
       "file": "xingu:collecting%20for%20gimi/Gimi2.png",
       "label": {
-        "universal": "collecting%20for%20gimi/Gimi2"
+        "universal": "collecting for gimi/Gimi2"
       }
     },
     "344c1ada-cbca-4b2c-973a-ba7c11c0bab8": {
       "type": "image",
       "file": "xingu:collecting%20for%20gimi/Gimi3.png",
       "label": {
-        "universal": "collecting%20for%20gimi/Gimi3"
+        "universal": "collecting for gimi/Gimi3"
+      }
+    },
+    "19665800-50b3-468f-a9bd-a6d2f055920d": {
+      "type": "image",
+      "file": "xingu:uses%20of%20buriti/hammock.png",
+      "label": {
+        "universal": "uses of buriti/hammock"
+      }
+    },
+    "c7b7536f-90d6-41df-b7b8-0635554b03b4": {
+      "type": "image",
+      "file": "xingu:uses%20of%20buriti/Mat.png",
+      "label": {
+        "universal": "uses of buriti/Mat"
       }
     }
   },
@@ -11106,7 +11094,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "582f01e6-6180-468f-9795-a2924c4ce229",
       "label": {
-        "en": "are"
+        "en": "are",
+        "de": " ",
+        "pt": " "
       }
     },
     {
@@ -11118,7 +11108,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "6eab7669-99d9-46a4-9816-e943d558d258",
       "label": {
-        "en": "are"
+        "en": "are",
+        "de": " ",
+        "pt": " "
       }
     },
     {
@@ -11148,7 +11140,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "0ec9c06f-f58a-4412-8534-79fc127720b9",
       "label": {
-        "en": "teach"
+        "en": "teach",
+        "de": "lehren",
+        "pt": "ensinam"
       }
     },
     {
@@ -11169,7 +11163,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "6201889a-dd2c-418b-a47f-54ac06f35c2b",
       "label": {
-        "en": "during"
+        "en": "during",
+        "de": "während",
+        "pt": "enquanto"
       }
     },
     {
@@ -11181,7 +11177,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "48e4fcb5-7ebd-40ec-aeb2-b07ed1053c68",
       "label": {
-        "en": "divided into"
+        "en": "divided into",
+        "de": "unterteilt in",
+        "pt": "dividido em"
       }
     },
     {
@@ -11193,7 +11191,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "57ead869-1bed-4c02-bfc2-43e0bbaca619",
       "label": {
-        "en": "divided into"
+        "en": "divided into",
+        "de": "unterteilt in",
+        "pt": "dividido em"
       }
     },
     {
@@ -11205,7 +11205,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "cdfad6e9-0419-40b1-852d-723b71aae18e",
       "label": {
-        "en": "divided into"
+        "en": "divided into",
+        "de": "unterteilt in",
+        "pt": "dividido em"
       }
     },
     {
@@ -11217,7 +11219,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "836db486-f252-491f-a269-82cbe04a55e0",
       "label": {
-        "en": "used for"
+        "en": "used for",
+        "de": "verwendet für",
+        "pt": "usado para"
       }
     },
     {
@@ -11229,7 +11233,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "21791250-9dc8-4fbd-a20e-ecc0d906d311",
       "label": {
-        "en": "used for"
+        "en": "used for",
+        "de": "verwendet für",
+        "pt": "usado para"
       }
     },
     {
@@ -11241,7 +11247,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "64fbfd17-6d84-4d00-bcc3-57cf028d41ad",
       "label": {
-        "en": "dyed with"
+        "en": "dyed with",
+        "de": "gefärbt mit",
+        "pt": "colorido com"
       }
     },
     {
@@ -11253,7 +11261,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "3a6ed472-93a6-4307-a3d9-196d3108469f",
       "label": {
-        "en": "dyed with"
+        "en": "dyed with",
+        "de": "gefärbt mit",
+        "pt": "colorido com"
       }
     },
     {
@@ -11265,7 +11275,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "64d21112-94e8-4e07-a4d3-eb61a7a360d6",
       "label": {
-        "en": "divided into"
+        "en": "divided into",
+        "de": "unterteilt in",
+        "pt": "dividido em"
       }
     },
     {
@@ -11277,7 +11289,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "192f4ebe-27b9-47fc-90c4-5d6b493bd374",
       "label": {
-        "en": "divided into"
+        "en": "divided into",
+        "de": "unterteilt in",
+        "pt": "dividido em"
       }
     },
     {
@@ -11289,7 +11303,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "331a3273-7813-45a8-b504-0c0382a12e9f",
       "label": {
-        "en": "used for"
+        "en": "used for",
+        "de": "verwendet für",
+        "pt": "usado para"
       }
     },
     {
@@ -11301,7 +11317,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "882fd073-c806-4d3a-909f-0826fc92568c",
       "label": {
-        "en": "used for"
+        "en": "used for",
+        "de": "verwendet für",
+        "pt": "usado para"
       }
     },
     {
@@ -11313,7 +11331,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "3782ee1e-abdf-4690-a518-ec86ef4e397a",
       "label": {
-        "en": "type of"
+        "en": "type of",
+        "de": "eine Sorte",
+        "pt": "um tipo de "
       }
     },
     {
@@ -11325,7 +11345,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "d355e82d-be85-4c76-ae97-e468e7852b6d",
       "label": {
-        "en": "type of"
+        "en": "type of",
+        "de": "eine Sorte",
+        "pt": "um tipo de "
       }
     },
     {
@@ -11337,7 +11359,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "4cf54364-099f-419f-83fa-c672f18f3ec1",
       "label": {
-        "en": "applied in"
+        "en": "applied in",
+        "de": "angewendet bei der",
+        "pt": "aplicado em"
       }
     },
     {
@@ -11349,7 +11373,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "4dc430dc-232e-480c-a0cc-466038244370",
       "label": {
-        "en": "applied in"
+        "en": "applied in",
+        "de": "verwendet in",
+        "pt": "aplicado em"
       }
     },
     {
@@ -11361,7 +11387,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "b68e6033-254e-4ba6-b1c5-5b95929da8e9",
       "label": {
-        "en": "applied in"
+        "en": "applied in",
+        "de": "verwendet in",
+        "pt": "aplicado em"
       }
     },
     {
@@ -11373,7 +11401,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "1dc03252-0ee4-43bb-94e3-73c71a6799f4",
       "label": {
-        "en": "applied in"
+        "en": "applied in",
+        "de": "verwendet in",
+        "pt": "aplicado em"
       }
     },
     {
@@ -11385,7 +11415,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "9971350d-4f81-4438-8077-3e274b303469",
       "label": {
-        "en": "applied in"
+        "en": "applied in",
+        "de": "verwendet in",
+        "pt": "aplicado em"
       }
     },
     {
@@ -11397,7 +11429,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "844e4e4e-01ab-45e8-a3ed-1eae0943f7d2",
       "label": {
-        "en": "applied in"
+        "en": "applied in",
+        "de": "verwendet in",
+        "pt": "aplicado em"
       }
     },
     {
@@ -11418,7 +11452,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "52680b7e-c574-47ac-89ff-115a30b9880c",
       "label": {
-        "en": "applied in"
+        "en": "applied in",
+        "de": "verwendet in",
+        "pt": "aplicado em"
       }
     },
     {
@@ -11430,7 +11466,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "a1f522a3-d6b8-48d8-80f4-302f85670d8f",
       "label": {
-        "en": "used in"
+        "en": "used in",
+        "pt": "aplicado em",
+        "de": "verwendet in"
       }
     },
     {
@@ -11442,7 +11480,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "4c73a45a-8148-49ec-b28a-5d311e62781a",
       "label": {
-        "en": "used with"
+        "en": "used with",
+        "de": "verwendet mit",
+        "pt": "usado com"
       }
     },
     {
@@ -11454,7 +11494,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "d3baa7a0-9390-4b9a-b137-9d0b12d6425d",
       "label": {
-        "en": "is part of"
+        "en": "is part of",
+        "de": "ist Teil von",
+        "pt": "faz parte de"
       }
     },
     {
@@ -11466,7 +11508,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "8bb1130c-3ade-4732-884d-5ac009266775",
       "label": {
-        "en": "is part of"
+        "en": "is part of",
+        "pt": "faz parte de",
+        "de": "ist Teil von"
       }
     },
     {
@@ -11478,7 +11522,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "f48d8731-81f6-49ae-903e-2bf1d9ecfe82",
       "label": {
-        "en": "is part of"
+        "en": "is part of",
+        "pt": "faz parte de",
+        "de": "ist Teil von"
       }
     },
     {
@@ -11490,7 +11536,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "3e1e9ce7-85ec-4993-b833-614a61c02d51",
       "label": {
-        "en": "is part of"
+        "en": "is part of",
+        "pt": "faz parte de",
+        "de": "ist Teil von"
       }
     },
     {
@@ -11502,7 +11550,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "831d9ff2-55be-4d1c-9d4e-ec8f908fa111",
       "label": {
-        "en": "is part of"
+        "en": "is part of",
+        "pt": "faz parte de",
+        "de": "ist Teil von"
       }
     },
     {
@@ -11514,7 +11564,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "0bfd0ac9-386a-44a6-a9f2-cc7bfacd769a",
       "label": {
-        "en": "is part of"
+        "en": "is part of",
+        "pt": "faz parte de",
+        "de": "ist Teil von"
       }
     },
     {
@@ -11622,7 +11674,9 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "1d3b36b0-4535-47bb-95f5-1dfeaca75d03",
       "label": {
-        "en": "dyed with"
+        "en": "dyed with",
+        "de": "gefärbt mit",
+        "pt": "colorido com"
       }
     },
     {
@@ -11634,7 +11688,8 @@
       "graph": "ac6e79eb-3efd-4843-98fa-8f74b7b959a4",
       "id": "104fc1a5-ecc9-4864-8cd0-667db890dbf9",
       "label": {
-        "en": "used in spirit's hammock"
+        "en": "used in spirit's hammock",
+        "de": "verwendet in der Hängematte des Geistes"
       }
     },
     {
@@ -11835,7 +11890,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "4acfa99a-0204-4e71-b0d7-731fed12962c",
       "label": {
-        "en": "is"
+        "en": "is",
+        "de": " ",
+        "pt": " "
       }
     },
     {
@@ -11847,7 +11904,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "8c87afb2-3332-4609-adbc-0cec1ee10611",
       "label": {
-        "en": "while"
+        "en": "while",
+        "de": "beim",
+        "pt": "enquanto"
       }
     },
     {
@@ -11859,7 +11918,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "b72f850c-8ffd-48f8-95fa-1827380d6da0",
       "label": {
-        "en": "at"
+        "en": "at",
+        "de": "bei der",
+        "pt": "na"
       }
     },
     {
@@ -11883,7 +11944,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "5bf09d3d-cd3d-40dd-8132-d45941f0cc38",
       "label": {
-        "en": "went with"
+        "en": "went with",
+        "de": "ging mit",
+        "pt": "foi com"
       }
     },
     {
@@ -11895,7 +11958,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "5229d719-fef4-45ac-b2a6-1bea14cc4b67",
       "label": {
-        "en": "went to"
+        "en": "went to",
+        "de": "ging zur",
+        "pt": "foi para"
       }
     },
     {
@@ -11907,7 +11972,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "bbb5bf88-c187-4662-b8cd-7ab56f9a15ec",
       "label": {
-        "en": "of"
+        "en": "of",
+        "pt": "de",
+        "de": "der"
       }
     },
     {
@@ -11919,7 +11986,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "8d9378a9-c6bd-4f5a-864f-f18d1db4d7c5",
       "label": {
-        "en": "is the"
+        "en": "is the",
+        "de": "ist der",
+        "pt": "é o"
       }
     },
     {
@@ -11940,7 +12009,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "2189d8ce-661d-4443-bd63-f7e0692b92f3",
       "label": {
-        "en": "is used by"
+        "en": "is used by",
+        "de": "wird verwendet von",
+        "pt": "é usado por"
       }
     },
     {
@@ -11952,7 +12023,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "4f8d1e7a-e89e-454f-b22a-0046acdb160a",
       "label": {
-        "en": "climbs"
+        "en": "climbs",
+        "de": "klettert auf",
+        "pt": "sobe"
       }
     },
     {
@@ -11964,7 +12037,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "55386144-bd63-47d1-8a9a-709677ccb2c5",
       "label": {
-        "en": "climbs"
+        "en": "climbs",
+        "pt": "sobe",
+        "de": "klettert auf"
       }
     },
     {
@@ -11976,7 +12051,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "a31a40a3-55f6-478c-9796-006d9faa0992",
       "label": {
-        "en": "takes"
+        "en": "takes",
+        "de": "nimmt",
+        "pt": "toma"
       }
     },
     {
@@ -11988,7 +12065,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "420f54ad-9d0f-46ee-a5ca-564ba8a48270",
       "label": {
-        "en": "cuts of"
+        "en": "cuts of",
+        "de": "schneidet ab",
+        "pt": "corta"
       }
     },
     {
@@ -12000,7 +12079,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "f5a12c5e-461d-420f-b9e3-d9fefb410c0e",
       "label": {
-        "en": "throws at"
+        "en": "throws at",
+        "de": "wirft auf",
+        "pt": "joga em"
       }
     },
     {
@@ -12012,7 +12093,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "39c48dba-5f4e-4c3a-8e07-0b799af6e723",
       "label": {
-        "en": "uses"
+        "en": "uses",
+        "de": "verwendet",
+        "pt": "usa"
       }
     },
     {
@@ -12024,7 +12107,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "5906128d-938a-4154-8629-3edb2912bf0a",
       "label": {
-        "en": "to cut"
+        "en": "to cut",
+        "de": "zum Schneiden von",
+        "pt": "para cortar"
       }
     },
     {
@@ -12036,7 +12121,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "c633a83b-a541-478f-b244-cf73e07553ac",
       "label": {
-        "en": "to sting"
+        "en": "to sting",
+        "de": "zum Stechen von",
+        "pt": "por esfaquear"
       }
     },
     {
@@ -12048,7 +12135,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "d31c7e3c-bd00-45e7-8d2e-1a928084e625",
       "label": {
-        "en": "to sting"
+        "en": "to sting",
+        "pt": "por esfaquear",
+        "de": "zum Stechen von"
       }
     },
     {
@@ -12060,7 +12149,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "8b13d49e-c11d-4389-93a8-5304db1eb1d3",
       "label": {
-        "en": "gets"
+        "en": "gets",
+        "de": "besorgt",
+        "pt": "ganha"
       }
     },
     {
@@ -12072,7 +12163,9 @@
       "graph": "0e4e7592-da50-4144-a0e2-100bc760d92b",
       "id": "e221d2f0-41b2-4555-8cc3-4b6437d6edf2",
       "label": {
-        "en": "gets"
+        "en": "gets",
+        "pt": "ganha",
+        "de": "besorgt"
       }
     },
     {
@@ -13726,5 +13819,5 @@
       }
     }
   ],
-  "exported": 1733149456175
+  "exported": 1733158175340
 }
