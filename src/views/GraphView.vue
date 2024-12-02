@@ -114,6 +114,7 @@ const fullscreenGraph = computed(() => {
   }
 
   .interface-layer {
+    z-index: 1;
     container-type: size;
     position: relative;
     pointer-events: none;
