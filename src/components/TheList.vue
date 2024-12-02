@@ -11,10 +11,12 @@ import { useSettingsStore } from '@/stores/settings'
 import IconEdit from '~icons/base/Edit'
 import IconNew from '~icons/base/New'
 import InputButtonDelete from './InputButtonDelete.vue'
+import { useHelperStore } from '@/stores/helper'
 
 const dataStore = useDataStore()
 const modalStore = useModalStore()
 const settingsStore = useSettingsStore()
+const helperStore = useHelperStore()
 
 const route = useRoute()
 
@@ -52,6 +54,7 @@ function createNode() {
           v-if="node.type === route.params.type"
           :label="node.label"
           :index="node.index"
+          :image="node.type === 'image' ? helperStore.getMediaUrl(node.file) : null"
           :meta="dataStore.data.nodes[node.class]?.label"
         >
           <IconIndex v-if="node.index" style="color: var(--color-accent)" />

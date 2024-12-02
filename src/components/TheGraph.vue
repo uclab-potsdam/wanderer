@@ -404,6 +404,11 @@ function onDrop(e) {
   // console.log(e.dataTransfer.files)
 
   const uri = shorten(e.dataTransfer.getData('text/uri-list'))
+  const defaultLabelField = dataStore.data.config.languages.text.find((l) => l.key === 'universal')
+    ? 'universal'
+    : dataStore.data.config.languages[0].key
+
+  console.log(defaultLabelField)
   if (uri) {
     // fetch mime types from urls (only works if cors is enabled)
     // const controller = new AbortController();
@@ -423,7 +428,12 @@ function onDrop(e) {
       const node = {
         type: 'image',
         file: uri,
-        label: { universal: uri.replace(/[^:]*:\/?\/?/, '').replace(/\.[^.]+$/, '') }
+        label: {
+          [defaultLabelField]: decodeURI(uri)
+            .replace(/[^:]*:\/?\/?/, '')
+            .replace(/\.[^.]+$/, '')
+            .replace()
+        }
       }
 
       dataStore.data.nodes[uuid] = node
@@ -450,7 +460,7 @@ function onDrop(e) {
             const node = {
               type: 'image',
               file: `${dataStore.data.config.defaultShorthand}:${file.name}`,
-              label: { universal: uri.replace(/[^:]*:\/?\/?/, '').replace(/\.[^.]+$/, '') }
+              label: { [defaultLabelField]: decodeURI(file.name) }
             }
 
             dataStore.data.nodes[uuid] = node

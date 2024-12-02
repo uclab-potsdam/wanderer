@@ -21,6 +21,9 @@ defineProps({
   index: {
     type: Boolean,
     default: false
+  },
+  image: {
+    type: String
   }
 })
 </script>
@@ -28,6 +31,7 @@ defineProps({
 <template>
   <component :is="tag" class="list-item" :class="{ disabled }">
     <div class="left">
+      <img v-if="image" :src="image" />
       <h3 class="label">
         <LocalizeText :text="label" />
       </h3>
@@ -61,6 +65,11 @@ defineProps({
       font-size: var(--font-size-small);
       font-weight: 350;
       /* color: color-mix(in lab, currentColor, transparent 20%); */
+    }
+
+    img {
+      max-height: 100px;
+      max-width: 200px;
     }
   }
 

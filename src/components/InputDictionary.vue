@@ -36,7 +36,6 @@ const id = crypto.randomUUID()
         >
           {{ lang.short ?? lang.key }}
         </label>
-        <!-- <label :for="`${id}-universal`"> ♥ </label> -->
       </span>
     </span>
     <input
@@ -48,13 +47,6 @@ const id = crypto.randomUUID()
       :placeholder="helperStore.localize(modelValue)"
       @change="$emit('update:modelValue', { ...modelValue, [lang.key]: $event.target.value })"
     />
-    <!-- <input
-      :id="`${id}-universal`"
-      type="text"
-      :value="modelValue?.universal"
-      :placeholder="helperStore.localize(modelValue)"
-      @change="$emit('update:modelValue', { ...modelValue, universal: $event.target.value })"
-    /> -->
   </div>
 </template>
 
