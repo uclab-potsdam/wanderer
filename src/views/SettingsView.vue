@@ -7,11 +7,22 @@ import TheHeader from '@/components/TheHeader.vue'
 import { useConfigStore } from '@/stores/config'
 import { useDataStore } from '@/stores/data'
 import { useSettingsStore } from '@/stores/settings'
+import { computed, ref, watch } from 'vue'
 import IconExport from '~icons/base/Export'
 import IconImport from '~icons/base/Import'
+import IconEdit from '~icons/base/Edit'
+
+import schema from '@/assets/js/schema'
+import { expand } from '@/assets/js/resolveUrl'
+import LocalizeText from '@/components/LocalizeText.vue'
+import { useModalStore } from '@/stores/modal'
+
 const settingsStore = useSettingsStore()
 const configStore = useConfigStore()
 const dataStore = useDataStore()
+const modalStore = useModalStore()
+
+const missingFiles = ref([])
 
 async function importProject(e) {
   await dataStore.importProject(e.target.files[0])
@@ -38,6 +49,55 @@ async function importProject(e) {
   //     reader.readAsText(file)
   //   })
   // })
+}
+
+const urls = computed(() => {
+  // Object.entries(schema).map(([type, s] => ))
+
+  return dataStore.nodes
+    .map((n) => {
+      const fields = Object.entries(schema[n.type])
+        .filter(([_, s]) => s.type != null)
+        .map(([type]) => type)
+
+      const values = fields.map((f) => getValue(n, f))
+      return values
+        .map((v) => (typeof v === 'object' ? Object.values(v) : v))
+        .flat()
+        .map((url) => ({ url, node: n }))
+    })
+    .filter(({ length }) => length > 0)
+    .flat(2)
+})
+
+watch(
+  urls,
+  async () => {
+    missingFiles.value = []
+    Promise.allSettled(
+      urls.value.map((url) => {
+        // console.log(url.url, url.id)
+        return new Promise((resolve, reject) => {
+          fetch(expand(url.url), {
+            method: 'HEAD'
+          })
+            .then(() => reject(url))
+            .catch(() => resolve(url))
+        })
+      })
+    ).then(
+      (urls) =>
+        (missingFiles.value = urls.filter((url) => url.status === 'fulfilled').map((p) => p.value))
+    )
+    // Promise.all(data.map(getResult)).then(console.log)
+  },
+  { immediate: true }
+)
+
+function getValue(item, key) {
+  const fragments = key.split(/\.(.*)/s)
+  if (fragments.length > 1) return getValue(item[fragments[0]], fragments[1])
+  return item?.[key]
 }
 </script>
 
@@ -78,6 +138,28 @@ async function importProject(e) {
           </ListWrapper>
         </li>
         <input id="file-import" type="file" accept="application/json" @change="importProject" />
+      </ul>
+      <ul class="missing" v-if="missingFiles.length">
+        <li>missing media</li>
+        <li v-for="(url, i) in missingFiles" class="files" :key="i">
+          <div>
+            <span
+              >{{ url.node.type }}:
+              <RouterLink :to="{ name: 'graph', params: { type: url.node.type, id: url.node.id } }">
+                <LocalizeText :text="url.node.label" />
+              </RouterLink>
+            </span>
+            <a :href="expand(url.url)">{{ url.url }}</a>
+          </div>
+          <InputButton
+            title="edit"
+            @click.stop.prevent="modalStore.open(url.node.id, 'node')"
+            disable-padding
+            :disabled="!settingsStore.edit"
+          >
+            <IconEdit />
+          </InputButton>
+        </li>
       </ul>
     </main>
   </div>
@@ -139,6 +221,32 @@ async function importProject(e) {
 
   #file-import {
     display: none;
+  }
+
+  .missing {
+    font-size: var(--font-size-small);
+
+    .files {
+      grid-template-columns: 1fr auto;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      a {
+        text-decoration: none;
+        white-space: nowrap;
+        word-wrap: break-word;
+        word-break: break-all;
+      }
+    }
   }
 }
 </style>

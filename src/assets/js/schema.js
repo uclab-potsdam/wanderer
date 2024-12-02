@@ -11,12 +11,12 @@ export default {
   graph: {
     label: 'dictionary',
     image: 'string',
-    'media.file': 'video-dictionary',
-    'media.subtitles': 'dictionary',
+    'media.file': { input: 'video-dictionary', type: 'file' },
+    'media.subtitles': { input: 'dictionary', type: 'file' },
     index: 'boolean'
   },
   image: {
     label: 'dictionary',
-    file: 'string'
+    file: { input: 'string', type: 'file' }
   }
 }

@@ -30,10 +30,11 @@ const modalStore = useModalStore()
 
 const fields = computed(() => {
   return Object.entries(schema[modalStore.item.type]).map((d) => {
+    const type = d[1].input ?? d[1]
     return {
       key: d[0],
       label: d[0].replaceAll('.', ' '),
-      type: d[1],
+      type,
       value: getValue(modalStore.item, d[0])
     }
   })
