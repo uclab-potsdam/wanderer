@@ -52,8 +52,6 @@ async function importProject(e) {
 }
 
 const urls = computed(() => {
-  // Object.entries(schema).map(([type, s] => ))
-
   return dataStore.nodes
     .map((n) => {
       const fields = Object.entries(schema[n.type])
@@ -81,7 +79,10 @@ watch(
           fetch(expand(url.url), {
             method: 'HEAD'
           })
-            .then(() => reject(url))
+            .then((r) => {
+              if (r.status > 400) resolve(url)
+              else reject()
+            })
             .catch(() => resolve(url))
         })
       })
