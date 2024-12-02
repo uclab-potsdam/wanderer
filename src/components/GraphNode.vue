@@ -62,7 +62,7 @@ const positioning = computed(() => {
 
 const component = computed(() => getComponentForType(node.value.type))
 
-const nodeElement = computed(() => componentRef.value.el ?? componentRef.value.$el)
+const nodeElement = computed(() => componentRef.value?.el ?? componentRef.value.$el)
 
 const occurances = computed(() =>
   dataStore.graphs.filter((d) =>

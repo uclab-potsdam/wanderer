@@ -61,7 +61,7 @@ function saveTime() {
   time.value = videoStore.time
 }
 function resetTime() {
-  videoStore.playFrom = videoStore.time = time.value
+  if (!videoStore.playing) videoStore.playFrom = videoStore.time = time.value
 }
 
 function onContextMenu(e, marker, index) {
