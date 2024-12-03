@@ -254,6 +254,9 @@ function onMouseOut() {
     ]"
     :style="color"
     @mouseout="onMouseOut"
+    @dblclick.stop="onDoubleClick"
+    @contextmenu="onContextMenu"
+    @click="onClick"
     v-if="points != null && !(isBetweenGraphs && secondary)"
   >
     <defs>
@@ -381,6 +384,17 @@ function onMouseOut() {
 
     &.dashed {
       stroke-dasharray: 8 12;
+    }
+  }
+
+  &:hover {
+    path.edit {
+      opacity: 0.1;
+      stroke-linecap: round;
+    }
+
+    text.shadow {
+      stroke: color-mix(in lab, currentColor, var(--color-background) 90%);
     }
   }
 
