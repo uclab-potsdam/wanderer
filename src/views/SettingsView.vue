@@ -58,7 +58,7 @@ const urls = computed(() => {
         .filter(([_, s]) => s.type != null)
         .map(([type]) => type)
 
-      const values = fields.map((f) => getValue(n, f))
+      const values = fields.map((f) => getValue(n, f)).filter((n) => n != null)
       return values
         .map((v) => (typeof v === 'object' ? Object.values(v) : v))
         .flat()
