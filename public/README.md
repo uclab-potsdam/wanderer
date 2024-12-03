@@ -1,1 +1,3 @@
 # Wanderer
+
+## Documentation
