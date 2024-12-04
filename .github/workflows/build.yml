@@ -1,10 +1,10 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy branch
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - next
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
