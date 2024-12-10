@@ -1,6 +1,16 @@
-# Wanderer NEXT
+# Wanderer
 
-project rewrite for custom backend, see [wanderer-server](https://github.com/uclab-potsdam/wanderer-server)
+The Wanderer is a framework for telling non-linear and interactive stories with videos and linked data. It's designed for exhibitions and the web. 
+
+![Screenshot of the Xingu Entangled Wanderer](wanderer.png)
+
+This is the `main` branch containing the source files for the `build` branch. Checkout the `main` branch to learn how to use and setup your own Wanderer.
+
+## Examples
+
+- [Demo](https://uclab-potsdam.github.io/wanderer-demo)
+- [Xingu Entangled](https://uclab-potsdam.github.io/xingu-entangled)
+- [this empty Wanderer instance](https://uclab-potsdam.github.io/wanderer)
 
 ## Recommended IDE Setup
 
