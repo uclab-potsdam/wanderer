@@ -2,7 +2,7 @@
 
 The Wanderer is a framework for telling non-linear and interactive stories with videos and linked data. It's designed for exhibitions and the web. 
 
-![Screenshot of the Xingu Entangled Wanderer](wanderer.png)
+![Screenshot of the Xingu Entangled Wanderer](public/wanderer.png)
 
 This is the `main` branch containing the source files for the `build` branch. Checkout the `main` branch to learn how to use and setup your own Wanderer.
 
