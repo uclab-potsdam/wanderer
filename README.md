@@ -38,4 +38,11 @@ You can [create a local webserver](https://developer.mozilla.org/en-US/docs/Lear
 
 ## Directory Structure
 
+- `/assets/` this folder contains the necessary scripts, stylesheets, etc. to run the Wanderer. Best not to change anything here. Those files are minified and barely readable, checkout the `main` branch containing the source files if you want to change how the wanderer functions and looks.
+- `/files/` this is the default folder for all media files such as videos, images, subtitles, the about text and the favicon. You can change the name of this directory if you update the config section in the `db.json` file accordingly.
+- `/files/about.md` this is the default file for the content of the about text accessible thorugh the ℹ icon in the interface. It's a [Markdown file](https://www.markdownguide.org/getting-started/) and can be edited in any text editor or directly on GitHub. You can specify the file name in the config section of the `db.json` file and specifiy localized about files (e.g. about_de.md) to support multiple languages.
+
+
 ## The Database File
+
+## Updating the Wanderer
