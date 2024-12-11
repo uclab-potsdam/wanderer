@@ -22,6 +22,17 @@ Edits are always local and only saved inside your web browser. Making changes pu
 
 You can make changes to any wanderer instance by appending `/#/authoring` to its url (e.g. [https://uclab-potsdam.github.io/wanderer-demo/#/authoring](https://uclab-potsdam.github.io/wanderer-demo/#/authoring) or [https://uclab-potsdam.github.io/wanderer/#/authoring](https://uclab-potsdam.github.io/wanderer/#/authoring)). This will display a page on which you can enable/disable editing, download the data including all local changes, import a data, and delete all local changes.
 
+Once editing is enabled, the interface offers additional options. The List  button at the top left directs you to a list view of all strories, entities, and images. The ⚙️ next to it brings you to back to `/#/authoring`. Next to the title is the option to switch between modes:
+
+- `public` shows the public and unedited data
+- `edit` enables editing. When you first enter this mode a local copy of the public data is made.
+- `preview` shows the local and edited data but with editing disabled
+
+### Creating a Story
+
+Select the `edit` mode, go to the list view and make sure the `Stories` type is selected. Add a new story by clicking the ➕ icon. This will create a new story and open the edit window. Each story 
+
+
 
 
 ## Hosting
@@ -41,16 +52,16 @@ Alternatively you can create small proxy video files with lower resolution and r
 You can [create a local webserver](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server) to run the wanderer on your computer.
 
 ## Directory Structure
-
-- `/assets/` this folder contains the necessary scripts, stylesheets, etc. to run the Wanderer. Best not to change anything here. Those files are minified and barely readable, checkout the `main` branch containing the source files if you want to change how the wanderer functions and looks.
+- `/content/` this is the default folder for all media files such as videos, images, subtitles, the about text and the favicon. You can change the name of this directory if you update the config section in the `db.json` file accordingly.
+- `/content/about.md` this is the default file for the content of the about text accessible thorugh the ℹ icon in the interface. It's a [Markdown file](https://www.markdownguide.org/getting-started/) and can be edited in any text editor or directly on GitHub. You can specify the file name in the config section of the `db.json` file and specifiy localized about files (e.g. about_de.md) to support multiple languages.
 - `/docs/` all images referenced in this `README.md`
-- `/files/` this is the default folder for all media files such as videos, images, subtitles, the about text and the favicon. You can change the name of this directory if you update the config section in the `db.json` file accordingly.
-- `/files/about.md` this is the default file for the content of the about text accessible thorugh the ℹ icon in the interface. It's a [Markdown file](https://www.markdownguide.org/getting-started/) and can be edited in any text editor or directly on GitHub. You can specify the file name in the config section of the `db.json` file and specifiy localized about files (e.g. about_de.md) to support multiple languages.
+- `/wanderer/` this folder contains the necessary scripts, stylesheets, etc. to run the Wanderer. Best not to change anything here. Those files are minified and barely readable, checkout the `main` branch containing the source files if you want to change how the wanderer functions and looks.
+
 - `.gitignore` prevents tracking hidden files in this directory. [learn more](https://git-scm.com/docs/gitignore)
 - `LICENSE` the license (MIT) under which the Wanderer is made available 
 - `README.md` this file
 - `db.json` the database file. contains a configuration section (more on that below) as well as all saved nodes and edges as well as a last modified timestamp.
-- `index.html` the website. It’s very empty as it will be dynamically generated using the files in the `assets` directory 
+- `index.html` the website. It’s very empty as the page will be dynamically generated using the files in the `wanderer` directory 
 
 
 ## The Database File (db.json)
