@@ -99,11 +99,23 @@ const about = computed(() => {
         max-width: 100%;
       }
 
-      > *:not(:has(img)) {
+      > p:not(:has(img)),
+      > h1,
+      > h2,
+      > h3,
+      > h4,
+      > h5,
+      > h6 {
         margin-right: var(--spacing-half);
       }
 
-      + * {
+      + p,
+      + h1,
+      + h2,
+      + h3,
+      + h4,
+      + h5,
+      + h6 {
         margin-top: var(--spacing-half);
       }
 
