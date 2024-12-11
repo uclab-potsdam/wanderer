@@ -18,7 +18,11 @@ The files in this branch are prebuild. If you want to contribute to or customise
 
 ## Authoring
 
-You can make changes to any wanderer instance by appending `/#/authoring` to its url (e.g. [https://uclab-potsdam.github.io/wanderer-demo/#/authoring](https://uclab-potsdam.github.io/wanderer-demo/#/authoring) or [https://uclab-potsdam.github.io/wanderer/#/authoring](https://uclab-potsdam.github.io/wanderer/#/authoring)). All edits are local and saved inside your web browser. Making changes public to everyone requires exporting the data and replacing the database file `db.json`.
+Edits are always local and only saved inside your web browser. Making changes public to everyone requires exporting the data and replacing the database file `db.json` on your server or repository.
+
+You can make changes to any wanderer instance by appending `/#/authoring` to its url (e.g. [https://uclab-potsdam.github.io/wanderer-demo/#/authoring](https://uclab-potsdam.github.io/wanderer-demo/#/authoring) or [https://uclab-potsdam.github.io/wanderer/#/authoring](https://uclab-potsdam.github.io/wanderer/#/authoring)). This will display a page on which you can enable/disable editing, download the data including all local changes, import a data, and delete all local changes.
+
+
 
 ## Hosting
 
@@ -53,7 +57,7 @@ You can [create a local webserver](https://developer.mozilla.org/en-US/docs/Lear
 
 The `db.json` stores the wanderer configuration and data. At it’s root it has four fields:
 
-```json
+```
 {
   "config": { … },
   "nodes": { … },
@@ -66,7 +70,7 @@ The fields `nodes`, `edges`, and `exported` will be updated through the authorin
 
 The config section allows you to customize your wanderer instance. You can change them at any point but it is usually a good idea to go through them when setting up a new instance.
 
-```json
+```
 {
   "config": {
     "languages": {
@@ -74,7 +78,7 @@ The config section allows you to customize your wanderer instance. You can chang
 
 You can specify language options for text (i.e. names of entities and edges and subtitles) and for videos.
 
-```json
+```
       "text": [
         {
           "key": "en",
@@ -97,7 +101,7 @@ You can specify language options for text (i.e. names of entities and edges and 
 - `short` a shortened label displayed in form elements in the authoring mode
 - `selectable` optional, set to `false` if you don’t want to show the language options in the interface. Text stored in a non-selectable language might still be displayed if the label is not translated into the selected language.
 
-```json
+```
       "video": [
         {
           "key": "universal",
@@ -114,7 +118,7 @@ You can specify language options for text (i.e. names of entities and edges and 
 - `label` the label under which the language option is presented to the user.
 - `short` a shortened label displayed in form elements in the authoring mode
 
-```json
+```
     "shorthands": {
       "default": "./files/"
     },
@@ -126,26 +130,26 @@ In the above example, a file `image.png` in the `./files/` folder would be refer
 
 You can provide additional fallbacks by adding additional key/value pairs to the shorthands object.
 
-```json
+```
     "defaultShorthand": "default",
 ```
 
 The defaultShorthand is used in authoring for local images that are added to the Wanderer through drag and drop. The value needs to be one of the keys of the `shorthands` object.
 
-```json
+```
     "kiosk": false,
 ```
 
 Set `kiosk` to `true` for exhibition environments. This disables all external links, hides the picture in picture option, as well as the play/pause and mute/unmute buttons.
 
-```json
+```
     "about": {
       "en": "local:about.md"
     }
 ```
 Specify the path to the about file. Add additional key/value pairs for additional languages.
 
-```json
+```
   },
   …
 }
