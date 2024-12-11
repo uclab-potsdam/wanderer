@@ -30,7 +30,16 @@ Once editing is enabled, the interface offers additional options. The List  butt
 
 ### Creating a Story
 
-Select the `edit` mode, go to the list view and make sure the `Stories` type is selected. Add a new story by clicking the ➕ icon. This will create a new story and open the edit window. Each story 
+Select the `edit` mode, go to the list view and make sure the `Stories` type is selected. Add a new story by clicking the ➕ icon. This will create a new story and open the edit form with the following fields:
+
+- `label` the name of the story.¹
+- `image` the preview/cover image of the story. 
+- `media file` the location of the media file.¹ ²
+- `media subtitles` the location of the subtitle file.¹ ²
+- `index` if checked the story will be the main entry point to the Wanderer. Exactly one story should be set as index.
+
+1) language options can be set in the config.
+2) you can use full URIs and relative paths or make use of the `shorthands` specified in the config.
 
 
 
@@ -78,6 +87,8 @@ The `db.json` stores the wanderer configuration and data. At it’s root it has 
 ```
 
 The fields `nodes`, `edges`, and `exported` will be updated through the authoring mode. Editing them in the file directly is possible but usually not necessary.
+
+### Config
 
 The config section allows you to customize your wanderer instance. You can change them at any point but it is usually a good idea to go through them when setting up a new instance.
 
