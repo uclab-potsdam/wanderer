@@ -20,7 +20,7 @@ The files in this branch are prebuild. If you want to contribute to or customise
 
 Edits are always local and only saved inside your web browser. Making changes public to everyone requires exporting the data and replacing the database file `db.json` on your server or repository.
 
-You can make changes to any wanderer instance by appending `/#/authoring` to its url (e.g. [https://uclab-potsdam.github.io/wanderer-demo/#/authoring](https://uclab-potsdam.github.io/wanderer-demo/#/authoring) or [https://uclab-potsdam.github.io/wanderer/#/authoring](https://uclab-potsdam.github.io/wanderer/#/authoring)). This will display a page on which you can enable/disable editing, download the data including all local changes, import a data, and delete all local changes.
+You can make changes to any wanderer instance by appending `/#/authoring` to its url (e.g. [https://uclab-potsdam.github.io/wanderer-demo/#/authoring](https://uclab-potsdam.github.io/wanderer-demo/#/authoring) or [https://uclab-potsdam.github.io/wanderer/#/authoring](https://uclab-potsdam.github.io/wanderer/#/authoring)). This will display a page on which you can enable/disable editing, download the data including all local changes, import a data, and delete all local changes. Any media files referenced in the database but unreachable will also be reported on this page.
 
 Once editing is enabled, the interface offers additional options. The List  button at the top left directs you to a list view of all strories, entities, and images. The ⚙️ next to it brings you to back to `/#/authoring`. Next to the title is the option to switch between modes:
 
@@ -28,7 +28,7 @@ Once editing is enabled, the interface offers additional options. The List  butt
 - `edit` enables editing. When you first enter this mode a local copy of the public data is made.
 - `preview` shows the local and edited data but with editing disabled
 
-### Creating a Story
+### Creating a Stories, Entities, and Images
 
 Select the `edit` mode, go to the list view and make sure the `Stories` type is selected. Add a new story by clicking the ➕ icon. This will create a new story and open the edit form with the following fields:
 
@@ -38,7 +38,31 @@ Select the `edit` mode, go to the list view and make sure the `Stories` type is 
 - `media subtitles` the location of the subtitle file.¹ ²
 - `index` if checked the story will be the main entry point to the Wanderer. Exactly one story should be set as index.
 
-¹ language options can be set in the config.
+Follow the same steps to create `Entities` and `Images`. The respective fields for `Entities` are:
+
+- `label` the name of the entity.¹
+- `class` the class (broader category) of the entity. This can be any other entity.
+- `description` the description of the entity.
+- `url` a list of external links relating to the entity.
+
+The respective fields for `Images` are:
+
+- `label` the name of the image.¹
+- `file` the location of the image file.²
+
+To edit or delete `Stories`, `Entities`, or `Images` click the respective buttons next to their label.
+
+### Creating a Story-Diagram
+
+Open a story by clicking on its label in the list view. If you're in the `edit` mode, you'll find a toolbar at the left of the screen and an extendend video timeline at the bottom.
+
+
+#### Adding Nodes and Entities
+
+#### Connecting The Diagram to the Video
+
+
+¹ language options can be set in the config.  
 ² you can use full URIs and relative paths or make use of the `shorthands` specified in the config.
 
 
