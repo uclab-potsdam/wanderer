@@ -38,8 +38,8 @@ Select the `edit` mode, go to the list view and make sure the `Stories` type is 
 - `media subtitles` the location of the subtitle file.¹ ²
 - `index` if checked the story will be the main entry point to the Wanderer. Exactly one story should be set as index.
 
-1) language options can be set in the config.
-2) you can use full URIs and relative paths or make use of the `shorthands` specified in the config.
+¹ language options can be set in the config.
+² you can use full URIs and relative paths or make use of the `shorthands` specified in the config.
 
 
 
