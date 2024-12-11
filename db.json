@@ -23,9 +23,9 @@
       ]
     },
     "shorthands": {
-      "local": "./files/"
+      "default": "./files/"
     },
-    "defaultShorthand": "local",
+    "defaultShorthand": "default",
     "kiosk": false,
     "about": {
       "en": "local:about.md"
