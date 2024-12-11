@@ -2,7 +2,7 @@
 
 The Wanderer is a framework for telling non-linear and interactive stories with videos and linked data. It's designed for exhibitions and the web. 
 
-![Screenshot of the Xingu Entangled Wanderer](wanderer.png)
+![Screenshot of the Xingu Entangled Wanderer](docs/wanderer.png)
 
 ## Examples
 
@@ -39,10 +39,124 @@ You can [create a local webserver](https://developer.mozilla.org/en-US/docs/Lear
 ## Directory Structure
 
 - `/assets/` this folder contains the necessary scripts, stylesheets, etc. to run the Wanderer. Best not to change anything here. Those files are minified and barely readable, checkout the `main` branch containing the source files if you want to change how the wanderer functions and looks.
+- `/docs/` all images referenced in this `README.md`
 - `/files/` this is the default folder for all media files such as videos, images, subtitles, the about text and the favicon. You can change the name of this directory if you update the config section in the `db.json` file accordingly.
 - `/files/about.md` this is the default file for the content of the about text accessible thorugh the ℹ icon in the interface. It's a [Markdown file](https://www.markdownguide.org/getting-started/) and can be edited in any text editor or directly on GitHub. You can specify the file name in the config section of the `db.json` file and specifiy localized about files (e.g. about_de.md) to support multiple languages.
+- `.gitignore` prevents tracking hidden files in this directory. [learn more](https://git-scm.com/docs/gitignore)
+- `LICENSE` the license (MIT) under which the Wanderer is made available 
+- `README.md` this file
+- `db.json` the database file. contains a configuration section (more on that below) as well as all saved nodes and edges as well as a last modified timestamp.
+- `index.html` the website. It’s very empty as it will be dynamically generated using the files in the `assets` directory 
 
 
-## The Database File
+## The Database File (db.json)
+
+The `db.json` stores the wanderer configuration and data. At it’s root it has four fields:
+
+```json
+{
+  "config": { … },
+  "nodes": { … },
+  "edges": [ … ],
+  "exported": 0
+}
+```
+
+The fields `nodes`, `edges`, and `exported` will be updated through the authoring mode. Editing them in the file directly is possible but usually not necessary.
+
+The config section allows you to customize your wanderer instance. You can change them at any point but it is usually a good idea to go through them when setting up a new instance.
+
+```json
+{
+  "config": {
+    "languages": {
+```
+
+You can specify language options for text (i.e. names of entities and edges and subtitles) and for videos.
+
+```json
+      "text": [
+        {
+          "key": "en",
+          "label": "English",
+          "short": "en"
+        },
+        {
+          "key": "universal",
+          "label": "universal",
+          "selectable": false,
+          "short": "♥"
+        }
+      ],
+```
+
+`text` takes an array of options. Each option requires further attributes:
+
+- `key` the field name under which text is stored in this database file.
+- `label` the label under which the language option is presented to the user.
+- `short` a shortened label displayed in form elements in the authoring mode
+- `selectable` optional, set to `false` if you don’t want to show the language options in the interface. Text stored in a non-selectable language might still be displayed if the label is not translated into the selected language.
+
+```json
+      "video": [
+        {
+          "key": "universal",
+          "label": "Universal",
+          "short": "universal"
+        }
+      ]
+    },
+```
+
+`video` takes an array of options. Each option requires further attributes:
+
+- `key` the field name under which text is stored in this database file.
+- `label` the label under which the language option is presented to the user.
+- `short` a shortened label displayed in form elements in the authoring mode
+
+```json
+    "shorthands": {
+      "default": "./files/"
+    },
+```
+
+Shorthands are used for storing and resolving media URIs. This makes it easier to move those files between different domains or switching between local and remote resources.
+
+In the above example, a file `image.png` in the `./files/` folder would be referenced in this database file as `default:image.png`. If you move the media resources to a dedicated server you’ll only need to update the shorthand.
+
+You can provide additional fallbacks by adding additional key/value pairs to the shorthands object.
+
+```json
+    "defaultShorthand": "default",
+```
+
+The defaultShorthand is used in authoring for local images that are added to the Wanderer through drag and drop. The value needs to be one of the keys of the `shorthands` object.
+
+```json
+    "kiosk": false,
+```
+
+Set `kiosk` to `true` for exhibition environments. This disables all external links, hides the picture in picture option, as well as the play/pause and mute/unmute buttons.
+
+```json
+    "about": {
+      "en": "local:about.md"
+    }
+```
+Specify the path to the about file. Add additional key/value pairs for additional languages.
+
+```json
+  },
+  …
+}
+```
 
 ## Updating the Wanderer
+
+To Update the wanderer copy the replace the `index.html` and `assets` with the ones from the latest version. If you made any changes to your `index.html` make sure to apply them again to the updated `index.html`
+
+## File Formats
+
+For videos and images make sure to use formats that are widely supported across browsers.
+
+Subtitles need to be provided in [SubRip file format](https://en.wikipedia.org/wiki/SubRip#Format) as `.srt` files.
