@@ -23,7 +23,7 @@
       ]
     },
     "shorthands": {
-      "default": "./files/"
+      "default": "./content/"
     },
     "defaultShorthand": "default",
     "kiosk": false,
