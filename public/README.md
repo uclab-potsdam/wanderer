@@ -1,6 +1,6 @@
 # Wanderer
 
-The Wanderer is a framework for telling non-linear and interactive stories with videos and linked data. It's designed for exhibitions and the web. 
+The Wanderer is a framework for telling non-linear and interactive stories with videos and linked data. It's designed for exhibitions and the web. Watch our [tutorial](https://vimeo.com/1039621292) to learn how to set up and use the Wanderer.
 
 ![Screenshot of the Xingu Entangled Wanderer](docs/wanderer.png)
 
@@ -9,6 +9,8 @@ The Wanderer is a framework for telling non-linear and interactive stories with 
 - [Demo](https://uclab-potsdam.github.io/wanderer-demo)
 - [Xingu Entangled](https://uclab-potsdam.github.io/xingu-entangled)
 - [this empty Wanderer instance](https://uclab-potsdam.github.io/wanderer)
+
+
 
 ## Creating your own Wanderer instance
 
@@ -56,10 +58,20 @@ To edit or delete `Stories`, `Entities`, or `Images` click the respective button
 
 Open a story by clicking on its label in the list view. If you're in the `edit` mode, you'll find a toolbar at the left of the screen and an extendend video timeline at the bottom.
 
+#### Toolbar
 
-#### Adding Nodes and Entities
-
-#### Connecting The Diagram to the Video
+| Icon | Description |
+| :--- | :---        |
+| [<img src="docs/select.png" alt="select entity icon" width="35" />](docs/select.png)  | `Select` entities to rearrange or edit them by double-clicking |
+| [<img src="docs/addentity.png" alt="add entity icon" width="35" />](docs/addentity.png)  | `Add entity` from existing lists or add a new entity through entering a label |
+| [<img src="docs/addStory.png" alt="add story icon" width="35" />](docs/addStory.png)  | `Add story` to connect your current story-diagram with another story-diagram you have created  |
+| [<img src="docs/addImage.png" alt="add image icon" width="35" />](docs/addImage.png)  | `Add image` from existing lists or add a new image to your diagram |
+| [<img src="docs/addEdge.png" alt="add edge icon" width="35" />](docs/addEdge.png)  | `Add edge` by selecting two entities you want to connect |
+| [<img src="docs/blur.png" alt="blur" width="35" />](docs/blur.png)  | `Blur` keyframe: select any element to mark the point in time at which the selected element is blurred. |
+| [<img src="docs/default.png" alt="default" width="35" />](docs/default.png)  | `Default` keyframe: select any element to mark the point in time at which the selected element is displayed normally (neither blurred nor highlighted).|
+| [<img src="docs/highlight.png" alt="highlight" width="35" />](docs/highlight.png)  | `Highlight` keyframe: select any element to mark the point in time at which the selected element is highlighted.|
+| [<img src="docs/frame.png" alt="frame" width="35" />](docs/frame.png)  | The `frame` tool allows you to define an image section that is focused on at the specific point in time|
+| [<img src="docs/download.png" alt="download date" width="35" />](docs/download.png)  | `Download data`|
 
 
 ¹ language options can be set in the config.  
