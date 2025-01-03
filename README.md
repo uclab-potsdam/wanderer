@@ -54,6 +54,9 @@ The respective fields for `Images` are:
 
 To edit or delete `Stories`, `Entities`, or `Images` click the respective buttons next to their label.
 
+¹ language options can be set in the config.  
+² you can use full URIs and relative paths or make use of the `shorthands` specified in the config.
+
 ### Creating a Story-Diagram
 
 Open a story by clicking on its label in the list view. If you're in the `edit` mode, you'll find a toolbar at the left of the screen and an extendend video timeline at the bottom.
@@ -74,11 +77,14 @@ Open a story by clicking on its label in the list view. If you're in the `edit` 
 | [<img src="docs/download.png" alt="download date" width="35" />](docs/download.png)  | `Download data`|
 
 
-¹ language options can be set in the config.  
-² you can use full URIs and relative paths or make use of the `shorthands` specified in the config.
+#### Coupling Diagram and Video
 
 
+### Publishing changes
 
+- Download `db.json`
+- Check all media resources are reachable, unreachable media files are reported under `/#/authoring`
+- Replace the existing `db.json` in the repository / on the server.
 
 ## Hosting
 
